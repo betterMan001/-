@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.Fragment;
+package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
 import android.os.Bundle;
@@ -9,22 +9,23 @@ import android.view.ViewGroup;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class Fr_work extends Fragment {
 
+public class CalendarFragment extends Fragment {
+    View view;//整个视图
 
-    public Fr_work() {
-        // Required empty public constructor
+    public CalendarFragment() {
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fr_work, container, false);
+        view = inflater.inflate(R.layout.fragment_fr_calendar, container, false);
+        return view;
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+    }
 }

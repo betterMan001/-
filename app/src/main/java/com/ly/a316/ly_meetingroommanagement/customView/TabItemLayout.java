@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.Customview;
+package com.ly.a316.ly_meetingroommanagement.customView;
 
 import android.content.Context;
 import android.util.AttributeSet;

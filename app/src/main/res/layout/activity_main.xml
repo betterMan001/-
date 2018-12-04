@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".MainActivity">
+    tools:context=".activites.MainActivity">
 
     <FrameLayout
         android:id="@+id/ac_main_frameLayout"
@@ -16,7 +16,7 @@
 
     </FrameLayout>
 
-  <com.ly.a316.ly_meetingroommanagement.Customview.BottomBarLayout
+  <com.ly.a316.ly_meetingroommanagement.customView.BottomBarLayout
       android:id="@+id/bottom_nav"
       android:layout_width="match_parent"
       android:layout_height="50dp"
@@ -24,7 +24,7 @@
       android:layout_alignParentBottom="true"
       >
 
-  </com.ly.a316.ly_meetingroommanagement.Customview.BottomBarLayout>
+  </com.ly.a316.ly_meetingroommanagement.customView.BottomBarLayout>
 
 
 </RelativeLayout>

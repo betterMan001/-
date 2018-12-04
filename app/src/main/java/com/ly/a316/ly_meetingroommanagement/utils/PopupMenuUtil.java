@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.Utils;
+package com.ly.a316.ly_meetingroommanagement.utils;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.graphics.drawable.BitmapDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;

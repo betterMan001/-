@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.Fragment;
+package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.ly.a316.ly_meetingroommanagement.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fr_mine extends Fragment {
+public class WorkFragment extends Fragment {
 
 
-    public Fr_mine() {
+    public WorkFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class Fr_mine extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fr_mine, container, false);
+        return inflater.inflate(R.layout.fragment_fr_work, container, false);
     }
 
 }

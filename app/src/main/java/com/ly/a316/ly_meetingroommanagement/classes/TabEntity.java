@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.Class;
+package com.ly.a316.ly_meetingroommanagement.classes;
 /**
  *  描述：底部导航具体信息
  *  作者： 余智强
