@@ -16,6 +16,13 @@
     <string name="password_hint">请输入密码</string>
     <string name="forget_password">忘记密码？</string>
     <string name="message_verification">短信验证登录</string>
+    <string name="sign_up_one">注册1/3</string>
+    <string name="sign_up_two">注册2/3</string>
+    <string name="sign_up_three">注册3/3</string>
+    <string name="set_pwd">请设置密码</string>
+    <string name="set_pwd_hint">6-20位字母或数字</string>
+    <string name="show_pwd">密码:</string>
+    <string name="next_step">下一步</string>
 </resources>
 
 

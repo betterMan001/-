@@ -10,8 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activites.MainActivity">
-        </activity>
+        <activity android:name=".activites.MainActivity" />
         <activity
             android:name=".activites.WelcomeActivity"
             android:label="@string/title_activity_welcome"
@@ -22,7 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activites.LoginActivity"></activity>
+        <activity android:name=".activites.LoginActivity" />
+        <activity android:name=".activites.SignUpActivity"></activity>
     </application>
 
 </manifest>
