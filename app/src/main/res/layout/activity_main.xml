@@ -23,7 +23,6 @@
       android:background="#FFFFFF"
       android:layout_alignParentBottom="true"
       >
-
   </com.ly.a316.ly_meetingroommanagement.Customview.BottomBarLayout>
 
 
