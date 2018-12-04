@@ -101,7 +101,7 @@
             android:layout_width="45dip"
             android:layout_height="45dip"
             android:layout_centerInParent="true"
-            android:src="@drawable/bg" />
+            android:src="@drawable/bgg" />
 
         <ImageView
             android:id="@+id/pop_iv_img"
