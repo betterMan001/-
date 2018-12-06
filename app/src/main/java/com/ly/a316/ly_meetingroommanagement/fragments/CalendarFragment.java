@@ -1,6 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.ly.a316.ly_meetingroommanagement.Adapter.Calendar_Adapter;
+import com.ly.a316.ly_meetingroommanagement.activites.AddSchedule;
 import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.classes.jilei;
 import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
@@ -126,7 +128,6 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         calendar_adapter.setOnItemClick(new Calendar_Adapter.OnItemClick() {
            @Override
            public void onitemClick(int position) {
-
                Toast.makeText(getContext(),"all被点击",Toast.LENGTH_SHORT).show();
            }
 
@@ -271,6 +272,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                break;
             case R.id.fl_addday:
                 //添加日程
+                Intent intent = new Intent(getContext(), AddSchedule.class);
+                startActivity(intent);
                 break;
         }
     }
