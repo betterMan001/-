@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F0F0F0"
+    tools:context=".activites.SignUpActivity">
+    <!--自定义标题栏-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#00A7FF"
+        android:orientation="horizontal" >
+        <LinearLayout
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_width="23dp"
+                android:layout_height="23dp"
+                android:id="@+id/act_sign_up_detail_back_ll"
+                android:background="@drawable/back"/>
+        </LinearLayout>
+        <TextView
+            android:text="@string/sign_up_two"
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <!--提示文字-->
+    <TextView
+        android:layout_width="match_parent"
+        android:paddingTop="30dp"
+        android:gravity="center_vertical"
+        android:text="@string/set_pwd"
+        android:textSize="12sp"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@drawable/shape_rectangle"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+        <!--输入密码-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:text="@string/show_pwd"
+                android:textSize="15sp"
+                android:textColor="#000000"
+                android:paddingRight="5dp"
+                android:paddingLeft="5dp"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:id="@+id/act_sign_up_detail_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_margin="2dp"
+                android:background="@drawable/login_et_bg"
+                android:hint="@string/set_pwd_hint"
+                android:inputType="text"
+                android:padding="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:id="@+id/act_sign_up_detail_bt"
+        android:layout_height="50dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="10dp"
+        android:background="#00A7FF"
+        android:layout_marginRight="10dp"
+        android:text="@string/next_step"
+        android:textColor="@android:color/white"
+        />
+</LinearLayout>
