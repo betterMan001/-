@@ -26,14 +26,15 @@ dependencies {
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:design:28.0.0'
     testImplementation 'junit:junit:4.12'
-    implementation 'com.squareup.okhttp3:okhttp:3.8.1'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.jakewharton:butterknife:5.1.1'
-    implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta04'
-    implementation 'com.necer.ncalendar:ncalendar:2.1.1'
-    implementation project(':calendarview')
     implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
     implementation 'com.contrarywind:Android-PickerView:3.2.4'
-
+    implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta04'
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    //圆形头像框架
+    implementation 'com.makeramen:roundedimageview:2.2.1'
+    implementation project(':calendarview')
 }
