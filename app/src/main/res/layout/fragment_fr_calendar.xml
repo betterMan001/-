@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   >
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
     tools:ignore="RtlHardcoded,HardcodedText,RtlSymmetry,SmallSp">
+
+
     <RelativeLayout
         android:id="@+id/rl_tool"
         android:layout_width="match_parent"
@@ -89,19 +96,20 @@
                 android:textSize="12sp" />
         </FrameLayout>
     </RelativeLayout>
+
     <com.haibin.calendarview.CalendarLayout
         android:id="@+id/calendarLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:default_status="shrink"
-        app:calendar_show_mode="only_week_view"
-        app:calendar_content_view_id="@+id/d"
-        >
+        app:calendar_content_view_id="@+id/nestedScrollView"
+
+        app:default_status="expand">
+
         <com.haibin.calendarview.CalendarView
+            android:id="@+id/ib_calendarview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/ib_calendarview"
             android:background="#fff"
             app:calendar_padding="10dp"
             app:current_month_lunar_text_color="#CFCFCF"
@@ -111,8 +119,11 @@
             app:month_view_show_mode="mode_only_current"
             app:other_month_text_color="#e1e1e1"
             app:scheme_lunar_text_color="#ffffff"
+
+            app:current_day_lunar_text_color="#00FA9A"
+            app:current_day_text_color="#00FA9A"
             app:scheme_text="假"
-            app:scheme_text_color="#fff"
+            app:scheme_text_color="#108cd4"
             app:scheme_theme_color="#128c4b"
             app:selected_lunar_text_color="#fff"
             app:selected_text_color="#fff"
@@ -122,17 +133,84 @@
             app:week_view="com.ly.a316.ly_meetingroommanagement.Customview.ColorfulWeekView"
             app:year_view_day_text_color="#333333"
             app:year_view_day_text_size="9sp"
-            app:year_view_month_text_color="#ff0000"
+            app:year_view_month_text_color="#00FA9A"
             app:year_view_month_text_size="20sp"
-            app:year_view_scheme_color="#f17706"
-            >
-        </com.haibin.calendarview.CalendarView>
-    </com.haibin.calendarview.CalendarLayout>
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/cal_recycleview"
-        >
+            app:year_view_scheme_color="#f17706">
 
-    </android.support.v7.widget.RecyclerView>
+        </com.haibin.calendarview.CalendarView>
+
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/content_background"
+                android:clickable="true"
+                android:orientation="vertical"
+                tools:ignore="KeyboardInaccessibleWidget">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:text="日程" />
+
+                    <TextView
+                        android:id="@+id/tv_today"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:text="今天的日期"
+                        android:textColor="#000000"
+
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/cal_recycleview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </com.haibin.calendarview.CalendarLayout>
 </LinearLayout>
+    <com.ddz.floatingactionbutton.FloatingActionMenu
+        android:layout_width="match_parent"
+        android:layout_margin="@dimen/fab_margin"
+        android:id="@+id/fab1"
+        app:fab_labelStyle="@drawable/bg"
+          android:layout_gravity="bottom|right"
+        android:layout_height="wrap_content">
+        <com.ddz.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fl_remindd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/addblue"
+            app:fab_colorNormal="#FFFFFF"
+            app:fab_title="添加提醒"
+            />
+        <com.ddz.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fl_addday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fab_icon="@drawable/bg"
+            app:fab_colorNormal="#FFFFFF"
+            app:fab_title="添加日程"
+              />
+    </com.ddz.floatingactionbutton.FloatingActionMenu>
+
+</FrameLayout>

@@ -53,6 +53,13 @@ public class MainActivity extends BaseActivity {
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
 
+       /*
+       初始化显示第一个页面
+        */
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        fr_calendar = new Fr_calendar();
+        fTransaction.add(R.id.ac_main_frameLayout, fr_calendar);
+        fTransaction.commit();
 
         bottomBarLayout.setOnItemClickListener(new BottomBarLayout.OnItemClickListener() {
             @Override
@@ -88,6 +95,16 @@ public class MainActivity extends BaseActivity {
                         }
                         fTransaction.commit();
                         break;
+                    default: {
+                        if (fr_calendar == null) {
+                            fr_calendar = new Fr_calendar();
+                            fTransaction.add(R.id.ac_main_frameLayout, fr_calendar);
+                        } else {
+                            fTransaction.show(fr_calendar);
+                        }
+                        fTransaction.commit();
+                        break;
+                    }
                 }
             }
         });
