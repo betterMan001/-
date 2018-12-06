@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
 
 /**
  *  描述：主活动
- *  作者：余智强
+ *  作者：余智强真坑
  *  创建时间：2018 12/4 13：27
 */
 public class MainActivity extends BaseActivity {
