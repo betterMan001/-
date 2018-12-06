@@ -1,15 +1,14 @@
-package com.ly.a316.ly_meetingroommanagement.Customview;
+package com.ly.a316.ly_meetingroommanagement.customView;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ly.a316.ly_meetingroommanagement.Class.TabEntity;
+import com.ly.a316.ly_meetingroommanagement.classes.TabEntity;
 import com.ly.a316.ly_meetingroommanagement.R;
 
 import java.util.ArrayList;

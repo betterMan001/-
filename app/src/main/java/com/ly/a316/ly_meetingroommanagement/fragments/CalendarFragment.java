@@ -1,9 +1,10 @@
-package com.ly.a316.ly_meetingroommanagement.Fragment;
+package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,8 +22,9 @@ import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.ly.a316.ly_meetingroommanagement.Adapter.Calendar_Adapter;
-import com.ly.a316.ly_meetingroommanagement.Class.Schedule;
-import com.ly.a316.ly_meetingroommanagement.Class.jilei;
+import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
+import com.ly.a316.ly_meetingroommanagement.classes.jilei;
+import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
 import com.ly.a316.ly_meetingroommanagement.R;
 
 import java.text.SimpleDateFormat;
@@ -42,7 +44,7 @@ import butterknife.Unbinder;
  * 作者： 余智强
  * 创建时间：12/4 21：06 第一次提交
  */
-public class Fr_calendar extends jilei implements CalendarView.OnCalendarSelectListener, CalendarView.OnYearChangeListener, View.OnClickListener {
+public class CalendarFragment extends jilei implements CalendarView.OnCalendarSelectListener, CalendarView.OnYearChangeListener, View.OnClickListener {
     View view;
     TextView tvMonthDay, tvYear, tvLunar, tvCurrentDay, tv_today;
     ImageView ibCalendar;
@@ -52,13 +54,13 @@ public class Fr_calendar extends jilei implements CalendarView.OnCalendarSelectL
     CalendarLayout calendarLayout;
     RecyclerView calRecycleview;
     Calendar_Adapter calendar_adapter;
-    @BindView(R.id.fl_remindd)
-    FloatingActionButton flRemindd;
     @BindView(R.id.fl_addday)
     FloatingActionButton flAddday;
+    @BindView(R.id.fl_schedule)
+    FloatingActionButton fl_schedule;
     Unbinder unbinder;
     private int mYear;
-    String t_year,t_month,t_day;
+    String t_year, t_month, t_day;
 
     List<Schedule> list = new ArrayList<>();
 
@@ -112,14 +114,9 @@ public class Fr_calendar extends jilei implements CalendarView.OnCalendarSelectL
         /**
          * 伪造数据
          */
-        Schedule schedule = new Schedule("2018 12/5", "我的测试数据哈哈哈哈哈安徽啊哈哈哈", "有提醒");
+        Schedule schedule = new Schedule("2018 12/5", "我的测试数据哈哈哈哈哈安徽啊哈哈哈");
         list.add(schedule);
-        schedule = new Schedule("2018 12/5", "我的测试数据哈哈哈哈哈安徽啊哈哈哈", "无提醒");
-        list.add(schedule);
-        schedule = new Schedule("2018 12/5", "我的测试数据哈哈哈哈哈安徽啊哈哈哈", "有提醒");
-        list.add(schedule);
-        schedule = new Schedule("2018 12/5", "我的测试数据哈哈哈哈哈安徽啊哈哈哈", "无提醒");
-        list.add(schedule);
+
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -127,12 +124,19 @@ public class Fr_calendar extends jilei implements CalendarView.OnCalendarSelectL
         calendar_adapter = new Calendar_Adapter(getContext(), list);
         calRecycleview.setAdapter(calendar_adapter);
         calendar_adapter.setOnItemClick(new Calendar_Adapter.OnItemClick() {
-            @Override
-            public void onitemClick(int position) {
-                Toast.makeText(getContext(), position + "", Toast.LENGTH_SHORT).show();
-            }
-        });
+           @Override
+           public void onitemClick(int position) {
 
+               Toast.makeText(getContext(),"all被点击",Toast.LENGTH_SHORT).show();
+           }
+
+           @Override
+           public void onitemDelete(int position) {
+                Toast.makeText(getContext(),"删除按钮被点击",Toast.LENGTH_SHORT).show();
+           }
+       });
+                calRecycleview.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        calRecycleview.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
         calRecycleview.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -183,9 +187,9 @@ public class Fr_calendar extends jilei implements CalendarView.OnCalendarSelectL
         tvYear.setText(String.valueOf(calendar.getYear()));
         tvLunar.setText(calendar.getLunar());
         mYear = calendar.getYear();
-        t_year = calendar.getYear()+"";
-        t_day = calendar.getDay()+"";
-        t_month = calendar.getMonth()+"";
+        t_year = calendar.getYear() + "";
+        t_day = calendar.getDay() + "";
+        t_month = calendar.getMonth() + "";
     }
 
     @Override
@@ -225,20 +229,22 @@ public class Fr_calendar extends jilei implements CalendarView.OnCalendarSelectL
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+
     }
 
 
-    @OnClick({R.id.fl_remindd, R.id.fl_addday})
+    @OnClick({R.id.fl_addday,R.id.fl_schedule})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.fl_remindd:
+            case R.id.fl_schedule:
+
                 TimePickerView pvTime = new TimePickerView.Builder(getContext(),new TimePickerView.OnTimeSelectListener(){
                     @Override
                     public void onTimeSelect(Date date, View v) {
                         String time = getTime(date);
                         Toast.makeText(getContext(),time,Toast.LENGTH_SHORT).show();
                     }
-                }).setType(TimePickerView.Type.YEAR_MONTH_DAY)//默认全部显示
+                }).setType(TimePickerView.Type.YEAR_MONTH_DAY_HOUR_MIN)//默认全部显示
                         .setCancelText("取消")//取消按钮文字
                         .setSubmitText("确定")//确认按钮文字
                         .setContentSize(20)//滚轮文字大小
@@ -253,19 +259,22 @@ public class Fr_calendar extends jilei implements CalendarView.OnCalendarSelectL
 //                        .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
 //                        .setBgColor(0xFF333333)//滚轮背景颜色 Night mode
 //                        .setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR) + 20)//默认是1900-2100年
-//                        .setDate(selectedDate)// 如果不设置的话，默认是系统时间*/
+//                        .setDate(selectedDate)// 如果不设置的话，默认是系统时间
 //                        .setRangDate(startDate,endDate)//起始终止年月日设定
-//                        .setLabel("年","月","日","时","分","秒")
+                      .setLabel("年","月","日","时","分","秒")
                         .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                         .isDialog(true)//是否显示为对话框样式
                  .build();
                 pvTime.setDate(java.util.Calendar.getInstance());
                 pvTime.show();
-                break;
+
+               break;
             case R.id.fl_addday:
+                //添加日程
                 break;
         }
     }
+
     public String getTime(Date date) {//可根据需要自行截取数据显示
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
         return format.format(date);

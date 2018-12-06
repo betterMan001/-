@@ -1,26 +1,21 @@
-package com.ly.a316.ly_meetingroommanagement.Class;
+package com.ly.a316.ly_meetingroommanagement.classes;
 
 /**
  * 作者：余智强
  * ${Date}
+ * 日程类
  */
 public class Schedule {
     private String dateTime;//日期
     private String content;//内容
-    private String remind;//提醒
-    public Schedule(String dateTime, String content,String remind) {
+
+    public Schedule(String dateTime, String content) {
         this.dateTime = dateTime;
         this.content = content;
-        this.remind = remind;
+
     }
 
-    public String getRemind() {
-        return remind;
-    }
 
-    public void setRemind(String remind) {
-        this.remind = remind;
-    }
 
     public String getDateTime() {
         return dateTime;

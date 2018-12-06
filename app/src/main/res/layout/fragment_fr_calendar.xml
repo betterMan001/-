@@ -115,7 +115,7 @@
             app:current_month_lunar_text_color="#CFCFCF"
             app:current_month_text_color="#333333"
             app:min_year="2004"
-            app:month_view="com.ly.a316.ly_meetingroommanagement.Customview.ColorfulMonthView"
+            app:month_view="com.ly.a316.ly_meetingroommanagement.customView.ColorfulMonthView"
             app:month_view_show_mode="mode_only_current"
             app:other_month_text_color="#e1e1e1"
             app:scheme_lunar_text_color="#ffffff"
@@ -130,7 +130,7 @@
             app:selected_theme_color="#108cd4"
             app:week_background="#fff"
             app:week_text_color="#111"
-            app:week_view="com.ly.a316.ly_meetingroommanagement.Customview.ColorfulWeekView"
+            app:week_view="com.ly.a316.ly_meetingroommanagement.customView.ColorfulWeekView"
             app:year_view_day_text_color="#333333"
             app:year_view_day_text_size="9sp"
             app:year_view_month_text_color="#00FA9A"
@@ -196,7 +196,7 @@
           android:layout_gravity="bottom|right"
         android:layout_height="wrap_content">
         <com.ddz.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fl_remindd"
+            android:id="@+id/fl_schedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:fab_icon="@drawable/addblue"

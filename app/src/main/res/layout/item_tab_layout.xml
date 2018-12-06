@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.ly.a316.ly_meetingroommanagement.Customview.TabItemLayout
+<com.ly.a316.ly_meetingroommanagement.customView.TabItemLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="0dp"
     android:layout_weight="1"
@@ -50,4 +50,4 @@
         android:layout_marginTop="2dp"
         android:text="首页"/>
 
-</com.ly.a316.ly_meetingroommanagement.Customview.TabItemLayout>
+</com.ly.a316.ly_meetingroommanagement.customView.TabItemLayout>

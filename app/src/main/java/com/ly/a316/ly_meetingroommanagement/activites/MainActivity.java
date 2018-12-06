@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement;
+package com.ly.a316.ly_meetingroommanagement.activites;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -6,13 +6,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.FrameLayout;
 
-import com.ly.a316.ly_meetingroommanagement.Class.TabEntity;
-import com.ly.a316.ly_meetingroommanagement.Customview.BottomBarLayout;
-import com.ly.a316.ly_meetingroommanagement.Fragment.Fr_calendar;
-import com.ly.a316.ly_meetingroommanagement.Fragment.Fr_mine;
-import com.ly.a316.ly_meetingroommanagement.Utils.PopupMenuUtil;
+import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.classes.TabEntity;
+import com.ly.a316.ly_meetingroommanagement.customView.BottomBarLayout;
+import com.ly.a316.ly_meetingroommanagement.fragments.CalendarFragment;
+import com.ly.a316.ly_meetingroommanagement.fragments.MineFragment;
+import com.ly.a316.ly_meetingroommanagement.utils.PopupMenuUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +57,7 @@ public class MainActivity extends BaseActivity {
        初始化显示第一个页面
         */
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fr_calendar = new Fr_calendar();
+        fr_calendar = new CalendarFragment();
         fTransaction.add(R.id.ac_main_frameLayout, fr_calendar);
         fTransaction.commit();
 
@@ -75,7 +75,7 @@ public class MainActivity extends BaseActivity {
                          number.setText("12");
                          */
                         if (fr_calendar == null) {
-                            fr_calendar = new Fr_calendar();
+                            fr_calendar = new CalendarFragment();
                             fTransaction.add(R.id.ac_main_frameLayout, fr_calendar);
                         } else {
                             fTransaction.show(fr_calendar);
@@ -88,7 +88,7 @@ public class MainActivity extends BaseActivity {
 
                     case 2:
                         if (fr_mine == null) {
-                            fr_mine = new Fr_mine();
+                            fr_mine = new MineFragment();
                             fTransaction.add(R.id.ac_main_frameLayout, fr_mine);
                         } else {
                             fTransaction.show(fr_mine);
@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity {
                         break;
                     default: {
                         if (fr_calendar == null) {
-                            fr_calendar = new Fr_calendar();
+                            fr_calendar = new CalendarFragment();
                             fTransaction.add(R.id.ac_main_frameLayout, fr_calendar);
                         } else {
                             fTransaction.show(fr_calendar);

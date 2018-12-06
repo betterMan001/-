@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.Fragment;
+package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
 import android.os.Bundle;
@@ -12,10 +12,10 @@ import com.ly.a316.ly_meetingroommanagement.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class Fr_mine extends Fragment {
+public class MineFragment extends Fragment {
 
 
-    public Fr_mine() {
+    public MineFragment() {
         // Required empty public constructor
     }
 
