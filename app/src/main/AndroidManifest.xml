@@ -27,6 +27,7 @@
         <activity android:name=".activites.SignUpLastActivity" />
         <activity android:name=".activites.ForgetPWDOneActivity" />
         <activity android:name=".activites.ForgetPWDTwoActivity"></activity>
+        <activity android:name=".activites.AddSchedule"></activity>
     </application>
 
 </manifest>

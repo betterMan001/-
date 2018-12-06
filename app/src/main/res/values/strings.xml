@@ -3,6 +3,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_ceshi">ceshi</string>
+
 
 
     <string name="hello_world">Hello world!</string>
@@ -27,6 +29,15 @@
     <string name="set_name_hint">请输入昵称</string>
     <string name="forget_pwd_one">找回密码1/2</string>
     <string name="forget_pwd_two">找回密码2/2</string>
+    <string-array name="func_dialog_items">
+        <item>Expand CalendarLayout</item>
+        <item>Shrink CalendarLayout</item>
+        <item>scrollToPre</item>
+        <item>scrollToNext</item>
+        <item>scrollToCurrent</item>
+        <item>Limit calendar range</item>
+        <item>Show range</item>
+    </string-array>
 </resources>
 
 
