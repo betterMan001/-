@@ -22,7 +22,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activites.LoginActivity" />
-        <activity android:name=".activites.SignUpActivity"></activity>
+        <activity android:name=".activites.SignUpActivity" />
+        <activity android:name=".activites.SignUpDetailActivty" />
+        <activity android:name=".activites.SignUpLastActivity" />
+        <activity android:name=".activites.ForgetPWDOneActivity" />
+        <activity android:name=".activites.ForgetPWDTwoActivity"></activity>
     </application>
 
 </manifest>

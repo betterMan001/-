@@ -21,18 +21,16 @@ import java.util.List;
 */
 public class BottomBarLayout extends LinearLayout implements View.OnClickListener {
     private  OnItemClickListener onItemClickListener;
+    private int normalTextColor;
+    private int selectTextColor;
+    private LinearLayout linearLayout;
+    private List<TabEntity> tablist = new ArrayList<>();
    public interface OnItemClickListener{
         void onItemCLick(int position,View view);
     }
     public  void setOnItemClickListener(OnItemClickListener onItemClickListener){
         this.onItemClickListener = onItemClickListener;
     }
-
-    private int normalTextColor;
-    private int selectTextColor;
-
-    private LinearLayout linearLayout;
-    private List<TabEntity> tablist = new ArrayList<>();
     public BottomBarLayout(Context context) {
         super(context);
         init(context);
@@ -121,6 +119,7 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
             return;
         }
         switch(v.getId()){
+
             case 0:
                 onItemClickListener.onItemCLick(0,v);
                 showTab(0,v);
@@ -132,6 +131,14 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
             case 2:
                 onItemClickListener.onItemCLick(2,v);
                 showTab(2,v);
+                break;
+            case 3:
+                onItemClickListener.onItemCLick(3,v);
+                showTab(3,v);
+                break;
+            case 4:
+                onItemClickListener.onItemCLick(4,v);
+                showTab(4,v);
                 break;
         }
     }
