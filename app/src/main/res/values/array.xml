@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="spingarr">
+        <item>重复</item>
+        <item>不重复</item>
+    </string-array>
+    <string-array name="leibie">
+        <item>议</item>
+        <item>事</item>
+        <item>记</item>
+        <item>假</item>
+    </string-array>
+    <string-array name="light">
+        <item>play</item>
+        <item>stop</item>
+
+    </string-array>
+</resources>

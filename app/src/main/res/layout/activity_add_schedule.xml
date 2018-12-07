@@ -29,19 +29,33 @@
             android:layout_marginLeft="-10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="15dp"
+            android:textSize="25dp"
             android:text="新建日程" />
+        <Button
+            android:id="@+id/add_schedule"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加"
+            android:background="#FFFFFF"
+            />
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#99F0F8FF"
+        ></View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         >
         <EditText
+            android:id="@+id/ac_sche_content"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="wrap_content"
+
             android:maxHeight="400dp"
             android:layout_gravity="center"
             android:background="@null"
@@ -75,12 +89,13 @@
                     android:text="开始"
                     />
                 <TextView
+                    android:id="@+id/ac_sche_startTex"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12/6"
+                    android:text="00:00"
                     />
             </LinearLayout>
             <LinearLayout
@@ -101,12 +116,13 @@
                     android:text="结束"
                     />
                 <TextView
+                    android:id="@+id/ac_sche_endTex"
                     android:layout_marginTop="10dp"
                     android:textSize="20dp"
                     android:layout_marginLeft="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12/6"
+                    android:text="00:00"
                     />
             </LinearLayout>
         </LinearLayout>
@@ -121,7 +137,6 @@
             android:orientation="horizontal"
             >
             <TextView
-
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
@@ -130,6 +145,7 @@
                 android:textColor="#000"
                 />
             <Button
+                android:id="@+id/ac_sche_remind"
                 android:layout_gravity="center"
                 android:background="#FFFFFF"
                 android:layout_width="wrap_content"
@@ -152,14 +168,40 @@
                 android:layout_margin="10dp"
                 android:textColor="#000"
                 />
-            <Button
+           <Spinner
+               android:id="@+id/spinner"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:entries="@array/spingarr"
+               ></Spinner>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            >
+            <TextView
                 android:layout_gravity="center"
-                android:background="#FFFFFF"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="日程类别"
+                android:layout_margin="10dp"
+                android:textColor="#000"
+
+                />
+            <Spinner
+                android:id="@+id/spinner_lei"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="添加提醒"
-                />
+                android:entries="@array/leibie"
+                ></Spinner>
         </LinearLayout>
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#99F0F8FF"
+        ></View>
 </LinearLayout>

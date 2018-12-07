@@ -37,4 +37,10 @@ dependencies {
     //圆形头像框架
     implementation 'com.makeramen:roundedimageview:2.2.1'
     implementation project(':calendarview')
+    implementation files('libs/ageestimation.jar')
+    implementation files('libs/facedetection.jar')
+    implementation files('libs/facerecognition.jar')
+    implementation files('libs/facetracking.jar')
+    implementation files('libs/genderestimation.jar')
+    implementation 'com.guo.android_extend:android-extend:1.0.5'
 }

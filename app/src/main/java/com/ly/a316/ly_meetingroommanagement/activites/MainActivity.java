@@ -54,6 +54,16 @@ public class MainActivity extends BaseActivity {
         bottomBarLayout.setTabList(tabEntityList);
 
 
+         /*
+       初始化显示第一个页面
+        */
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        fr_calendar = new CalendarFragment();
+        fTransaction.add(R.id.ac_main_frameLayout, fr_calendar);
+        fTransaction.commit();
+
+
+
         bottomBarLayout.setOnItemClickListener(new BottomBarLayout.OnItemClickListener(){
             @Override
             public void onItemCLick(int position,View v) {

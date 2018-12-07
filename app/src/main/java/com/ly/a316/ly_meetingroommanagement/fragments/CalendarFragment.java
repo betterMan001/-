@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +111,13 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         tvCurrentDay.setText(String.valueOf(ibCalendarview.getCurDay()));
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.i("zjc","dsa");
+
+    }
+
     void initview() {
         setStatusBarDarkMode();
         init();
@@ -117,13 +125,14 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
          * 伪造数据
          */
         Schedule schedule = new Schedule("2018 12/5", "我的测试数据哈哈哈哈哈安徽啊哈哈哈");
-        list.add(schedule);
+        Schedule.list.add(schedule);
+
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         calRecycleview.setLayoutManager(linearLayoutManager);
-        calendar_adapter = new Calendar_Adapter(getContext(), list);
+        calendar_adapter = new Calendar_Adapter(getContext(), Schedule.list);
         calRecycleview.setAdapter(calendar_adapter);
         calendar_adapter.setOnItemClick(new Calendar_Adapter.OnItemClick() {
            @Override
@@ -262,7 +271,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 //                        .setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR) + 20)//默认是1900-2100年
 //                        .setDate(selectedDate)// 如果不设置的话，默认是系统时间
 //                        .setRangDate(startDate,endDate)//起始终止年月日设定
-                      .setLabel("年","月","日","时","分","秒")
+                     // .setLabel("年","月","日","时","分","秒")
                         .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                         .isDialog(true)//是否显示为对话框样式
                  .build();
