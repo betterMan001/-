@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.ly.a316.ly_meetingroommanagement"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -37,4 +37,5 @@ dependencies {
     //圆形头像框架
     implementation 'com.makeramen:roundedimageview:2.2.1'
     implementation project(':calendarview')
+    implementation 'com.android.support:cardview-v7:28.0.0'
 }
