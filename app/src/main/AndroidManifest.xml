@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activites.MainActivity"></activity>
+        <activity android:name=".activites.MainActivity" />
         <activity
             android:name=".activites.WelcomeActivity"
             android:label="@string/title_activity_welcome"
@@ -31,12 +31,12 @@
         <activity android:name=".activites.ForgetPWDOneActivity" />
         <activity android:name=".activites.ForgetPWDTwoActivity" />
         <activity android:name=".activites.AddSchedule" />
-        <activity android:name=".activites.IdentifyFaceActivity"></activity>
-
+        <activity android:name=".activites.IdentifyFaceActivity" />
         <activity android:name=".FacePack.PermissionAcitivity" />
         <activity android:name=".FacePack.RegisterActivity" />
         <activity android:name=".FacePack.DetecterActivity" />
-<activity android:name=".activites.SchemeetingActivity"></activity>
+        <activity android:name=".activites.SchemeetingActivity" />
+        <activity android:name=".activites.DetailsMettingActivity"></activity>
     </application>
 
 </manifest>

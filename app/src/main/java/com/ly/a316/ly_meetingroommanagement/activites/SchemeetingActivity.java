@@ -1,6 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.activites;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -34,13 +35,14 @@ import butterknife.ButterKnife;
 public class SchemeetingActivity extends BaseActivity {
     ArrayList<String> list=new ArrayList<>();
     ArrayList<View> views=new ArrayList<>();
+    int a[] ={R.drawable.ali,R.drawable.alii,R.drawable.aliiii};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schemeeting);
-        for(int i=0;i<10;i++){
-            list.add("test"+i);
-        }
+       list.add("2A 316");
+       list.add("3C 112");
+       list.add("1b 201");
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         CoordinatorLayout.LayoutParams params = (CoordinatorLayout.LayoutParams) viewPager.getLayoutParams();
         params.width= CommonUtils.getScreenWidth(this)-CommonUtils.dp2px(this,80);
@@ -50,14 +52,18 @@ public class SchemeetingActivity extends BaseActivity {
         viewPager.setPageTransformer(true,new DepthPageTransformer());
         for(int i=0;i<list.size(); i++){
             CardView cardView= (CardView) LayoutInflater.from(this).inflate(R.layout.cardview_item,null,false);
-            TextView textView=(TextView) cardView.findViewById(R.id.tv_name);
+            final TextView textView=(TextView) cardView.findViewById(R.id.tv_name);
             textView.setText(list.get(i));
             cardView.setTag(textView);
+            ImageView imageView = cardView.findViewById(R.id.tv_image);
+            imageView.setImageResource(a[i]);
             views.add(cardView);
-
-            textView.setOnClickListener(new View.OnClickListener() {
+            imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Intent intent =new Intent(SchemeetingActivity.this,DetailsMettingActivity.class);
+                    intent.putExtra("hui",textView.getText().toString());
+                    startActivity(intent);
 
                 }
             });
