@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#c2FFFFFF"
     android:gravity="bottom"
-android:background="#24FFFFFF"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,9 +16,9 @@ android:background="#24FFFFFF"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_marginBottom="210dip"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <ImageView
@@ -28,43 +27,44 @@ android:background="#24FFFFFF"
                 android:src="@drawable/reserve" />
 
             <TextView
-                android:layout_marginTop="10dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
                 android:text="预定"
                 android:textColor="#333333"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:id="@+id/pop_notice"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_marginBottom="210dip"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
+
             <ImageView
                 android:layout_width="50dip"
                 android:layout_height="50dip"
                 android:src="@drawable/notice" />
 
             <TextView
-                android:layout_marginTop="10dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
                 android:text="通知"
                 android:textColor="#333333"
                 android:textSize="12sp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
             android:id="@+id/pop_liebiao"
             android:layout_width="0dip"
             android:layout_height="wrap_content"
             android:layout_marginBottom="210dip"
+            android:layout_marginTop="10dp"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -76,18 +76,40 @@ android:background="#24FFFFFF"
                 android:src="@drawable/liebiao" />
 
             <TextView
-                android:layout_marginTop="10dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
                 android:text="会议列表"
                 android:textColor="#333333"
                 android:textSize="12sp" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/pop_openDoor"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="210dip"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:layout_width="50dip"
+                android:layout_height="50dip"
+                android:src="@drawable/opendoor" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dip"
+                android:text="签到/开门"
+                android:textColor="#333333"
+                android:textSize="12sp" />
+        </LinearLayout>
 
 
     </LinearLayout>
-
 
 
     <RelativeLayout

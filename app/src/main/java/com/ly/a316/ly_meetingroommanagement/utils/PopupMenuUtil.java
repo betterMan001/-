@@ -2,6 +2,7 @@ package com.ly.a316.ly_meetingroommanagement.utils;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,7 +13,10 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.activites.IdentifyFaceActivity;
+import com.ly.a316.ly_meetingroommanagement.activites.SchemeetingActivity;
 
 public class PopupMenuUtil {
     public static PopupMenuUtil getInstance() {
@@ -27,7 +31,7 @@ public class PopupMenuUtil {
     private PopupWindow popupWindow;
     private RelativeLayout rlClick;
     private ImageView ivBtn;
-    private LinearLayout pop_reserve, pop_notice, pop_liebiao;
+    private LinearLayout pop_reserve, pop_notice, pop_liebiao,pop_openDoor;
     float animatorProperty[] = null;
     int top = 0;
     int bottom = 0;
@@ -61,14 +65,14 @@ public class PopupMenuUtil {
         pop_reserve = (LinearLayout) rootVew.findViewById(R.id.pop_reserve);
         pop_notice = (LinearLayout) rootVew.findViewById(R.id.pop_notice);
         pop_liebiao = (LinearLayout) rootVew.findViewById(R.id.pop_liebiao);
-
+        pop_openDoor = rootVew.findViewById(R.id.pop_openDoor);
 
         rlClick.setOnClickListener(new MViewClick(0, context));
 
         pop_reserve.setOnClickListener(new MViewClick(1, context));
         pop_notice.setOnClickListener(new MViewClick(2, context));
         pop_liebiao.setOnClickListener(new MViewClick(3, context));
-
+        pop_openDoor.setOnClickListener(new MViewClick(4,context));
     }
 
     private class MViewClick implements View.OnClickListener {
@@ -87,7 +91,7 @@ public class PopupMenuUtil {
                 //加号按钮点击之后的执行
                 _rlClickAction();
             } else {
-                showToast(context, "index=" + index);
+                showToast(context,  index);
             }
         }
     }
@@ -101,9 +105,9 @@ public class PopupMenuUtil {
 
             _closeAnimation(pop_reserve, 300, top);
             _closeAnimation(pop_notice, 200, top);
-            _closeAnimation(pop_liebiao, 300, top);
+            _closeAnimation(pop_liebiao, 200, top);
 
-
+            _closeAnimation(pop_openDoor, 300, top);
             rlClick.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -129,13 +133,18 @@ public class PopupMenuUtil {
 
     Toast toast = null;
 
-    private void showToast(Context context, String str) {
-        if (toast == null) {
-            toast = Toast.makeText(context, str, Toast.LENGTH_SHORT);
-        } else {
-            toast.setText(str);
+    private void showToast(Context context, int str) {
+        if(str==4){
+            Intent intent = new Intent(context, DetecterActivity.class);
+            context.startActivity(intent);
+            rlClick.performClick();
         }
-        toast.show();
+       if(str==1){
+           Intent intent = new Intent(context, SchemeetingActivity.class);
+           context.startActivity(intent);
+           rlClick.performClick();
+
+       }
     }
 
     public static int dip2px(Context context, float dipValue) {
@@ -165,7 +174,8 @@ public class PopupMenuUtil {
 
         _startAnimation(pop_reserve, 500, animatorProperty);
         _startAnimation(pop_notice, 430, animatorProperty);
-        _startAnimation(pop_liebiao, 500, animatorProperty);
+        _startAnimation(pop_liebiao, 430, animatorProperty);
+        _startAnimation(pop_openDoor, 500, animatorProperty);
 
     }
 

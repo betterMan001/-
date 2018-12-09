@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ly.a316.ly_meetingroommanagement">
 
+    <!-- 用于访问网络，网络定位需要上网 -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -10,8 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activites.MainActivity" >
-        </activity>
+        <activity android:name=".activites.MainActivity"></activity>
         <activity
             android:name=".activites.WelcomeActivity"
             android:label="@string/title_activity_welcome"
@@ -27,8 +29,14 @@
         <activity android:name=".activites.SignUpDetailActivty" />
         <activity android:name=".activites.SignUpLastActivity" />
         <activity android:name=".activites.ForgetPWDOneActivity" />
-        <activity android:name=".activites.ForgetPWDTwoActivity"></activity>
-        <activity android:name=".activites.AddSchedule"></activity>
+        <activity android:name=".activites.ForgetPWDTwoActivity" />
+        <activity android:name=".activites.AddSchedule" />
+        <activity android:name=".activites.IdentifyFaceActivity"></activity>
+
+        <activity android:name=".FacePack.PermissionAcitivity" />
+        <activity android:name=".FacePack.RegisterActivity" />
+        <activity android:name=".FacePack.DetecterActivity" />
+<activity android:name=".activites.SchemeetingActivity"></activity>
     </application>
 
 </manifest>
