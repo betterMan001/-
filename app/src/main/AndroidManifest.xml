@@ -15,8 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activites.MainActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            ></activity>
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".activites.WelcomeActivity"
             android:label="@string/title_activity_welcome"
@@ -34,12 +33,12 @@
         <activity android:name=".activites.ForgetPWDOneActivity" />
         <activity android:name=".activites.ForgetPWDTwoActivity" />
         <activity android:name=".activites.AddSchedule" />
-        <activity android:name=".activites.IdentifyFaceActivity"></activity>
-
+        <activity android:name=".activites.IdentifyFaceActivity" />
         <activity android:name=".FacePack.PermissionAcitivity" />
         <activity android:name=".FacePack.RegisterActivity" />
         <activity android:name=".FacePack.DetecterActivity" />
-<activity android:name=".activites.SchemeetingActivity"></activity>
+        <activity android:name=".activites.SchemeetingActivity" />
+        <activity android:name=".activites.MeetingListActivity"></activity>
     </application>
 
 </manifest>

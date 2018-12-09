@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.activites.IdentifyFaceActivity;
+import com.ly.a316.ly_meetingroommanagement.activites.MeetingListActivity;
 import com.ly.a316.ly_meetingroommanagement.activites.SchemeetingActivity;
 
 public class PopupMenuUtil {
@@ -134,19 +135,24 @@ public class PopupMenuUtil {
     Toast toast = null;
 
     private void showToast(Context context, int str) {
-        if(str==4){
-            Intent intent = new Intent(context, DetecterActivity.class);
-            context.startActivity(intent);
-            rlClick.performClick();
+        Intent intent = new Intent();
+        //点击相应项跳转到相应的界面
+        switch (str) {
+            //人脸注册
+            case 4:
+                intent = new Intent(context, DetecterActivity.class);
+                break;
+            //预订会议
+            case 1:
+                intent = new Intent(context, SchemeetingActivity.class);
+                break;
+            //查看历史会议
+            case 3:
+                intent=new Intent(context,MeetingListActivity.class);
         }
-       if(str==1){
-           Intent intent = new Intent(context, SchemeetingActivity.class);
-           context.startActivity(intent);
-           rlClick.performClick();
-
-       }
+        context.startActivity(intent);
+        rlClick.performClick();
     }
-
     public static int dip2px(Context context, float dipValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
