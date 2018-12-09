@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.activites.IdentifyFaceActivity;
+import com.ly.a316.ly_meetingroommanagement.activites.SchemeetingActivity;
 
 public class PopupMenuUtil {
     public static PopupMenuUtil getInstance() {
@@ -136,8 +137,14 @@ public class PopupMenuUtil {
         if(str==4){
             Intent intent = new Intent(context, DetecterActivity.class);
             context.startActivity(intent);
+            rlClick.performClick();
         }
+       if(str==1){
+           Intent intent = new Intent(context, SchemeetingActivity.class);
+           context.startActivity(intent);
+           rlClick.performClick();
 
+       }
     }
 
     public static int dip2px(Context context, float dipValue) {

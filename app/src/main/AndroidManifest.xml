@@ -36,7 +36,7 @@
         <activity android:name=".FacePack.PermissionAcitivity" />
         <activity android:name=".FacePack.RegisterActivity" />
         <activity android:name=".FacePack.DetecterActivity" />
-
+<activity android:name=".activites.SchemeetingActivity"></activity>
     </application>
 
 </manifest>
