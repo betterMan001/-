@@ -51,4 +51,6 @@ dependencies {
     implementation files('libs/facetracking.jar')
     implementation files('libs/genderestimation.jar')
     implementation 'com.guo.android_extend:android-extend:1.0.5'
+   //下拉菜单控件
+    implementation 'com.github.dongjunkun:DropDownMenu:1.0.4'
 }
