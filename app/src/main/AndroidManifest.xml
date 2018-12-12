@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ly.a316.ly_meetingroommanagement">
-
     <!-- 用于访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -40,5 +38,4 @@
         <activity android:name=".activites.SchemeetingActivity" />
         <activity android:name=".activites.MeetingListActivity"></activity>
     </application>
-
 </manifest>

@@ -5,8 +5,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.classes.TabEntity;
 import com.ly.a316.ly_meetingroommanagement.customView.BottomBarLayout;
@@ -27,7 +29,7 @@ import butterknife.ButterKnife;
  *  作者：余智强真坑
  *  创建时间：2018 12/4 13：27
 */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends AppCompatActivity {
     @BindView(R.id.bottom_nav)
      BottomBarLayout bottomBarLayout;
     Fragment contactListFragment,conversationListFragment,fr_calendar, fr_mine;
@@ -52,7 +54,8 @@ public class MainActivity extends BaseActivity {
         bottomBarLayout.setNormalTextColor(normalTextColor);
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
-
+        //状态栏沉浸效果
+        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor("#00A7FF").init();
 
          /*
        初始化显示第一个页面
@@ -154,5 +157,9 @@ public class MainActivity extends BaseActivity {
             fragmentTransaction.hide(fr_calendar);
         }
     }
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ImmersionBar.with(this).destroy();
+    }
 }

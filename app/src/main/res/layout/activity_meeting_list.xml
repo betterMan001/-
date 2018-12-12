@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,64 +7,85 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activites.MeetingListActivity">
-    <!--自定义标题栏-->
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#00A7FF"
-        android:orientation="horizontal" >
-        <LinearLayout
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageView
-                android:layout_width="23dp"
-                android:layout_height="23dp"
-                android:id="@+id/act_meeting_list_back_ll"
-                android:background="@drawable/back"/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:fitsSystemWindows="false">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/classical_blue"
+                app:layout_scrollFlags="scroll|enterAlways"
+                >
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#00A7FF"
+                    android:orientation="horizontal" >
+                    <LinearLayout
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:layout_width="23dp"
+                            android:layout_height="23dp"
+                            android:id="@+id/act_meeting_list_back_ll"
+                            android:background="@drawable/back"/>
 
-        </LinearLayout>
-        <TextView
-            android:text="@string/meeting"
-            android:textColor="#ffffffff"
-            android:textSize="16sp"
-            android:layout_centerInParent="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ImageView
-            android:layout_width="23dp"
-            android:layout_height="23dp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:id="@+id/act_meeting_iv"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/search"
-            />
-    </RelativeLayout>
-<com.yyydjk.library.DropDownMenu
+                    </LinearLayout>
+                    <TextView
+                        android:text="@string/meeting"
+                        android:textColor="#ffffffff"
+                        android:textSize="16sp"
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:id="@+id/act_meeting_iv"
+                        android:layout_marginRight="10dp"
+                        android:background="@drawable/search"
+                        />
+                </RelativeLayout>
+            </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/act_meeting_list_menu"
-    app:ddtextUnselectedColor="@color/drop_down_unselected"
-    app:ddtextSelectedColor="@color/classical_blue"
-    app:dddividerColor="@color/gray"
-    app:ddunderlineColor="@color/gray"
-    app:ddmenuTextSize="13sp"
-    app:ddmenuMenuHeightPercent="0.5"
-    app:ddmenuSelectedIcon="@mipmap/drop_down_selected_icon"
-    app:ddmaskColor="@color/mask_color"
-    app:ddmenuBackgroundColor="@color/white"
-    app:ddmenuUnselectedIcon="@mipmap/drop_down_unselected_icon"
+    android:orientation="vertical"
     >
+    <com.yyydjk.library.DropDownMenu
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/act_meeting_list_menu"
+        app:ddtextUnselectedColor="@color/drop_down_unselected"
+        app:ddtextSelectedColor="@color/classical_blue"
+        app:dddividerColor="@color/gray"
+        app:ddunderlineColor="@color/gray"
+        app:ddmenuTextSize="13sp"
+        app:ddmenuMenuHeightPercent="0.5"
+        app:ddmenuSelectedIcon="@mipmap/drop_down_selected_icon"
+        app:ddmaskColor="@color/mask_color"
+        app:ddmenuBackgroundColor="@color/white"
+        app:ddmenuUnselectedIcon="@mipmap/drop_down_unselected_icon"
+        >
 
-</com.yyydjk.library.DropDownMenu>
-
-<android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/meeting_list_rv"
-    >
-</android.support.v7.widget.RecyclerView>
+    </com.yyydjk.library.DropDownMenu>
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/meeting_list_rv"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

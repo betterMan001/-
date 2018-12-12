@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -41,6 +42,7 @@ public class MeetingListActivity extends AppCompatActivity {
     private ListDropDownAdapter meetingAdapter;
     private MeetingListAdapter meetingListAdapter;
     private String meetings[] = {"不限", "结束的会议", "预订的会议", "正在进行中的会议", "拒绝的会议"};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,7 +62,8 @@ public class MeetingListActivity extends AppCompatActivity {
         //3.设置下拉框
         initDropDownMenu();
     }
-    private void initDropDownMenu(){
+
+    private void initDropDownMenu() {
         //1.设置下拉listView
         final ListView meetingView = new ListView(this);
         meetingView.setDividerHeight(0);
@@ -73,7 +76,7 @@ public class MeetingListActivity extends AppCompatActivity {
         contentView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         contentView.setText("");
         contentView.setGravity(Gravity.CENTER);
-        contentView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        contentView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 0);
         //3.添加ListView监听事件
         meetingView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -83,19 +86,18 @@ public class MeetingListActivity extends AppCompatActivity {
                 //2.设置菜单标题
                 actMeetingListMenu.setTabText(position == 0 ? headers[0] : meetings[position]);
                 //3.设置指针数组
-                int length=list.size();
-                int count=0;
+                int length = list.size();
+                int count = 0;
                 //如果选择不限则显示所有
-                if("不限".equals(meetings[position])){
-                    for(int i=0;i<length;i++){
-                        MeetingListAdapter.truePositon[i]=i;
+                if ("不限".equals(meetings[position])) {
+                    for (int i = 0; i < length; i++) {
+                        MeetingListAdapter.truePositon[i] = i;
                     }
-                    count=length;
-                }
-                else{
-                    for(int i=0;i<length;i++){
-                        if(meetings[position].equals(list.get(i).getMeetingStatus())){
-                            MeetingListAdapter.truePositon[count++]=i;
+                    count = length;
+                } else {
+                    for (int i = 0; i < length; i++) {
+                        if (meetings[position].equals(list.get(i).getMeetingStatus())) {
+                            MeetingListAdapter.truePositon[count++] = i;
                         }
                     }
                 }
@@ -108,7 +110,7 @@ public class MeetingListActivity extends AppCompatActivity {
             }
         });
         //3.绑定下拉菜单
-        actMeetingListMenu.setDropDownMenu(Arrays.asList(headers), popupViews,contentView);
+        actMeetingListMenu.setDropDownMenu(Arrays.asList(headers), popupViews, contentView);
     }
 
     private void makeData() {
@@ -163,7 +165,7 @@ public class MeetingListActivity extends AppCompatActivity {
 
     private void initRecycleView() {
         meetingListRv.setLayoutManager(new LinearLayoutManager(this));
-        meetingListAdapter=new MeetingListAdapter(this, list,list.size());
+        meetingListAdapter = new MeetingListAdapter(this, list, list.size());
         meetingListRv.setAdapter(meetingListAdapter);
 
     }
@@ -188,5 +190,9 @@ public class MeetingListActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
+        if(actMeetingListMenu.isShowing()){
+            actMeetingListMenu.closeMenu();
+        }
     }
+
 }
