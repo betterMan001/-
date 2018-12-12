@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
         //状态栏沉浸效果
-        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor("#00A7FF").init();
+        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor("#FFFFFF").init();
 
          /*
        初始化显示第一个页面
