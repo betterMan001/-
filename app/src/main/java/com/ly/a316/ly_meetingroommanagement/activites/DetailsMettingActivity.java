@@ -3,7 +3,10 @@ package com.ly.a316.ly_meetingroommanagement.activites;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,18 +16,22 @@ import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.classes.MettingPeople;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DetailsMettingActivity extends AppCompatActivity {
+public class DetailsMettingActivity extends BaseActivity {
 
     TimePickerView.Type[] type = new TimePickerView.Type[2];
-    String time="";//开会时间
+    String time = "";//开会时间
     @BindView(R.id.detail_reserve_sure)
     TextView detailReserveSure;
     @BindView(R.id.detail_launch_sure)
@@ -42,20 +49,21 @@ public class DetailsMettingActivity extends AppCompatActivity {
     @BindView(R.id.detail_detail)
     EditText detailDetail;//会议内容
     @BindView(R.id.detail_Participant)
-    EditText detailParticipant;//参与人员
+    Button detailParticipant;//参与人员
     @BindView(R.id.Sche_back)
     ImageView Sche_back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_metting);
         ButterKnife.bind(this);
-        Intent intent=getIntent();
+        Intent intent = getIntent();
         detailPlace.setText(intent.getStringExtra("hui"));
     }
 
 
-    @OnClick({R.id.detail_launch_sure, R.id.detail_data, R.id.detail_time, R.id.detail_Participant,R.id.Sche_back})
+    @OnClick({R.id.detail_launch_sure, R.id.detail_data, R.id.detail_time, R.id.detail_Participant, R.id.Sche_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.detail_launch_sure:
@@ -67,6 +75,8 @@ public class DetailsMettingActivity extends AppCompatActivity {
                 chooseTime(2);
                 break;
             case R.id.detail_Participant:
+                Intent intent = new Intent(DetailsMettingActivity.this, InvitationPeoActivity.class);
+                startActivityForResult(intent, 1);
                 break;
             case R.id.Sche_back:
                 finish();
@@ -74,6 +84,17 @@ public class DetailsMettingActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == 123) {
+
+            Bundle MoonBuddle = data.getExtras();
+            List<MettingPeople> l = (List<MettingPeople>) MoonBuddle.getSerializable("qqqq");
+
+            Toast.makeText(DetailsMettingActivity.this, l.size() + "fgdsgd", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     public void chooseTime(final int a) {
         if (a == 1) {
@@ -91,16 +112,16 @@ public class DetailsMettingActivity extends AppCompatActivity {
                     detailData.setText(time);
                 } else {
                     SimpleDateFormat format = new SimpleDateFormat("aHH:mm");
-                    if(!time.contains("-")){
-                        time+=format.format(date)+"-";
-                    }else{
-                        time+=format.format(date);
+                    if (!time.contains("-")) {
+                        time += format.format(date) + "-";
+                    } else {
+                        time += format.format(date);
                     }
                     detailTime.performLongClick();
                     detailTime.setText(time);
                 }
             }
-        }).setType(type[0])//默认全部显示
+        }).setType(TimePickerView.Type.YEAR_MONTH_DAY)//默认全部显示
                 .setCancelText("取消")//取消按钮文字
                 .setSubmitText("确定")//确认按钮文字
                 .setContentSize(20)//滚轮文字大小

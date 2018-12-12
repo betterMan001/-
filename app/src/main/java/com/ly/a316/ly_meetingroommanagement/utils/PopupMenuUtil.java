@@ -135,11 +135,13 @@ public class PopupMenuUtil {
 
     private void showToast(Context context, int str) {
         if(str==4){
+            //扫脸
             Intent intent = new Intent(context, DetecterActivity.class);
             context.startActivity(intent);
             rlClick.performClick();
         }
        if(str==1){
+            //预定
            Intent intent = new Intent(context, SchemeetingActivity.class);
            context.startActivity(intent);
            rlClick.performClick();

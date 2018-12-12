@@ -111,12 +111,6 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         tvCurrentDay.setText(String.valueOf(ibCalendarview.getCurDay()));
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.i("zjc","dsa");
-
-    }
 
     void initview() {
         setStatusBarDarkMode();
@@ -143,6 +137,14 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
            @Override
            public void onitemDelete(int position) {
                 Toast.makeText(getContext(),"删除按钮被点击",Toast.LENGTH_SHORT).show();
+           }
+           @Override
+            public  void onitemAlarm(int po) {
+               RecyclerView.LayoutManager manager = calRecycleview.getLayoutManager();
+               View vieww = manager.findViewByPosition(po);
+               Calendar_Adapter.MyViewHolder holder = (Calendar_Adapter.MyViewHolder) calRecycleview.getChildViewHolder(vieww);
+               holder.item_calendar_alerm.setBackgroundColor(R.drawable.btn_delete);
+               Toast.makeText(getContext(),"提醒按钮被点击",Toast.LENGTH_SHORT).show();
            }
        });
                 calRecycleview.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));

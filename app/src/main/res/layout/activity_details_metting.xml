@@ -30,6 +30,7 @@
             android:layout_weight="1"
             android:background="#FFFFFF"
             android:gravity="center"
+            android:textSize="18dp"
             android:text="预定会议"
             android:textColor="#000" />
 
@@ -216,13 +217,13 @@
             android:layout_margin="10dp"
             android:text="参与人员" />
 
-        <EditText
+        <Button
             android:id="@+id/detail_Participant"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:background="@null"
-            android:text="** ** **" />
+            android:text="添加" />
     </LinearLayout>
 </LinearLayout>

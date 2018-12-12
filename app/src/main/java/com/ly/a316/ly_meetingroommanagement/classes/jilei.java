@@ -20,7 +20,7 @@ import java.lang.reflect.Method;
  * ${Date}
  */
 public abstract class jilei extends Fragment {
-public static   View view;
+    public static View view;
     private static boolean isMiUi = false;
 
     protected void initWindow() {
@@ -63,7 +63,7 @@ public static   View view;
                 Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
                 darkModeFlag = field.getInt(layoutParams);
                 Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
-                extraFlagField.invoke( getActivity().getWindow(), darkModeFlag, darkModeFlag);
+                extraFlagField.invoke(getActivity().getWindow(), darkModeFlag, darkModeFlag);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -131,7 +131,7 @@ public static   View view;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (isMiUi) {
                 result = 1;
-            } else if (setMeiZuDarkMode( getActivity().getWindow(), true)) {
+            } else if (setMeiZuDarkMode(getActivity().getWindow(), true)) {
                 result = 2;
             } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -148,7 +148,7 @@ public static   View view;
         if (type == 1) {
             setMIUIStatusBarDarkMode();
         } else if (type == 2) {
-            setMeiZuDarkMode( getActivity().getWindow(), true);
+            setMeiZuDarkMode(getActivity().getWindow(), true);
         } else if (type == 3) {
             getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
