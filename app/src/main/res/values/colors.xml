@@ -6,14 +6,14 @@
     <color name="content_background">#f2f2f2</color>
     <color name="skin_tabbar_bg">#FCF8FC</color>
     <color name="color_b7b8bd">#b7b8bd</color>
-
-
     <color name="one">#57D1C9</color>
     <color name="two">#ED5485</color>
     <color name="three">#FFFBCB</color>
     <color name="four">#FFE869</color>
     <color name="five">#2E94B9</color>
     <color name="six">#F9CE00</color>
-
+    <color name="miss_blue">#65779D</color>
+    <color name="white">#FFFFFF</color>
+    <color name="classical_blue">#00A7FF</color>
 
 </resources>
