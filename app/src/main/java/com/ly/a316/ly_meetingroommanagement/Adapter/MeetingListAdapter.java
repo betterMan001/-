@@ -22,10 +22,21 @@ auther:xwd
 public class MeetingListAdapter extends RecyclerView.Adapter {
     private Context context;
     private List<Meeting> list;
+    //用于筛选下拉框
+    public static int[] truePositon;
+    public int count=0;
 
-    public MeetingListAdapter(Context context, List<Meeting> list) {
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public MeetingListAdapter(Context context, List<Meeting> list,int count) {
         this.context = context;
         this.list = list;
+        truePositon=new int[list.size()];
+        this.count=count;
+        for(int i=0;i<count;i++)
+            truePositon[i]=i;
     }
 
     @NonNull
@@ -38,7 +49,8 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         MeetingListViewHolder holder1= (MeetingListViewHolder) holder;
-        Meeting model=list.get(position);
+        //根据truePostion指针来获取被筛选的model
+        Meeting model=list.get(truePositon[position]);
         //设置相应的属性和监听事件
         holder1.meeting_list_message_tv.setText(model.getMessageNum());
         holder1.meeting_list_partner.setText(model.getPartnerNum());
@@ -51,10 +63,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        if(list!=null)
-            return list.size();
-        else
-            return 0;
+        return count;
     }
     public class MeetingListViewHolder extends RecyclerView.ViewHolder{
         public CardView meeting_list_item;

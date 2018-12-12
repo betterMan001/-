@@ -39,6 +39,7 @@ public class MeetingListActivity extends AppCompatActivity {
     //下拉listView
     private List<View> popupViews = new ArrayList<>();
     private ListDropDownAdapter meetingAdapter;
+    private MeetingListAdapter meetingListAdapter;
     private String meetings[] = {"不限", "结束的会议", "预订的会议", "正在进行中的会议", "拒绝的会议"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +78,32 @@ public class MeetingListActivity extends AppCompatActivity {
         meetingView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                //1.选择要筛选的条件
                 meetingAdapter.setCheckItem(position);
+                //2.设置菜单标题
                 actMeetingListMenu.setTabText(position == 0 ? headers[0] : meetings[position]);
+                //3.设置指针数组
+                int length=list.size();
+                int count=0;
+                //如果选择不限则显示所有
+                if("不限".equals(meetings[position])){
+                    for(int i=0;i<length;i++){
+                        MeetingListAdapter.truePositon[i]=i;
+                    }
+                    count=length;
+                }
+                else{
+                    for(int i=0;i<length;i++){
+                        if(meetings[position].equals(list.get(i).getMeetingStatus())){
+                            MeetingListAdapter.truePositon[count++]=i;
+                        }
+                    }
+                }
+
+                meetingListAdapter.setCount(count);
+                //刷新RecycleView视图实现
+
+                meetingListAdapter.notifyDataSetChanged();
                 actMeetingListMenu.closeMenu();
             }
         });
@@ -90,13 +115,46 @@ public class MeetingListActivity extends AppCompatActivity {
         list = new ArrayList<Meeting>();
         //模拟数据
         Meeting meeting;
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 3; i++) {
             meeting = new Meeting();
             meeting.setTitle("发展大会");
             meeting.setDate("时间：2018-10-16 05:55:14.0");
             meeting.setSponsor("我");
             meeting.setDidTime("刚刚");
-            meeting.setMeetingStatus("正在进行中");
+            meeting.setMeetingStatus("正在进行中的会议");
+            meeting.setMessageNum("0条动态");
+            meeting.setPartnerNum("1/4人确认参加");
+            list.add(meeting);
+        }
+        for (int i = 0; i < 3; i++) {
+            meeting = new Meeting();
+            meeting.setTitle("发展大会");
+            meeting.setDate("时间：2018-10-16 05:55:14.0");
+            meeting.setSponsor("我");
+            meeting.setDidTime("刚刚");
+            meeting.setMeetingStatus("拒绝的会议");
+            meeting.setMessageNum("0条动态");
+            meeting.setPartnerNum("1/4人确认参加");
+            list.add(meeting);
+        }
+        for (int i = 0; i < 3; i++) {
+            meeting = new Meeting();
+            meeting.setTitle("发展大会");
+            meeting.setDate("时间：2018-10-16 05:55:14.0");
+            meeting.setSponsor("我");
+            meeting.setDidTime("刚刚");
+            meeting.setMeetingStatus("预订的会议");
+            meeting.setMessageNum("0条动态");
+            meeting.setPartnerNum("1/4人确认参加");
+            list.add(meeting);
+        }
+        for (int i = 0; i < 3; i++) {
+            meeting = new Meeting();
+            meeting.setTitle("发展大会");
+            meeting.setDate("时间：2018-10-16 05:55:14.0");
+            meeting.setSponsor("我");
+            meeting.setDidTime("刚刚");
+            meeting.setMeetingStatus("结束的会议");
             meeting.setMessageNum("0条动态");
             meeting.setPartnerNum("1/4人确认参加");
             list.add(meeting);
@@ -105,7 +163,8 @@ public class MeetingListActivity extends AppCompatActivity {
 
     private void initRecycleView() {
         meetingListRv.setLayoutManager(new LinearLayoutManager(this));
-        meetingListRv.setAdapter(new MeetingListAdapter(this, list));
+        meetingListAdapter=new MeetingListAdapter(this, list,list.size());
+        meetingListRv.setAdapter(meetingListAdapter);
 
     }
 
