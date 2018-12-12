@@ -36,8 +36,8 @@ public class MainActivity extends BaseActivity {
     private List<TabEntity> tabEntityList;
     private String[] tabText = {"消息","日程","工作","通讯录","我的"};
 
-    private int[] normalIcon = {R.drawable.message_normal,R.drawable.huiyiricheng,R.drawable.bg,R.drawable.contact_list_normal,R.drawable.me};
-    private int[] selectIcon = {R.drawable.message_press,R.drawable.huiyiricheng2,R.drawable.bg,R.drawable.contact_list_press,R.drawable.me2};
+    private int[] normalIcon ={R.drawable.message_press, R.drawable.huiyiricheng2,R.drawable.bg,R.drawable.contact_list_normal,R.drawable.me};
+    private int[] selectIcon = {R.drawable.messagenormal,R.drawable.huiyicheng,R.drawable.bg,R.drawable.contact_list_press,R.drawable.me2};
 
     private int normalTextColor = Color.parseColor("#999999");
     private int selectTextColor = Color.parseColor("#fa6e51");

@@ -12,7 +12,7 @@
         android:layout_gravity="center_vertical"
         android:gravity="center"
         android:orientation="vertical">
-        <ImageView
+        <com.ly.a316.ly_meetingroommanagement.customView.LoadingImageView
             android:id="@+id/tv_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
