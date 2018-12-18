@@ -17,6 +17,7 @@ import com.ly.a316.ly_meetingroommanagement.fragments.ContactListFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.ConversationListFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.MineFragment;
 import com.ly.a316.ly_meetingroommanagement.utils.PopupMenuUtil;
+import com.netease.nim.uikit.common.activity.UI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ import butterknife.ButterKnife;
  *  作者：余智强真坑
  *  创建时间：2018 12/4 13：27
 */
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends UI {
     @BindView(R.id.bottom_nav)
      BottomBarLayout bottomBarLayout;
     Fragment contactListFragment,conversationListFragment,fr_calendar, fr_mine;
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         bottomBarLayout.setNormalTextColor(normalTextColor);
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
-        //状态栏沉浸效果
+//        //状态栏沉浸效果
         ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor("#FFFFFF").init();
 
          /*

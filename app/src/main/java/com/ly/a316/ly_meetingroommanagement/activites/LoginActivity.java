@@ -2,11 +2,17 @@ package com.ly.a316.ly_meetingroommanagement.activites;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.auth.AuthService;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,7 +26,7 @@ public class LoginActivity extends BaseActivity {
     EditText loginSUserIDEt;
     @BindView(R.id.login_s_pwd_et)
     EditText loginSPwdEt;
-
+    private static final String TAG = "LoginActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +62,27 @@ public class LoginActivity extends BaseActivity {
         /*
         测试：不登陆账号
         */
+        LoginInfo info = new LoginInfo("betterMan","xwd110"); // config...
+        RequestCallback<LoginInfo> callback =
+                new RequestCallback<LoginInfo>() {
+                    // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
+
+                    @Override
+                    public void onSuccess(LoginInfo loginInfo) {
+                        Log.d(TAG, "onSuccess: 登录成功！");
+                    }
+
+                    @Override
+                    public void onFailed(int i) {
+                        Log.d(TAG, "onFailed:登录失败了！");
+                    }
+
+                    @Override
+                    public void onException(Throwable throwable) {
+                        Log.d(TAG, "onException: 登录异常！");
+                    }
+                };
+        NimUIKit.login(info,callback);
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);
         finish();

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LY_MeetingRoomManagement</string>
+    <string name="app_name">乐议</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -29,6 +29,8 @@
     <string name="forget_pwd_one">找回密码1/2</string>
     <string name="forget_pwd_two">找回密码2/2</string>
     <string name= "meeting">会议</string>
+    <string name="contact_list">联系人列表</string>
+    <string name="main_tab_session">会话</string>
     <string-array name="func_dialog_items">
         <item>Expand CalendarLayout</item>
         <item>Shrink CalendarLayout</item>
