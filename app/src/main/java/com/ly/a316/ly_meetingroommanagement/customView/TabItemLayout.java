@@ -35,6 +35,7 @@ public class TabItemLayout extends LinearLayout {
                 Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         wm.getDefaultDisplay().getMetrics(dm);
+
         return dm.widthPixels;
     }
 }

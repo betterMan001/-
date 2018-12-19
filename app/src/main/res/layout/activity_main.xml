@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
     <FrameLayout
         android:id="@+id/ac_main_frameLayout"
         android:layout_width="match_parent"
@@ -21,9 +20,5 @@
         android:background="#FFFFFF"
         android:layout_alignParentBottom="true"
         >
-
-
     </com.ly.a316.ly_meetingroommanagement.customView.BottomBarLayout>
-
-
 </RelativeLayout>

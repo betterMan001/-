@@ -25,7 +25,7 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
     private int selectTextColor;
     private LinearLayout linearLayout;
     private List<TabEntity> tablist = new ArrayList<>();
-   public interface OnItemClickListener{
+    public interface OnItemClickListener{
         void onItemCLick(int position,View view);
     }
     public  void setOnItemClickListener(OnItemClickListener onItemClickListener){
@@ -49,7 +49,6 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
     public void setNormalTextColor(int color){
         this.normalTextColor = color;
     }
-
     public void setSelectTextColor(int color){
         this.selectTextColor = color;
     }
@@ -100,9 +99,7 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
         TextView text = (TextView) view.findViewById(R.id.tv_title);
         text.setTextColor(selectTextColor);
         ImageView icon = (ImageView) view.findViewById(R.id.iv_icon);
-
         icon.setImageResource(tablist.get(position).getSelectIconId());
-
     }
     private void clearStatus() {
         for (int i=0;i<linearLayout.getChildCount();i++){
@@ -119,7 +116,6 @@ public class BottomBarLayout extends LinearLayout implements View.OnClickListene
             return;
         }
         switch(v.getId()){
-
             case 0:
                 onItemClickListener.onItemCLick(0,v);
                 showTab(0,v);
