@@ -48,8 +48,7 @@ import java.util.Set;
  */
 
 public class NimUIKit {
-
-    /**
+    /**ｌａｌａｌａ
      * 初始化UIKit, 用户信息、联系人信息使用 {@link DefaultUserInfoProvider}，{@link DefaultContactProvider}
      * 若用户自行提供 userInfoProvider，contactProvider，请使用 {@link NimUIKitImpl#init(Context, IUserInfoProvider, ContactProvider)}
      *

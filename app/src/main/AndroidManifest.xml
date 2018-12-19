@@ -158,5 +158,4 @@
         <activity android:name=".activites.DetailsMettingActivity" />
         <activity android:name=".activites.InvitationPeoActivity"></activity>
     </application>
-
 </manifest>
