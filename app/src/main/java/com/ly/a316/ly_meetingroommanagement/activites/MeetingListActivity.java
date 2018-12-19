@@ -179,6 +179,8 @@ public class MeetingListActivity extends AppCompatActivity {
                 break;
             //搜索框
             case R.id.act_meeting_iv:
+                //启动search Dialog
+                onSearchRequested();
                 break;
             //进入下一层界面
             case R.id.meeting_list_rv:

@@ -58,34 +58,39 @@
             </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
-    <com.yyydjk.library.DropDownMenu
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/act_meeting_list_menu"
-        app:ddtextUnselectedColor="@color/drop_down_unselected"
-        app:ddtextSelectedColor="@color/classical_blue"
-        app:dddividerColor="@color/gray"
-        app:ddunderlineColor="@color/gray"
-        app:ddmenuTextSize="13sp"
-        app:ddmenuMenuHeightPercent="0.5"
-        app:ddmenuSelectedIcon="@mipmap/drop_down_selected_icon"
-        app:ddmaskColor="@color/mask_color"
-        app:ddmenuBackgroundColor="@color/white"
-        app:ddmenuUnselectedIcon="@mipmap/drop_down_unselected_icon"
-        >
-
-    </com.yyydjk.library.DropDownMenu>
-    <android.support.v7.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/meeting_list_rv"
+        android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         >
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+        <com.yyydjk.library.DropDownMenu
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/act_meeting_list_menu"
+            app:ddtextUnselectedColor="@color/drop_down_unselected"
+            app:ddtextSelectedColor="@color/classical_blue"
+            app:dddividerColor="@color/gray"
+            app:ddunderlineColor="@color/gray"
+            app:ddmenuTextSize="13sp"
+            app:ddmenuMenuHeightPercent="1"
+            app:ddmenuSelectedIcon="@mipmap/drop_down_selected_icon"
+            app:ddmaskColor="@color/mask_color"
+            app:ddmenuBackgroundColor="@color/white"
+            app:ddmenuUnselectedIcon="@mipmap/drop_down_unselected_icon"
+            >
+        </com.yyydjk.library.DropDownMenu>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/act_meeting_list_menu"
+        android:id="@+id/meeting_list_rv"
+        >
     </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+</RelativeLayout>
+    </ScrollView>
 </android.support.design.widget.CoordinatorLayout>

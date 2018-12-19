@@ -58,7 +58,7 @@ public class MyApplication extends Application {
         context = getApplicationContext();
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = pref.edit();
-//        //初始化面部识别
+        //初始化面部识别
 //        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
 //        mImage = null;
         //初始化云信
