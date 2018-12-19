@@ -135,7 +135,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".activites.WelcomeActivity"
-            android:label="@string/title_activity_welcome"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
