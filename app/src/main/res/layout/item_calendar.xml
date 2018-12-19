@@ -35,6 +35,17 @@
             android:maxEms="8"
             android:singleLine="true"
             android:text="今日日程" />
+        <Button
+            android:id="@+id/item_calendar_alerm"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginRight="10dp"
+            android:singleLine="true"
+            android:background="#000"
+            android:textSize="10dp"
+            android:textColor="#FFFFFF"
+            android:text="提醒" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"

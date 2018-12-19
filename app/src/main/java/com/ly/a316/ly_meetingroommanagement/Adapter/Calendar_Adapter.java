@@ -51,6 +51,13 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
                 onItemClick.onitemClick(i);
             }
         });
+
+        ((MyViewHolder)viewHolder).item_calendar_alerm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClick.onitemAlarm(i);
+            }
+        });
         ((MyViewHolder)viewHolder).delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -63,13 +70,10 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
     public int getItemCount() {
         return list.size();
     }
-
-
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout item_all;
         public TextView item_calendar_day, item_calendar_todayri;
-        Button delete;
+      public   Button delete,item_calendar_alerm;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -77,12 +81,14 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
             item_calendar_todayri = itemView.findViewById(R.id.item_calendar_todayri);
             item_all = itemView.findViewById(R.id.item_all);
             delete = itemView.findViewById(R.id.delete);
+            item_calendar_alerm = itemView.findViewById(R.id.item_calendar_alerm);
         }
     }
 
    public interface OnItemClick {
         void onitemClick(int position);
         void onitemDelete(int position);
+        void onitemAlarm(int position);
     }
 
     OnItemClick onItemClick;
