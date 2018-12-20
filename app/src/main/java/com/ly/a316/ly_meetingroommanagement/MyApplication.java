@@ -59,8 +59,8 @@ public class MyApplication extends Application {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = pref.edit();
 //        //初始化面部识别
-//        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
-//        mImage = null;
+        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
+         mImage = null;
         //初始化云信
         NIMClient.init(this, loginInfo(), options());
         if (NIMUtil.isMainProcess(this)) {

@@ -38,12 +38,13 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-        ((MyViewHolder) viewHolder).item_calendar_day.setText(list.get(i).getDateTime());
-        if (list.get(i).getContent().equals("")) {
-            ((MyViewHolder) viewHolder).item_calendar_todayri.setText("无安排");
-        } else {
-            ((MyViewHolder) viewHolder).item_calendar_todayri.setText(list.get(i).getContent());
-        }
+        ((MyViewHolder) viewHolder).item_mettingstart.setText(list.get(i).getAlert_startTime());
+        ((MyViewHolder) viewHolder).item_mettingend.setText(list.get(i).getAlert_endtime());
+        ((MyViewHolder) viewHolder).item_mettinghead.setText(list.get(i).getAlert_head());
+        ((MyViewHolder) viewHolder).item_mettingpeople.setText(list.get(i).getAlert_people());
+        ((MyViewHolder) viewHolder).item_mettingwhere.setText(list.get(i).getAlert_difang());
+        ((MyViewHolder) viewHolder).item_mettingplan.setText(list.get(i).getAlert_beizhu());
+
 
         ((MyViewHolder)viewHolder).item_all.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,13 +73,17 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout item_all;
-        public TextView item_calendar_day, item_calendar_todayri;
-      public   Button delete,item_calendar_alerm;
+        public TextView item_mettingstart, item_mettingend,item_mettinghead,item_mettingpeople,item_mettingwhere,item_mettingplan;
+        public   Button delete,item_calendar_alerm;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            item_calendar_day = itemView.findViewById(R.id.item_calendar_day);
-            item_calendar_todayri = itemView.findViewById(R.id.item_calendar_todayri);
+            item_mettingstart = itemView.findViewById(R.id.item_mettingstart);
+            item_mettingend = itemView.findViewById(R.id.item_mettingend);
+            item_mettinghead = itemView.findViewById(R.id.item_mettinghead);
+            item_mettingpeople = itemView.findViewById(R.id.item_mettingpeople);
+            item_mettingwhere = itemView.findViewById(R.id.item_mettingwhere);
+            item_mettingplan = itemView.findViewById(R.id.item_mettingplan);
             item_all = itemView.findViewById(R.id.item_all);
             delete = itemView.findViewById(R.id.delete);
             item_calendar_alerm = itemView.findViewById(R.id.item_calendar_alerm);

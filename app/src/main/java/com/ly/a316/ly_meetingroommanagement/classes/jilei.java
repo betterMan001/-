@@ -37,6 +37,7 @@ public abstract class jilei extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ImmersionBar.with(this).init();
+
         view = inflater.inflate(getLayoutId(), container, false);
         initWindow();
         initView();

@@ -1,6 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -82,6 +83,10 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     }
 
     void init() {
+
+
+
+
         view = jilei.view;
         tv_today = view.findViewById(R.id.tv_today);
         tvMonthDay = view.findViewById(R.id.tv_month_dayyy);
@@ -118,10 +123,17 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         /**
          * 伪造数据
          */
-        Schedule schedule = new Schedule("2018 12/5", "我的测试数据哈哈哈哈哈安徽啊哈哈哈");
+        Schedule schedule = new Schedule("12:50","13:50","会议","3c", "余智强","大会","很重要");
         Schedule.list.add(schedule);
 
-
+         schedule = new Schedule("12:50","13:50","会议","3c", "余智强","大会","很重要");
+        Schedule.list.add(schedule);
+        schedule = new Schedule("12:50","13:50","会议","3c", "余智强","大会","很重要");
+        Schedule.list.add(schedule); schedule = new Schedule("12:50","13:50","会议","3c", "余智强","大会","很重要");
+        Schedule.list.add(schedule); schedule = new Schedule("12:50","13:50","会议","3c", "余智强","大会","很重要");
+        Schedule.list.add(schedule); schedule = new Schedule("12:50","13:50","会议","3c", "余智强","大会","很重要");
+        Schedule.list.add(schedule); schedule = new Schedule("12:50","13:50","会议","3c", "余智强","大会","很重要");
+        Schedule.list.add(schedule);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -192,7 +204,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
     @Override
     public void onCalendarSelect(Calendar calendar, boolean isClick) {
-
+        tv_today.setText(calendar.getMonth() + "月" + calendar.getDay() + "日");
         tvLunar.setVisibility(View.VISIBLE);
         tvYear.setVisibility(View.VISIBLE);
         tvMonthDay.setText(calendar.getMonth() + "月" + calendar.getDay() + "日");
@@ -274,6 +286,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 //                        .setDate(selectedDate)// 如果不设置的话，默认是系统时间
 //                        .setRangDate(startDate,endDate)//起始终止年月日设定
                      // .setLabel("年","月","日","时","分","秒")
+
                         .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                         .isDialog(true)//是否显示为对话框样式
                  .build();
