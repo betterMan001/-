@@ -6,17 +6,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.netease.nim.demo.DemoCache;
-import com.netease.nim.demo.R;
-import com.netease.nim.demo.contact.activity.BlackListActivity;
-import com.netease.nim.demo.main.activity.RobotListActivity;
-import com.netease.nim.demo.main.activity.SystemMessageActivity;
-import com.netease.nim.demo.main.activity.TeamListActivity;
-import com.netease.nim.demo.main.helper.SystemMessageUnreadManager;
-import com.netease.nim.demo.main.reminder.ReminderId;
-import com.netease.nim.demo.main.reminder.ReminderItem;
-import com.netease.nim.demo.main.reminder.ReminderManager;
-import com.netease.nim.demo.session.SessionHelper;
+import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.nim.helper.SystemMessageUnreadManager;
+import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderId;
+import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderItem;
+import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderManager;
+
 import com.netease.nim.uikit.business.contact.core.item.AbsContactItem;
 import com.netease.nim.uikit.business.contact.core.item.ItemTypes;
 import com.netease.nim.uikit.business.contact.core.model.ContactDataAdapter;
@@ -57,19 +52,23 @@ public class FuncViewHolder extends AbsContactViewHolder<FuncViewHolder.FuncItem
             updateUnreadNum(unreadCount);
             ReminderManager.getInstance().registerUnreadNumChangedCallback(this);
             sUnreadCallbackRefs.add(new WeakReference<ReminderManager.UnreadNumChangedCallback>(this));
-        } else if (item == FuncItem.ROBOT) {
-            funcName.setText("智能机器人");
-            image.setImageResource(R.drawable.ic_robot);
-        } else if (item == FuncItem.NORMAL_TEAM) {
+        }
+// else if (item == FuncItem.ROBOT) {
+//            funcName.setText("智能机器人");
+//            image.setImageResource(R.drawable.ic_robot);
+//        }
+        else if (item == FuncItem.NORMAL_TEAM) {
             funcName.setText("讨论组");
             image.setImageResource(R.drawable.ic_secretary);
         } else if (item == FuncItem.ADVANCED_TEAM) {
             funcName.setText("高级群");
             image.setImageResource(R.drawable.ic_advanced_team);
-        } else if (item == FuncItem.BLACK_LIST) {
-            funcName.setText("黑名单");
-            image.setImageResource(R.drawable.ic_black_list);
-        } else if (item == FuncItem.MY_COMPUTER) {
+        }
+//        else if (item == FuncItem.BLACK_LIST) {
+//            funcName.setText("黑名单");
+//            image.setImageResource(R.drawable.ic_black_list);
+//        }
+        else if (item == FuncItem.MY_COMPUTER) {
             funcName.setText("我的电脑");
             image.setImageResource(R.drawable.ic_my_computer);
         }
@@ -130,29 +129,35 @@ public class FuncViewHolder extends AbsContactViewHolder<FuncViewHolder.FuncItem
         public static List<AbsContactItem> provide() {
             List<AbsContactItem> items = new ArrayList<>();
             items.add(VERIFY);
-            items.add(ROBOT);
             items.add(NORMAL_TEAM);
             items.add(ADVANCED_TEAM);
-            items.add(BLACK_LIST);
             items.add(MY_COMPUTER);
-
             return items;
         }
 
         public static void handle(Context context, AbsContactItem item) {
-            if (item == VERIFY) {
-                SystemMessageActivity.start(context);
-            } else if (item == ROBOT) {
-                RobotListActivity.start(context);
-            } else if (item == NORMAL_TEAM) {
-                TeamListActivity.start(context, ItemTypes.TEAMS.NORMAL_TEAM);
-            } else if (item == ADVANCED_TEAM) {
-                TeamListActivity.start(context, ItemTypes.TEAMS.ADVANCED_TEAM);
-            } else if (item == MY_COMPUTER) {
-                SessionHelper.startP2PSession(context, DemoCache.getAccount());
-            } else if (item == BLACK_LIST) {
-                BlackListActivity.start(context);
-            }
+            //验证
+//            if (item == VERIFY) {
+//                SystemMessageActivity.start(context);
+//            }
+//            else if (item == ROBOT) {
+//                RobotListActivity.start(context);
+//            }
+//            //讨论组
+//            else if (item == NORMAL_TEAM) {
+//                TeamListActivity.start(context, ItemTypes.TEAMS.NORMAL_TEAM);
+//            }
+//            //高级群
+//            else if (item == ADVANCED_TEAM) {
+//                TeamListActivity.start(context, ItemTypes.TEAMS.ADVANCED_TEAM);
+//            }
+//            //我的电脑
+//            else if (item == MY_COMPUTER) {
+//                SessionHelper.startP2PSession(context, DemoCache.getAccount());
+//            }
+//            else if (item == BLACK_LIST) {
+//                BlackListActivity.start(context);
+//            }
         }
     }
 }
