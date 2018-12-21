@@ -52,11 +52,10 @@ public class MainActivity extends UI {
         fManager = getSupportFragmentManager();
         tabEntityList = new ArrayList<>();
         initview();
+        ImmersionBar.with(this).init();
         bottomBarLayout.setNormalTextColor(normalTextColor);
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
-//        //状态栏沉浸效果
-        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor("#FFFFFF").init();
 
          /*
        初始化显示第一个页面

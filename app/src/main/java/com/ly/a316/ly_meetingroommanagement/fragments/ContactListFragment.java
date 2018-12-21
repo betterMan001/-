@@ -2,43 +2,140 @@ package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.MessageQueue;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.FuncViewHolder;
+import com.netease.nim.uikit.api.model.contact.ContactsCustomization;
 import com.netease.nim.uikit.business.contact.ContactsFragment;
+import com.netease.nim.uikit.business.contact.core.item.AbsContactItem;
+import com.netease.nim.uikit.business.contact.core.viewholder.AbsContactViewHolder;
 import com.netease.nim.uikit.common.activity.UI;
 
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ContactListFragment extends Fragment {
+    @BindView(R.id.toolBar)
+    Toolbar toolBar;
+    Unbinder unbinder;
     private ContactsFragment fragment;
+    private View statusBarView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.contacts_list, container, false);
+        unbinder = ButterKnife.bind(this, view);
+        initView();
+
         return view;
 
     }
+
+    private void initView() {
+        //吧菜单项换成Fragment带的
+        setHasOptionsMenu(true);
+        //绑定toolBar
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolBar);
+       //
+        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                return false;
+            }
+        });
+        setStatusBar();
+    }
+    private void setStatusBar(){
+        //延时加载数据
+        Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
+            @Override
+            public boolean queueIdle() {
+                if(isStatusBar()){
+                    initStatusBar();
+                    getActivity().getWindow().getDecorView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                        @Override
+                        public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                            initStatusBar();
+                        }
+                    });
+                }
+                return false;
+            }
+        });
+    }
+
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         addContactFragment();
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+        inflater.inflate(R.menu.contact_menu,menu);
+
+    }
+
     // 将通讯录列表fragment动态集成进来。 开发者也可以使用在xml中配置的方式静态集成。
     private void addContactFragment() {
         fragment = new ContactsFragment();
         fragment.setContainerId(R.id.contact_fragment);
-      final  UI activity = (UI) getActivity();
+        final UI activity = (UI) getActivity();
         // 如果是activity从堆栈恢复，FM中已经存在恢复而来的fragment，此时会使用恢复来的，而new出来这个会被丢弃掉
         fragment = (ContactsFragment) activity.addFragment(fragment);
+        // 功能项定制
+        fragment.setContactsCustomization(new ContactsCustomization() {
+            @Override
+            public Class<? extends AbsContactViewHolder<? extends AbsContactItem>> onGetFuncViewHolderClass() {
+                return FuncViewHolder.class;
+            }
 
+            @Override
+            public List<AbsContactItem> onGetFuncItems() {
+                return FuncViewHolder.FuncItem.provide();
+            }
+
+            @Override
+            public void onFuncItemClick(AbsContactItem item) {
+                FuncViewHolder.FuncItem.handle(getActivity(), item);
+            }
+        });
+
+    }
+    private void initStatusBar() { if (statusBarView == null) {
+        int identifier = getResources().getIdentifier("statusBarBackground", "id", "android");
+        statusBarView = getActivity().getWindow().findViewById(identifier);
+
+    }
+        if (statusBarView != null) { statusBarView.setBackgroundResource(R.drawable.title_bar_color);
+        }
+    }
+    protected boolean isStatusBar() { return true; }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

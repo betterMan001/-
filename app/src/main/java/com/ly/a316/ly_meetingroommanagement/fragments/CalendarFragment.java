@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.bigkoo.pickerview.TimePickerView;
 import com.ddz.floatingactionbutton.FloatingActionButton;
+import com.gyf.barlibrary.ImmersionBar;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
@@ -98,7 +99,6 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         tvCurrentDay.setOnClickListener(this);
         ibCalendarview.setOnCalendarSelectListener(this);
         ibCalendarview.setOnYearChangeListener(this);
-
 
     }
 
@@ -292,5 +292,10 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     public String getTime(Date date) {//可根据需要自行截取数据显示
         SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
         return format.format(date);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

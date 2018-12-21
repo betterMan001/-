@@ -1,6 +1,10 @@
 package com.ly.a316.ly_meetingroommanagement.activites;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Looper;
+import android.os.MessageQueue;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +13,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,14 +47,28 @@ public class MeetingListActivity extends AppCompatActivity {
     private ListDropDownAdapter meetingAdapter;
     private MeetingListAdapter meetingListAdapter;
     private String meetings[] = {"不限", "结束的会议", "预订的会议", "正在进行中的会议", "拒绝的会议"};
-
+   private View statusBarView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_list);
         ButterKnife.bind(this);
-        //状态栏沉浸效果
-        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor("#00A7FF").init();
+        //延时加载数据
+        Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
+            @Override
+            public boolean queueIdle() {
+                if(isStatusBar()){
+                    initStatusBar();
+                    getWindow().getDecorView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+                        @Override
+                        public void onLayoutChange(View view, int i, int i1, int i2, int i3, int i4, int i5, int i6, int i7) {
+                            initStatusBar();
+                        }
+                    });
+                }
+                return false;
+            }
+        });
         //初始化视图
         initView();
     }
@@ -187,6 +206,16 @@ public class MeetingListActivity extends AppCompatActivity {
                 break;
         }
     }
+
+
+    private void initStatusBar() { if (statusBarView == null) {
+        int identifier = getResources().getIdentifier("statusBarBackground", "id", "android");
+        statusBarView = getWindow().findViewById(identifier); }
+        if (statusBarView != null) { statusBarView.setBackgroundResource(R.drawable.title_bar_color);
+    }
+    }
+        protected boolean isStatusBar() { return true; }
+
 
     @Override
     protected void onDestroy() {

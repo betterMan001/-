@@ -9,8 +9,10 @@
         android:id="@+id/toolBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/classical_blue"
+        android:background="@drawable/title_bar_color"
+        app:titleTextColor="@color/white"
         app:layout_scrollFlags="scroll|enterAlways"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Dark"
         app:title="@string/contact_list"
         >
     </android.support.v7.widget.Toolbar>

@@ -36,7 +36,7 @@ public abstract class jilei extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ImmersionBar.with(this).init();
+        ImmersionBar.with(this).statusBarColor("#2fa881").fitsSystemWindows(true).init();
         view = inflater.inflate(getLayoutId(), container, false);
         initWindow();
         initView();

@@ -11,19 +11,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/white"
-        android:fitsSystemWindows="false">
+        >
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="@color/classical_blue"
+                android:background="@drawable/title_bar_color"
                 app:layout_scrollFlags="scroll|enterAlways"
                 >
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="#00A7FF"
+                    android:background="@drawable/title_bar_color"
                     android:orientation="horizontal" >
                     <LinearLayout
                         android:layout_centerVertical="true"

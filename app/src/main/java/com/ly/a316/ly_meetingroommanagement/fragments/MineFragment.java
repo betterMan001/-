@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
 
 import butterknife.BindView;
@@ -37,6 +38,7 @@ public class MineFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fr_mine, container, false);
         unbinder = ButterKnife.bind(this, view);
+        ImmersionBar.with(this).init();
         return view;
 
     }
