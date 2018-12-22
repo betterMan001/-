@@ -8,9 +8,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
+import com.ly.a316.ly_meetingroommanagement.nim.user_info.UserPreferences;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.StatusBarNotificationConfig;
 import com.netease.nimlib.sdk.auth.AuthService;
 import com.netease.nimlib.sdk.auth.LoginInfo;
 
@@ -62,7 +65,9 @@ public class LoginActivity extends BaseActivity {
         /*
         测试：不登陆账号
         */
-        LoginInfo info = new LoginInfo("betterMan","xwd110"); // config...
+        final String account="betterMan";
+        String token="xwd110";
+        LoginInfo info = new LoginInfo(account,token); // config...
         RequestCallback<LoginInfo> callback =
                 new RequestCallback<LoginInfo>() {
                     // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
@@ -70,6 +75,12 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(LoginInfo loginInfo) {
                         Log.d(TAG, "onSuccess: 登录成功！");
+
+                        DemoCache.setAccount(account);
+                        //自己管理不用云信的
+//                        saveLoginInfo(account, token);
+                        // 初始化消息提醒配置
+                        initNotificationConfig();
                     }
 
                     @Override
@@ -86,5 +97,17 @@ public class LoginActivity extends BaseActivity {
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);
         finish();
+    }
+    private void initNotificationConfig() {
+        // 初始化消息提醒（先默认开启）
+        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+        // 加载状态栏配置
+        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
+        if (statusBarNotificationConfig == null) {
+            statusBarNotificationConfig = DemoCache.getNotificationConfig();
+            UserPreferences.setStatusConfig(statusBarNotificationConfig);
+        }
+        // 更新配置
+        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
     }
 }

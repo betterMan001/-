@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/add_friend"
-        android:title="添加好友"
-        />
     <item
-        android:title="测试1"
-        />
+        android:id="@+id/add_buddy"
+        android:title="@string/add_buddy"/>
     <item
-        android:title="测试2"
-        />
+        android:id="@+id/create_normal_team"
+        android:title="@string/create_normal_team"/>
+    <item
+        android:id="@+id/create_regular_team"
+        android:title="@string/create_advanced_team"/>
+    <item
+        android:id="@+id/search_advanced_team"
+        android:title="@string/search_advanced_team"/>
 </menu>

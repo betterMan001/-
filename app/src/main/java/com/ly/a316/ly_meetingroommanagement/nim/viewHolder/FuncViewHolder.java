@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.nim.activity.SystemMessageActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SystemMessageUnreadManager;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderId;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderItem;
@@ -137,9 +138,9 @@ public class FuncViewHolder extends AbsContactViewHolder<FuncViewHolder.FuncItem
 
         public static void handle(Context context, AbsContactItem item) {
             //验证
-//            if (item == VERIFY) {
-//                SystemMessageActivity.start(context);
-//            }
+            if (item == VERIFY) {
+                SystemMessageActivity.start(context);
+            }
 //            else if (item == ROBOT) {
 //                RobotListActivity.start(context);
 //            }

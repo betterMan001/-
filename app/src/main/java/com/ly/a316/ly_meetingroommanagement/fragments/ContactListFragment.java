@@ -1,6 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.MessageQueue;
@@ -16,11 +17,16 @@ import android.view.ViewGroup;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.activites.MainActivity;
+import com.ly.a316.ly_meetingroommanagement.nim.activity.AddFriendActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.FuncViewHolder;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.contact.ContactsCustomization;
 import com.netease.nim.uikit.business.contact.ContactsFragment;
 import com.netease.nim.uikit.business.contact.core.item.AbsContactItem;
 import com.netease.nim.uikit.business.contact.core.viewholder.AbsContactViewHolder;
+import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
+import com.netease.nim.uikit.business.team.helper.TeamHelper;
 import com.netease.nim.uikit.common.activity.UI;
 
 import java.util.List;
@@ -59,6 +65,27 @@ public class ContactListFragment extends Fragment {
         toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+//            case R.id.create_normal_team:
+//                ContactSelectActivity.Option option = TeamHelper.getCreateContactSelectOption(null, 50);
+//                NimUIKit.startContactSelector(MainActivity.this, option, REQUEST_CODE_NORMAL);
+//                break;
+//            case R.id.create_regular_team:
+//                ContactSelectActivity.Option advancedOption = TeamHelper.getCreateContactSelectOption(null, 50);
+//                NimUIKit.startContactSelector(MainActivity.this, advancedOption, REQUEST_CODE_ADVANCED);
+//                break;
+//            case R.id.search_advanced_team:
+//                AdvancedTeamSearchActivity.start(MainActivity.this);
+//                break;
+                    case R.id.add_buddy:
+                        AddFriendActivity.start((MainActivity) getActivity());
+                        break;
+//            case R.id.search_btn:
+//                GlobalSearchActivity.start(MainActivity.this);
+//                break;
+                    default:
+                        break;
+                }
                 return false;
             }
         });
@@ -92,11 +119,13 @@ public class ContactListFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+
         menu.clear();
         inflater.inflate(R.menu.contact_menu,menu);
+        super.onCreateOptionsMenu(menu, inflater);
 
     }
+
 
     // 将通讯录列表fragment动态集成进来。 开发者也可以使用在xml中配置的方式静态集成。
     private void addContactFragment() {

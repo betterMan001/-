@@ -182,8 +182,25 @@
         <activity android:name=".activites.SearchActivity"
                   android:launchMode="singleTop"
             >
-
         </activity>
+        <activity
+            android:name=".nim.activity.SystemMessageActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".nim.activity.AddFriendActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <activity
+            android:name=".nim.activity.UserProfileActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <provider
             android:authorities="com.crazy.gemi.ui.cheaper.SearchSuggestionSampleProvider"
             android:name=".utils.SearchSuggestionSampleProvider"/>

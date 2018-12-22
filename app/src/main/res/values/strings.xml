@@ -49,6 +49,30 @@
     <string name="clear_all_success">清空成功</string>
     <string name="agree">同意</string>
     <string name="reject">拒绝</string>
+    <string name="verify_reminder">验证提醒</string>
+    <string name="add_buddy">添加好友</string>
+    <string name="create_normal_team">创建讨论组</string>
+    <string name="search_advanced_team">搜索高级群</string>
+    <string name="settings">设置</string>
+    <string name="input_account">请输入帐号，限20位字母或者数字</string>
+    <string name="add_friend_self_tip">不能添加自己为好友</string>
+    <string name="user_not_exsit">该用户不存在</string>
+    <string name="user_tips">请检查你输入的帐号是否正确</string>
+    <string name="begin_chat">聊天</string>
+    <string name="remove_friend">删除好友</string>
+    <string name="add_friend">加为好友</string>
+    <string name="user_profile">个人名片</string>
+    <string name="birthday">生 日</string>
+    <string name="phone">手 机</string>
+    <string name="email">邮 箱</string>
+    <string name="signature">签 名</string>
+    <string name="alias">备注名</string>
+    <string name="msg_notice">消息提醒</string>
+    <string name="recent_sticky">消息置顶</string>
+    <string name="add_friend_verify_tip">好友验证请求</string>
+    <string name="remove_friend_tip">删除好友后，将同时解除双方的好友关系</string>
+    <string name="remove_friend_success">删除好友成功</string>
+    <string name="black_list">黑名单</string>
 </resources>
 
 

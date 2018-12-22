@@ -16,6 +16,8 @@ import android.view.WindowManager;
 
 import com.ly.a316.ly_meetingroommanagement.FacePack.FaceDB;
 import com.ly.a316.ly_meetingroommanagement.activites.MainActivity;
+import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
+import com.ly.a316.ly_meetingroommanagement.nim.helper.ContactHelper;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.SDKOptions;
@@ -58,6 +60,7 @@ public class MyApplication extends Application {
         context = getApplicationContext();
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = pref.edit();
+        DemoCache.setContext(this);
         //初始化面部识别
 //        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
 //        mImage = null;
@@ -246,7 +249,7 @@ public class MyApplication extends Application {
 //
 //        // 通讯录列表定制：示例代码可详见demo源码中的ContactHelper类。
 //        // 1.定制通讯录列表中点击事响应处理（一般需要，UIKit 提供默认实现为点击进入聊天界面)
-//        ContactHelper.init();
+        ContactHelper.init();
 //
 //        // 在线状态定制初始化。
 //        NimUIKit.setOnlineStateContentProvider(new DemoOnlineStateContentProvider());

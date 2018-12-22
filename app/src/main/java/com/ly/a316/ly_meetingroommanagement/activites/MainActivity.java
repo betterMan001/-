@@ -16,8 +16,13 @@ import com.ly.a316.ly_meetingroommanagement.fragments.CalendarFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.ContactListFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.ConversationListFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.MineFragment;
+import com.ly.a316.ly_meetingroommanagement.nim.helper.SystemMessageUnreadManager;
+import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderManager;
 import com.ly.a316.ly_meetingroommanagement.utils.PopupMenuUtil;
 import com.netease.nim.uikit.common.activity.UI;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.msg.SystemMessageObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +49,13 @@ public class MainActivity extends UI {
 
     private int normalTextColor = Color.parseColor("#999999");
     private int selectTextColor = Color.parseColor("#fa6e51");
+    private Observer<Integer> sysMsgUnreadCountChangedObserver = new Observer<Integer>() {
+        @Override
+        public void onEvent(Integer unreadCount) {
+            SystemMessageUnreadManager.getInstance().setSysMsgUnreadCount(unreadCount);
+            ReminderManager.getInstance().updateContactUnreadNum(unreadCount);
+        }
+    };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +68,8 @@ public class MainActivity extends UI {
         bottomBarLayout.setNormalTextColor(normalTextColor);
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
-
+        //初始化云信相关东西
+       initNim();
          /*
        初始化显示第一个页面
         */
@@ -139,7 +152,16 @@ public class MainActivity extends UI {
         }
     }
 
-
+private void initNim(){
+        //注册/注销系统消息未读数变化
+    registerSystemMessageObservers(true);
+}
+    /**
+     * 注册/注销系统消息未读数变化
+     */
+    private void registerSystemMessageObservers(boolean register) {
+        NIMClient.getService(SystemMessageObserver.class).observeUnreadCountChange(sysMsgUnreadCountChangedObserver, register);
+    }
     //隐藏所有fragemnt
     private void hideAllfragment(FragmentTransaction fragmentTransaction) {
         if (conversationListFragment != null) {
@@ -161,5 +183,6 @@ public class MainActivity extends UI {
     protected void onDestroy() {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
+        registerSystemMessageObservers(false);
     }
 }
