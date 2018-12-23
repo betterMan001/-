@@ -5,10 +5,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.text.TextUtils;
+import android.view.View;
 
 
+import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 
+import com.ly.a316.ly_meetingroommanagement.nim.session.SessionTeamCustomization;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.recent.RecentCustomization;
 import com.netease.nim.uikit.api.model.session.SessionCustomization;
@@ -111,18 +115,18 @@ public class SessionHelper {
         }
     }
 //
-//    public static void startTeamSession(Context context, String tid) {
-//        startTeamSession(context, tid, null);
-//    }
+    public static void startTeamSession(Context context, String tid) {
+        startTeamSession(context, tid, null);
+    }
 //
-//    public static void startTeamSession(Context context, String tid, IMMessage anchor) {
-//        NimUIKit.startTeamSession(context, tid, getTeamCustomization(tid), anchor);
-//    }
-//
-//    // 打开群聊界面(用于 UIKIT 中部分界面跳转回到指定的页面)
-//    public static void startTeamSession(Context context, String tid, Class<? extends Activity> backToClass, IMMessage anchor) {
-//        NimUIKit.startChatting(context, tid, SessionTypeEnum.Team, getTeamCustomization(tid), backToClass, anchor);
-//    }
+    public static void startTeamSession(Context context, String tid, IMMessage anchor) {
+        NimUIKit.startTeamSession(context, tid, getTeamCustomization(tid), anchor);
+    }
+
+    // 打开群聊界面(用于 UIKIT 中部分界面跳转回到指定的页面)
+    public static void startTeamSession(Context context, String tid, Class<? extends Activity> backToClass, IMMessage anchor) {
+        NimUIKit.startChatting(context, tid, SessionTypeEnum.Team, getTeamCustomization(tid), backToClass, anchor);
+    }
 //
 //    // 定制化单聊界面。如果使用默认界面，返回null即可
 //    private static SessionCustomization getP2pCustomization() {
@@ -256,29 +260,29 @@ public class SessionHelper {
 //        return myP2pCustomization;
 //    }
 //
-//    private static boolean checkLocalAntiSpam(IMMessage message) {
-//        if (!USE_LOCAL_ANTISPAM) {
-//            return true;
-//        }
-//        LocalAntiSpamResult result = NIMClient.getService(MsgService.class).checkLocalAntiSpam(message.getContent(), "**");
-//        int operator = result == null ? 0 : result.getOperator();
-//
-//        switch (operator) {
-//            case 1: // 替换，允许发送
-//                message.setContent(result.getContent());
-//                return true;
-//            case 2: // 拦截，不允许发送
-//                return false;
-//            case 3: // 允许发送，交给服务器
-//                message.setClientAntiSpam(true);
-//                return true;
-//            case 0:
-//            default:
-//                break;
-//        }
-//
-//        return true;
-//    }
+    private static boolean checkLocalAntiSpam(IMMessage message) {
+        if (!USE_LOCAL_ANTISPAM) {
+            return true;
+        }
+        LocalAntiSpamResult result = NIMClient.getService(MsgService.class).checkLocalAntiSpam(message.getContent(), "**");
+        int operator = result == null ? 0 : result.getOperator();
+
+        switch (operator) {
+            case 1: // 替换，允许发送
+                message.setContent(result.getContent());
+                return true;
+            case 2: // 拦截，不允许发送
+                return false;
+            case 3: // 允许发送，交给服务器
+                message.setClientAntiSpam(true);
+                return true;
+            case 0:
+            default:
+                break;
+        }
+
+        return true;
+    }
 //
 //    private static SessionCustomization getRobotCustomization() {
 //        if (robotCustomization == null) {
@@ -368,14 +372,14 @@ public class SessionHelper {
 //        return recentCustomization;
 //    }
 //
-//    private static SessionCustomization getTeamCustomization(String tid) {
-//        if (normalTeamCustomization == null) {
-//
-//            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
+    private static SessionCustomization getTeamCustomization(String tid) {
+        if (normalTeamCustomization == null) {
+
+            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
 //            final TeamAVChatAction avChatAction = new TeamAVChatAction(AVChatType.VIDEO);
 //            TeamAVChatProfile.sharedInstance().registerObserver(true);
-//
-//            ArrayList<BaseAction> actions = new ArrayList<>();
+
+            ArrayList<BaseAction> actions = new ArrayList<>();
 //            actions.add(avChatAction);
 //            actions.add(new GuessAction());
 //            actions.add(new FileAction());
@@ -383,40 +387,40 @@ public class SessionHelper {
 //                actions.add(new RedPacketAction());
 //            }
 //            actions.add(new TipAction());
-//
-//
-//            SessionTeamCustomization.SessionTeamCustomListener listener = new SessionTeamCustomization.SessionTeamCustomListener() {
-//                @Override
-//                public void initPopupWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
-//                    initPopuptWindow(context, view, sessionId, sessionTypeEnum);
-//                }
-//
-//                @Override
-//                public void onSelectedAccountsResult(ArrayList<String> selectedAccounts) {
+
+
+            SessionTeamCustomization.SessionTeamCustomListener listener = new SessionTeamCustomization.SessionTeamCustomListener() {
+                @Override
+                public void initPopupWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
+                    initPopuptWindow(context, view, sessionId, sessionTypeEnum);
+                }
+
+                @Override
+                public void onSelectedAccountsResult(ArrayList<String> selectedAccounts) {
 //                    avChatAction.onSelectedAccountsResult(selectedAccounts);
-//                }
-//
-//                @Override
-//                public void onSelectedAccountFail() {
+                }
+
+                @Override
+                public void onSelectedAccountFail() {
 //                    avChatAction.onSelectedAccountFail();
-//                }
-//            };
-//            normalTeamCustomization = new SessionTeamCustomization(listener) {
-//                @Override
-//                public boolean isAllowSendMessage(IMMessage message) {
-//                    return checkLocalAntiSpam(message);
-//                }
-//            };
-//
-//            normalTeamCustomization.actions = actions;
-//        }
-//
-//        if (advancedTeamCustomization == null) {
-//            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
+                }
+            };
+            normalTeamCustomization = new SessionTeamCustomization(listener) {
+                @Override
+                public boolean isAllowSendMessage(IMMessage message) {
+                    return checkLocalAntiSpam(message);
+                }
+            };
+
+            normalTeamCustomization.actions = actions;
+        }
+
+        if (advancedTeamCustomization == null) {
+            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
 //            final TeamAVChatAction avChatAction = new TeamAVChatAction(AVChatType.VIDEO);
 //            TeamAVChatProfile.sharedInstance().registerObserver(true);
-//
-//            ArrayList<BaseAction> actions = new ArrayList<>();
+
+            ArrayList<BaseAction> actions = new ArrayList<>();
 //            actions.add(avChatAction);
 //            actions.add(new GuessAction());
 //            actions.add(new FileAction());
@@ -425,47 +429,47 @@ public class SessionHelper {
 //                actions.add(new RedPacketAction());
 //            }
 //            actions.add(new TipAction());
-//
-//            SessionTeamCustomization.SessionTeamCustomListener listener = new SessionTeamCustomization.SessionTeamCustomListener() {
-//
-//                @Override
-//                public void initPopupWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
-//                    initPopuptWindow(context, view, sessionId, sessionTypeEnum);
-//                }
-//
-//
-//                @Override
-//                public void onSelectedAccountsResult(ArrayList<String> selectedAccounts) {
+
+            SessionTeamCustomization.SessionTeamCustomListener listener = new SessionTeamCustomization.SessionTeamCustomListener() {
+
+                @Override
+                public void initPopupWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
+                    initPopuptWindow(context, view, sessionId, sessionTypeEnum);
+                }
+
+
+                @Override
+                public void onSelectedAccountsResult(ArrayList<String> selectedAccounts) {
 //                    avChatAction.onSelectedAccountsResult(selectedAccounts);
-//                }
-//
-//                @Override
-//                public void onSelectedAccountFail() {
+                }
+
+                @Override
+                public void onSelectedAccountFail() {
 //                    avChatAction.onSelectedAccountFail();
-//                }
-//            };
-//
-//            advancedTeamCustomization = new SessionTeamCustomization(listener) {
-//                @Override
-//                public boolean isAllowSendMessage(IMMessage message) {
-//                    return checkLocalAntiSpam(message);
-//                }
-//            };
-//
-//            advancedTeamCustomization.actions = actions;
-//        }
-//
-//        if (TextUtils.isEmpty(tid)) {
-//            return normalTeamCustomization;
-//        } else {
-//            Team team = TeamDataCache.getInstance().getTeamById(tid);
-//            if (team != null && team.getType() == TeamTypeEnum.Advanced) {
-//                return advancedTeamCustomization;
-//            }
-//        }
-//        return normalTeamCustomization;
-//    }
-//
+                }
+            };
+
+            advancedTeamCustomization = new SessionTeamCustomization(listener) {
+                @Override
+                public boolean isAllowSendMessage(IMMessage message) {
+                    return checkLocalAntiSpam(message);
+                }
+            };
+
+            advancedTeamCustomization.actions = actions;
+        }
+
+        if (TextUtils.isEmpty(tid)) {
+            return normalTeamCustomization;
+        } else {
+            Team team = TeamDataCache.getInstance().getTeamById(tid);
+            if (team != null && team.getType() == TeamTypeEnum.Advanced) {
+                return advancedTeamCustomization;
+            }
+        }
+        return normalTeamCustomization;
+    }
+
 //    private static void registerViewHolders() {
 //        NimUIKit.registerMsgItemViewHolder(FileAttachment.class, MsgViewHolderFile.class);
 //        NimUIKit.registerMsgItemViewHolder(AVChatAttachment.class, MsgViewHolderAVChat.class);
@@ -477,7 +481,7 @@ public class SessionHelper {
 //        NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
 //        registerRedPacketViewHolder();
 //    }
-//
+
 //    private static void registerRedPacketViewHolder() {
 //        if (NIMRedPacketClient.isEnable()) {
 //            NimUIKit.registerMsgItemViewHolder(RedPacketAttachment.class, MsgViewHolderRedPacket.class);
@@ -567,53 +571,53 @@ public class SessionHelper {
 //    }
 //
 //
-//    private static void initPopuptWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
-//        if (popupMenu == null) {
-//            menuItemList = new ArrayList<>();
-//            popupMenu = new NIMPopupMenu(context, menuItemList, listener);
-//        }
-//        menuItemList.clear();
-//        menuItemList.addAll(getMoreMenuItems(context, sessionId, sessionTypeEnum));
-//        popupMenu.notifyData();
-//        popupMenu.show(view);
-//    }
-//
-//    private static NIMPopupMenu.MenuItemClickListener listener = new NIMPopupMenu.MenuItemClickListener() {
-//        @Override
-//        public void onItemClick(final PopupMenuItem item) {
-//            switch (item.getTag()) {
+    private static void initPopuptWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
+        if (popupMenu == null) {
+            menuItemList = new ArrayList<>();
+            popupMenu = new NIMPopupMenu(context, menuItemList, listener);
+        }
+        menuItemList.clear();
+        menuItemList.addAll(getMoreMenuItems(context, sessionId, sessionTypeEnum));
+        popupMenu.notifyData();
+        popupMenu.show(view);
+    }
+//下拉框查消息记录等
+    private static NIMPopupMenu.MenuItemClickListener listener = new NIMPopupMenu.MenuItemClickListener() {
+        @Override
+        public void onItemClick(final PopupMenuItem item) {
+            switch (item.getTag()) {
 //                case ACTION_HISTORY_QUERY:
 //                    MessageHistoryActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum()); // 漫游消息查询
 //                    break;
 //                case ACTION_SEARCH_MESSAGE:
 //                    SearchMessageActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum());
 //                    break;
-//                case ACTION_CLEAR_MESSAGE:
-//                    EasyAlertDialogHelper.createOkCancelDiolag(item.getContext(), null, "确定要清空吗？", true, new EasyAlertDialogHelper.OnDialogActionListener() {
-//                        @Override
-//                        public void doCancelAction() {
+                case ACTION_CLEAR_MESSAGE:
+                    EasyAlertDialogHelper.createOkCancelDiolag(item.getContext(), null, "确定要清空吗？", true, new EasyAlertDialogHelper.OnDialogActionListener() {
+                        @Override
+                        public void doCancelAction() {
+
+                        }
+
+                        @Override
+                        public void doOkAction() {
+                            NIMClient.getService(MsgService.class).clearChattingHistory(item.getSessionId(), item.getSessionTypeEnum());
+                            MessageListPanelHelper.getInstance().notifyClearMessages(item.getSessionId());
+                        }
+                    }).show();
+                    break;
+            }
+        }
+    };
 //
-//                        }
-//
-//                        @Override
-//                        public void doOkAction() {
-//                            NIMClient.getService(MsgService.class).clearChattingHistory(item.getSessionId(), item.getSessionTypeEnum());
-//                            MessageListPanelHelper.getInstance().notifyClearMessages(item.getSessionId());
-//                        }
-//                    }).show();
-//                    break;
-//            }
-//        }
-//    };
-//
-//    private static List<PopupMenuItem> getMoreMenuItems(Context context, String sessionId, SessionTypeEnum sessionTypeEnum) {
-//        List<PopupMenuItem> moreMenuItems = new ArrayList<PopupMenuItem>();
-//        moreMenuItems.add(new PopupMenuItem(context, ACTION_HISTORY_QUERY, sessionId,
-//                sessionTypeEnum, DemoCache.getContext().getString(R.string.message_history_query)));
-//        moreMenuItems.add(new PopupMenuItem(context, ACTION_SEARCH_MESSAGE, sessionId,
-//                sessionTypeEnum, DemoCache.getContext().getString(R.string.message_search_title)));
-//        moreMenuItems.add(new PopupMenuItem(context, ACTION_CLEAR_MESSAGE, sessionId,
-//                sessionTypeEnum, DemoCache.getContext().getString(R.string.message_clear)));
-//        return moreMenuItems;
-//    }
+    private static List<PopupMenuItem> getMoreMenuItems(Context context, String sessionId, SessionTypeEnum sessionTypeEnum) {
+        List<PopupMenuItem> moreMenuItems = new ArrayList<PopupMenuItem>();
+        moreMenuItems.add(new PopupMenuItem(context, ACTION_HISTORY_QUERY, sessionId,
+                sessionTypeEnum, DemoCache.getContext().getString(R.string.message_history_query)));
+        moreMenuItems.add(new PopupMenuItem(context, ACTION_SEARCH_MESSAGE, sessionId,
+                sessionTypeEnum, DemoCache.getContext().getString(R.string.message_search_title)));
+        moreMenuItems.add(new PopupMenuItem(context, ACTION_CLEAR_MESSAGE, sessionId,
+                sessionTypeEnum, DemoCache.getContext().getString(R.string.message_clear)));
+        return moreMenuItems;
+    }
 }

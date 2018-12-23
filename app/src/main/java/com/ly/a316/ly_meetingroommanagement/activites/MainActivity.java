@@ -1,11 +1,15 @@
 package com.ly.a316.ly_meetingroommanagement.activites;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -16,13 +20,19 @@ import com.ly.a316.ly_meetingroommanagement.fragments.CalendarFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.ContactListFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.ConversationListFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.MineFragment;
+import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SystemMessageUnreadManager;
+import com.ly.a316.ly_meetingroommanagement.nim.helper.TeamCreateHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderManager;
 import com.ly.a316.ly_meetingroommanagement.utils.PopupMenuUtil;
+import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
+import com.netease.nim.uikit.common.ToastHelper;
 import com.netease.nim.uikit.common.activity.UI;
 import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.msg.SystemMessageObserver;
+import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +59,9 @@ public class MainActivity extends UI {
 
     private int normalTextColor = Color.parseColor("#999999");
     private int selectTextColor = Color.parseColor("#fa6e51");
+    private static final String EXTRA_APP_QUIT = "APP_QUIT";
+    private static final int REQUEST_CODE_NORMAL = 1;
+    private static final int REQUEST_CODE_ADVANCED = 2;
     private Observer<Integer> sysMsgUnreadCountChangedObserver = new Observer<Integer>() {
         @Override
         public void onEvent(Integer unreadCount) {
@@ -64,10 +77,10 @@ public class MainActivity extends UI {
         fManager = getSupportFragmentManager();
         tabEntityList = new ArrayList<>();
         initview();
-        ImmersionBar.with(this).init();
         bottomBarLayout.setNormalTextColor(normalTextColor);
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
+        ImmersionBar.with(this).fitsSystemWindows(true).init();
         //初始化云信相关东西
        initNim();
          /*
@@ -151,8 +164,49 @@ public class MainActivity extends UI {
             tabEntityList.add(item);
         }
     }
+    private boolean parseIntent() {
 
-private void initNim(){
+        Intent intent = getIntent();
+
+        if (intent.hasExtra(NimIntent.EXTRA_NOTIFY_CONTENT)) {
+            IMMessage message = (IMMessage) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
+            intent.removeExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
+            switch (message.getSessionType()) {
+                case P2P:
+                    SessionHelper.startP2PSession(this, message.getSessionId());
+                    break;
+                case Team:
+                    SessionHelper.startTeamSession(this, message.getSessionId());
+                    break;
+            }
+
+            return true;
+        }
+
+//        if (intent.hasExtra(AVChatActivity.INTENT_ACTION_AVCHAT) && AVChatProfile.getInstance().isAVChatting()) {
+//            intent.removeExtra(AVChatActivity.INTENT_ACTION_AVCHAT);
+//            Intent localIntent = new Intent();
+//            localIntent.setClass(this, AVChatActivity.class);
+//            startActivity(localIntent);
+//            return true;
+//        }
+//
+//        String account = intent.getStringExtra(AVChatExtras.EXTRA_ACCOUNT);
+//        if (intent.hasExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION) && !TextUtils.isEmpty(account)) {
+//            intent.removeExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION);
+//            SessionHelper.startP2PSession(this, account);
+//            return true;
+//        }
+
+        return false;
+    }
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        parseIntent();
+    }
+
+    private void initNim(){
         //注册/注销系统消息未读数变化
     registerSystemMessageObservers(true);
 }
@@ -179,6 +233,27 @@ private void initNim(){
             fragmentTransaction.hide(fr_calendar);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        if (requestCode == REQUEST_CODE_NORMAL) {
+            final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
+            if (selected != null && !selected.isEmpty()) {
+                TeamCreateHelper.createNormalTeam(MainActivity.this, selected, false, null);
+            } else {
+                ToastHelper.showToast(MainActivity.this, "请选择至少一个联系人！");
+            }
+        } else if (requestCode == REQUEST_CODE_ADVANCED) {
+            final ArrayList<String> selected = data.getStringArrayListExtra(ContactSelectActivity.RESULT_DATA);
+            TeamCreateHelper.createAdvancedTeam(MainActivity.this, selected);
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

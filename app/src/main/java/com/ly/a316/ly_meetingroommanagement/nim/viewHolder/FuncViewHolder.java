@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.SystemMessageActivity;
+import com.ly.a316.ly_meetingroommanagement.nim.activity.TeamListActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SystemMessageUnreadManager;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderId;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderItem;
@@ -145,13 +146,13 @@ public class FuncViewHolder extends AbsContactViewHolder<FuncViewHolder.FuncItem
 //                RobotListActivity.start(context);
 //            }
 //            //讨论组
-//            else if (item == NORMAL_TEAM) {
-//                TeamListActivity.start(context, ItemTypes.TEAMS.NORMAL_TEAM);
-//            }
-//            //高级群
-//            else if (item == ADVANCED_TEAM) {
-//                TeamListActivity.start(context, ItemTypes.TEAMS.ADVANCED_TEAM);
-//            }
+            else if (item == NORMAL_TEAM) {
+                TeamListActivity.start(context, ItemTypes.TEAMS.NORMAL_TEAM);
+            }
+            //高级群
+            else if (item == ADVANCED_TEAM) {
+                TeamListActivity.start(context, ItemTypes.TEAMS.ADVANCED_TEAM);
+            }
 //            //我的电脑
 //            else if (item == MY_COMPUTER) {
 //                SessionHelper.startP2PSession(context, DemoCache.getAccount());
