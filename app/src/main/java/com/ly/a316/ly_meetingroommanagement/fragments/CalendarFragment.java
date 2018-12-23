@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,16 +29,16 @@ import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.ly.a316.ly_meetingroommanagement.Adapter.Calendar_Adapter;
 import com.ly.a316.ly_meetingroommanagement.activites.AddSchedule;
+import com.ly.a316.ly_meetingroommanagement.calendarActivity.OneDayCountActivity;
 import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.classes.jilei;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
+import com.zaaach.toprightmenu.TopRightMenu;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -66,11 +67,13 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     com.ddz.floatingactionbutton.FloatingActionButton flAddday;
     @BindView(R.id.fl_schedule)
     FloatingActionButton fl_schedule;
+    @BindView(R.id.more)
+    TextView more;
     Unbinder unbinder;
     private int mYear;
     String t_year, t_month, t_day;
     List<Schedule> list = new ArrayList<>();
-
+    Intent intent1;//跳转统计的页面
 
     private TextView tv_ok, tv_cancel;//确定、取消button
     java.util.Calendar calendar_all;//获取今天的时间
@@ -84,6 +87,9 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     FrameLayout fra;
     DatePicker.OnChangeListener dp_onchanghelistener;
     TimePicker.OnChangeListener tp_onchanghelistener;
+
+    TopRightMenu mToRightMenu;//右上角的菜单栏
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_fr_calendar;
@@ -118,6 +124,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
 
     }
+
 
     void moren() {
         tvYear.setText(String.valueOf(ibCalendarview.getCurYear()));
@@ -218,6 +225,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     public void onCalendarOutOfRange(Calendar calendar) {
 
     }
+
     @Override
     //日历被点击
     public void onCalendarSelect(Calendar calendar, boolean isClick) {
@@ -239,14 +247,12 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     }
 
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
-
+        setHasOptionsMenu(true);
         dp_onchanghelistener = new DatePicker.OnChangeListener() {
             @Override
             public void onChange(int year, int month, int day, int day_of_week) {
@@ -266,7 +272,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         return rootView;
     }
 
-    @OnClick({R.id.fl_addday, R.id.fl_schedule, R.id.tv_month_dayyy, R.id.tv_current_day})
+
+    @OnClick({R.id.fl_addday, R.id.fl_schedule, R.id.tv_month_dayyy, R.id.tv_current_day, R.id.more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_schedule:
@@ -339,6 +346,10 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
             case R.id.tv_current_day:
                 ibCalendarview.scrollToCurrent();////滚动到当前日期
+                break;
+            case R.id.more:
+                 intent1 =new Intent(getActivity(),OneDayCountActivity.class);
+                 startActivity(intent1);
                 break;
 
         }
