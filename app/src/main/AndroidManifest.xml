@@ -219,6 +219,37 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".nim.activity.FileBrowserActivity"
+            android:configChanges="orientation"
+            android:label="文件浏览器"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden" />
+        <!-- 下载文件 -->
+        <activity
+            android:name=".nim.activity.FileDownloadActivity"
+            android:configChanges="keyboardHidden"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".nim.activity.MessageInfoActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".nim.activity.MessageHistoryActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <!-- 消息历史搜索 -->
+        <activity
+            android:name=".nim.activity.SearchMessageActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="portrait"
+            android:theme="@style/global_search_bg"
+            android:windowSoftInputMode="adjustPan|stateUnspecified" />
         <provider
             android:authorities="com.crazy.gemi.ui.cheaper.SearchSuggestionSampleProvider"
             android:name=".utils.SearchSuggestionSampleProvider"/>

@@ -4,6 +4,7 @@ package com.ly.a316.ly_meetingroommanagement.nim.helper;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.text.TextUtils;
 import android.view.View;
@@ -12,7 +13,21 @@ import android.view.View;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 
+import com.ly.a316.ly_meetingroommanagement.nim.action.FileAction;
+import com.ly.a316.ly_meetingroommanagement.nim.action.GuessAction;
+import com.ly.a316.ly_meetingroommanagement.nim.activity.MessageHistoryActivity;
+import com.ly.a316.ly_meetingroommanagement.nim.activity.MessageInfoActivity;
+import com.ly.a316.ly_meetingroommanagement.nim.activity.SearchMessageActivity;
+import com.ly.a316.ly_meetingroommanagement.nim.activity.UserProfileActivity;
+import com.ly.a316.ly_meetingroommanagement.nim.session.CustomAttachParser;
+import com.ly.a316.ly_meetingroommanagement.nim.session.GuessAttachment;
+import com.ly.a316.ly_meetingroommanagement.nim.session.RTSAttachment;
+import com.ly.a316.ly_meetingroommanagement.nim.session.RedPacketAttachment;
 import com.ly.a316.ly_meetingroommanagement.nim.session.SessionTeamCustomization;
+import com.ly.a316.ly_meetingroommanagement.nim.session.SnapChatAttachment;
+import com.ly.a316.ly_meetingroommanagement.nim.session.StickerAttachment;
+import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderFile;
+import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderGuess;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.recent.RecentCustomization;
 import com.netease.nim.uikit.api.model.session.SessionCustomization;
@@ -72,31 +87,31 @@ public class SessionHelper {
     public static final boolean USE_LOCAL_ANTISPAM = true;
 
 
-//    public static void init() {
-//        // 注册自定义消息附件解析器
-//        NIMClient.getService(MsgService.class).registerCustomAttachmentParser(new CustomAttachParser());
+    public static void init() {
+        // 注册自定义消息附件解析器
+        NIMClient.getService(MsgService.class).registerCustomAttachmentParser(new CustomAttachParser());
 //
-//        // 注册各种扩展消息类型的显示ViewHolder
-//        registerViewHolders();
-//
-//        // 设置会话中点击事件响应处理
-//        setSessionListener();
-//
+        // 注册各种扩展消息类型的显示ViewHolder
+        registerViewHolders();
+
+        // 设置会话中点击事件响应处理
+          setSessionListener();
+
 //        // 注册消息转发过滤器
-//        registerMsgForwardFilter();
-//
-//        // 注册消息撤回过滤器
-//        registerMsgRevokeFilter();
-//
-//        // 注册消息撤回监听器
-//        registerMsgRevokeObserver();
-//
-//        NimUIKit.setCommonP2PSessionCustomization(getP2pCustomization());
-//
-//        NimUIKit.setCommonTeamSessionCustomization(getTeamCustomization(null));
+        registerMsgForwardFilter();
+
+        // 注册消息撤回过滤器
+         registerMsgRevokeFilter();
+
+        // 注册消息撤回监听器
+        registerMsgRevokeObserver();
+
+        NimUIKit.setCommonP2PSessionCustomization(getP2pCustomization());
+
+        NimUIKit.setCommonTeamSessionCustomization(getTeamCustomization(null));
 //
 //        NimUIKit.setRecentCustomization(getRecentCustomization());
-//    }
+    }
 //
     public static void startP2PSession(Context context, String account) {
         startP2PSession(context, account, null);
@@ -128,79 +143,80 @@ public class SessionHelper {
         NimUIKit.startChatting(context, tid, SessionTypeEnum.Team, getTeamCustomization(tid), backToClass, anchor);
     }
 //
-//    // 定制化单聊界面。如果使用默认界面，返回null即可
-//    private static SessionCustomization getP2pCustomization() {
-//        if (p2pCustomization == null) {
-//            p2pCustomization = new SessionCustomization() {
-//                // 由于需要Activity Result， 所以重载该函数。
-//                @Override
-//                public void onActivityResult(final Activity activity, int requestCode, int resultCode, Intent data) {
-//                    super.onActivityResult(activity, requestCode, resultCode, data);
-//
-//                }
-//
-//                @Override
-//                public boolean isAllowSendMessage(IMMessage message) {
-//                    return checkLocalAntiSpam(message);
-//                }
-//
-//                @Override
-//                public MsgAttachment createStickerAttachment(String category, String item) {
-//                    return new StickerAttachment(category, item);
-//                }
-//            };
+    // 定制化单聊界面。如果使用默认界面，返回null即可
+    private static SessionCustomization getP2pCustomization() {
+        if (p2pCustomization == null) {
+            p2pCustomization = new SessionCustomization() {
+                // 由于需要Activity Result， 所以重载该函数。
+                @Override
+                public void onActivityResult(final Activity activity, int requestCode, int resultCode, Intent data) {
+                    super.onActivityResult(activity, requestCode, resultCode, data);
 
-            // 背景
-//            p2pCustomization.backgroundColor = Color.BLUE;
-//            p2pCustomization.backgroundUri = "file:///android_asset/xx/bk.jpg";
-//            p2pCustomization.backgroundUri = "file:///sdcard/Pictures/bk.png";
-//            p2pCustomization.backgroundUri = "android.resource://com.netease.nim.demo/drawable/bk"
+                }
 
-            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
-//            ArrayList<BaseAction> actions = new ArrayList<>();
+                @Override
+                public boolean isAllowSendMessage(IMMessage message) {
+                    return checkLocalAntiSpam(message);
+                }
+
+                @Override
+                public MsgAttachment createStickerAttachment(String category, String item) {
+                    return new StickerAttachment(category, item);
+                }
+            };
+
+             //背景
+            p2pCustomization.backgroundColor = Color.BLUE;
+            p2pCustomization.backgroundUri = "file:///android_asset/xx/bk.jpg";
+            p2pCustomization.backgroundUri = "file:///sdcard/Pictures/bk.png";
+            p2pCustomization.backgroundUri = "android.resource://com.netease.nim.demo/drawable/bk";
+
+             //定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
+            ArrayList<BaseAction> actions = new ArrayList<>();
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
 //                actions.add(new AVChatAction(AVChatType.AUDIO));
 //                actions.add(new AVChatAction(AVChatType.VIDEO));
 //            }
 //            actions.add(new RTSAction());
 //            actions.add(new SnapChatAction());
-//            actions.add(new GuessAction());
-//            actions.add(new FileAction());
+            actions.add(new GuessAction());
+            actions.add(new FileAction());
 //            actions.add(new TipAction());
 //            if (NIMRedPacketClient.isEnable()) {
 //                actions.add(new RedPacketAction());
 //            }
-//            p2pCustomization.actions = actions;
-//            p2pCustomization.withSticker = true;
-//
-//            // 定制ActionBar右边的按钮，可以加多个
-//            ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
-//            SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
-//                @Override
-//                public void onClick(Context context, View view, String sessionId) {
-//                    initPopuptWindow(context, view, sessionId, SessionTypeEnum.P2P);
-//                }
-//            };
-//            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;
-//
-//            SessionCustomization.OptionsButton infoButton = new SessionCustomization.OptionsButton() {
-//                @Override
-//                public void onClick(Context context, View view, String sessionId) {
-//
-//                    MessageInfoActivity.startActivity(context, sessionId); //打开聊天信息
-//                }
-//            };
-//
-//
-//            infoButton.iconId = R.drawable.nim_ic_message_actionbar_p2p_add;
-//
-//            buttons.add(cloudMsgButton);
-//            buttons.add(infoButton);
-//            p2pCustomization.buttons = buttons;
-//        }
-//
-//        return p2pCustomization;
-//    }
+            p2pCustomization.actions = actions;
+            p2pCustomization.withSticker = true;
+
+            // 定制ActionBar右边的按钮，可以加多个
+            ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
+            SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
+                @Override
+                public void onClick(Context context, View view, String sessionId) {
+                    initPopuptWindow(context, view, sessionId, SessionTypeEnum.P2P);
+                }
+            };
+            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;
+
+            SessionCustomization.OptionsButton infoButton = new SessionCustomization.OptionsButton() {
+
+                @Override
+                public void onClick(Context context, View view, String sessionId) {
+
+                    MessageInfoActivity.startActivity(context, sessionId); //打开聊天信息
+                }
+            };
+
+
+            infoButton.iconId = R.drawable.nim_ic_message_actionbar_p2p_add;
+
+            buttons.add(cloudMsgButton);
+            buttons.add(infoButton);
+            p2pCustomization.buttons = buttons;
+        }
+
+        return p2pCustomization;
+    }
 //
 //    private static SessionCustomization getMyP2pCustomization() {
 //        if (myP2pCustomization == null) {
@@ -381,8 +397,8 @@ public class SessionHelper {
 
             ArrayList<BaseAction> actions = new ArrayList<>();
 //            actions.add(avChatAction);
-//            actions.add(new GuessAction());
-//            actions.add(new FileAction());
+            actions.add(new GuessAction());
+            actions.add(new FileAction());
 //            if (NIMRedPacketClient.isEnable()) {
 //                actions.add(new RedPacketAction());
 //            }
@@ -422,8 +438,8 @@ public class SessionHelper {
 
             ArrayList<BaseAction> actions = new ArrayList<>();
 //            actions.add(avChatAction);
-//            actions.add(new GuessAction());
-//            actions.add(new FileAction());
+              actions.add(new GuessAction());
+              actions.add(new FileAction());
 //            actions.add(new AckMessageAction());
 //            if (NIMRedPacketClient.isEnable()) {
 //                actions.add(new RedPacketAction());
@@ -470,17 +486,17 @@ public class SessionHelper {
         return normalTeamCustomization;
     }
 
-//    private static void registerViewHolders() {
-//        NimUIKit.registerMsgItemViewHolder(FileAttachment.class, MsgViewHolderFile.class);
+    private static void registerViewHolders() {
+          NimUIKit.registerMsgItemViewHolder(FileAttachment.class, MsgViewHolderFile.class);
 //        NimUIKit.registerMsgItemViewHolder(AVChatAttachment.class, MsgViewHolderAVChat.class);
-//        NimUIKit.registerMsgItemViewHolder(GuessAttachment.class, MsgViewHolderGuess.class);
+          NimUIKit.registerMsgItemViewHolder(GuessAttachment.class, MsgViewHolderGuess.class);
 //        NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
 //        NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);
 //        NimUIKit.registerMsgItemViewHolder(SnapChatAttachment.class, MsgViewHolderSnapChat.class);
 //        NimUIKit.registerMsgItemViewHolder(RTSAttachment.class, MsgViewHolderRTS.class);
 //        NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
-//        registerRedPacketViewHolder();
-//    }
+        //registerRedPacketViewHolder();
+    }
 
 //    private static void registerRedPacketViewHolder() {
 //        if (NIMRedPacketClient.isEnable()) {
@@ -492,83 +508,84 @@ public class SessionHelper {
 //        }
 //    }
 //
-//    private static void setSessionListener() {
-//        SessionEventListener listener = new SessionEventListener() {
-//            @Override
-//            public void onAvatarClicked(Context context, IMMessage message) {
-//                // 一般用于打开用户资料页面
-//                if (message.getMsgType() == MsgTypeEnum.robot && message.getDirect() == MsgDirectionEnum.In) {
-//                    RobotAttachment attachment = (RobotAttachment) message.getAttachment();
-//                    if (attachment.isRobotSend()) {
+      private static void setSessionListener() {
+        SessionEventListener listener = new SessionEventListener() {
+            @Override
+            public void onAvatarClicked(Context context, IMMessage message) {
+                // 一般用于打开用户资料页面
+                if (message.getMsgType() == MsgTypeEnum.robot && message.getDirect() == MsgDirectionEnum.In) {
+                    RobotAttachment attachment = (RobotAttachment) message.getAttachment();
+                    if (attachment.isRobotSend()) {
 //                        RobotProfileActivity.start(context, attachment.getFromRobotAccount());
-//                        return;
-//                    }
-//                }
-//                UserProfileActivity.start(context, message.getFromAccount());
-//            }
-//
-//            @Override
-//            public void onAvatarLongClicked(Context context, IMMessage message) {
-//                // 一般用于群组@功能，或者弹出菜单，做拉黑，加好友等功能
-//            }
-//
-//            @Override
-//            public void onAckMsgClicked(Context context, IMMessage message) {
-//                // 已读回执事件处理，用于群组的已读回执事件的响应，弹出消息已读详情
+                        return;
+                    }
+                }
+                UserProfileActivity.start(context, message.getFromAccount());
+            }
+
+            @Override
+            public void onAvatarLongClicked(Context context, IMMessage message) {
+                // 一般用于群组@功能，或者弹出菜单，做拉黑，加好友等功能
+            }
+
+            @Override
+            public void onAckMsgClicked(Context context, IMMessage message) {
+                // 已读回执事件处理，用于群组的已读回执事件的响应，弹出消息已读详情
 //                AckMsgInfoActivity.start(context, message);
-//            }
-//        };
+            }
+        };
+
+        NimUIKit.setSessionListener(listener);
+    }
 //
-//        NimUIKit.setSessionListener(listener);
-//    }
 //
-//
-//    /**
-//     * 消息转发过滤器
-//     */
-//    private static void registerMsgForwardFilter() {
-//        NimUIKit.setMsgForwardFilter(new MsgForwardFilter() {
-//            @Override
-//            public boolean shouldIgnore(IMMessage message) {
-//                if (message.getMsgType() == MsgTypeEnum.custom && message.getAttachment() != null
-//                        && (message.getAttachment() instanceof SnapChatAttachment
-//                        || message.getAttachment() instanceof RTSAttachment
-//                        || message.getAttachment() instanceof RedPacketAttachment)) {
-//                    // 白板消息和阅后即焚消息，红包消息 不允许转发
-//                    return true;
-//                } else if (message.getMsgType() == MsgTypeEnum.robot && message.getAttachment() != null && ((RobotAttachment) message.getAttachment()).isRobotSend()) {
-//                    return true; // 如果是机器人发送的消息 不支持转发
-//                }
-//                return false;
-//            }
-//        });
-//    }
-//
+    /**
+     * 消息转发过滤器
+     */
+    private static void registerMsgForwardFilter() {
+        NimUIKit.setMsgForwardFilter(new MsgForwardFilter() {
+            @Override
+            public boolean shouldIgnore(IMMessage message) {
+                if (message.getMsgType() == MsgTypeEnum.custom && message.getAttachment() != null
+                        && (message.getAttachment() instanceof SnapChatAttachment
+                        || message.getAttachment() instanceof RTSAttachment
+                        || message.getAttachment() instanceof RedPacketAttachment)) {
+                    // 白板消息和阅后即焚消息，红包消息 不允许转发
+                    return true;
+                } else if (message.getMsgType() == MsgTypeEnum.robot && message.getAttachment() != null && ((RobotAttachment) message.getAttachment()).isRobotSend()) {
+                    return true; // 如果是机器人发送的消息 不支持转发
+                }
+                return false;
+            }
+        });
+    }
+
 //    /**
 //     * 消息撤回过滤器
 //     */
-//    private static void registerMsgRevokeFilter() {
-//        NimUIKit.setMsgRevokeFilter(new MsgRevokeFilter() {
-//            @Override
-//            public boolean shouldIgnore(IMMessage message) {
-//                if (message.getAttachment() != null
-//                        && (message.getAttachment() instanceof AVChatAttachment
-//                        || message.getAttachment() instanceof RTSAttachment
-//                        || message.getAttachment() instanceof RedPacketAttachment)) {
-//                    // 视频通话消息和白板消息，红包消息 不允许撤回
-//                    return true;
-//                } else if (DemoCache.getAccount().equals(message.getSessionId())) {
-//                    // 发给我的电脑 不允许撤回
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-//    }
+    private static void registerMsgRevokeFilter() {
+        NimUIKit.setMsgRevokeFilter(new MsgRevokeFilter() {
+            @Override
+            public boolean shouldIgnore(IMMessage message) {
+                if (message.getAttachment() != null
+                        && (
+//                                message.getAttachment() instanceof AVChatAttachment||
+                         message.getAttachment() instanceof RTSAttachment
+                        || message.getAttachment() instanceof RedPacketAttachment)) {
+                    // 视频通话消息和白板消息，红包消息 不允许撤回
+                    return true;
+                } else if (DemoCache.getAccount().equals(message.getSessionId())) {
+                    // 发给我的电脑 不允许撤回
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 //
-//    private static void registerMsgRevokeObserver() {
-//        NIMClient.getService(MsgServiceObserve.class).observeRevokeMessage(new NimMessageRevokeObserver(), true);
-//    }
+    private static void registerMsgRevokeObserver() {
+        NIMClient.getService(MsgServiceObserve.class).observeRevokeMessage(new NimMessageRevokeObserver(), true);
+    }
 //
 //
     private static void initPopuptWindow(Context context, View view, String sessionId, SessionTypeEnum sessionTypeEnum) {
@@ -586,12 +603,12 @@ public class SessionHelper {
         @Override
         public void onItemClick(final PopupMenuItem item) {
             switch (item.getTag()) {
-//                case ACTION_HISTORY_QUERY:
-//                    MessageHistoryActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum()); // 漫游消息查询
-//                    break;
-//                case ACTION_SEARCH_MESSAGE:
-//                    SearchMessageActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum());
-//                    break;
+                case ACTION_HISTORY_QUERY:
+                    MessageHistoryActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum()); // 漫游消息查询
+                    break;
+                case ACTION_SEARCH_MESSAGE:
+                    SearchMessageActivity.start(item.getContext(), item.getSessionId(), item.getSessionTypeEnum());
+                    break;
                 case ACTION_CLEAR_MESSAGE:
                     EasyAlertDialogHelper.createOkCancelDiolag(item.getContext(), null, "确定要清空吗？", true, new EasyAlertDialogHelper.OnDialogActionListener() {
                         @Override

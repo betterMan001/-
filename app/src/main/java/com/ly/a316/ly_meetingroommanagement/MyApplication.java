@@ -18,6 +18,7 @@ import com.ly.a316.ly_meetingroommanagement.FacePack.FaceDB;
 import com.ly.a316.ly_meetingroommanagement.activites.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.ContactHelper;
+import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.SDKOptions;
@@ -245,7 +246,7 @@ public class MyApplication extends Application {
         // 1.注册自定义消息附件解析器（可选）
         // 2.注册各种扩展消息类型的显示ViewHolder（可选）
         // 3.设置会话中点击事件响应处理（一般需要）
-//        SessionHelper.init();
+        SessionHelper.init();
 //
 //        // 通讯录列表定制：示例代码可详见demo源码中的ContactHelper类。
 //        // 1.定制通讯录列表中点击事响应处理（一般需要，UIKit 提供默认实现为点击进入聊天界面)

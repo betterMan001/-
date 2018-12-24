@@ -16,5 +16,5 @@
     <color name="white">#FFFFFF</color>
     <color name="classical_blue">#00A7FF</color>
     <color name="color_red_f04c62">#f04c62</color>
-
+    <color name="help_color">#ff999999</color>
 </resources>
