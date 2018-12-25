@@ -198,7 +198,7 @@ public class UserProfileActivity extends UI {
         aliasLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                UserProfileEditItemActivity.startActivity(UserProfileActivity.this, UserConstant.KEY_ALIAS, account);
+                UserProfileEditItemActivity.startActivity(UserProfileActivity.this, UserConstant.KEY_ALIAS, account);
             }
         });
     }
@@ -215,7 +215,7 @@ public class UserProfileActivity extends UI {
         toolbarView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                UserProfileSettingActivity.start(UserProfileActivity.this, account);
+                UserProfileSettingActivity.start(UserProfileActivity.this, account);
             }
         });
     }

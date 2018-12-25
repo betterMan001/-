@@ -89,6 +89,21 @@
     <string name="input_panel_file">发送文件</string>
     <string name="input_panel_guess">猜 拳</string>
     <string name="message_info">聊天信息</string>
+    <!-- 阅后即焚 -->
+    <string name="snapchat_longclick_to_view">按住查看</string>
+    <string name="other">其他</string>
+    <string name="nickname">昵 称</string>
+    <string name="phone_number">手机号码</string>
+    <string name="gender">性 别</string>
+    <string name="nickname_empty">昵称不能为空</string>
+    <string name="user_info_update_failed">设置失败，请重试</string>
+    <string name="user_info_update_success">设置成功</string>
+    <string name="head">头 像</string>
+    <string name="user_information">个人信息</string>
+    <string name="user_info_update_cancel">取消更新</string>
+    <string name="head_update_success">头像设置成功</string>
+    <string name="head_update_failed">头像设置失败，请重试</string>
+    <string name="male">男</string>
 </resources>
 
 

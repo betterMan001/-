@@ -65,8 +65,8 @@ public class LoginActivity extends BaseActivity {
         /*
         测试：不登陆账号
         */
-        final String account="betterMan";
-        String token="xwd110";
+        final String account="badMan";
+        String token="123456";
         LoginInfo info = new LoginInfo(account,token); // config...
         RequestCallback<LoginInfo> callback =
                 new RequestCallback<LoginInfo>() {
@@ -94,6 +94,7 @@ public class LoginActivity extends BaseActivity {
                     }
                 };
         NimUIKit.login(info,callback);
+
         Intent intent=new Intent(LoginActivity.this,MainActivity.class);
         startActivity(intent);
         finish();

@@ -20,14 +20,19 @@ import com.ly.a316.ly_meetingroommanagement.nim.activity.MessageInfoActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.SearchMessageActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.UserProfileActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.session.CustomAttachParser;
+import com.ly.a316.ly_meetingroommanagement.nim.session.CustomAttachment;
 import com.ly.a316.ly_meetingroommanagement.nim.session.GuessAttachment;
 import com.ly.a316.ly_meetingroommanagement.nim.session.RTSAttachment;
 import com.ly.a316.ly_meetingroommanagement.nim.session.RedPacketAttachment;
 import com.ly.a316.ly_meetingroommanagement.nim.session.SessionTeamCustomization;
 import com.ly.a316.ly_meetingroommanagement.nim.session.SnapChatAttachment;
 import com.ly.a316.ly_meetingroommanagement.nim.session.StickerAttachment;
+import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderDefCustom;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderFile;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderGuess;
+import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderSnapChat;
+import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderSticker;
+import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderTip;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.recent.RecentCustomization;
 import com.netease.nim.uikit.api.model.session.SessionCustomization;
@@ -488,13 +493,13 @@ public class SessionHelper {
 
     private static void registerViewHolders() {
           NimUIKit.registerMsgItemViewHolder(FileAttachment.class, MsgViewHolderFile.class);
-//        NimUIKit.registerMsgItemViewHolder(AVChatAttachment.class, MsgViewHolderAVChat.class);
+         // NimUIKit.registerMsgItemViewHolder(AVChatAttachment.class, MsgViewHolderAVChat.class);
           NimUIKit.registerMsgItemViewHolder(GuessAttachment.class, MsgViewHolderGuess.class);
-//        NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
-//        NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);
-//        NimUIKit.registerMsgItemViewHolder(SnapChatAttachment.class, MsgViewHolderSnapChat.class);
+          NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
+          NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);
+         NimUIKit.registerMsgItemViewHolder(SnapChatAttachment.class, MsgViewHolderSnapChat.class);
 //        NimUIKit.registerMsgItemViewHolder(RTSAttachment.class, MsgViewHolderRTS.class);
-//        NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
+          NimUIKit.registerTipMsgViewHolder(MsgViewHolderTip.class);
         //registerRedPacketViewHolder();
     }
 
