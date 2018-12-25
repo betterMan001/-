@@ -21,7 +21,7 @@ import java.lang.reflect.Method;
  * 作者：余智强
  * ${Date}
  */
-public abstract class jilei extends Fragment {
+public abstract class jilei extends ImmersionFragment {
     public static View view;
     private static boolean isMiUi = false;
 
@@ -52,7 +52,7 @@ public abstract class jilei extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ImmersionBar.with(this).destroy();
+        /*ImmersionBar.with(this).destroy();*/
     }
 
     /**

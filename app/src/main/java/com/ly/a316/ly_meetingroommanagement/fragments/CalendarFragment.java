@@ -24,7 +24,6 @@ import android.widget.Toast;
 
 
 import com.ddz.floatingactionbutton.FloatingActionButton;
-import com.gyf.barlibrary.ImmersionBar;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
@@ -38,7 +37,6 @@ import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
-import com.zaaach.toprightmenu.TopRightMenu;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -95,6 +93,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_fr_calendar;
+
     }
 
     @Override
@@ -123,6 +122,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
         ibCalendarview.setOnCalendarSelectListener(this);
         ibCalendarview.setOnYearChangeListener(this);
+
 
     }
 
@@ -350,8 +350,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 ibCalendarview.scrollToCurrent();////滚动到当前日期
                 break;
             case R.id.more:
-                 intent1 =new Intent(getActivity(),OneDayCountActivity.class);
-                 startActivity(intent1);
+                intent1 =new Intent(getActivity(),OneDayCountActivity.class);
+                startActivity(intent1);
                 break;
 
         }
@@ -367,10 +367,5 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     @Override
     public void initImmersionBar() {
 
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
     }
 }
