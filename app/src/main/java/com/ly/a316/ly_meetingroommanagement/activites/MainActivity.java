@@ -70,6 +70,11 @@ public class MainActivity extends UI {
         }
     };
     @Override
+    protected void initImmersionBar() {
+        super.initImmersionBar();
+        ImmersionBar.with(this).init();
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -80,15 +85,15 @@ public class MainActivity extends UI {
         bottomBarLayout.setNormalTextColor(normalTextColor);
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
-        ImmersionBar.with(this).fitsSystemWindows(true).init();
         //初始化云信相关东西
-       initNim();
+        initNim();
          /*
        初始化显示第一个页面
         */
         FragmentTransaction fTransaction = fManager.beginTransaction();
         fr_calendar = new CalendarFragment();
         fTransaction.add(R.id.ac_main_frameLayout, fr_calendar);
+        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.collu).init();
         fTransaction.commit();
 
 
@@ -107,6 +112,7 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show( conversationListFragment);
                         }
+                        ImmersionBar.with(MainActivity.this).reset().navigationBarColor(R.color.skin_tabbar_bg).init();
                         fTransaction.commit();
                         break;
                     //2.日历界面
@@ -123,6 +129,8 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show(fr_calendar);
                         }
+                        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.collu).init();
+
                         fTransaction.commit();
                         break;
                     //3.工作界面
@@ -137,6 +145,8 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show(contactListFragment);
                         }
+                        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.classical_blue).init();
+
                         fTransaction.commit();
                         break;
                     //5.我的界面
@@ -147,6 +157,10 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show(fr_mine);
                         }
+                        ImmersionBar.with(MainActivity.this)
+                                .transparentStatusBar()  //不写也可以，默认就是透明色
+
+                                .init();
                         fTransaction.commit();
                         break;
                 }
@@ -257,7 +271,7 @@ public class MainActivity extends UI {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ImmersionBar.with(this).destroy();
+       // ImmersionBar.with(this).destroy();
         registerSystemMessageObservers(false);
     }
 }

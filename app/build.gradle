@@ -10,13 +10,18 @@ android {
         versionCode 1//版本号
         versionName "界面设计测试版"//版本名
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            //选择要添加的对应 cpu 类型的 .so 库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
         sourceSets.main {
             jniLibs.srcDirs = ['libs']
         }
     }
 
 
-    buildTypes {
+buildTypes {
         //正式版配置
         release {
             minifyEnabled false//是否开启混淆
@@ -62,6 +67,7 @@ dependencies {
     implementation 'com.github.dongjunkun:DropDownMenu:1.0.4'
     //云信库模块的依赖
     implementation project(':uikit')
-    //悬浮搜索框
-
+    implementation 'com.wx.wheelview:wheelview:1.3.3'
+    //自定义菜单
+    implementation 'com.zaaach:toprightmenu:1.1.2'
 }

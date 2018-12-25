@@ -11,6 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.barlibrary.ImmersionFragment;
+import com.ly.a316.ly_meetingroommanagement.R;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -36,7 +38,10 @@ public abstract class jilei extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ImmersionBar.with(this).statusBarColor("#2fa881").fitsSystemWindows(true).init();
+       /* ImmersionBar.with(this)
+                .statusBarColor(R.color.collu)
+                .init();*/
+
         view = inflater.inflate(getLayoutId(), container, false);
         initWindow();
         initView();

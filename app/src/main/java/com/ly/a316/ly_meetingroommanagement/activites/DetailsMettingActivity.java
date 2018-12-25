@@ -121,7 +121,7 @@ public class DetailsMettingActivity extends BaseActivity {
                     detailTime.setText(time);
                 }
             }
-        }).setType(TimePickerView.Type.YEAR_MONTH_DAY)//默认全部显示
+        }).setType(type[0])//默认全部显示
                 .setCancelText("取消")//取消按钮文字
                 .setSubmitText("确定")//确认按钮文字
                 .setContentSize(20)//滚轮文字大小
