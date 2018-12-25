@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="@dimen/dp_10"
-
+            android:textColor="#000"
             android:text="日程统计" />
 
         <View
@@ -42,6 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_10"
+            android:textColor="#000"
             android:text="回到今天" />
 
         <ImageView
@@ -59,14 +60,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolBar"
-        app:columnGap="8dp"
+        app:columnGap="8sp"
         app:dayBackgroundColor="#05000000"
         app:eventTextColor="@android:color/white"
         app:headerColumnBackground="#ffffffff"
         app:headerColumnPadding="8dp"
         app:headerColumnTextColor="@color/toolbar_text"
         app:headerRowBackgroundColor="@color/toolbar"
-        app:headerRowPadding="20dp"
+        app:headerRowPadding="16dp"
         app:hourHeight="60dp"
         app:noOfVisibleDays="3"
         app:textSize="12sp"

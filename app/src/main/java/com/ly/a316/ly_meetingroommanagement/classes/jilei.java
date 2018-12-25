@@ -11,6 +11,8 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.barlibrary.ImmersionFragment;
+import com.ly.a316.ly_meetingroommanagement.R;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -19,7 +21,7 @@ import java.lang.reflect.Method;
  * 作者：余智强
  * ${Date}
  */
-public abstract class jilei extends Fragment {
+public abstract class jilei extends ImmersionFragment {
     public static View view;
     private static boolean isMiUi = false;
 
@@ -36,7 +38,9 @@ public abstract class jilei extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ImmersionBar.with(this).init();
+       /* ImmersionBar.with(this)
+                .statusBarColor(R.color.collu)
+                .init();*/
 
         view = inflater.inflate(getLayoutId(), container, false);
         initWindow();
@@ -48,7 +52,7 @@ public abstract class jilei extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ImmersionBar.with(this).destroy();
+        /*ImmersionBar.with(this).destroy();*/
     }
 
     /**

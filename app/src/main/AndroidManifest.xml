@@ -167,6 +167,7 @@
         <activity android:name=".activites.DetailsMettingActivity" />
         <activity android:name=".activites.InvitationPeoActivity" />
         <activity android:name=".calendarActivity.OneDayCountActivity" />
+        <activity android:name=".ceshi"></activity>
     </application>
 
 </manifest>

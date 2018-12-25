@@ -24,12 +24,14 @@ import android.widget.Toast;
 
 
 import com.ddz.floatingactionbutton.FloatingActionButton;
+import com.gyf.barlibrary.ImmersionBar;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.ly.a316.ly_meetingroommanagement.Adapter.Calendar_Adapter;
 import com.ly.a316.ly_meetingroommanagement.activites.AddSchedule;
 import com.ly.a316.ly_meetingroommanagement.calendarActivity.OneDayCountActivity;
+import com.ly.a316.ly_meetingroommanagement.ceshi;
 import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.classes.jilei;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
@@ -88,7 +90,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     DatePicker.OnChangeListener dp_onchanghelistener;
     TimePicker.OnChangeListener tp_onchanghelistener;
 
-    TopRightMenu mToRightMenu;//右上角的菜单栏
+
 
     @Override
     protected int getLayoutId() {
@@ -250,6 +252,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // TODO: inflate a fragment view
+
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         unbinder = ButterKnife.bind(this, rootView);
         setHasOptionsMenu(true);
@@ -359,6 +362,11 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+
+    }
+
+    @Override
+    public void initImmersionBar() {
 
     }
 }
