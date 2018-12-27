@@ -1,6 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -52,6 +53,11 @@ public class ConversationListFragment extends Fragment {
         return view;
 
     }
+
+
+
+
+
     private RecentContactsFragment fragment;
 
 

@@ -19,7 +19,6 @@ public class BaseActivity extends AppCompatActivity {
         if (isImmersionBarEnabled()) {
             initImmersionBar();
         }
-        ImmersionBar.with(this).init();
     }
     protected void initImmersionBar() {
         //在BaseActivity里初始化

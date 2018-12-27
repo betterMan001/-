@@ -32,4 +32,5 @@
     <color name="color_schedule_finish">#EC4A5F</color>
     <color name="colorRed">#FF0000</color>
     <color name="color_schedule_title_text">#272E3E</color>
+    <color name="color_black">#000000</color>
 </resources>
