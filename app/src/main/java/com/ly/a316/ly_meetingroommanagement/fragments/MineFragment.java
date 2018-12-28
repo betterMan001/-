@@ -1,28 +1,27 @@
 package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.gyf.barlibrary.ImmersionBar;
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.activites.WelcomeActivity;
+import com.netease.nimlib.sdk.NIMClient;
+import com.netease.nimlib.sdk.auth.AuthService;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MineFragment extends Fragment {
-
 
 
     Unbinder unbinder;
@@ -47,5 +46,22 @@ public class MineFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.my_exit_ll)
+    public void onViewClicked() {
+     loginOut();
+    }
+    private void loginOut(){
+        //1.清空本地存储的数据
+        MyApplication.editor.remove("id");
+        //2.退出云信账号
+        NIMClient.getService(AuthService.class).logout();
+        //3.跳转至欢迎界面
+        Intent intent = new Intent(MyApplication.getContext(), WelcomeActivity.class);
+        //4.将loginActivity放入新的task
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //5.跳转
+        MyApplication.getContext().startActivity(intent);
     }
 }
