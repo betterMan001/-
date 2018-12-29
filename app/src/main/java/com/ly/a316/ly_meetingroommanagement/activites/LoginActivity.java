@@ -194,7 +194,7 @@ public class LoginActivity extends BaseActivity {
         测试：不登陆对应的云信账号
              测试自己服务服务器的登录接口
         */
-
+        nimLogin();
         phone += this.loginSUserIDEt.getText().toString();
         String pwd = "";
         if (!("".equals(phone))) {
@@ -220,8 +220,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void nimLogin() {
-        final String account = "badMan";
-        String token = "123456";
+        final String account = "betterMan";
+        String token = "xwd110";
         LoginInfo info = new LoginInfo(account, token); // config...
         RequestCallback<LoginInfo> callback =
                 new RequestCallback<LoginInfo>() {
@@ -284,8 +284,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void loginCallBack(UserInfoModel model) {
-
-        nimLogin();
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {

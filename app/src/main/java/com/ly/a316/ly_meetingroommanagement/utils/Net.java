@@ -10,4 +10,5 @@ public class Net {
     //阿里云服务器
     public final static String HEAD="http://47.101.215.241:8080/api/";
     public final static String LOGIN="User/iLogin";
+    public final static String CHANGE_PWD ="User/changePwd";
 }
