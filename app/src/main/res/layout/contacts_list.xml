@@ -4,7 +4,14 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    <View
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/view"
+        ></View>
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolBar"
         android:layout_width="match_parent"

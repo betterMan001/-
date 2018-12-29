@@ -29,6 +29,7 @@ import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.ly.a316.ly_meetingroommanagement.Adapter.Calendar_Adapter;
 import com.ly.a316.ly_meetingroommanagement.activites.AddSchedule;
+import com.ly.a316.ly_meetingroommanagement.activites.AlarmActivity;
 import com.ly.a316.ly_meetingroommanagement.calendarActivity.OneDayCountActivity;
 import com.ly.a316.ly_meetingroommanagement.ceshi;
 import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
@@ -88,8 +89,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     DatePicker.OnChangeListener dp_onchanghelistener;
     TimePicker.OnChangeListener tp_onchanghelistener;
 
-
-
+//0代表无 1代表日程发生时 5-120代表分钟 2代表一天前 3代表2天前
+int time_result[] = {0,1,5,15,30,60,120,2,3};
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_fr_calendar;
@@ -181,7 +182,11 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 View vieww = manager.findViewByPosition(po);
                 Calendar_Adapter.MyViewHolder holder = (Calendar_Adapter.MyViewHolder) calRecycleview.getChildViewHolder(vieww);
                 holder.item_calendar_alerm.setBackgroundColor(R.drawable.btn_delete);
-                Toast.makeText(getContext(), "提醒按钮被点击", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getActivity(), AlarmActivity.class);
+                i.putExtra("title","新建提醒");
+                i.putExtra("choose","1");
+
+                startActivityForResult(i,12);
             }
         });
         calRecycleview.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
@@ -221,6 +226,15 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         return calendar;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+            case 12:
+                Toast.makeText(getActivity(),resultCode+"",Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 
     @Override
     public void onCalendarOutOfRange(Calendar calendar) {
@@ -290,8 +304,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 selectTime = currentHour + "点" + ((currentMinute < 10) ? ("0" + currentMinute) : currentMinute) + "分";
                 dp_test = (DatePicker) vieww.findViewById(R.id.dp_test);
                 tp_test = (TimePicker) vieww.findViewById(R.id.tp_test);
-                tv_ok = (TextView) vieww.findViewById(R.id.tv_ok);
-                tv_cancel = (TextView) vieww.findViewById(R.id.tv_cancel);
+              /*  tv_ok = (TextView) vieww.findViewById(R.id.tv_ok);
+                tv_cancel = (TextView) vieww.findViewById(R.id.tv_cancel);*/
                 //设置滑动改变监听器
                 //listeners
                 dp_test.setOnChangeListener(dp_onchanghelistener);
@@ -368,4 +382,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     public void initImmersionBar() {
 
     }
+
+
+
 }

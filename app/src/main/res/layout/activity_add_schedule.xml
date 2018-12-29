@@ -4,204 +4,238 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
     android:orientation="vertical"
-    tools:context=".activites.AddSchedule">
-
-    <LinearLayout
-        android:layout_marginTop="10dp"
+    android:background="#FFFFFF"
+    tools:context=".activites.AlarmActivity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/addSchedule_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/addSchedule_back"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/back" />
-
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/title_bar_color"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:navigationIcon="@drawable/backtwo"
+        app:titleTextColor="@color/white">
         <TextView
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="-10dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textSize="25dp"
-            android:text="新建日程" />
-        <Button
-            android:id="@+id/add_schedule"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="添加"
-            android:background="#FFFFFF"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:text="新建日程"
+            android:textStyle="normal" />
+        <TextView
+            android:id="@+id/add_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="right"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:text="确定"
+            android:textStyle="normal"
+            />
+    </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#d9d9f3"></View>
+    <EditText
+        android:id="@+id/sc_title"
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="标题"
+        android:background="@null"
+        />
+    <View
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#d9d9f3"></View>
+    <EditText
+        android:id="@+id/sc_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="地点"
+        android:padding="15dp"
+        android:background="@null"
+        />
+    <View
+
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#5Cbfbfbf"></View>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:textColor="#000"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="全天"
+            android:textSize="@dimen/text_size_15"
+            android:padding="15dp"
+            />
+        <ToggleButton
+            android:id="@+id/toggleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/kaigaun"
+            android:text="ds"
+            android:layout_marginRight="-40dp"
+            android:checked="false"
+            android:textOff=""
+            android:textOn=""
+            android:background="@android:color/transparent"
+            />
+    </LinearLayout>
+    <View
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#d9d9f3"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="#000"
+android:textSize="@dimen/text_size_15"
+            android:id="@+id/add_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="开始时间" />
+
+        <TextView
+            android:id="@+id/add_startTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toRightOf="@+id/add_start"
+            android:gravity="right"
+            android:padding="@dimen/dp_10"
+            android:text="" />
+
+        <include
+            android:id="@+id/add_choosetime_start"
+            layout="@layout/choosetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/add_start"
+            android:visibility="gone"></include>
+    </RelativeLayout>
+    <View
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:background="#d9d9f3"></View>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textSize="@dimen/text_size_15"
+
+            android:textColor="#000"
+            android:id="@+id/add_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="结束时间" />
+
+        <TextView
+            android:id="@+id/add_endTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_toRightOf="@+id/add_end"
+            android:gravity="right"
+            android:padding="@dimen/dp_10"
+            android:text="" />
+
+        <include
+            android:id="@+id/add_choosetime_end"
+            layout="@layout/choosetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/add_end"
+            android:visibility="gone"></include>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/add_layout_chongfu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+
+            android:textColor="#000"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:text="重复" />
+        <TextView
+            android:id="@+id/add_chongfu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="永不"
+            android:layout_marginRight="@dimen/dp_10"
+            />
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_width="@dimen/text_size_20"
+            android:layout_height="@dimen/text_size_20"
+            android:background="@drawable/youbian"
             />
     </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:background="#99F0F8FF"
-        ></View>
+        android:background="#5Cbfbfbf"></View>
     <LinearLayout
+        android:id="@+id/add_layout_tixing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         >
-        <EditText
-            android:id="@+id/ac_sche_content"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent"
+        <TextView
+            android:textColor="#000"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
-
-            android:maxHeight="400dp"
+            android:padding="15dp"
+            android:text="提醒" />
+        <TextView
+            android:id="@+id/add_tixing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="无"
+            android:layout_marginRight="@dimen/dp_10"
+            />
+        <ImageView
             android:layout_gravity="center"
-            android:background="@null"
-            android:gravity="top"
-            android:hint="输入添加内容" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="#99F0F8FF"
-            ></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_gravity="center"
-                >
-                <TextView
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="开始"
-                    />
-                <TextView
-                    android:id="@+id/ac_sche_startTex"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="00:00"
-                    />
-            </LinearLayout>
-            <LinearLayout
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                >
-                <TextView
-                    android:gravity="center"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="结束"
-                    />
-                <TextView
-                    android:id="@+id/ac_sche_endTex"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="00:00"
-                    />
-            </LinearLayout>
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:background="#99F0F8FF"
-            ></View>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="提醒"
-                android:layout_margin="10dp"
-                android:textColor="#000"
-                />
-            <Button
-                android:id="@+id/ac_sche_remind"
-                android:layout_gravity="center"
-                android:background="#FFFFFF"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="添加提醒"
-                />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-
-            >
-            <TextView
-                android:layout_gravity="center"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="重复"
-                android:layout_margin="10dp"
-                android:textColor="#000"
-                />
-           <Spinner
-               android:id="@+id/spinner"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:entries="@array/spingarr"
-               ></Spinner>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-
-            >
-            <TextView
-                android:layout_gravity="center"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="日程类别"
-                android:layout_margin="10dp"
-                android:textColor="#000"
-
-                />
-            <Spinner
-                android:id="@+id/spinner_lei"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/leibie"
-                ></Spinner>
-        </LinearLayout>
+            android:layout_width="@dimen/text_size_20"
+            android:layout_height="@dimen/text_size_20"
+            android:background="@drawable/youbian"
+            />
     </LinearLayout>
-    <View
+    <EditText
+        android:id="@+id/sc_beizhu"
+        android:padding="@dimen/dp_10"
         android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:background="#99F0F8FF"
-        ></View>
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:hint="备注"
+        />
 </LinearLayout>

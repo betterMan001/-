@@ -17,7 +17,7 @@
             android:id="@+id/rl_tool"
             android:layout_width="match_parent"
             android:layout_height="52dp"
-            android:background="#2fa881">
+            android:background="@color/classical_blue">
 
             <TextView
                 android:id="@+id/tv_month_dayyy"
@@ -133,7 +133,7 @@
                 app:scheme_theme_color="#128c4b"
                 app:selected_lunar_text_color="#fff"
                 app:selected_text_color="#fff"
-                app:selected_theme_color="#2fa881"
+                app:selected_theme_color="@color/classical_blue"
                 app:week_background="#fff"
                 app:week_text_color="#111"
                 app:week_view="com.ly.a316.ly_meetingroommanagement.customView.ColorfulWeekView"

@@ -2,6 +2,7 @@ package com.ly.a316.ly_meetingroommanagement.activites;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -40,6 +42,7 @@ import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.msg.SystemMessageObserver;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,7 +113,7 @@ public class MainActivity extends UI {
         FragmentTransaction fTransaction = fManager.beginTransaction();
         fr_calendar = new CalendarFragment();
         fTransaction.add(R.id.ac_main_frameLayout, fr_calendar);
-        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.collu).init();
+        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.classical_blue).init();
         fTransaction.commit();
 
 
@@ -146,7 +149,7 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show(fr_calendar);
                         }
-                        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.collu).init();
+                        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.classical_blue).init();
 
                         fTransaction.commit();
                         break;
@@ -162,7 +165,7 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show(contactListFragment);
                         }
-                        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.classical_blue).init();
+                         ImmersionBar.with(MainActivity.this).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.classical_blue).init();
 
                         fTransaction.commit();
                         break;
@@ -176,7 +179,6 @@ public class MainActivity extends UI {
                         }
                         ImmersionBar.with(MainActivity.this)
                                 .transparentStatusBar()  //不写也可以，默认就是透明色
-
                                 .init();
                         fTransaction.commit();
                         break;
@@ -184,6 +186,8 @@ public class MainActivity extends UI {
             }
         });
     }
+
+
     void initview(){
         for (int i=0;i<tabText.length;i++){
             TabEntity item = new TabEntity();

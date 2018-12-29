@@ -1,13 +1,17 @@
 package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.MessageQueue;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,6 +34,8 @@ import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectAct
 import com.netease.nim.uikit.business.team.helper.TeamHelper;
 import com.netease.nim.uikit.common.activity.UI;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,16 +53,61 @@ public class ContactListFragment extends Fragment {
     private View statusBarView;
     private static final int REQUEST_CODE_NORMAL = 1;
     private static final int REQUEST_CODE_ADVANCED = 2;
+    @BindView(R.id.view)
+    View vieww;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.contacts_list, container, false);
         unbinder = ButterKnife.bind(this, view);
+      if(isXiaomi()){
+           vieww.setVisibility(View.VISIBLE);
+
+       }
+
         initView();
 
         return view;
 
+    }
+
+    public static int getInt(String key,Activity activity) {
+        int result = 0;
+        if (isXiaomi()){
+            try {
+                ClassLoader classLoader = activity.getClassLoader();
+                @SuppressWarnings("rawtypes")
+                Class SystemProperties = classLoader.loadClass("android.os.SystemProperties");
+                //参数类型
+                @SuppressWarnings("rawtypes")
+                Class[] paramTypes = new Class[2];
+                paramTypes[0] = String.class;
+                paramTypes[1] = int.class;
+                Method getInt = SystemProperties.getMethod("getInt", paramTypes);
+                //参数
+                Object[] params = new Object[2];
+                params[0] = new String(key);
+                params[1] = new Integer(0);
+                result = (Integer) getInt.invoke(SystemProperties, params);
+
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+    // 是否是小米手机
+    public static boolean isXiaomi() {
+        return "Xiaomi".equals(Build.MANUFACTURER);
     }
 
     private void initView() {
@@ -92,7 +143,7 @@ public class ContactListFragment extends Fragment {
                 return false;
             }
         });
-        setStatusBar();
+     // setStatusBar();
     }
     private void setStatusBar(){
         //延时加载数据

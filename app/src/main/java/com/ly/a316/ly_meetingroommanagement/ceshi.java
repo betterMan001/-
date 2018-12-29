@@ -49,8 +49,6 @@ public class ceshi extends BaseActivity {
             Toast.makeText(ceshi.this," 点击了",Toast.LENGTH_SHORT).show();
             return true;
         }
-
-
         return super.onOptionsItemSelected(item);
     }
 }

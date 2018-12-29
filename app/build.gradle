@@ -21,7 +21,7 @@ android {
     }
 
 
-buildTypes {
+    buildTypes {
         //正式版配置
         release {
             minifyEnabled false//是否开启混淆

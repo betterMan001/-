@@ -41,7 +41,7 @@
         <item>Limit calendar range</item>
         <item>Show range</item>
     </string-array>
-<!--云信-->
+    <!--云信-->
     <string name="team_apply_sending">发送中…</string>
     <string name="delete_tip">删除提示</string>
     <string name="delete_system_message">删除该条系统消息？</string>
