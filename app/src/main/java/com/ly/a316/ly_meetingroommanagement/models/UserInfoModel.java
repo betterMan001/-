@@ -8,7 +8,7 @@ auther:xwd
 public class UserInfoModel {
     public String birthday;
     public int eId;
-    public String UserName;
+    public String UserName;//名称
     public String phone;
     public String signature;
     public String profile;

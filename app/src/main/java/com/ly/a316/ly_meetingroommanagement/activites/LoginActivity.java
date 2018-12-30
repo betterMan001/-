@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.customView.CountDownButton;
 import com.ly.a316.ly_meetingroommanagement.models.UserInfoModel;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 import com.ly.a316.ly_meetingroommanagement.nim.user_info.UserPreferences;
@@ -45,7 +46,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.verification_et)
     EditText verificationEt;
     @BindView(R.id.get_identifying_code)
-    TextView getIdentifyingCode;
+    CountDownButton getIdentifyingCode;
     @BindView(R.id.verification_ll)
     LinearLayout verificationLl;
     //切换登录模式的标记

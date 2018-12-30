@@ -1,5 +1,6 @@
 package com.ly.a316.ly_meetingroommanagement.activites;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -35,7 +36,12 @@ public class SignUpDetailActivty extends AppCompatActivity {
         //状态栏沉浸效果
         ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor("#00A7FF").init();
     }
-
+    public  static  final  void start(Context context, String phoneNumber){
+        Intent intent=new Intent();
+        intent.putExtra("phoneNumber",phoneNumber);
+        intent.setClass(context,SignUpDetailActivty.class);
+        context.startActivity(intent);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -61,9 +67,10 @@ public class SignUpDetailActivty extends AppCompatActivity {
         */
         String pwd=actSignUpDetailPwd.getText().toString();
         if(pwd.length()>=6){
-            Intent intent = new Intent(SignUpDetailActivty.this, SignUpLastActivity.class);
-            intent.putExtra("pwd", actSignUpDetailPwd.getText());
-            startActivity(intent);
+            String phone=getIntent().getExtras().getString("phoneNumber","");
+            SignUpLastActivity.start(SignUpDetailActivty.this,phone,pwd);
+            finish();
+
         }else{
             //分情况给以用户提示
             if(pwd.isEmpty()||pwd.equals("")){

@@ -27,7 +27,7 @@
                 android:background="@drawable/back"/>
         </LinearLayout>
         <TextView
-            android:text="@string/sign_up_one"
+            android:text="@string/forget_pwd_one"
             android:textColor="#ffffffff"
             android:textSize="16sp"
             android:layout_centerInParent="true"
@@ -105,11 +105,12 @@
                 android:hint="4位数字"
                 android:inputType="text"
                 android:padding="5dp" />
-            <TextView
+            <com.ly.a316.ly_meetingroommanagement.customView.CountDownButton
                 android:layout_height="match_parent"
                 android:layout_width="wrap_content"
                 android:text="获取验证码"
                 android:textColor="#00A7FF"
+                android:background="#00ffffff"
                 android:gravity="center_vertical"
                 android:id="@+id/act_forget_pwdone_get_identifying_code"
                 android:layout_gravity="right"
@@ -117,7 +118,7 @@
                 android:textSize="15sp"
                 android:autoLink="all"
                 >
-            </TextView>
+            </com.ly.a316.ly_meetingroommanagement.customView.CountDownButton>
         </LinearLayout>
     </LinearLayout>
     <Button

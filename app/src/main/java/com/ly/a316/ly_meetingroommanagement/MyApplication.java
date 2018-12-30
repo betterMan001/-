@@ -33,6 +33,8 @@ import com.netease.nimlib.sdk.util.NIMUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.smssdk.SMSSDK;
+
 /*
 Date:2018/12/4
 Time:17:40
@@ -58,7 +60,6 @@ public class MyApplication extends Application {
     private final String TAG = this.getClass().toString();
     public FaceDB mFaceDB;
     Uri mImage;
-
     @Override
     public void onCreate() {
         super.onCreate();
