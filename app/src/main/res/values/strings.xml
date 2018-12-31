@@ -41,8 +41,6 @@
         <item>Limit calendar range</item>
         <item>Show range</item>
     </string-array>
-    <string name="verification">验证码</string>
-    <string name="verification_hint">请输入验证码</string>
 <!--云信-->
     <string name="team_apply_sending">发送中…</string>
     <string name="delete_tip">删除提示</string>
