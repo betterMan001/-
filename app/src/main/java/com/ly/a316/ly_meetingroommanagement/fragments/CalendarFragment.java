@@ -308,7 +308,9 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         switch (view.getId()) {
             case R.id.fl_schedule:
                 try {
+                   //获取这个时间段的所有信息
                     List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(), 2018, 12);
+
 
                 } catch (Exception e) {
                     e.printStackTrace();

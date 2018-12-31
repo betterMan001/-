@@ -307,5 +307,126 @@ public class CalanderUtils {
         eventCursor.close();
         return eventModels;
     }
+    public static List<EventModel> getCalendarEventByDay(Context context, int year, int month) throws Exception {
+        List<EventModel> eventModels = new ArrayList<>();
+        Calendar beginTime = Calendar.getInstance();
+        beginTime.set(year, month - 1, 00, 0, 0);
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(year, month, 00, 0, 0);
+        String selection = "((dtstart >= " + beginTime.getTimeInMillis() + ") AND (dtend <= " + endTime.getTimeInMillis() + "))";
+        Cursor eventCursor = context.getContentResolver().query(Uri.parse(CalanderUtils.calanderEventURL), null,
+                selection, null, null);
+        if (eventCursor.getCount() > 0) {
+            if (eventCursor.moveToFirst()) {
+                do {
+                    //通过事件会议的_id查参会人员
+                    String selections = "((event_id == " + Integer.valueOf(eventCursor.getString(eventCursor.getColumnIndex("_id"))) + "))";
+                    @SuppressLint("MissingPermission")
+                    Cursor eventCursors = context.getContentResolver().query(CalendarContract.Attendees.CONTENT_URI, null,
+                            selections, null, null);
+                    if (eventCursors.getCount() > 0) {
+                        if (eventCursors.moveToFirst()) {
+                            do {
+                                int a = (eventCursors.getCount());
+                                String fadfs = eventCursors.getString(eventCursors.getColumnIndex("attendeeName"));
+                                Log.i("zjc", "dsadas");
+                            } while (eventCursors.moveToNext());
+                        }
+                    }
+                    String eventTitle = eventCursor.getString(eventCursor.getColumnIndex("title"));//日程事件标题
+                    String description = eventCursor.getString(eventCursor.getColumnIndex("description"));//日程事件描术
+                    String dtstart = eventCursor.getString(eventCursor.getColumnIndex("dtstart"));//日程事件开始时间，是13位字符串
+                    String eventLOCATION = eventCursor.getString(eventCursor.getColumnIndex("allday"));//日程事件的位置，发现没有这个字段
+                    String address = eventCursor.getString(eventCursor.getColumnIndex("eventlocation"));//日程事件的位置，发现没有这个字段
+                    String duration = eventCursor.getString(eventCursor.getColumnIndex("duration"));//持续时间
+                    String allday = eventCursor.getString(eventCursor.getColumnIndex("allday"));//是否全天提醒
+                    String timeStart = TimeUtil.timeFormatStr(dtstart);//将日程时间改成yyyy-MM-dd hh:mm:ss形式
+                    String dtend = eventCursor.getString(eventCursor.getColumnIndex("dtend"));//日程事件结束时间
+                    String timeEnd = TimeUtil.timeFormatStr(dtend);//将日程时间改成yyyy-MM-dd hh:mm:ss形式
+
+                    String startTime = timeStart.substring(11, 16);//截取日程事件的开始时间的 时和分， hh:mm
+                    String endtime = timeEnd.substring(11, 16);//截取日程事件的结束时间的 时和分， hh:mm
+
+                    int startday = Integer.parseInt(timeStart.substring(8, 10));//截取日程事件的开始时间的 day， dd
+                    int endday = Integer.parseInt(timeEnd.substring(8, 10));//截取日程事件的结束时间的 day， dd
+                    int startMonth = Integer.parseInt(timeStart.substring(5, 7));//截取日程事件的开始时间的 月， mm
+                    int endMonth = Integer.parseInt(timeEnd.substring(5, 7));//截取日程事件的结束时间的 月， mm
+                    int startYear = Integer.parseInt(timeStart.substring(0, 4));//截取日程事件的开始时间的 年， yyyy
+                    int endYear = Integer.parseInt(timeEnd.substring(0, 4));//截取日程事件的结束时间的 年， yyyy
+                    int day = TimeUtil.DateCompareDiffDay(timeEnd, timeStart);//比较日程事件开始和结束时间，看看是否跨日了，跨日的那些天都需要特殊处理*/
+                    String id = String.valueOf(System.currentTimeMillis());
+                    {
+                        if (day > 0) {//开始和结束时间大于一天
+                            if (startYear - endYear > 0) {//跨年
+                                for (int cm = startMonth; cm <= 12; cm++) {//当前年
+                                    int cd = startMonth == cm ? startday : 1;
+                                    int monthDays = CalanderUtils.getMonthDays(startYear, cm - 1);
+                                    for (; cd < monthDays; cd++) {
+                                        startTime = (cd == startday && cm == startMonth) ? startTime : "00:00";
+                                        EventModel eventModel = new EventModel(timeEnd, startTime, "23:59", description, startYear, cm, cd, id);
+                                        eventModels.add(eventModel);
+                                    }
+                                }
+
+                                for (int cm = 1; cm <= endMonth; cm++) {//最后一年
+                                    int monthDays = (endMonth == cm) ? endday : CalanderUtils.getMonthDays(startYear, cm - 1);
+                                    for (int cd = 1; cd < monthDays; cd++) {
+                                        endtime = (cd == endday && cm == endMonth) ? endtime : "23:59";
+                                        EventModel eventModel = new EventModel(eventTitle, "00:00", endtime, description, endYear, cm, cd, id);
+                                        eventModels.add(eventModel);
+                                    }
+                                }
+
+                                if (endYear - startYear > 1) {//中间年份
+                                    for (int y = startYear + 1; y < endYear; y++) {
+                                        for (int cm = 1; cm <= 12; cm++) {//最后一年
+                                            int monthDays = CalanderUtils.getMonthDays(y, cm - 1);
+                                            for (int cd = 1; cd < monthDays; cd++) {
+                                                EventModel eventModel = new EventModel(eventTitle, "00:00", "23:59", description, y, cm, cd, id);
+                                                eventModels.add(eventModel);
+                                            }
+                                        }
+
+
+                                    }
+                                }
+                            } else {//没有跨年
+                                if (endMonth - startMonth > 0) {//跨月
+                                    for (int i = startMonth; i < endMonth; i++) {//开始那月到倒数第二个月
+                                        int monthDays = CalanderUtils.getMonthDays(startYear, i - 1);//计算每月天数
+                                        int j = i == startMonth ? startday : 1;//如果是开始月，则从开始月的当天算
+                                        for (; j <= monthDays; j++) {
+                                            startTime = (i == startMonth && j == startday) ? startTime : "00:00";//如果是开始月开始日，时间要从开始时间算
+                                            EventModel eventModel = new EventModel(eventTitle, startTime, "23:59", description, startYear, i, j, id);
+                                            eventModels.add(eventModel);
+                                        }
+                                    }
+                                    for (int i = 1; i <= endday; i++) {//对于最后一个月的天事件插入
+                                        EventModel eventModel = new EventModel(timeEnd, "00:00", "23:59", description, startYear, endMonth, i, id);
+                                        eventModel.setEndTime(i == endday ? endtime : "23:59");//最后一第以写的时间为准
+                                        eventModels.add(eventModel);
+                                    }
+                                } else {//没有跨月，只跨日了
+                                    for (int i = startday; i <= endday; i++) {
+                                        EventModel eventModel = new EventModel(eventTitle, "00:00", "23:59", description, startYear, startMonth, i, id);
+                                        eventModel.setStartTime(i == startday ? startTime : "00:00");
+                                        eventModel.setEndTime(i == endday ? endtime : "23:59");
+                                        eventModels.add(eventModel);
+                                    }
+                                }
+                            }
+
+                        } else {//同一天只需要插入一条
+                            eventModels.add(new EventModel(eventTitle, startTime, endtime, "", year, month, startday, String.valueOf(System.currentTimeMillis()), EVENT));
+                        }
+                    }
+
+                } while (eventCursor.moveToNext());
+            }
+
+        }
+        eventCursor.close();
+        return eventModels;
+    }
 
 }

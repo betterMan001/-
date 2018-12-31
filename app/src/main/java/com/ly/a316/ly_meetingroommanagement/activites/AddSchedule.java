@@ -277,6 +277,7 @@ public class AddSchedule extends BaseActivity {
             //添加会议人
             /*ContentValues valuess = new ContentValues();
             valuess.put("event_id", id);
+            valuess.put("event_id", id);
             Log.i("zjc",id+"");
 
             valuess.put("attendeeName", "张思");
