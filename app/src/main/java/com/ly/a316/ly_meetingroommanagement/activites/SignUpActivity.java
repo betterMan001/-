@@ -56,8 +56,9 @@ public class SignUpActivity extends BaseActivity {
                             Log.d(TAG, "handleMessage: 成功发送了短信验证码");
                         } else {
                             // TODO 处理错误的结果
-                            ((Throwable) data).printStackTrace();
                             Log.d(TAG, "handleMessage: 发送短信验证码失败");
+                            ((Throwable) data).printStackTrace();
+
                         }
                     } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         if (result == SMSSDK.RESULT_COMPLETE) {
@@ -80,10 +81,11 @@ public class SignUpActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
-        ButterKnife.bind(this);
         //状态栏沉浸效果
         ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor("#00A7FF").init();
+        setContentView(R.layout.activity_sign_up);
+        ButterKnife.bind(this);
+
         //初始化视图
         initView();
     }
@@ -129,8 +131,13 @@ public class SignUpActivity extends BaseActivity {
         if(identifyCode==null||"".equals(identifyCode)){
             subThreadToast(PointConst.NO_EMPTY_VWD);
         }
-        else
+        else{
+            //测试接口不
+          //  SignUpDetailActivty.start(SignUpActivity.this,phone);
             SMSSDK.submitVerificationCode("86", phone,identifyCode);
+
+        }
+
     }
     @Override
     protected void onDestroy() {

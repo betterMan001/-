@@ -23,10 +23,11 @@ public class ForgetPWDTwoActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_pwdtwo);
-        ButterKnife.bind(this);
         //状态栏沉浸效果
         ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor("#00A7FF").init();
+        setContentView(R.layout.activity_forget_pwdtwo);
+        ButterKnife.bind(this);
+
     }
     public  static  final  void start(Context context,String phoneNumber){
         Intent intent=new Intent();

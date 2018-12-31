@@ -31,10 +31,11 @@ public class SignUpDetailActivty extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up_detail_activty);
-        ButterKnife.bind(this);
         //状态栏沉浸效果
         ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor("#00A7FF").init();
+        setContentView(R.layout.activity_sign_up_detail_activty);
+        ButterKnife.bind(this);
+
     }
     public  static  final  void start(Context context, String phoneNumber){
         Intent intent=new Intent();

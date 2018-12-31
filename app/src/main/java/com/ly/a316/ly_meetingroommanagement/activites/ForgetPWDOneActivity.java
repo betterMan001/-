@@ -76,12 +76,13 @@ public class ForgetPWDOneActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //状态栏沉浸效果
+        ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor(R.color.classical_blue).init();
         setContentView(R.layout.activity_forget_pwdone);
         ButterKnife.bind(this);
         initMobMessage();
         SMSSDK.setAskPermisionOnReadContact(true);
-        //状态栏沉浸效果
-        ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor("#00A7FF").init();
+
     }
     private void initMobMessage() {
         SMSSDK.registerEventHandler(eventHandler);

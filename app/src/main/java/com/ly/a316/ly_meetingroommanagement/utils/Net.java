@@ -12,4 +12,5 @@ public class Net {
     public final static String LOGIN="User/iLogin";
     public final static String CHANGE_PWD ="User/changePwd";
     public final static String REGISTER="User/register";
+    public final static String UPLOAD="User/uploadProfile";
 }

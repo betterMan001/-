@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.mob.sdk'
 
-// 在MobSDK的扩展中注册SMSSDK的相关信息
+ //在MobSDK的扩展中注册SMSSDK的相关信息
 MobSDK {
     appKey "2983dbd78ee8a"
     appSecret "e9f1890fbfeb8906206a9169b648534a"
@@ -78,4 +78,6 @@ dependencies {
     implementation 'com.zaaach:toprightmenu:1.1.2'
     //Json的解析工具
     implementation 'io.github.openfeign:feign-gson:9.5.0'
+    //相片工厂
+    implementation 'com.github.AnliaLee:PhotoFactory:1.2.0'
 }
