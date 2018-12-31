@@ -32,6 +32,9 @@ import com.netease.nimlib.sdk.util.NIMUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 /*
 Date:2018/12/4
 Time:17:40
@@ -59,8 +62,12 @@ public class MyApplication extends Application {
         super.onCreate();
         //初始化
         context = getApplicationContext();
+
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = pref.edit();
+        Realm.init(this);
+        RealmConfiguration configuration = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(configuration);
         DemoCache.setContext(this);
         //初始化面部识别
 //        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());

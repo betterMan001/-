@@ -2,11 +2,13 @@ package com.ly.a316.ly_meetingroommanagement.classes;
 
 import java.util.Date;
 
+import io.realm.RealmObject;
+
 /**
  * 作者：余智强
  * 2018/12/28
  */
-public class EventModel  {
+public class EventModel extends RealmObject {
 
     private String mName;//标题
     private String mStartTime;//开始时间

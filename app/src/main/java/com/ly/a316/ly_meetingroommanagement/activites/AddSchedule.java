@@ -1,6 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.activites;
 
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,9 +20,11 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.askhttpDao.ScheduleDao;
+import com.ly.a316.ly_meetingroommanagement.askhttpDaoImp.ScheduleDaoImp;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
-import com.ly.a316.ly_meetingroommanagement.internet.URL;
+
 import com.ly.a316.ly_meetingroommanagement.utils.CalanderUtils;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;
 
@@ -71,7 +74,7 @@ public class AddSchedule extends BaseActivity {
     @BindView(R.id.add_tixing)
     TextView add_tixing;
     TimePicker tpp_test;
-    String sc_title, sc_location, sc_allday, sc_startTime, sc_endTime, sc_repeat, sc_tiixng, sc_remarks;
+    String sc_title, sc_location, sc_allday , sc_remarks;
     String chongfu[] = {"永不", "每天", "每周", "每月", "每年", "自定义"};
     String chongfudui[] = {"0", "DAILY", "WEEKLY", "MONTHLY", "YEARLY"};
     String alarmTime[] = {"无", "日程发生时", "5分钟前", "15分钟前", "30分钟前", "1小时前", "2小时前", "1天前", "2天前"};
@@ -84,6 +87,8 @@ public class AddSchedule extends BaseActivity {
     int alarmtime;//提醒的时间
     int s_yearr, s_monthr, s_dayr, s_day_of_weekr, s_selectHour, s_selectMiniute;
     int e_yearr, e_monthr, e_dayr, e_day_of_wekkr, e_selectHour, e_selectMiniute;
+    ScheduleDao scheduleDao = new ScheduleDaoImp(this);
+    String ti = "无";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,11 +202,15 @@ public class AddSchedule extends BaseActivity {
             case R.id.add_sure:
                 //提交日程
                 subbmit();
+                String starttime = s_yearr + "-" + (s_monthr ) + "-" + s_dayr + " " + s_selectHour + ":" + s_selectMiniute + ":00";
+                String endtime = e_yearr + "-" + (e_monthr ) + "-" + e_dayr + " " + e_selectHour + ":" + e_selectMiniute + ":00";
 
+                scheduleDao.addSchedule("15858526801", starttime, endtime, sc_title, "日程", sc_remarks, sc_location, ti);
                 break;
         }
     }
 
+    @SuppressLint("MissingPermission")
     void subbmit() {
         sc_title = sc_titleview.getText().toString();//标题
         sc_location = sc_locationview.getText().toString();//地点
@@ -216,11 +225,13 @@ public class AddSchedule extends BaseActivity {
             //这时一条查询语句
             Cursor userCursor = getContentResolver().query(Uri.parse(CalanderUtils.calanderURL), null,
                     null, null, null);
+            //Uri.parse(CalanderUtils.calanderURL)打印得结果：content://com.android.calendar/calendars
+            //CalendarContract.Calendars.CONTENT_URI[打印得结果： content://com.android.calendar/calendars
             if (userCursor.getCount() > 0) {
                 userCursor.moveToFirst();
                 calId = userCursor.getString(userCursor.getColumnIndex("_id"));
+                //打印得结果calld = 1
             }
-
 
             ContentValues event = new ContentValues();
             event.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
@@ -237,8 +248,7 @@ public class AddSchedule extends BaseActivity {
             mCalendar.set(Calendar.HOUR_OF_DAY, s_selectHour);
             mCalendar.set(Calendar.MINUTE, s_selectMiniute);
 
-            Log.i("zjc", s_yearr + "  " + s_monthr + "  " + s_selectHour + " " + s_selectMiniute);
-            //结束时间
+             //结束时间
             //   mCalendar.set(2018, 12, 27, 7, 30);
             long start = mCalendar.getTime().getTime();
             mCalendar.set(Calendar.YEAR, e_yearr);
@@ -246,22 +256,32 @@ public class AddSchedule extends BaseActivity {
             mCalendar.set(Calendar.DAY_OF_MONTH, e_dayr);
             mCalendar.set(Calendar.HOUR_OF_DAY, e_selectHour);
             mCalendar.set(Calendar.MINUTE, e_selectMiniute);
-            Log.i("zjc", e_yearr + "  " + e_monthr + "  " + e_selectHour + " " + e_selectMiniute);
-            // mCalendar.set(2018, 12, 27, 10, 30);
+             // mCalendar.set(2018, 12, 27, 10, 30);
             long end = mCalendar.getTime().getTime();
             event.put("dtstart", start);
             event.put("dtend", end);
             event.put("hasAlarm", 1);
+
             if (!getSc_remarks.equals("0")) {
                 event.put("rrule", "FREQ=" + getSc_remarks);
             }
             Uri newEvent = getContentResolver().insert(Uri.parse(CalanderUtils.calanderEventURL), event);
+
             long id = Long.parseLong(newEvent.getLastPathSegment());
             ContentValues values = new ContentValues();
             values.put("event_id", id);
             //提前10分钟有提醒
             values.put("minutes", alarmtime);//在事件发生之前多少分钟进行提醒
             getContentResolver().insert(Uri.parse(CalanderUtils.calanderRemiderURL), values);
+
+            //添加会议人
+            /*ContentValues valuess = new ContentValues();
+            valuess.put("event_id", id);
+            Log.i("zjc",id+"");
+
+            valuess.put("attendeeName", "张思");
+            getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI, valuess);*/
+
         }
     }
 
@@ -274,6 +294,11 @@ public class AddSchedule extends BaseActivity {
             add_chongfu.setText(chongfu[resultCode]);
         } else if (requestCode == 14) {
             //提醒
+            if (requestCode == 0) {
+                ti = "无";
+            } else {
+                ti = "有";
+            }
             add_tixing.setText(alarmTime[resultCode]);
             alarmtime = alarmTimeduiying[resultCode];
         }
@@ -299,7 +324,8 @@ public class AddSchedule extends BaseActivity {
     }
 
     void init() {
-        selectDatae = calendar_all.get(java.util.Calendar.YEAR) + "年" + calendar_all.get(java.util.Calendar.MONTH) + "月"
+
+        selectDatae = calendar_all.get(java.util.Calendar.YEAR) + "年" +  (Integer.valueOf( calendar_all.get(java.util.Calendar.MONTH))+1) + "月"
                 + calendar_all.get(java.util.Calendar.DAY_OF_MONTH) + "日"
                 + DatePicker.getDayOfWeekCN(calendar_all.get(java.util.Calendar.DAY_OF_WEEK));
 
@@ -312,45 +338,8 @@ public class AddSchedule extends BaseActivity {
         add_startTime.setText(selectDatae + " " + selectTime);
         add_endTime.setText(selectDatae + " " + selectTime);
     }
-    /*void chooseTime(final int pan) {
-        TimePickerView pvTime = new TimePickerView.Builder(this, new TimePickerView.OnTimeSelectListener() {
-            @Override
-            public void onTimeSelect(Date date, View v) {
-                if (pan == 1) {
-                    starttime = getTime(date);
-                    acScheStartTex.setText(starttime);
-                } else if (pan == 2) {
-                    endtime = getTime(date);
-                    acScheEndTex.setText(endtime);
-                }
-            }
-        }).setType(TimePickerView.Type.MONTH_DAY_HOUR_MIN)//默认全部显示
-                .setCancelText("取消")//取消按钮文字
-                .setSubmitText("确定")//确认按钮文字
-                .setContentSize(20)//滚轮文字大小
-                .setTitleSize(20)//标题文字大小
-//                        .setTitleText("请选择时间")//标题文字
-                .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
-                .isCyclic(true)//是否循环滚动
-                .setTextColorCenter(Color.BLACK)//设置选中项的颜色
-                .setTitleColor(Color.BLACK)//标题文字颜色
-                .setSubmitColor(Color.BLUE)//确定按钮文字颜色
-                .setCancelColor(Color.BLUE)//取消按钮文字颜色
-//                        .setTitleBgColor(0xFF666666)//标题背景颜色 Night mode
-//                        .setBgColor(0xFF333333)//滚轮背景颜色 Night mode
-//                        .setRange(calendar.get(Calendar.YEAR) - 20, calendar.get(Calendar.YEAR) + 20)//默认是1900-2100年
-//                        .setDate(selectedDate)// 如果不设置的话，默认是系统时间
-//                        .setRangDate(startDate,endDate)//起始终止年月日设定
-                //  .setLabel("年","月","日","时","分","秒")
-                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
-                .isDialog(true)//是否显示为对话框样式
-                .build();
-        pvTime.setDate(java.util.Calendar.getInstance());
-        pvTime.show();
-    }
 
-    public String getTime(Date date) {//可根据需要自行截取数据显示
-        SimpleDateFormat format = new SimpleDateFormat("MM月dd日aHH:mm");
-        return format.format(date);
-    }*/
+    public void successback(){
+        finish();
+    }
 }

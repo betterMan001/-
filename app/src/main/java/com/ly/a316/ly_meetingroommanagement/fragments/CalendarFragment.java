@@ -1,14 +1,21 @@
 package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
+import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.Intent;
 
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
+import android.util.SparseArray;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,13 +39,18 @@ import com.ly.a316.ly_meetingroommanagement.activites.AddSchedule;
 import com.ly.a316.ly_meetingroommanagement.activites.AlarmActivity;
 import com.ly.a316.ly_meetingroommanagement.calendarActivity.OneDayCountActivity;
 import com.ly.a316.ly_meetingroommanagement.ceshi;
+import com.ly.a316.ly_meetingroommanagement.classes.EventModel;
 import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.classes.jilei;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
+import com.ly.a316.ly_meetingroommanagement.utils.CalanderUtils;
+import com.ly.a316.ly_meetingroommanagement.utils.RealmHelper;
 
+import java.text.ParseException;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -89,8 +101,9 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     DatePicker.OnChangeListener dp_onchanghelistener;
     TimePicker.OnChangeListener tp_onchanghelistener;
 
-//0代表无 1代表日程发生时 5-120代表分钟 2代表一天前 3代表2天前
-int time_result[] = {0,1,5,15,30,60,120,2,3};
+    //0代表无 1代表日程发生时 5-120代表分钟 2代表一天前 3代表2天前
+    int time_result[] = {0, 1, 5, 15, 30, 60, 120, 2, 3};
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_fr_calendar;
@@ -183,10 +196,10 @@ int time_result[] = {0,1,5,15,30,60,120,2,3};
                 Calendar_Adapter.MyViewHolder holder = (Calendar_Adapter.MyViewHolder) calRecycleview.getChildViewHolder(vieww);
                 holder.item_calendar_alerm.setBackgroundColor(R.drawable.btn_delete);
                 Intent i = new Intent(getActivity(), AlarmActivity.class);
-                i.putExtra("title","新建提醒");
-                i.putExtra("choose","1");
+                i.putExtra("title", "新建提醒");
+                i.putExtra("choose", "1");
 
-                startActivityForResult(i,12);
+                startActivityForResult(i, 12);
             }
         });
         calRecycleview.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
@@ -229,9 +242,9 @@ int time_result[] = {0,1,5,15,30,60,120,2,3};
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+        switch (requestCode) {
             case 12:
-                Toast.makeText(getActivity(),resultCode+"",Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), resultCode + "", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -289,60 +302,17 @@ int time_result[] = {0,1,5,15,30,60,120,2,3};
     }
 
 
+    @SuppressLint("MissingPermission")
     @OnClick({R.id.fl_addday, R.id.fl_schedule, R.id.tv_month_dayyy, R.id.tv_current_day, R.id.more})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_schedule:
-                View vieww = View.inflate(getContext(), R.layout.choosetime, null);
-                selectDatae = calendar_all.get(java.util.Calendar.YEAR) + "年" + calendar_all.get(java.util.Calendar.MONTH) + "月"
-                        + calendar_all.get(java.util.Calendar.DAY_OF_MONTH) + "日"
-                        + DatePicker.getDayOfWeekCN(calendar_all.get(java.util.Calendar.DAY_OF_WEEK));
-                //选择时间与当前时间的初始化，用于判断用户选择的是否是以前的时间，如果是，弹出toss提示不能选择过去的时间
-                selectDay = currentDay = calendar_all.get(java.util.Calendar.DAY_OF_MONTH);
-                selectMinute = currentMinute = calendar_all.get(java.util.Calendar.MINUTE);
-                selectHour = currentHour = calendar_all.get(java.util.Calendar.HOUR_OF_DAY);
-                selectTime = currentHour + "点" + ((currentMinute < 10) ? ("0" + currentMinute) : currentMinute) + "分";
-                dp_test = (DatePicker) vieww.findViewById(R.id.dp_test);
-                tp_test = (TimePicker) vieww.findViewById(R.id.tp_test);
-              /*  tv_ok = (TextView) vieww.findViewById(R.id.tv_ok);
-                tv_cancel = (TextView) vieww.findViewById(R.id.tv_cancel);*/
-                //设置滑动改变监听器
-                //listeners
-                dp_test.setOnChangeListener(dp_onchanghelistener);
-                tp_test.setOnChangeListener(tp_onchanghelistener);
-                pw = new PopupWindow(vieww, LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
-//              //设置这2个使得点击pop以外区域可以去除pop
-//              pw.setOutsideTouchable(true);
-//              pw.setBackgroundDrawable(new BitmapDrawable());
-                //出现在布局底端
-                pw.showAtLocation(fra, 0, 0, Gravity.END);
-                //点击确定
-                tv_ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View arg0) {
-                        if (selectDay == currentDay) {   //在当前日期情况下可能出现选中过去时间的情况
-                            if (selectHour < currentHour) {
-                                Toast.makeText(getContext(), "不能选择过去的时间\n        请重新选择", Toast.LENGTH_SHORT).show();
-                            } else if ((selectHour == currentHour) && (selectMinute < currentMinute)) {
-                                Toast.makeText(getContext(), "不能选择过去的时间\n        请重新选择", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(getContext(), selectDatae + selectTime, Toast.LENGTH_SHORT).show();
-                                pw.dismiss();
-                            }
-                        } else {
-                            Toast.makeText(getContext(), selectDatae + selectTime, Toast.LENGTH_SHORT).show();
-                            pw.dismiss();
-                        }
-                    }
-                });
+                try {
+                    List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(), 2018, 12);
 
-                //点击取消
-                tv_cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View arg0) {
-                        pw.dismiss();
-                    }
-                });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.fl_addday:
                 //添加日程
@@ -364,7 +334,7 @@ int time_result[] = {0,1,5,15,30,60,120,2,3};
                 ibCalendarview.scrollToCurrent();////滚动到当前日期
                 break;
             case R.id.more:
-                intent1 =new Intent(getActivity(),OneDayCountActivity.class);
+                intent1 = new Intent(getActivity(), OneDayCountActivity.class);
                 startActivity(intent1);
                 break;
 
@@ -382,7 +352,6 @@ int time_result[] = {0,1,5,15,30,60,120,2,3};
     public void initImmersionBar() {
 
     }
-
 
 
 }

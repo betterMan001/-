@@ -1,15 +1,18 @@
 package com.ly.a316.ly_meetingroommanagement.utils;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.provider.CalendarContract;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.R;
@@ -33,6 +36,7 @@ public class CalanderUtils {
     public static String calanderURL = "content://com.android.calendar/calendars";
     public static String calanderEventURL = "content://com.android.calendar/events";
     public static String calanderRemiderURL = "content://com.android.calendar/reminders";
+    public static String calanderattendsURL = "content://com.android.calendar/attendees";
     public final static int EXTERNAL_CALENDAR_REQ_CODE = 10;
     public final static String EVENT = "EVENT";
 
@@ -70,9 +74,11 @@ public class CalanderUtils {
                     return 28;
                 }
             default:
+
                 return -1;
         }
     }
+
     /**
      * android 6.0 以上申请权限
      */
@@ -80,13 +86,13 @@ public class CalanderUtils {
         WeakReference<Activity> activityWeakReference = new WeakReference<Activity>(activity);
         Activity useActivity = activityWeakReference.get();
         //判断当前Activity是否已经获得了该权限
-        if (ContextCompat.checkSelfPermission(activity.getApplicationContext(), Manifest.permission.READ_CALENDAR)!= PackageManager.PERMISSION_GRANTED
-                || ContextCompat.checkSelfPermission(activity.getApplicationContext(),Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(activity.getApplicationContext(), Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED
+                || ContextCompat.checkSelfPermission(activity.getApplicationContext(), Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             //如果App的权限申请曾经被用户拒绝过，就需要在这里跟用户做出解释
             if (ActivityCompat.shouldShowRequestPermissionRationale(useActivity,
                     Manifest.permission.READ_CALENDAR) || ActivityCompat.shouldShowRequestPermissionRationale(useActivity,
                     Manifest.permission.WRITE_CALENDAR)) {
-                Toast.makeText(useActivity,  "请求权限", Toast.LENGTH_SHORT).show();
+                Toast.makeText(useActivity, "请求权限", Toast.LENGTH_SHORT).show();
             } else {
                 //进行权限请求
                 ActivityCompat.requestPermissions(useActivity,
@@ -176,22 +182,36 @@ public class CalanderUtils {
 
     /**
      * 获取某月某日的日历
+     *
      * @param year
      * @param month
      */
     public static List<EventModel> getCalendarEvent(Context context, int year, int month) throws Exception {
         List<EventModel> eventModels = new ArrayList<>();
         Calendar beginTime = Calendar.getInstance();
-        beginTime.set(year, month-1, 00, 0, 0);
+        beginTime.set(year, month - 1, 00, 0, 0);
         Calendar endTime = Calendar.getInstance();
         endTime.set(year, month, 00, 0, 0);
-        String selection = "((dtstart >= "+beginTime.getTimeInMillis()+") AND (dtend <= "+endTime.getTimeInMillis()+"))";
+        String selection = "((dtstart >= " + beginTime.getTimeInMillis() + ") AND (dtend <= " + endTime.getTimeInMillis() + "))";
         Cursor eventCursor = context.getContentResolver().query(Uri.parse(CalanderUtils.calanderEventURL), null,
                 selection, null, null);
         if (eventCursor.getCount() > 0) {
             if (eventCursor.moveToFirst()) {
                 do {
-
+                    //通过事件会议的_id查参会人员
+                    String selections = "((event_id == " + Integer.valueOf(eventCursor.getString(eventCursor.getColumnIndex("_id"))) + "))";
+                    @SuppressLint("MissingPermission")
+                    Cursor eventCursors = context.getContentResolver().query(CalendarContract.Attendees.CONTENT_URI, null,
+                            selections, null, null);
+                    if (eventCursors.getCount() > 0) {
+                        if (eventCursors.moveToFirst()) {
+                            do {
+                                int a = (eventCursors.getCount());
+                                String fadfs = eventCursors.getString(eventCursors.getColumnIndex("attendeeName"));
+                                Log.i("zjc", "dsadas");
+                            } while (eventCursors.moveToNext());
+                        }
+                    }
                     String eventTitle = eventCursor.getString(eventCursor.getColumnIndex("title"));//日程事件标题
                     String description = eventCursor.getString(eventCursor.getColumnIndex("description"));//日程事件描术
                     String dtstart = eventCursor.getString(eventCursor.getColumnIndex("dtstart"));//日程事件开始时间，是13位字符串
@@ -202,23 +222,24 @@ public class CalanderUtils {
                     String timeStart = TimeUtil.timeFormatStr(dtstart);//将日程时间改成yyyy-MM-dd hh:mm:ss形式
                     String dtend = eventCursor.getString(eventCursor.getColumnIndex("dtend"));//日程事件结束时间
                     String timeEnd = TimeUtil.timeFormatStr(dtend);//将日程时间改成yyyy-MM-dd hh:mm:ss形式
-                    String calendar_id = eventCursor.getString(eventCursor.getColumnIndex("calendar_id"));//日程事件的id
+
                     String startTime = timeStart.substring(11, 16);//截取日程事件的开始时间的 时和分， hh:mm
                     String endtime = timeEnd.substring(11, 16);//截取日程事件的结束时间的 时和分， hh:mm
+
                     int startday = Integer.parseInt(timeStart.substring(8, 10));//截取日程事件的开始时间的 day， dd
                     int endday = Integer.parseInt(timeEnd.substring(8, 10));//截取日程事件的结束时间的 day， dd
                     int startMonth = Integer.parseInt(timeStart.substring(5, 7));//截取日程事件的开始时间的 月， mm
                     int endMonth = Integer.parseInt(timeEnd.substring(5, 7));//截取日程事件的结束时间的 月， mm
                     int startYear = Integer.parseInt(timeStart.substring(0, 4));//截取日程事件的开始时间的 年， yyyy
                     int endYear = Integer.parseInt(timeEnd.substring(0, 4));//截取日程事件的结束时间的 年， yyyy
-                    int day = TimeUtil.DateCompareDiffDay(timeEnd, timeStart);//比较日程事件开始和结束时间，看看是否跨日了，跨日的那些天都需要特殊处理
+                    int day = TimeUtil.DateCompareDiffDay(timeEnd, timeStart);//比较日程事件开始和结束时间，看看是否跨日了，跨日的那些天都需要特殊处理*/
                     String id = String.valueOf(System.currentTimeMillis());
                     {
                         if (day > 0) {//开始和结束时间大于一天
                             if (startYear - endYear > 0) {//跨年
-                                for(int cm = startMonth; cm <= 12; cm++) {//当前年
+                                for (int cm = startMonth; cm <= 12; cm++) {//当前年
                                     int cd = startMonth == cm ? startday : 1;
-                                    int monthDays = CalanderUtils.getMonthDays(startYear, cm-1);
+                                    int monthDays = CalanderUtils.getMonthDays(startYear, cm - 1);
                                     for (; cd < monthDays; cd++) {
                                         startTime = (cd == startday && cm == startMonth) ? startTime : "00:00";
                                         EventModel eventModel = new EventModel(timeEnd, startTime, "23:59", description, startYear, cm, cd, id);
@@ -226,8 +247,8 @@ public class CalanderUtils {
                                     }
                                 }
 
-                                for(int cm = 1; cm <= endMonth; cm++) {//最后一年
-                                    int monthDays = (endMonth == cm) ? endday : CalanderUtils.getMonthDays(startYear, cm-1);
+                                for (int cm = 1; cm <= endMonth; cm++) {//最后一年
+                                    int monthDays = (endMonth == cm) ? endday : CalanderUtils.getMonthDays(startYear, cm - 1);
                                     for (int cd = 1; cd < monthDays; cd++) {
                                         endtime = (cd == endday && cm == endMonth) ? endtime : "23:59";
                                         EventModel eventModel = new EventModel(eventTitle, "00:00", endtime, description, endYear, cm, cd, id);
@@ -236,9 +257,9 @@ public class CalanderUtils {
                                 }
 
                                 if (endYear - startYear > 1) {//中间年份
-                                    for (int y = startYear+1; y < endYear; y++) {
-                                        for(int cm = 1; cm <= 12; cm++) {//最后一年
-                                            int monthDays = CalanderUtils.getMonthDays(y, cm-1);
+                                    for (int y = startYear + 1; y < endYear; y++) {
+                                        for (int cm = 1; cm <= 12; cm++) {//最后一年
+                                            int monthDays = CalanderUtils.getMonthDays(y, cm - 1);
                                             for (int cd = 1; cd < monthDays; cd++) {
                                                 EventModel eventModel = new EventModel(eventTitle, "00:00", "23:59", description, y, cm, cd, id);
                                                 eventModels.add(eventModel);
@@ -251,7 +272,7 @@ public class CalanderUtils {
                             } else {//没有跨年
                                 if (endMonth - startMonth > 0) {//跨月
                                     for (int i = startMonth; i < endMonth; i++) {//开始那月到倒数第二个月
-                                        int monthDays = CalanderUtils.getMonthDays(startYear, i-1);//计算每月天数
+                                        int monthDays = CalanderUtils.getMonthDays(startYear, i - 1);//计算每月天数
                                         int j = i == startMonth ? startday : 1;//如果是开始月，则从开始月的当天算
                                         for (; j <= monthDays; j++) {
                                             startTime = (i == startMonth && j == startday) ? startTime : "00:00";//如果是开始月开始日，时间要从开始时间算

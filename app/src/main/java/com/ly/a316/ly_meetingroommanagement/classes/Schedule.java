@@ -13,15 +13,21 @@ public class Schedule {
     private String dateTime;//日期
     private String content;//内容
 
+
+    private String alert_startTime;//开始的时间
+    private String alert_endtime;//结束的时间
+    private String attribute;//事物属性
+
+    private String alert_difang;//地点
+    private String alert_people;//参会人员
+    private String alert_head;//会议主题
+    private String alert_beizhu;//会议备注
+
     public Schedule(String dateTime, String content) {
         this.dateTime = dateTime;
         this.content = content;
 
     }
-
-    private String alert_startTime;//开始的时间
-    private String alert_endtime;//结束的时间
-    private String attribute;//事物属性
 
     public Schedule(String dateTime, String content, String alert_startTime, String alert_endtime, String attribute) {
         this.dateTime = dateTime;
@@ -31,10 +37,7 @@ public class Schedule {
         this.attribute = attribute;
     }
 
-    private String alert_difang;//地点
-    private String alert_people;//参会人员
-    private String alert_head;//会议主题
-    private String alert_beizhu;//会议备注
+
 
     public Schedule( String alert_startTime, String alert_endtime, String attribute, String alert_difang, String alert_people, String alert_head, String alert_beizhu) {
 
