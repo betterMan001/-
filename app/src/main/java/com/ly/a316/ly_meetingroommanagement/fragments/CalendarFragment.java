@@ -157,7 +157,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         /**
          * 伪造数据
          */
-        Schedule schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
+       /* Schedule schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
         Schedule.list.add(schedule);
 
         schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
@@ -171,7 +171,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
         Schedule.list.add(schedule);
         schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
+        Schedule.list.add(schedule);*/
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -267,6 +267,19 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         t_year = calendar.getYear() + "";
         t_day = calendar.getDay() + "";
         t_month = calendar.getMonth() + "";
+        try {
+            Schedule.list.clear();
+            //获取这个时间段的所有信息
+            List<Schedule> calendarEvent = CalanderUtils.getCalendarEventByDay(getActivity(), 2018, calendar.getMonth(),calendar.getDay());
+
+            Schedule.list.addAll(calendarEvent);
+            Log.i("zjc",Schedule.list.size()+" ");
+
+            calendar_adapter.notifyDataSetChanged();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     @Override
@@ -307,14 +320,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_schedule:
-                try {
-                   //获取这个时间段的所有信息
-                    List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(), 2018, 12);
 
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
                 break;
             case R.id.fl_addday:
                 //添加日程
