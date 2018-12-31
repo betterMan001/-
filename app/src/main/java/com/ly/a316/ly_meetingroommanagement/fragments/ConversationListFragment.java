@@ -37,7 +37,7 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class ConversationListFragment extends Fragment {
-
+//1
     private static final String TAG = "ConversationListFragmen";
     public ConversationListFragment() {
         // Required empty public constructor

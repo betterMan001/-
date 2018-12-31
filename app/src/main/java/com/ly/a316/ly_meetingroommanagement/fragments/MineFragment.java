@@ -23,7 +23,7 @@ import butterknife.Unbinder;
  */
 public class MineFragment extends Fragment {
 
-
+//1
     Unbinder unbinder;
 
     public MineFragment() {

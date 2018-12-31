@@ -52,6 +52,7 @@ import butterknife.ButterKnife;
  *  创建时间：2018 12/4 13：27
 */
 public class MainActivity extends UI {
+    //1
     @BindView(R.id.bottom_nav)
      BottomBarLayout bottomBarLayout;
     Fragment contactListFragment,conversationListFragment,fr_calendar, fr_mine;

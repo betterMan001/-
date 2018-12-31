@@ -40,6 +40,7 @@ import butterknife.Unbinder;
  * A simple {@link Fragment} subclass.
  */
 public class ContactListFragment extends Fragment {
+    //1
     @BindView(R.id.toolBar)
     Toolbar toolBar;
     Unbinder unbinder;

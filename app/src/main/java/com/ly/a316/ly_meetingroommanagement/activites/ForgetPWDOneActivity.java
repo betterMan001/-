@@ -12,6 +12,7 @@ import android.widget.EditText;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.customView.CountDownButton;
 import com.ly.a316.ly_meetingroommanagement.services.UserServiceImp;
 
 import butterknife.BindView;
@@ -110,6 +111,11 @@ public class ForgetPWDOneActivity extends BaseActivity {
     }
     private void getIdentifyCode(){
         phone += this.actForgetPwdPhoneEt.getText().toString();
+        CountDownButton button=findViewById(R.id.act_forget_pwdone_get_identifying_code);
+        if (button.isFinish()) {
+            //发送验证码请求成功后调用
+            button.start();
+        }
         String pwd = "";
         if (!("".equals(phone)))
             SMSSDK.getVerificationCode("86", phone);

@@ -15,6 +15,7 @@ import com.ly.a316.ly_meetingroommanagement.R;
  *  创建时间：12/3 14:13
 */
 public class BaseActivity  extends AppCompatActivity{
+    //1
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

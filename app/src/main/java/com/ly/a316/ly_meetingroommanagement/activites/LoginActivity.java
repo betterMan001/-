@@ -277,9 +277,17 @@ public class LoginActivity extends BaseActivity {
     //发送验证码
     @OnClick(R.id.get_identifying_code)
     public void onViewClicked() {
+
         String phone = loginSUserIDEt.getText().toString();
-        if (!("".equals(phone)))
+        if (!("".equals(phone))){
+            if (getIdentifyingCode.isFinish()) {
+                //发送验证码请求成功后调用
+                getIdentifyingCode.start();
+            }
             SMSSDK.getVerificationCode(COUNTRY_PRE, phone);
+
+        }
+
         else
             subThreadToast(NO_EMPTY_ACCOUNT);
     }
