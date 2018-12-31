@@ -1,6 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -37,7 +38,7 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  */
 public class ConversationListFragment extends Fragment {
-//1
+
     private static final String TAG = "ConversationListFragmen";
     public ConversationListFragment() {
         // Required empty public constructor
@@ -52,6 +53,11 @@ public class ConversationListFragment extends Fragment {
         return view;
 
     }
+
+
+
+
+
     private RecentContactsFragment fragment;
 
 

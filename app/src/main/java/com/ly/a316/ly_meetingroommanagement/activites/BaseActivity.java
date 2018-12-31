@@ -13,9 +13,8 @@ import com.ly.a316.ly_meetingroommanagement.R;
  *  描述：基本类 实现沉浸式效果
  *  作者： 余智强
  *  创建时间：12/3 14:13
-*/
+ */
 public class BaseActivity  extends AppCompatActivity{
-    //1
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +22,7 @@ public class BaseActivity  extends AppCompatActivity{
         if (isImmersionBarEnabled()) {
             initImmersionBar();
         }
-        ImmersionBar.with(this).init();
+        // ImmersionBar.with(this).init();
     }
     protected void initImmersionBar() {
         //在BaseActivity里初始化

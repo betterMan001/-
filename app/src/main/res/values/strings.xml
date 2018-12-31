@@ -30,7 +30,8 @@
     <string name="forget_pwd_two">找回密码2/2</string>
     <string name="meeting">会议</string>
     <string name="contact_list">联系人列表</string>
-    <string name="main_tab_session">会话列表</string>
+    <string name="main_tab_session">会话</string>
+    <string name="sesson_list">会话列表</string>
     <string name="search_hint">请输入要搜索的内容</string>
     <string-array name="func_dialog_items">
         <item>Expand CalendarLayout</item>
@@ -41,7 +42,9 @@
         <item>Limit calendar range</item>
         <item>Show range</item>
     </string-array>
-<!--云信-->
+    <string name="verification">验证码</string>
+    <string name="verification_hint">请输入验证码</string>
+    <!--云信-->
     <string name="team_apply_sending">发送中…</string>
     <string name="delete_tip">删除提示</string>
     <string name="delete_system_message">删除该条系统消息？</string>

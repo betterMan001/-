@@ -23,7 +23,7 @@ import butterknife.Unbinder;
  */
 public class MineFragment extends Fragment {
 
-//1
+
     Unbinder unbinder;
 
     public MineFragment() {
@@ -37,7 +37,6 @@ public class MineFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fr_mine, container, false);
         unbinder = ButterKnife.bind(this, view);
-        ImmersionBar.with(this).init();
         return view;
 
     }
@@ -51,7 +50,7 @@ public class MineFragment extends Fragment {
 
     @OnClick(R.id.my_exit_ll)
     public void onViewClicked() {
-     loginOut();
+        loginOut();
     }
     private void loginOut(){
         //1.清空本地存储的数据

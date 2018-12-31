@@ -54,7 +54,6 @@ import butterknife.Unbinder;
  * 创建时间：12/4 21：06 第一次提交
  */
 public class CalendarFragment extends jilei implements CalendarView.OnCalendarSelectListener, CalendarView.OnYearChangeListener {
-    //1
     View view;
     TextView tvMonthDay, tvYear, tvLunar, tvCurrentDay, tv_today;
     ImageView ibCalendar;
