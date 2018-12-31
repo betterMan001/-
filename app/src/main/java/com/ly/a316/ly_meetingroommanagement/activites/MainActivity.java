@@ -4,9 +4,6 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
-import android.os.Looper;
-import android.os.MessageQueue;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,7 +13,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
@@ -52,7 +48,7 @@ import butterknife.ButterKnife;
 
 /**
  *  描述：主活动
- *  作者：余智强、徐文铎
+ *  作者：余智强
  *  创建时间：2018 12/4 13：27
 */
 public class MainActivity extends UI {
@@ -60,8 +56,7 @@ public class MainActivity extends UI {
      BottomBarLayout bottomBarLayout;
     Fragment contactListFragment,conversationListFragment,fr_calendar, fr_mine;
     private FragmentManager fManager;
-    //与状态栏同高的View
-    private View statusBarView;
+
     private List<TabEntity> tabEntityList;
     private String[] tabText = {"消息","日程","工作","通讯录","我的"};
 
@@ -92,6 +87,11 @@ public class MainActivity extends UI {
             Manifest.permission.ACCESS_FINE_LOCATION
     };
     @Override
+    protected void initImmersionBar() {
+        super.initImmersionBar();
+        ImmersionBar.with(this).init();
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -110,8 +110,11 @@ public class MainActivity extends UI {
         FragmentTransaction fTransaction = fManager.beginTransaction();
         fr_calendar = new CalendarFragment();
         fTransaction.add(R.id.ac_main_frameLayout, fr_calendar);
+        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.collu).init();
         fTransaction.commit();
-        ImmersionBar.with(MainActivity.this).reset().statusBarColor(R.color.classical_blue).fitsSystemWindows(true).init();
+
+
+
         bottomBarLayout.setOnItemClickListener(new BottomBarLayout.OnItemClickListener(){
             @Override
             public void onItemCLick(int position,View v) {
@@ -126,8 +129,8 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show( conversationListFragment);
                         }
+                        ImmersionBar.with(MainActivity.this).reset().navigationBarColor(R.color.skin_tabbar_bg).init();
                         fTransaction.commit();
-                        ImmersionBar.with(MainActivity.this).reset().statusBarColor(R.color.classical_blue).fitsSystemWindows(true).init();
                         break;
                     //2.日历界面
                     case 1:
@@ -143,9 +146,9 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show(fr_calendar);
                         }
+                        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.collu).init();
 
                         fTransaction.commit();
-                        ImmersionBar.with(MainActivity.this).reset().statusBarColor(R.color.classical_blue).fitsSystemWindows(true).init();
                         break;
                     //3.工作界面
                     case 2:
@@ -159,8 +162,9 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show(contactListFragment);
                         }
+                        ImmersionBar.with(MainActivity.this).fitsSystemWindows(true).keyboardEnable(true).statusBarDarkFont(true, 0.0f).barColor(R.color.classical_blue).init();
+
                         fTransaction.commit();
-                        ImmersionBar.with(MainActivity.this).reset().statusBarColor(R.color.classical_blue).fitsSystemWindows(true).init();
                         break;
                     //5.我的界面
                     case 4:
@@ -170,8 +174,11 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show(fr_mine);
                         }
+                        ImmersionBar.with(MainActivity.this)
+                                .transparentStatusBar()  //不写也可以，默认就是透明色
+
+                                .init();
                         fTransaction.commit();
-                        ImmersionBar.with(MainActivity.this).reset().init();
                         break;
                 }
             }
@@ -314,7 +321,7 @@ public class MainActivity extends UI {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        ImmersionBar.with(this).destroy();
+       // ImmersionBar.with(this).destroy();
         registerSystemMessageObservers(false);
     }
 }
