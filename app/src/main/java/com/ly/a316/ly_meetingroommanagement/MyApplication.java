@@ -19,6 +19,7 @@ import com.ly.a316.ly_meetingroommanagement.activites.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.ContactHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
+import com.mob.MobSDK;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.SDKOptions;
@@ -35,6 +36,8 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
+import cn.smssdk.SMSSDK;
+
 /*
 Date:2018/12/4
 Time:17:40
@@ -47,16 +50,19 @@ public class MyApplication extends Application {
     //登录相关信息
     private static String id = "";
     private static String token = "";
+
+
+    private static String imageURL="";
+    private static String userName="";
     //本地保存数据
-    private SharedPreferences pref;
-    private SharedPreferences.Editor editor;
+    private static SharedPreferences pref;
+    public static SharedPreferences.Editor editor;
     private static List<Activity> activityList = new ArrayList<>();
 
     //初始化加载人脸识别引擎
     private final String TAG = this.getClass().toString();
     public FaceDB mFaceDB;
     Uri mImage;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -72,6 +78,8 @@ public class MyApplication extends Application {
         //初始化面部识别
 //        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
 //        mImage = null;
+        //初始化mob短信验证
+        MobSDK.init(this);
         //初始化云信
         NIMClient.init(this, loginInfo(), options());
         if (NIMUtil.isMainProcess(this)) {
@@ -105,22 +113,53 @@ public class MyApplication extends Application {
     public static Context getContext() {
         return context;
     }
+    public static String getUserName() {
+       return pref.getString("userName","");
+    }
 
+    public  static void setUserName(String userName) {
+        MyApplication.userName = userName;
+        editor.putString("userName",userName);
+        editor.commit();
+    }
+
+    public Uri getmImage() {
+        return mImage;
+    }
+    public static String getImageURL() {
+        return pref.getString("imageURL","");
+    }
+
+    public static void  setImageURL(String imageURL) {
+        MyApplication.imageURL = imageURL;
+        editor.putString("imageURL",imageURL);
+        editor.commit();
+    }
+
+    public   void setmImage(Uri mImage) {
+        this.mImage = mImage;
+    }
     public static String getId() {
 
         return id;
     }
 
-    public static void setId(String id) {
+    public   static void setId(String id) {
+
         MyApplication.id = id;
+        editor.putString("id",id);
+        editor.commit();
     }
 
-    public static String getToken() {
+    public   static String getToken() {
         return token;
     }
 
-    public static void setToken(String token) {
+    public   static void setToken(String token) {
+
         MyApplication.token = token;
+        editor.putString("token",token);
+        editor.commit();
     }
 
     public static Bitmap decodeImage(String path) {

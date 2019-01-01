@@ -28,11 +28,10 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void run() {
                 Intent intent;
-                if(TextUtils.isEmpty(pref.getString("t_tid",""))){
+                if(TextUtils.isEmpty(pref.getString("id",""))){
                     intent=new Intent(WelcomeActivity.this,LoginActivity.class);
                 }else {
                     MyApplication.setId((pref.getString("id","")));
-                    MyApplication.setToken(pref.getString("token",""));
 
                     intent=new Intent(WelcomeActivity.this,MainActivity.class);
                 }

@@ -104,7 +104,7 @@ public class UserPreferences {
     }
 
     public static StatusBarNotificationConfig getStatusConfig() {
-        return getConfig(KEY_STATUS_BAR_NOTIFICATION_CONFIG);
+         return getConfig(KEY_STATUS_BAR_NOTIFICATION_CONFIG);
     }
 
     public static void setTeamAnnounceClosed(String teamId, boolean closed) {
@@ -133,7 +133,7 @@ public class UserPreferences {
             }
             config.downTimeBegin = jsonObject.getString("downTimeBegin");
             config.downTimeEnd = jsonObject.getString("downTimeEnd");
-            config.downTimeToggle = jsonObject.getBoolean("downTimeToggle");
+//            config.downTimeToggle = jsonObject.getBoolean("downTimeToggle");
             config.ring = jsonObject.getBoolean("ring");
             config.vibrate = jsonObject.getBoolean("vibrate");
             config.notificationSmallIconId = jsonObject.getIntValue("notificationSmallIconId");
