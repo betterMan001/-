@@ -177,9 +177,9 @@ public class MainActivity extends UI {
                         } else {
                             fTransaction.show(fr_mine);
                         }
-                        ImmersionBar.with(MainActivity.this)
-                                .transparentStatusBar()  //不写也可以，默认就是透明色
-                                .init();
+//                        ImmersionBar.with(MainActivity.this)
+//                                .transparentStatusBar()  //不写也可以，默认就是透明色
+//                                .init();
                         fTransaction.commit();
                         break;
                 }

@@ -94,6 +94,8 @@ public class AlarmActivity extends BaseActivity {
             list.add(alarm);
             alarm = new Alarm("2天前", false);
             list.add(alarm);
+            alarm = new Alarm("1周前", false);
+            list.add(alarm);
         }
     }
 

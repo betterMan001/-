@@ -13,7 +13,7 @@ public class Schedule {
     private String dateTime;//日期
     private String content;//内容
 
-
+    private int year,month,day;
     private String alert_startTime;//开始的时间
     private String alert_endtime;//结束的时间
     private String attribute;//事物属性
@@ -23,6 +23,7 @@ public class Schedule {
     private String alert_head;//会议主题
     private String alert_beizhu;//会议备注
 
+    private String event_idd;
     public Schedule(String dateTime, String content) {
         this.dateTime = dateTime;
         this.content = content;
@@ -39,7 +40,7 @@ public class Schedule {
 
 
 
-    public Schedule( String alert_startTime, String alert_endtime, String attribute, String alert_difang, String alert_people, String alert_head, String alert_beizhu) {
+    public Schedule( String alert_startTime, String alert_endtime, String attribute, String alert_difang, String alert_people, String alert_head, String alert_beizhu,String event_idd) {
 
         this.alert_startTime = alert_startTime;
         this.alert_endtime = alert_endtime;
@@ -48,6 +49,52 @@ public class Schedule {
         this.alert_people = alert_people;
         this.alert_head = alert_head;
         this.alert_beizhu = alert_beizhu;
+        this.event_idd = event_idd;
+    }
+    public Schedule( String alert_startTime, String alert_endtime, String attribute, String alert_difang, String alert_people, String alert_head, String alert_beizhu,String event_idd,int year,int month,int day) {
+
+        this.alert_startTime = alert_startTime;
+        this.alert_endtime = alert_endtime;
+        this.attribute = attribute;
+        this.alert_difang = alert_difang;
+        this.alert_people = alert_people;
+        this.alert_head = alert_head;
+        this.alert_beizhu = alert_beizhu;
+        this.event_idd = event_idd;
+        this.month = month;
+        this.year = year;
+        this.day = day;
+    }
+    public String getEvent_idd() {
+        return event_idd;
+    }
+
+    public void setEvent_idd(String event_idd) {
+        this.event_idd = event_idd;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
     }
 
     public static List<Schedule> getList() {

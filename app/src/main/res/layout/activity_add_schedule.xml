@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="#FFFFFF"
+    android:orientation="vertical"
     tools:context=".activites.AlarmActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/addSchedule_toolbar"
         android:layout_width="match_parent"
@@ -15,89 +16,94 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="@drawable/backtwo"
         app:titleTextColor="@color/white">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
+            android:text="新建日程"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:text="新建日程"
             android:textStyle="normal" />
+
         <TextView
             android:id="@+id/add_sure"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="right"
+            android:text="确定"
             android:textColor="@color/white"
             android:textSize="15sp"
-            android:text="确定"
-            android:textStyle="normal"
-            />
+            android:textStyle="normal" />
     </android.support.v7.widget.Toolbar>
+
     <View
-        android:layout_marginLeft="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/dp_10"
         android:background="#d9d9f3"></View>
+
     <EditText
         android:id="@+id/sc_title"
-        android:padding="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="标题"
         android:background="@null"
-        />
+        android:hint="标题"
+        android:padding="15dp" />
+
     <View
-        android:layout_marginLeft="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/dp_10"
         android:background="#d9d9f3"></View>
+
     <EditText
         android:id="@+id/sc_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="地点"
-        android:padding="15dp"
         android:background="@null"
-        />
+        android:hint="地点"
+        android:padding="15dp" />
+
     <View
 
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="#5Cbfbfbf"></View>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <TextView
-            android:textColor="#000"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="全天"
-            android:textSize="@dimen/text_size_15"
+            android:layout_weight="1"
             android:padding="15dp"
-            />
+            android:text="全天"
+            android:textColor="#000"
+            android:textSize="@dimen/text_size_15" />
+
         <ToggleButton
             android:id="@+id/toggleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/kaigaun"
-            android:text="ds"
             android:layout_marginRight="-40dp"
-            android:checked="false"
-            android:textOff=""
-            android:textOn=""
             android:background="@android:color/transparent"
-            />
+            android:button="@drawable/kaigaun"
+            android:checked="false"
+            android:text="ds"
+            android:textOff=""
+            android:textOn="" />
     </LinearLayout>
+
     <View
-        android:layout_marginLeft="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/dp_10"
         android:background="#d9d9f3"></View>
 
     <RelativeLayout
@@ -105,13 +111,13 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:textColor="#000"
-android:textSize="@dimen/text_size_15"
             android:id="@+id/add_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="开始时间" />
+            android:text="开始时间"
+            android:textColor="#000"
+            android:textSize="@dimen/text_size_15" />
 
         <TextView
             android:id="@+id/add_startTime"
@@ -132,25 +138,27 @@ android:textSize="@dimen/text_size_15"
             android:layout_below="@+id/add_start"
             android:visibility="gone"></include>
     </RelativeLayout>
+
     <View
-        android:layout_marginLeft="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/dp_10"
         android:background="#d9d9f3"></View>
 
     <RelativeLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:textSize="@dimen/text_size_15"
-
-            android:textColor="#000"
             android:id="@+id/add_end"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
-            android:text="结束时间" />
+            android:text="结束时间"
+            android:textColor="#000"
+            android:textSize="@dimen/text_size_15" />
 
         <TextView
             android:id="@+id/add_endTime"
@@ -163,79 +171,83 @@ android:textSize="@dimen/text_size_15"
             android:padding="@dimen/dp_10"
             android:text="" />
 
-        <include
+        <LinearLayout
             android:id="@+id/add_choosetime_end"
-            layout="@layout/choosetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/add_end"
-            android:visibility="gone"></include>
+            android:orientation="horizontal"
+            android:visibility="gone"></LinearLayout>
+
     </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/add_layout_chongfu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <TextView
 
-            android:textColor="#000"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:padding="15dp"
-            android:text="重复" />
+            android:text="重复"
+            android:textColor="#000" />
+
         <TextView
             android:id="@+id/add_chongfu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="永不"
             android:layout_marginRight="@dimen/dp_10"
-            />
+            android:text="永不" />
+
         <ImageView
-            android:layout_gravity="center"
             android:layout_width="@dimen/text_size_20"
             android:layout_height="@dimen/text_size_20"
-            android:background="@drawable/youbian"
-            />
+            android:layout_gravity="center"
+            android:background="@drawable/youbian" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="#5Cbfbfbf"></View>
+
     <LinearLayout
         android:id="@+id/add_layout_tixing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <TextView
-            android:textColor="#000"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:padding="15dp"
-            android:text="提醒" />
+            android:text="提醒"
+            android:textColor="#000" />
+
         <TextView
             android:id="@+id/add_tixing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="无"
             android:layout_marginRight="@dimen/dp_10"
-            />
+            android:text="无" />
+
         <ImageView
-            android:layout_gravity="center"
             android:layout_width="@dimen/text_size_20"
             android:layout_height="@dimen/text_size_20"
-            android:background="@drawable/youbian"
-            />
+            android:layout_gravity="center"
+            android:background="@drawable/youbian" />
     </LinearLayout>
+
     <EditText
         android:id="@+id/sc_beizhu"
-        android:padding="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
         android:hint="备注"
-        />
+        android:padding="@dimen/dp_10" />
 </LinearLayout>

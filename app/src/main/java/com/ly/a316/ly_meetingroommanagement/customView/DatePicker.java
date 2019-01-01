@@ -27,6 +27,8 @@ public class DatePicker extends LinearLayout {
     private final int MARGIN_RIGHT = 10;     //调整文字右端距离
     private DateObject dateObject;      //日期数据对象
     int wek=1;
+
+    int year,month, day , hour,miniute;
     //Constructors
     public DatePicker(Context context) {
         super(context);
@@ -37,7 +39,59 @@ public class DatePicker extends LinearLayout {
         super(context, attrs);
         init(context);
     }
+    public DatePicker(Context context,int year,int month,int day ,int hour,int miniute) {
+        super(context);
+        initt(context,year,month,day,hour,miniute);
+    }
+    private void initt(Context context,int yearr,int monthr,int dayr ,int hourr,int miniuter) {
+        int year = yearr;
+        int month = monthr;
+        int day =dayr;
+        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        dateList = new ArrayList<DateObject>();
 
+        for (int i = 0; i < 13; i++) {
+            //通过年月数算天数
+            Calendar a = Calendar.getInstance();
+            if (month + i >= 13) {
+                a.set(Calendar.YEAR, year+1);
+                a.set(Calendar.MONTH, i-1);
+            } else {
+                a.set(Calendar.MONTH, month + i);
+                a.set(Calendar.YEAR, year);
+            }
+            a.set(Calendar.DATE, 1);
+            a.roll(Calendar.DATE, -1);
+            int maxDate = a.get(Calendar.DAY_OF_MONTH);
+
+            for (int j = 0; j < maxDate; j++) {
+                if(month == month+i){
+                    if(day+j >maxDate){
+                        continue;
+                    }
+                    wek=(week+j) % 7 == 0 ? 7 :(week+j)% 7;
+                    dateObject = new DateObject(year, month, day + j, wek, month );
+                }else{
+                    wek = wek+1;
+                    int wekw=(wek) % 7 == 0 ? 7 :(wek)% 7;
+                    dateObject = new DateObject(year, month + i, j+1, wekw, month);
+                }
+                dateList.add(dateObject);
+            }
+        }
+
+
+        newDays = new WheelView(context);
+        LayoutParams newDays_param = new LayoutParams(800, LayoutParams.WRAP_CONTENT);//设置显示日期的长度
+        newDays_param.setMargins(0, 0, 0, 0);
+        newDays.setLayoutParams(newDays_param);
+        newDays.setAdapter(new StringWheelAdapter(dateList, 10));
+        newDays.setVisibleItems(3);
+        newDays.setCyclic(true);
+
+        newDays.addChangingListener(onDaysChangedListener);
+        addView(newDays);
+    }
     /**
      * 初始化
      *
@@ -49,7 +103,6 @@ public class DatePicker extends LinearLayout {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
         int week = calendar.get(Calendar.DAY_OF_WEEK);
         dateList = new ArrayList<DateObject>();
-
 
         for (int i = 0; i < 13; i++) {
             //通过年月数算天数

@@ -34,7 +34,46 @@ public class TimePicker extends LinearLayout {
         super(context, attrs);
         init(context);
     }
+    public TimePicker(Context context,int hour,int mini) {
+        super(context);
+        initt(context,hour,mini);
+    }
+    private void initt(Context context,int hourr,int minir){
+        int hour = hourr;
+        int minute = minir;
+        hourList = new ArrayList<DateObject>();
+        minuteList = new ArrayList<DateObject>();
 
+        for (int i = 0; i < 24; i++) {
+            dateObject = new DateObject(hour+i,-1,true);
+            hourList.add(dateObject);
+        }
+
+        for (int j = 0; j < 60; j++) {
+            dateObject = new DateObject(-1,minute+j,false);
+            minuteList.add(dateObject);
+        }
+
+        //小时选择器
+        hours = new WheelView(context);
+        LayoutParams lparams_hours = new LayoutParams(120,LayoutParams.WRAP_CONTENT);
+        lparams_hours.setMargins(0, 0, MARGIN_RIGHT, 0);
+        hours.setLayoutParams(lparams_hours);
+        hours.setAdapter(new StringWheelAdapter(hourList, 24));
+        hours.setVisibleItems(3);
+        hours.setCyclic(true);
+        hours.addChangingListener(onHoursChangedListener);
+        addView(hours);
+
+        //分钟选择器
+        mins = new WheelView(context);
+        mins.setLayoutParams(new LayoutParams(120,LayoutParams.WRAP_CONTENT));
+        mins.setAdapter(new StringWheelAdapter(minuteList,60));
+        mins.setVisibleItems(3);
+        mins.setCyclic(true);
+        mins.addChangingListener(onMinsChangedListener);
+        addView(mins);
+    }
     /**
      * 初始化
      * @param context

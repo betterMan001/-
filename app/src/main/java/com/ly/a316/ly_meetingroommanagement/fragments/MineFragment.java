@@ -38,7 +38,6 @@ public class MineFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fr_mine, container, false);
         unbinder = ButterKnife.bind(this, view);
-        ImmersionBar.with(this).init();
         return view;
 
     }

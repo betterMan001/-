@@ -57,8 +57,8 @@ public class ScheduleDaoImp implements ScheduleDao {
         String url= Net.addSchedule+"?eId="+eId+"&begin="+begin+"&end="+end+"&theme="+theme+"&meetType="+meetType+"&context="+context+"&address="+address+"&remind="+remind;
 Log.i("zjc",url);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .connectTimeout(6, TimeUnit.MINUTES)
-                .readTimeout(6, TimeUnit.MINUTES)
+                .connectTimeout(11, TimeUnit.MINUTES)
+                .readTimeout(11, TimeUnit.MINUTES)
                 .build();
         FormBody formBody = new FormBody.Builder()
                 .add("eId", eId)

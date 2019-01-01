@@ -155,4 +155,100 @@ public class EventModel extends RealmObject {
     public void setId(String id) {
         this.id = id;
     }
+
+    int s_year,s_month,s_day,shour,smini;
+    int e_year,e_meoth,e_day,ehour,emini;
+
+    public EventModel(int s_year, int s_month, int s_day, int e_year, int e_meoth, int e_day,int shour,int smini,int ehout,int emini) {
+        this.s_year = s_year;
+        this.s_month = s_month;
+        this.s_day = s_day;
+        this.e_year = e_year;
+        this.e_meoth = e_meoth;
+        this.e_day = e_day;
+        this.shour = shour;
+        this.smini = smini;
+        this.ehour = ehout;
+        this.emini = emini;
+    }
+
+    public int getS_year() {
+        return s_year;
+    }
+
+    public int getShour() {
+        return shour;
+    }
+
+    public void setShour(int shour) {
+        this.shour = shour;
+    }
+
+    public int getSmini() {
+        return smini;
+    }
+
+    public void setSmini(int smini) {
+        this.smini = smini;
+    }
+
+    public int getEhour() {
+        return ehour;
+    }
+
+    public void setEhour(int ehour) {
+        this.ehour = ehour;
+    }
+
+    public int getEmini() {
+        return emini;
+    }
+
+    public void setEmini(int emini) {
+        this.emini = emini;
+    }
+
+    public void setS_year(int s_year) {
+        this.s_year = s_year;
+    }
+
+    public int getS_month() {
+        return s_month;
+    }
+
+    public void setS_month(int s_month) {
+        this.s_month = s_month;
+    }
+
+    public int getS_day() {
+        return s_day;
+    }
+
+    public void setS_day(int s_day) {
+        this.s_day = s_day;
+    }
+
+    public int getE_year() {
+        return e_year;
+    }
+
+    public void setE_year(int e_year) {
+        this.e_year = e_year;
+    }
+
+    public int getE_meoth() {
+        return e_meoth;
+    }
+
+    public void setE_meoth(int e_meoth) {
+        this.e_meoth = e_meoth;
+    }
+
+    public int getE_day() {
+        return e_day;
+    }
+
+    public void setE_day(int e_day) {
+        this.e_day = e_day;
+    }
 }

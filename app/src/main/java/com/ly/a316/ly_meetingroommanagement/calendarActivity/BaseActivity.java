@@ -54,7 +54,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
         setContentView(R.layout.activity_base);
         ButterKnife.bind(this);
 
-
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
 

@@ -3,6 +3,8 @@ package com.ly.a316.ly_meetingroommanagement.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 
 import android.database.Cursor;
@@ -100,7 +102,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     FrameLayout fra;
     DatePicker.OnChangeListener dp_onchanghelistener;
     TimePicker.OnChangeListener tp_onchanghelistener;
-
+    Map<String, Calendar> map = new HashMap<>();
     //0代表无 1代表日程发生时 5-120代表分钟 2代表一天前 3代表2天前
     int time_result[] = {0, 1, 5, 15, 30, 60, 120, 2, 3};
 
@@ -154,6 +156,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     void initview() {
         setStatusBarDarkMode();
         init();
+
         /**
          * 伪造数据
          */
@@ -185,8 +188,25 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             }
 
             @Override
-            public void onitemDelete(int position) {
-                Toast.makeText(getContext(), "删除按钮被点击", Toast.LENGTH_SHORT).show();
+            //删除操作
+            public void onitemDelete(String event_idd,int position) {
+               int year = Schedule.list.get(position).getYear();
+               int month = Schedule.list.get(position).getMonth();
+               int day = Schedule.list.get(position).getDay();
+                //通过Event_id可以将本地日历存的内容删掉
+                Uri deleteUri = null;
+                deleteUri = ContentUris.withAppendedId(Uri.parse(CalanderUtils.calanderEventURL), Integer.valueOf(event_idd));
+                int rows = getActivity().getContentResolver().delete(deleteUri, null, null);
+                Schedule.list.remove(position);
+                calendar_adapter.notifyDataSetChanged();
+                 if(Schedule.list.size()==0){
+                    Calendar calendar = new Calendar();
+                    calendar.setYear(year);
+                     calendar.setMonth(month);
+                     calendar.setDay(day);
+                     ibCalendarview.removeSchemeDate(calendar);
+                }
+
             }
 
             @Override
@@ -198,7 +218,6 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 Intent i = new Intent(getActivity(), AlarmActivity.class);
                 i.putExtra("title", "新建提醒");
                 i.putExtra("choose", "1");
-
                 startActivityForResult(i, 12);
             }
         });
@@ -217,13 +236,12 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         });
 
         moren();
-        int year = ibCalendarview.getCurYear();
+        /*int year = ibCalendarview.getCurYear();
         int month = ibCalendarview.getCurMonth();
-        //伪造数据
         Map<String, Calendar> map = new HashMap<>();
-        map.put(getSchemeCalendar(year, month, 3, 0xFFdf1356, "假").toString(),
+        map.put(getSchemeCalendar(year,month, 3, 0xFFdf1356, "假").toString(),
                 getSchemeCalendar(year, month, 3, 0xFFdf1356, "假"));
-        ibCalendarview.setSchemeDate(map);
+        ibCalendarview.setSchemeDate(map);*/
     }
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
@@ -270,12 +288,10 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         try {
             Schedule.list.clear();
             //获取这个时间段的所有信息
-            List<Schedule> calendarEvent = CalanderUtils.getCalendarEventByDay(getActivity(), 2018, calendar.getMonth(),calendar.getDay());
-
+            List<Schedule> calendarEvent = CalanderUtils.getCalendarEventByDay(getActivity(), calendar.getYear(), calendar.getMonth(),calendar.getDay());
             Schedule.list.addAll(calendarEvent);
-            Log.i("zjc",Schedule.list.size()+" ");
-
             calendar_adapter.notifyDataSetChanged();
+            getAll();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -320,7 +336,6 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_schedule:
-
                 break;
             case R.id.fl_addday:
                 //添加日程
@@ -361,5 +376,21 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
     }
 
+void getAll(){
+    try {
+        java.util.Calendar c  = java.util.Calendar.getInstance();
+        c.set( java.util.Calendar.YEAR, Integer.valueOf(t_year));
+        c.set( java.util.Calendar.MONTH, Integer.valueOf(t_month)-1);
+        int maxDay = c.getActualMaximum( java.util.Calendar.DAY_OF_MONTH);
+        List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(),Integer.valueOf(t_year),Integer.valueOf(t_month),maxDay);
+        for(int i=0;i<calendarEvent.size();i++){
+            map.put(getSchemeCalendar(calendarEvent.get(i).getS_year(), calendarEvent.get(i).getS_month(), calendarEvent.get(i).getS_day(), 0xFFdf1356, "日").toString(),
+                    getSchemeCalendar(calendarEvent.get(i).getS_year(), calendarEvent.get(i).getS_month(), calendarEvent.get(i).getS_day(), 0xFFdf1356, "日"));
+            ibCalendarview.setSchemeDate(map);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
 
+}
 }

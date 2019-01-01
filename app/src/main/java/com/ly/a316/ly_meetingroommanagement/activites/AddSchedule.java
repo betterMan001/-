@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -57,9 +58,9 @@ public class AddSchedule extends BaseActivity {
     @BindView(R.id.add_choosetime_start)
     View layput_choosetime;
     @BindView(R.id.add_choosetime_end)
-    View add_choosetime_end;
+    LinearLayout add_choosetime_end;
     java.util.Calendar calendar_all;//获取今天的时间
-    String selectDatae, selectTime;
+
     @BindView(R.id.dp_test)
     DatePicker dp_test;//时间选择的控件
     DatePicker dpp_test;
@@ -74,21 +75,22 @@ public class AddSchedule extends BaseActivity {
     @BindView(R.id.add_tixing)
     TextView add_tixing;
     TimePicker tpp_test;
-    String sc_title, sc_location, sc_allday , sc_remarks;
+    String sc_title, sc_location, sc_allday, sc_remarks;
     String chongfu[] = {"永不", "每天", "每周", "每月", "每年", "自定义"};
     String chongfudui[] = {"0", "DAILY", "WEEKLY", "MONTHLY", "YEARLY"};
-    String alarmTime[] = {"无", "日程发生时", "5分钟前", "15分钟前", "30分钟前", "1小时前", "2小时前", "1天前", "2天前"};
-    int alarmTimeduiying[] = {-1, 0, 5, 15, 30, 60, 120, 1440, 2880};
+    String alarmTime[] = {"无", "日程发生时", "5分钟前", "15分钟前", "30分钟前", "1小时前", "2小时前", "1天前", "2天前", "一周前"};
+    int alarmTimeduiying[] = {-1, 0, 5, 15, 30, 60, 120, 1440, 2880, 10080};
+    String selectDatae, selectTime;//选择完的年月日   选择完的时分
     //选择时间与当前时间，用于判断用户选择的是否是以前的时间
-    private int currentHour, currentMinute, currentDay, selectHour, selectMinute, selectDay;
+    private int currentHour, currentMinute, currentDay;
     TextView add_sure;
     //重复名字
     String getSc_remarks = "0";
     int alarmtime;//提醒的时间
-    int s_yearr, s_monthr, s_dayr, s_day_of_weekr, s_selectHour, s_selectMiniute;
-    int e_yearr, e_monthr, e_dayr, e_day_of_wekkr, e_selectHour, e_selectMiniute;
+    int s_yearr, s_monthr, s_dayr, s_day_of_weekr, s_selectHour, s_selectMiniute;//开始的时间
+    int e_yearr, e_monthr, e_dayr, e_day_of_wekkr, e_selectHour, e_selectMiniute;//结束的时间
     ScheduleDao scheduleDao = new ScheduleDaoImp(this);
-    String ti = "无";
+    String ti = "无";//提醒
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,7 +105,6 @@ public class AddSchedule extends BaseActivity {
                 finish();
             }
         });
-
         toggleButton.setOnCheckedChangeListener((CompoundButton.OnCheckedChangeListener) new MyOnCheckedChangeListener());
         dp_test.setOnChangeListener(new DatePicker.OnChangeListener() {
             @Override
@@ -112,13 +113,65 @@ public class AddSchedule extends BaseActivity {
                 s_monthr = month;
                 s_dayr = day;
                 s_day_of_weekr = day_of_week;
-                selectDay = day;
                 selectDatae = year + "年" + month + "月" + day + "日" + DatePicker.getDayOfWeekCN(day_of_week);
                 add_startTime.setText(selectDatae + " ");
 
+                e_yearr = year;
+                e_monthr = month;
+                e_dayr = day;
+                e_day_of_wekkr = day_of_week;
+                selectDatae = year + "年" + month + "月" + day + "日" + DatePicker.getDayOfWeekCN(day_of_week);
+                add_endTime.setText(selectDatae + " " + selectTime);
+
+                add_choosetime_end.removeView(dpp_test);
+                add_choosetime_end.removeView(tpp_test);
             }
         });
-        dpp_test = findViewById(R.id.add_choosetime_end).findViewById(R.id.dp_test);
+        tp_test.setOnChangeListener(new TimePicker.OnChangeListener() {
+            @Override
+            public void onChange(int hour, int minute) {
+                s_selectHour = hour;//开始的时间
+                s_selectMiniute = minute;
+                selectTime = hour + "点" + ((minute < 10) ? ("0" + minute) : minute) + "分";
+                add_startTime.setText(selectDatae + " " + selectTime);
+                if (hour >= 24) {
+                    e_selectHour = hour;
+                }
+                e_selectMiniute = s_selectMiniute == 30 ? 0 : (s_selectMiniute < 30 ? s_selectMiniute + 30 : s_selectMiniute);
+                if (s_selectMiniute >= 30) {
+                    if (hour == 24) {
+                        e_selectHour = 1;
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.YEAR, s_yearr);
+                        calendar.set(Calendar.MONTH, s_monthr);
+                        if (s_dayr == calendar.getActualMaximum(Calendar.DAY_OF_MONTH)) {
+                            e_dayr = 1;
+                        } else {
+                            e_dayr = s_dayr + 1;
+                        }
+                    } else {
+                        e_selectHour = hour + 1;
+                    }
+                } else {
+                    e_selectHour = s_selectHour;
+                }
+                selectTime = e_selectHour + "点" + ((e_selectMiniute < 10) ? ("0" + e_selectMiniute) : e_selectMiniute) + "分";
+                add_endTime.setText(selectDatae + " " + selectTime);
+
+            }
+        });
+    }
+
+    //动态添加时间选择器
+    void dsd(int year, int month, int day, int hour, int mini) {
+        add_choosetime_end.removeView(dpp_test);
+        add_choosetime_end.removeView(tpp_test);
+        dpp_test = new DatePicker(this, year, month, day, hour, mini);
+        add_choosetime_end.addView(dpp_test);
+        tpp_test = new TimePicker(this, hour, mini);
+        add_choosetime_end.addView(tpp_test);
+
+
         dpp_test.setOnChangeListener(new DatePicker.OnChangeListener() {
             @Override
             public void onChange(int year, int month, int day, int day_of_week) {
@@ -126,34 +179,19 @@ public class AddSchedule extends BaseActivity {
                 e_monthr = month;
                 e_dayr = day;
                 e_day_of_wekkr = day_of_week;
-                selectDay = day;
                 selectDatae = year + "年" + month + "月" + day + "日" + DatePicker.getDayOfWeekCN(day_of_week);
                 add_endTime.setText(selectDatae + " " + selectTime);
 
             }
         });
-        tpp_test = findViewById(R.id.add_choosetime_end).findViewById(R.id.tp_test);
+
         tpp_test.setOnChangeListener(new TimePicker.OnChangeListener() {
             @Override
             public void onChange(int hour, int minute) {
-                s_selectHour = hour;
-                s_selectMiniute = minute;
-                selectTime = hour + "点" + ((minute < 10) ? ("0" + minute) : minute) + "分";
-                selectHour = hour;
-                selectMinute = minute;
-                add_endTime.setText(selectDatae + " " + selectTime);
-            }
-        });
-        tp_test.setOnChangeListener(new TimePicker.OnChangeListener() {
-            @Override
-            public void onChange(int hour, int minute) {
-                e_selectHour = hour;
+                e_selectHour = hour;//结束的时间
                 e_selectMiniute = minute;
-
                 selectTime = hour + "点" + ((minute < 10) ? ("0" + minute) : minute) + "分";
-                selectHour = hour;
-                selectMinute = minute;
-                add_startTime.setText(selectDatae + " " + selectTime);
+                add_endTime.setText(selectDatae + " " + selectTime);
             }
         });
     }
@@ -176,6 +214,7 @@ public class AddSchedule extends BaseActivity {
                 break;
             case R.id.add_endTime:
                 if (c == 3) {
+                    dsd(e_yearr, e_monthr, e_dayr, e_selectHour, e_selectMiniute);
                     add_choosetime_end.setVisibility(View.VISIBLE);
                     layput_choosetime.setVisibility(View.GONE);
                     c--;
@@ -202,10 +241,9 @@ public class AddSchedule extends BaseActivity {
             case R.id.add_sure:
                 //提交日程
                 subbmit();
-                String starttime = s_yearr + "-" + (s_monthr ) + "-" + s_dayr + " " + s_selectHour + ":" + s_selectMiniute + ":00";
-                String endtime = e_yearr + "-" + (e_monthr ) + "-" + e_dayr + " " + e_selectHour + ":" + e_selectMiniute + ":00";
-
-                scheduleDao.addSchedule("15858526801", starttime, endtime, sc_title, "日程", sc_remarks, sc_location, ti);
+                String starttime = s_yearr + "-" + (s_monthr) + "-" + s_dayr + " " + s_selectHour + ":" + s_selectMiniute + ":00";
+                String endtime = e_yearr + "-" + (e_monthr) + "-" + e_dayr + " " + e_selectHour + ":" + e_selectMiniute + ":00";
+                scheduleDao.addSchedule("15858526805", starttime, endtime, sc_title, "日程", sc_remarks, sc_location, ti);
                 break;
         }
     }
@@ -214,15 +252,18 @@ public class AddSchedule extends BaseActivity {
     void subbmit() {
         sc_title = sc_titleview.getText().toString();//标题
         sc_location = sc_locationview.getText().toString();//地点
-        //开始时间add_startTime;
-        //结束时间add_endTime;
-        //重复
-        //提醒
-        sc_remarks = sc_beizhuview.getText().toString();//备注
-        //获取要出入的gmail账户的id
+       /*
+         开始时间add_startTime;
+         结束时间add_endTime;
+         重复
+         提醒
+       */
+        //备注
+        sc_remarks = sc_beizhuview.getText().toString();
+        //设置calendar的id。一般都设置为1
         if (CalanderUtils.requestPermission(this)) {
             String calId = "";
-            //这时一条查询语句
+            //这是一条查询语句
             Cursor userCursor = getContentResolver().query(Uri.parse(CalanderUtils.calanderURL), null,
                     null, null, null);
             //Uri.parse(CalanderUtils.calanderURL)打印得结果：content://com.android.calendar/calendars
@@ -232,7 +273,6 @@ public class AddSchedule extends BaseActivity {
                 calId = userCursor.getString(userCursor.getColumnIndex("_id"));
                 //打印得结果calld = 1
             }
-
             ContentValues event = new ContentValues();
             event.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
             event.put("title", sc_title);//插入标题
@@ -247,39 +287,37 @@ public class AddSchedule extends BaseActivity {
             mCalendar.set(Calendar.DAY_OF_MONTH, s_dayr);
             mCalendar.set(Calendar.HOUR_OF_DAY, s_selectHour);
             mCalendar.set(Calendar.MINUTE, s_selectMiniute);
-
-             //结束时间
-            //   mCalendar.set(2018, 12, 27, 7, 30);
             long start = mCalendar.getTime().getTime();
+            //结束时间
             mCalendar.set(Calendar.YEAR, e_yearr);
             mCalendar.set(Calendar.MONTH, e_monthr - 1);
             mCalendar.set(Calendar.DAY_OF_MONTH, e_dayr);
             mCalendar.set(Calendar.HOUR_OF_DAY, e_selectHour);
             mCalendar.set(Calendar.MINUTE, e_selectMiniute);
-             // mCalendar.set(2018, 12, 27, 10, 30);
             long end = mCalendar.getTime().getTime();
+
             event.put("dtstart", start);
             event.put("dtend", end);
             event.put("hasAlarm", 1);
 
             if (!getSc_remarks.equals("0")) {
+                //设置重复规则
                 event.put("rrule", "FREQ=" + getSc_remarks);
             }
             Uri newEvent = getContentResolver().insert(Uri.parse(CalanderUtils.calanderEventURL), event);
 
             long id = Long.parseLong(newEvent.getLastPathSegment());
             ContentValues values = new ContentValues();
+            //插入时间的event_id
             values.put("event_id", id);
             //提前10分钟有提醒
             values.put("minutes", alarmtime);//在事件发生之前多少分钟进行提醒
             getContentResolver().insert(Uri.parse(CalanderUtils.calanderRemiderURL), values);
-
             //添加会议人
             /*ContentValues valuess = new ContentValues();
             valuess.put("event_id", id);
             valuess.put("event_id", id);
             Log.i("zjc",id+"");
-
             valuess.put("attendeeName", "张思");
             getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI, valuess);*/
 
@@ -325,22 +363,43 @@ public class AddSchedule extends BaseActivity {
     }
 
     void init() {
-
-        selectDatae = calendar_all.get(java.util.Calendar.YEAR) + "年" +  (Integer.valueOf( calendar_all.get(java.util.Calendar.MONTH))+1) + "月"
+        selectDatae = calendar_all.get(java.util.Calendar.YEAR) + "年" + (Integer.valueOf(calendar_all.get(java.util.Calendar.MONTH)) + 1) + "月"
                 + calendar_all.get(java.util.Calendar.DAY_OF_MONTH) + "日"
                 + DatePicker.getDayOfWeekCN(calendar_all.get(java.util.Calendar.DAY_OF_WEEK));
+        s_yearr = calendar_all.get(java.util.Calendar.YEAR);
+        s_monthr = (Integer.valueOf(calendar_all.get(java.util.Calendar.MONTH)) + 1);
+        s_dayr = calendar_all.get(java.util.Calendar.DAY_OF_MONTH);
+        s_day_of_weekr = calendar_all.get(java.util.Calendar.DAY_OF_WEEK);
+        s_selectHour = calendar_all.get(Calendar.HOUR_OF_DAY);//开始的时间
+        s_selectMiniute = calendar_all.get(Calendar.MINUTE);
 
-        //选择时间与当前时间的初始化，用于判断用户选择的是否是以前的时间，如果是，弹出toss提示不能选择过去的时间
-        selectDay = currentDay = calendar_all.get(java.util.Calendar.DAY_OF_MONTH);
-        selectMinute = currentMinute = calendar_all.get(java.util.Calendar.MINUTE);
-        selectHour = currentHour = calendar_all.get(java.util.Calendar.HOUR_OF_DAY);
-        selectTime = currentHour + "点" + ((currentMinute < 10) ? ("0" + currentMinute) : currentMinute) + "分";
+        e_yearr = calendar_all.get(java.util.Calendar.YEAR);
+        e_monthr = (Integer.valueOf(calendar_all.get(java.util.Calendar.MONTH)) + 1);
+        e_dayr = calendar_all.get(java.util.Calendar.DAY_OF_MONTH);
+        s_day_of_weekr = calendar_all.get(java.util.Calendar.DAY_OF_WEEK);
 
+        e_selectMiniute = s_selectMiniute == 30 ? 0 : (s_selectMiniute < 30 ? s_selectMiniute + 30 : s_selectMiniute);
+        if (s_selectMiniute >= 30) {
+            if (s_selectHour == 24) {
+                e_selectHour = 1;
+            } else {
+                e_selectHour = s_selectHour + 1;
+            }
+        } else {
+            e_selectHour = s_selectHour;
+        }
+        selectTime = s_selectHour + "点" + ((s_selectMiniute < 10) ? ("0" + s_selectMiniute) : s_selectMiniute) + "分";
         add_startTime.setText(selectDatae + " " + selectTime);
+        selectTime = e_selectHour + "点" + ((e_selectMiniute < 10) ? ("0" + e_selectMiniute) : e_selectMiniute) + "分";
         add_endTime.setText(selectDatae + " " + selectTime);
+
+        dpp_test = new DatePicker(this, e_yearr, e_monthr, e_dayr, e_selectHour, e_selectMiniute);
+        add_choosetime_end.addView(dpp_test);
+        tpp_test = new TimePicker(this, e_selectHour, e_selectHour);
+        add_choosetime_end.addView(tpp_test);
     }
 
-    public void successback(){
+    public void successback() {
         finish();
     }
 }
