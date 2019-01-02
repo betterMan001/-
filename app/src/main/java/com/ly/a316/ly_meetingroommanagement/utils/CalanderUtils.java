@@ -253,12 +253,13 @@ public class CalanderUtils {
                     String address = eventCursor.getString(eventCursor.getColumnIndex("eventlocation"));//日程事件的位置，发现没有这个字段
                     String duration = eventCursor.getString(eventCursor.getColumnIndex("duration"));//持续时间
                     String allday = eventCursor.getString(eventCursor.getColumnIndex("allday"));//是否全天提醒
+
+                    String alerT_time = "-1";//代表永不
                     String timeStart = TimeUtil.timeFormatStr(dtstart);//将日程时间改成yyyy-MM-dd hh:mm:ss形式
                     String dtend = eventCursor.getString(eventCursor.getColumnIndex("dtend"));//日程事件结束时间
                     String timeEnd = TimeUtil.timeFormatStr(dtend);//将日程时间改成yyyy-MM-dd hh:mm:ss形式
                     String startTime = timeStart.substring(11, 16);//截取日程事件的开始时间的 时和分， hh:mm
                     String endtime = timeEnd.substring(11, 16);//截取日程事件的结束时间的 时和分， hh:mm
-
                     try {
                         String selections = "((event_id == " + Integer.valueOf(eventCursor.getString(eventCursor.getColumnIndex("_id"))) + "))";
                         @SuppressLint("MissingPermission")
@@ -268,12 +269,26 @@ public class CalanderUtils {
                             //参会人员
                             mepeople = eventCursors.getString(eventCursors.getColumnIndex("attendeeName"));
                         }
+
                     } catch (Exception e) {
-
                         e.printStackTrace();
-
                     }
-
+                    try {
+                        String selections = "((event_id == " + Integer.valueOf(eventCursor.getString(eventCursor.getColumnIndex("_id"))) + "))";
+                        @SuppressLint("MissingPermission")
+                        Cursor eventCursorss = context.getContentResolver().query(CalendarContract.Reminders.CONTENT_URI, null,
+                                selections, null, null);
+                        if (eventCursorss.getCount() > 0) {
+                            if (eventCursorss.moveToFirst()) {
+                                do{
+                                    alerT_time = eventCursorss.getString(eventCursorss.getColumnIndex("minutes"));//在事件发生之前多少分钟进行提醒
+                                    Log.i("zjc", "alerT_time= " + alerT_time);
+                                } while (eventCursorss.moveToNext());
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
                     //30 29 12 12 2018 2018
 
                     int startday = Integer.parseInt(timeStart.substring(8, 10));//截取日程事件的开始时间的 day， dd
@@ -285,17 +300,16 @@ public class CalanderUtils {
                     int day = TimeUtil.DateCompareDiffDay(timeEnd, timeStart);//比较日程事件开始和结束时间，看看是否跨日了，跨日的那些天都需要特殊处理*/
 
                     if (mepeople.equals("2")) {
-                        Schedule schedule = new Schedule(startTime, endtime, "[日程]", location, "", eventTitle, description, event_idd,startYear,startMonth,startday);
+                        Schedule schedule = new Schedule(startTime, endtime, "[日程]", location, "自己", eventTitle, description, event_idd,startYear,startMonth,startday,alerT_time);
                         eventlist.add(schedule);
                     } else {
-                        Schedule schedule = new Schedule(startTime, endtime, "[会议]", location, mepeople, eventTitle, description, event_idd,startYear,startMonth,startday);
+                        Schedule schedule = new Schedule(startTime, endtime, "[会议]", location, mepeople, eventTitle, description, event_idd,startYear,startMonth,startday,alerT_time);
                         eventlist.add(schedule);
                     }
                 } while (eventCursor.moveToNext());
             }
 
         }
-        Log.i("zjc", "eventCursor的大小：" + eventCursor.getCount());
         eventCursor.close();
         return eventlist;
     }

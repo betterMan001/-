@@ -229,6 +229,7 @@ public class AddSchedule extends BaseActivity {
                 Intent intent = new Intent(this, AlarmActivity.class);
                 intent.putExtra("title", "重复");
                 intent.putExtra("choose", "2");
+                intent.putExtra("alerttime", "0");
                 startActivityForResult(intent, 13);
                 break;
             case R.id.add_layout_tixing:
@@ -236,6 +237,7 @@ public class AddSchedule extends BaseActivity {
                 Intent intentt = new Intent(this, AlarmActivity.class);
                 intentt.putExtra("title", "提醒");
                 intentt.putExtra("choose", "3");
+                intentt.putExtra("alerttime", "-1");
                 startActivityForResult(intentt, 14);
                 break;
             case R.id.add_sure:

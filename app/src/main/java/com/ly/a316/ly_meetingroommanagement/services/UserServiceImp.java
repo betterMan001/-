@@ -53,7 +53,7 @@ public class UserServiceImp implements UserService {
                     Log.d(TAG,"登录获取服务器信息成功");
                     JSONObject jsonObject=new JSONObject(response.body().string());
                     JSONObject jsonObject1=jsonObject.getJSONObject("map");
-                    UserInfoModel model= MyJSONUtil.toObject(String.valueOf(jsonObject1),UserInfoModel.class);
+                    UserInfoModel model= MyJSONUtil.toObject(String.valueOf(jsonObject),UserInfoModel.class);
                     loginActivity.loginCallBack(model);
                 } catch (JSONException e) {
                     e.printStackTrace();

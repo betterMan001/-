@@ -45,7 +45,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
         ((MyViewHolder) viewHolder).item_mettingwhere.setText(list.get(i).getAlert_difang());
         ((MyViewHolder) viewHolder).item_mettingplan.setText(list.get(i).getAlert_beizhu());
         ((MyViewHolder) viewHolder).item_calendar_day.setText(list.get(i).getAttribute());
-
+        ((MyViewHolder) viewHolder).item_alerttime.setText(list.get(i).getAlert_time());
         ((MyViewHolder)viewHolder).item_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
         ((MyViewHolder)viewHolder).item_calendar_alerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick.onitemAlarm(i);
+                onItemClick.onitemAlarm(i,list.get(i).getEvent_idd());
             }
         });
         ((MyViewHolder)viewHolder).delete.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +73,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout item_all;
-        public TextView item_mettingstart, item_mettingend,item_mettinghead,item_mettingpeople,item_mettingwhere,item_mettingplan,item_calendar_day;
+        public TextView item_mettingstart, item_mettingend,item_mettinghead,item_mettingpeople,item_mettingwhere,item_mettingplan,item_calendar_day,item_alerttime;
         public   Button delete,item_calendar_alerm;
 
         public MyViewHolder(View itemView) {
@@ -88,13 +88,14 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
             delete = itemView.findViewById(R.id.delete);
             item_calendar_alerm = itemView.findViewById(R.id.item_calendar_alerm);
             item_calendar_day = itemView.findViewById(R.id.item_calendar_day);
+            item_alerttime =  itemView.findViewById(R.id.item_alerttime);
         }
     }
 
    public interface OnItemClick {
         void onitemClick(int position);
         void onitemDelete(String position,int weizhi);
-        void onitemAlarm(int position);
+        void onitemAlarm(int position,String weizzhi);
     }
 
     OnItemClick onItemClick;

@@ -2,6 +2,7 @@ package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
 import android.annotation.SuppressLint;
+import android.app.ActivityOptions;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -9,9 +10,12 @@ import android.content.Intent;
 
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
+import android.support.transition.Slide;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -89,7 +93,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     String t_year, t_month, t_day;
     List<Schedule> list = new ArrayList<>();
     Intent intent1;//跳转统计的页面
-
+    int alarmyear, alarmmonth, alarmday;
     private TextView tv_ok, tv_cancel;//确定、取消button
     java.util.Calendar calendar_all;//获取今天的时间
     private DatePicker dp_test;//时间选择的控件
@@ -105,6 +109,9 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     Map<String, Calendar> map = new HashMap<>();
     //0代表无 1代表日程发生时 5-120代表分钟 2代表一天前 3代表2天前
     int time_result[] = {0, 1, 5, 15, 30, 60, 120, 2, 3};
+    int alarmTimeduiying[] = {-1, 0, 5, 15, 30, 60, 120, 1440, 2880, 10080};
+    String alarm_item_eventid = "0";
+    int alarm_choose_item;
 
     @Override
     protected int getLayoutId() {
@@ -184,40 +191,50 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         calendar_adapter.setOnItemClick(new Calendar_Adapter.OnItemClick() {
             @Override
             public void onitemClick(int position) {
+                //日程详情
+
                 Toast.makeText(getContext(), "all被点击", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             //删除操作
-            public void onitemDelete(String event_idd,int position) {
-               int year = Schedule.list.get(position).getYear();
-               int month = Schedule.list.get(position).getMonth();
-               int day = Schedule.list.get(position).getDay();
+            public void onitemDelete(String event_idd, int position) {
+                int year = Schedule.list.get(position).getYear();
+                int month = Schedule.list.get(position).getMonth();
+                int day = Schedule.list.get(position).getDay();
                 //通过Event_id可以将本地日历存的内容删掉
                 Uri deleteUri = null;
                 deleteUri = ContentUris.withAppendedId(Uri.parse(CalanderUtils.calanderEventURL), Integer.valueOf(event_idd));
                 int rows = getActivity().getContentResolver().delete(deleteUri, null, null);
                 Schedule.list.remove(position);
                 calendar_adapter.notifyDataSetChanged();
-                 if(Schedule.list.size()==0){
+                if (Schedule.list.size() == 0) {
                     Calendar calendar = new Calendar();
                     calendar.setYear(year);
-                     calendar.setMonth(month);
-                     calendar.setDay(day);
-                     ibCalendarview.removeSchemeDate(calendar);
+                    calendar.setMonth(month);
+                    calendar.setDay(day);
+                    ibCalendarview.removeSchemeDate(calendar);
                 }
 
             }
 
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
-            public void onitemAlarm(int po) {
+            public void onitemAlarm(int po, String event_idd) {
+                alarm_choose_item = po;
+                alarmyear = Schedule.list.get(po).getYear();
+                alarmmonth = Schedule.list.get(po).getMonth();
+                alarmday = Schedule.list.get(po).getDay();
+                alarm_item_eventid = event_idd;
                 RecyclerView.LayoutManager manager = calRecycleview.getLayoutManager();
                 View vieww = manager.findViewByPosition(po);
                 Calendar_Adapter.MyViewHolder holder = (Calendar_Adapter.MyViewHolder) calRecycleview.getChildViewHolder(vieww);
                 holder.item_calendar_alerm.setBackgroundColor(R.drawable.btn_delete);
+
                 Intent i = new Intent(getActivity(), AlarmActivity.class);
                 i.putExtra("title", "新建提醒");
                 i.putExtra("choose", "1");
+                i.putExtra("alerttime", holder.item_alerttime.getText().toString());
                 startActivityForResult(i, 12);
             }
         });
@@ -262,7 +279,24 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 12:
-                Toast.makeText(getActivity(), resultCode + "", Toast.LENGTH_SHORT).show();
+                //修改提醒回调的地方
+                ContentValues values = new ContentValues();
+                //插入时间的event_id
+                values.put("minutes", alarmTimeduiying[resultCode]);//在事件发生之前多少分钟进行提醒
+                int rows = getActivity().getContentResolver().update(Uri.parse(CalanderUtils.calanderRemiderURL), values, CalendarContract.Reminders.EVENT_ID + "=" + Integer.valueOf(alarm_item_eventid), null);
+                //rows大于零就表示修改成功。
+                if (rows > 0) {
+                    Schedule.list.clear();
+                    //获取这个时间段的所有信息
+                    List<Schedule> calendarEvent = null;
+                    try {
+                        calendarEvent = CalanderUtils.getCalendarEventByDay(getActivity(), alarmyear, alarmmonth, alarmday);
+                        Schedule.list.addAll(calendarEvent);
+                        calendar_adapter.notifyItemChanged(alarm_choose_item);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
         }
     }
@@ -288,7 +322,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         try {
             Schedule.list.clear();
             //获取这个时间段的所有信息
-            List<Schedule> calendarEvent = CalanderUtils.getCalendarEventByDay(getActivity(), calendar.getYear(), calendar.getMonth(),calendar.getDay());
+            List<Schedule> calendarEvent = CalanderUtils.getCalendarEventByDay(getActivity(), calendar.getYear(), calendar.getMonth(), calendar.getDay());
             Schedule.list.addAll(calendarEvent);
             calendar_adapter.notifyDataSetChanged();
             getAll();
@@ -376,21 +410,21 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
     }
 
-void getAll(){
-    try {
-        java.util.Calendar c  = java.util.Calendar.getInstance();
-        c.set( java.util.Calendar.YEAR, Integer.valueOf(t_year));
-        c.set( java.util.Calendar.MONTH, Integer.valueOf(t_month)-1);
-        int maxDay = c.getActualMaximum( java.util.Calendar.DAY_OF_MONTH);
-        List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(),Integer.valueOf(t_year),Integer.valueOf(t_month),maxDay);
-        for(int i=0;i<calendarEvent.size();i++){
-            map.put(getSchemeCalendar(calendarEvent.get(i).getS_year(), calendarEvent.get(i).getS_month(), calendarEvent.get(i).getS_day(), 0xFFdf1356, "日").toString(),
-                    getSchemeCalendar(calendarEvent.get(i).getS_year(), calendarEvent.get(i).getS_month(), calendarEvent.get(i).getS_day(), 0xFFdf1356, "日"));
-            ibCalendarview.setSchemeDate(map);
+    void getAll() {
+        try {
+            java.util.Calendar c = java.util.Calendar.getInstance();
+            c.set(java.util.Calendar.YEAR, Integer.valueOf(t_year));
+            c.set(java.util.Calendar.MONTH, Integer.valueOf(t_month) - 1);
+            int maxDay = c.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
+            List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(), Integer.valueOf(t_year), Integer.valueOf(t_month), maxDay);
+            for (int i = 0; i < calendarEvent.size(); i++) {
+                map.put(getSchemeCalendar(calendarEvent.get(i).getS_year(), calendarEvent.get(i).getS_month(), calendarEvent.get(i).getS_day(), 0xFFdf1356, "日").toString(),
+                        getSchemeCalendar(calendarEvent.get(i).getS_year(), calendarEvent.get(i).getS_month(), calendarEvent.get(i).getS_day(), 0xFFdf1356, "日"));
+                ibCalendarview.setSchemeDate(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
 
-}
+    }
 }

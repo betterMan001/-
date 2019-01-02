@@ -196,6 +196,7 @@ public class LoginActivity extends BaseActivity {
              测试自己服务服务器的登录接口
         */
         nimLogin();
+        phone="";
         phone += this.loginSUserIDEt.getText().toString();
         String pwd = "";
         if (!("".equals(phone))) {

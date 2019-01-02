@@ -23,6 +23,8 @@ public class Schedule {
     private String alert_head;//会议主题
     private String alert_beizhu;//会议备注
 
+    private String alert_time;//提醒时间
+
     private String event_idd;
     public Schedule(String dateTime, String content) {
         this.dateTime = dateTime;
@@ -52,7 +54,6 @@ public class Schedule {
         this.event_idd = event_idd;
     }
     public Schedule( String alert_startTime, String alert_endtime, String attribute, String alert_difang, String alert_people, String alert_head, String alert_beizhu,String event_idd,int year,int month,int day) {
-
         this.alert_startTime = alert_startTime;
         this.alert_endtime = alert_endtime;
         this.attribute = attribute;
@@ -65,6 +66,20 @@ public class Schedule {
         this.year = year;
         this.day = day;
     }
+    public Schedule( String alert_startTime, String alert_endtime, String attribute, String alert_difang, String alert_people, String alert_head, String alert_beizhu,String event_idd,int year,int month,int day,String  alert_time) {
+        this.alert_startTime = alert_startTime;
+        this.alert_endtime = alert_endtime;
+        this.attribute = attribute;
+        this.alert_difang = alert_difang;
+        this.alert_people = alert_people;
+        this.alert_head = alert_head;
+        this.alert_beizhu = alert_beizhu;
+        this.event_idd = event_idd;
+        this.month = month;
+        this.year = year;
+        this.day = day;
+        this.alert_time = alert_time;
+    }
     public String getEvent_idd() {
         return event_idd;
     }
@@ -75,6 +90,14 @@ public class Schedule {
 
     public int getYear() {
         return year;
+    }
+
+    public String getAlert_time() {
+        return alert_time;
+    }
+
+    public void setAlert_time(String alert_time) {
+        this.alert_time = alert_time;
     }
 
     public void setYear(int year) {

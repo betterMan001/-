@@ -36,7 +36,10 @@ public class AlarmActivity extends BaseActivity {
     AlarmAdapter alarmAdapter;
     @BindView(R.id.alarm)
     TextView alarmText;
-    String choose;
+    String choose,alerttime;
+
+    int alarmTimeduiying[] = {-1, 0, 5, 15, 30, 60, 120, 1440, 2880, 10080};
+    int alerttimeint;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +47,16 @@ public class AlarmActivity extends BaseActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
+        alerttime = intent.getStringExtra("alerttime");
         choose = intent.getStringExtra("choose");
+        initdata();
+        alerttimeint = Integer.valueOf(alerttime);
+        for(int i = 0; i<alarmTimeduiying.length;i++){
+            if(alerttimeint == alarmTimeduiying[i]){
+               list.get(i).setSign(true);
+                break;
+            }
+        }
         alarmText.setText(title);
         alarmToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +64,7 @@ public class AlarmActivity extends BaseActivity {
                 finish();
             }
         });
-        initdata();
+
         alarmAdapter = new AlarmAdapter();
         alarm_recycleview.setAdapter(alarmAdapter);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
