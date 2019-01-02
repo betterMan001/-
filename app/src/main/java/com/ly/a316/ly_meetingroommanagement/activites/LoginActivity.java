@@ -124,9 +124,15 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        SMSSDK.unregisterAllEventHandler();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
-        SMSSDK.unregisterAllEventHandler();
+
     }
 
     @Override
@@ -307,18 +313,19 @@ public class LoginActivity extends BaseActivity {
     }
 
     public void loginCallBack(String result,UserInfoModel model) {
-        String status="";
+        String temp="";
         if("0".equals(result)){
-            status+="账号不存在！";
+            temp+="账号不存在！";
         }else if("2".equals(result)){
-            status+="密码错误";
+            temp+="密码错误";
         }else{
-            status+="登录成功！";
+            temp+="登录成功！";
         }
+        final String status=temp;
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(LoginActivity.this, "登陆成功!", Toast.LENGTH_LONG).show();
+                Toast.makeText(LoginActivity.this, status, Toast.LENGTH_LONG).show();
             }
         });
         if("1".equals(result)){

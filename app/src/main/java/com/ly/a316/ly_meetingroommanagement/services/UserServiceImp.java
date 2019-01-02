@@ -52,13 +52,15 @@ public class UserServiceImp implements UserService {
                 try {
                     Log.d(TAG,"登录获取服务器信息成功");
                     JSONObject jsonObject=new JSONObject(response.body().string());
-                    JSONObject jsonObject1=jsonObject.getJSONObject("map");
                     String result=jsonObject.getString("result");
                     UserInfoModel model=new UserInfoModel();
-                    if(jsonObject1!=null)
-                     model= MyJSONUtil.toObject(String.valueOf(jsonObject1),UserInfoModel.class);
-                    else;
+                    //如果map的json对象为空则直接输出结果
+                    if(jsonObject.isNull("map")==true){
 
+                    }else{
+                        JSONObject jsonObject1=jsonObject.getJSONObject("map");
+                        model= MyJSONUtil.toObject(String.valueOf(jsonObject1),UserInfoModel.class);
+                    }
                     loginActivity.loginCallBack(result,model);
                 } catch (JSONException e) {
                     e.printStackTrace();
