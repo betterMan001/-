@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.askhttpDao.ScheduleDao;
 import com.ly.a316.ly_meetingroommanagement.askhttpDaoImp.ScheduleDaoImp;
@@ -95,6 +96,7 @@ public class AddSchedule extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor(R.color.classical_blue).init();
         setContentView(R.layout.activity_add_schedule);
         ButterKnife.bind(this);
         calendar_all = java.util.Calendar.getInstance();

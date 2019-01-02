@@ -70,7 +70,7 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
         super.onCreate();
         //初始化
         context = getApplicationContext();
-        MobSDK.init(this, this.getAppkey(), this.getAppSecret());
+        MobSDK.init(this,getAppkey(),getAppSecret());
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = pref.edit();
         Realm.init(this);
@@ -87,7 +87,13 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
             initUiKit();
         }
     }
+    protected String getAppkey() {
+        return null;
+    }
 
+    protected String getAppSecret() {
+        return null;
+    }
     //添加活动
     public static void addActivity(Activity activity) {
         activityList.add(activity);
