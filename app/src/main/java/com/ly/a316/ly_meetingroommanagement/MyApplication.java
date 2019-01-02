@@ -85,8 +85,8 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
         Realm.setDefaultConfiguration(configuration);
         DemoCache.setContext(this);
         //初始化面部识别
-//        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
-//        mImage = null;
+         mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
+         mImage = null;
         //初始化mob短信验证
         MobSDK.init(this);
         //初始化云信

@@ -314,4 +314,69 @@ public class CalanderUtils {
         return eventlist;
     }
 
+
+
+    public static Schedule getCalendarEventByEventId(Context context,String itemevent_id) throws Exception {
+        Schedule schedule = new Schedule( );
+
+        String selection = "((_id == " + Integer.valueOf(itemevent_id) + "))";
+
+        Cursor eventCursor = context.getContentResolver().query(Uri.parse(CalanderUtils.calanderEventURL), null,selection, null, null);
+        if (eventCursor.getCount() > 0) {
+            if (eventCursor.moveToFirst()) {
+                do {
+                    String location = eventCursor.getString(eventCursor.getColumnIndex("eventLocation"));//地点
+                    String eventTitle = eventCursor.getString(eventCursor.getColumnIndex("title"));//日程事件标题
+                    String description = eventCursor.getString(eventCursor.getColumnIndex("description"));//日程事件描术
+                    String dtstart = eventCursor.getString(eventCursor.getColumnIndex("dtstart"));//日程事件开始时间，是13位字符串
+                    String dtend = eventCursor.getString(eventCursor.getColumnIndex("dtend"));//日程事件结束时间
+                     String duration = eventCursor.getString(eventCursor.getColumnIndex("duration"));//持续时间
+                    String allday = eventCursor.getString(eventCursor.getColumnIndex("allday"));//是否全天提醒
+                    String chongfu = eventCursor.getString(eventCursor.getColumnIndex("rrule"));//是否全天提醒
+
+                    String alerT_time = "-1";//代表永不
+                    String timeStart = TimeUtil.timeFormatStr(dtstart);//将日程时间改成yyyy-MM-dd hh:mm:ss形式
+                    String timeEnd = TimeUtil.timeFormatStr(dtend);//将日程时间改成yyyy-MM-dd hh:mm:ss形式
+
+                    try {
+                        String selections = "((event_id == " + Integer.valueOf(eventCursor.getString(eventCursor.getColumnIndex("_id"))) + "))";
+                        @SuppressLint("MissingPermission")
+                        Cursor eventCursors = context.getContentResolver().query(CalendarContract.Attendees.CONTENT_URI, null,
+                                selections, null, null);
+                        if (eventCursors.getCount() > 0) {
+                            //参会人员
+                            mepeople = eventCursors.getString(eventCursors.getColumnIndex("attendeeName"));
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        String selections = "((event_id == " + Integer.valueOf(eventCursor.getString(eventCursor.getColumnIndex("_id"))) + "))";
+                        @SuppressLint("MissingPermission")
+                        Cursor eventCursorss = context.getContentResolver().query(CalendarContract.Reminders.CONTENT_URI, null,
+                                selections, null, null);
+                        if (eventCursorss.getCount() > 0) {
+                            if (eventCursorss.moveToFirst()) {
+                                do{
+                                    alerT_time = eventCursorss.getString(eventCursorss.getColumnIndex("minutes"));//在事件发生之前多少分钟进行提醒
+                                 } while (eventCursorss.moveToNext());
+                            }
+                        }
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+
+                    if (mepeople.equals("2")) {
+                        schedule = new Schedule(timeStart, timeEnd, allday, location, chongfu, eventTitle, description,alerT_time);
+                    } else {
+                        schedule = new Schedule(timeStart, timeEnd, allday, location, chongfu, eventTitle, description,alerT_time);
+                    }
+                } while (eventCursor.moveToNext());
+            }
+
+        }
+        eventCursor.close();
+        return schedule;
+    }
 }

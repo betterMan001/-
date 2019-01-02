@@ -43,6 +43,7 @@ import com.haibin.calendarview.CalendarView;
 import com.ly.a316.ly_meetingroommanagement.Adapter.Calendar_Adapter;
 import com.ly.a316.ly_meetingroommanagement.activites.AddSchedule;
 import com.ly.a316.ly_meetingroommanagement.activites.AlarmActivity;
+import com.ly.a316.ly_meetingroommanagement.activites.Calendar_infor_activity;
 import com.ly.a316.ly_meetingroommanagement.calendarActivity.OneDayCountActivity;
 import com.ly.a316.ly_meetingroommanagement.ceshi;
 import com.ly.a316.ly_meetingroommanagement.classes.EventModel;
@@ -190,9 +191,11 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         calRecycleview.setAdapter(calendar_adapter);
         calendar_adapter.setOnItemClick(new Calendar_Adapter.OnItemClick() {
             @Override
-            public void onitemClick(int position) {
+            public void onitemClick(int position,String event_idd) {
                 //日程详情
-
+                Intent intent = new Intent(getActivity(), Calendar_infor_activity.class);
+                intent.putExtra("event_id",event_idd);
+                startActivity(intent);
                 Toast.makeText(getContext(), "all被点击", Toast.LENGTH_SHORT).show();
             }
 

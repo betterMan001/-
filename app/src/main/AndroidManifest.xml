@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ly.a316.ly_meetingroommanagement">
-    <!--操作系统日历需要用到-->
+
+    <!-- 操作系统日历需要用到 -->
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <!-- 用于访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 权限声明 -->
-    <!-- 访问网络状态-->
+    <!-- 访问网络状态 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -15,30 +16,34 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <!-- 外置存储存取权限 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- 多媒体相关 -->
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- 如果需要实时音视频通话模块，下面的权限也是必须的。否则，可以不加 -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.BROADCAST_STICKY"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-feature android:glEsVersion="0x00020000" android:required="true" />
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
     <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
     <permission
         android:name="com.netease.nim.demo.permission.RECEIVE_MSG"
-        android:protectionLevel="signature"/>
+        android:protectionLevel="signature" />
     <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
-    <uses-permission android:name="com.netease.nim.demo.permission.RECEIVE_MSG"/>
+    <uses-permission android:name="com.netease.nim.demo.permission.RECEIVE_MSG" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -49,15 +54,19 @@
         android:theme="@style/AppTheme">
         <meta-data
             android:name="com.netease.nim.appKey"
-            android:value="5353c039233226f33cac4cece3ca7887"/>
+            android:value="5353c039233226f33cac4cece3ca7887" />
         <!-- 云信后台服务，请使用独立进程。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
             android:process=":core" />
 
         <!-- 通过AndroidManifest配置AppKey和AppSecret，如果你选择通过代码配置，则不需要配置以下meta-data -->
-        <meta-data android:name="Mob-AppKey" android:value="2983dbd78ee8a"/>
-        <meta-data android:name="Mob-AppSecret" android:value="e9f1890fbfeb8906206a9169b648534a"/>
+        <meta-data
+            android:name="Mob-AppKey"
+            android:value="2983dbd78ee8a" />
+        <meta-data
+            android:name="Mob-AppSecret"
+            android:value="e9f1890fbfeb8906206a9169b648534a" />
         <!-- 云信后台辅助服务 -->
         <service
             android:name="com.netease.nimlib.service.NimService$Aux"
@@ -170,9 +179,9 @@
         <activity android:name=".ceshi" />
         <activity
             android:name="com.mob.tools.MobUIShell"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".activites.MeetingListActivity"
             android:launchMode="singleTop">
@@ -190,7 +199,7 @@
         </activity>
         <activity
             android:name=".activites.SearchActivity"
-            android:launchMode="singleTop"></activity>
+            android:launchMode="singleTop" />
         <activity
             android:name=".nim.activity.SystemMessageActivity"
             android:configChanges="keyboardHidden|orientation"
@@ -280,6 +289,8 @@
             android:name=".utils.SearchSuggestionSampleProvider"
             android:authorities="com.crazy.gemi.ui.cheaper.SearchSuggestionSampleProvider" />
 
-        <activity android:name=".activites.AlarmActivity"></activity>
+        <activity android:name=".activites.AlarmActivity" />
+        <activity android:name=".activites.Calendar_infor_activity"></activity>
     </application>
+
 </manifest>

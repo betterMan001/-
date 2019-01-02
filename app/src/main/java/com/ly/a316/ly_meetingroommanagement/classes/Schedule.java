@@ -25,12 +25,19 @@ public class Schedule {
 
     private String alert_time;//提醒时间
 
+    public Schedule( ) {
+
+    }
+
     private String event_idd;
+
+
+
     public Schedule(String dateTime, String content) {
         this.dateTime = dateTime;
         this.content = content;
 
-    }
+}
 
     public Schedule(String dateTime, String content, String alert_startTime, String alert_endtime, String attribute) {
         this.dateTime = dateTime;
