@@ -34,7 +34,7 @@ public class UserServiceImp implements UserService {
     @Override
     public void loginValidate(String username, String password, String loginType) {
         String URL= Net.HEAD+Net.LOGIN;
-        Log.d(TAG, "loginValidate: "+username+" "+password+" "+loginType);
+        Log.d(TAG, "loginValidate: "+username+" "+MathUtil.getMd5(password)+" "+loginType);
         //提交账号信息采用post传输
         FormBody.Builder builder = new FormBody.Builder();
         builder.add("employeeId",username);
@@ -53,8 +53,12 @@ public class UserServiceImp implements UserService {
                     Log.d(TAG,"登录获取服务器信息成功");
                     JSONObject jsonObject=new JSONObject(response.body().string());
                     JSONObject jsonObject1=jsonObject.getJSONObject("map");
-                    UserInfoModel model= MyJSONUtil.toObject(String.valueOf(jsonObject1),UserInfoModel.class);
-                    loginActivity.loginCallBack(model);
+                    String result=jsonObject.getString("result");
+                    UserInfoModel model=new UserInfoModel();
+                    if(jsonObject1!=null)
+                     model= MyJSONUtil.toObject(String.valueOf(jsonObject1),UserInfoModel.class);
+                    else
+                    loginActivity.loginCallBack(result,model);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

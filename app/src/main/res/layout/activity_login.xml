@@ -144,7 +144,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight="25dp"
-        android:text="登陆"
+        android:text="登录"
         android:background="@drawable/login_btn"
         android:textColor="@android:color/white"
         />

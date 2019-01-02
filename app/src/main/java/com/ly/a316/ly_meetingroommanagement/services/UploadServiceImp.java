@@ -34,7 +34,8 @@ public class UploadServiceImp implements UploadService {
       String URL= Net.HEAD+Net.UPLOAD;
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
-        //第一个参数要与Servlet中的一致
+
+        //第一个参数要与Servlet中的一致,create里用null试试
         builder.addFormDataPart("profile",file.getName(), RequestBody.create(MediaType.parse("application/octet-stream"),file));
 
         MultipartBody multipartBody = builder.build();

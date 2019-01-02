@@ -41,6 +41,7 @@ public class SignUpServiceImp implements SignUpService {
         MyHttpUtil.sendOkhttpPostRequest(URL, body, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+
                 activity.subThreadToast(Net.FAIL);
             }
 
@@ -52,8 +53,8 @@ public class SignUpServiceImp implements SignUpService {
                 JSONObject jsonObject= null;
                 try {
                     jsonObject = new JSONObject(result);
-                    JSONObject jsonObject1=jsonObject.getJSONObject("result");
-                    String comeOut=jsonObject1.getString("result");
+                    //JSONObject jsonObject1=jsonObject.getJSONObject("result");
+                    String comeOut=jsonObject.getString("result");
                     activity.callBack(comeOut);
                 } catch (JSONException e) {
                     e.printStackTrace();

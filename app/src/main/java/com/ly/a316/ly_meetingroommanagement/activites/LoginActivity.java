@@ -123,8 +123,22 @@ public class LoginActivity extends BaseActivity {
         SMSSDK.setAskPermisionOnReadContact(true);
     }
 
-    private void initMobMessage() {
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SMSSDK.unregisterAllEventHandler();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
         SMSSDK.registerEventHandler(eventHandler);
+    }
+
+    private void initMobMessage() {
+
+        SMSSDK.registerEventHandler(eventHandler);
+       // eventHandler.onUnregister();
     }
 
     private void initView() {
@@ -196,6 +210,7 @@ public class LoginActivity extends BaseActivity {
              测试自己服务服务器的登录接口
         */
         nimLogin();
+        phone="";
         phone += this.loginSUserIDEt.getText().toString();
         String pwd = "";
         if (!("".equals(phone))) {
@@ -292,20 +307,30 @@ public class LoginActivity extends BaseActivity {
             subThreadToast(NO_EMPTY_ACCOUNT);
     }
 
-    public void loginCallBack(UserInfoModel model) {
+    public void loginCallBack(String result,UserInfoModel model) {
+        String status="";
+        if("0".equals(result)){
+            status+="账号不存在！";
+        }else if("2".equals(result)){
+            status+="密码错误";
+        }else{
+            status+="登录成功！";
+        }
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Toast.makeText(LoginActivity.this, "登陆成功!", Toast.LENGTH_LONG).show();
             }
         });
-        //保存账号、头像、昵称
-        MyApplication.setId(phone);
-        MyApplication.setImageURL(model.profile);
-        MyApplication.setUserName(model.UserName);
-        //暂时不传model给mainActivity
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        if("1".equals(result)){
+            //保存账号、头像、昵称
+            MyApplication.setId(phone);
+            MyApplication.setImageURL(model.profile);
+            MyApplication.setUserName(model.UserName);
+            //暂时不传model给mainActivity
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }

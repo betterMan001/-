@@ -68,6 +68,7 @@ public class SignUpActivity extends BaseActivity {
                             finish();
                         } else {
                             // TODO 处理错误的结果
+                            subThreadToast("验证码验证失败");
                             Log.d(TAG, "handleMessage: 短信验证失败");
                             ((Throwable) data).printStackTrace();
                         }
@@ -85,7 +86,8 @@ public class SignUpActivity extends BaseActivity {
         ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor("#00A7FF").init();
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-
+        //初始化验证码设置
+        SMSSDK.registerEventHandler(eventHandler);
         //初始化视图
         initView();
     }
@@ -127,15 +129,23 @@ public class SignUpActivity extends BaseActivity {
             Toast.makeText(this,PointConst.NO_EMPTY_ACCOUNT,Toast.LENGTH_SHORT).show();
     }
     private void turnNext(){
+        phone="";
+        phone += this.actSignUpPhonenum.getText().toString();
         String identifyCode=this.actSignUpIdentifyingCode.getText().toString();
-        if(identifyCode==null||"".equals(identifyCode)){
-            subThreadToast(PointConst.NO_EMPTY_VWD);
-        }
-        else{
-            //测试接口不
-          //  SignUpDetailActivty.start(SignUpActivity.this,phone);
-            SMSSDK.submitVerificationCode("86", phone,identifyCode);
+        //1.先判断账号是否为空
+        if (!("".equals(phone))){
+            //2.判断验证码是否为空
+            if(identifyCode==null||"".equals(identifyCode)){
+                subThreadToast(PointConst.NO_EMPTY_VWD);
+            }
+            else{
+                //测试接口不
+                 // SignUpDetailActivty.start(SignUpActivity.this,"18248618633");
+                SMSSDK.submitVerificationCode("86", phone,identifyCode);
 
+            }
+        } else{
+            subThreadToast(PointConst.NO_EMPTY_ACCOUNT);
         }
 
     }

@@ -294,6 +294,7 @@ public class SignUpLastActivity extends BaseActivity {
                     //号码已经注册过了
                     subThreadToast("该号码已经被注册！");
                 }
+                finish();
             }
         });
     }
