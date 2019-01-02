@@ -56,6 +56,20 @@ public class MyApplication extends Application {
     public static SharedPreferences.Editor editor;
     private static List<Activity> activityList = new ArrayList<>();
 
+
+
+
+    protected String getAppkey() {
+        return null;
+    }
+
+    protected String getAppSecret() {
+        return null;
+    }
+
+
+
+
     //初始化加载人脸识别引擎
     private final String TAG = this.getClass().toString();
     public FaceDB mFaceDB;
@@ -69,10 +83,11 @@ public class MyApplication extends Application {
         editor = pref.edit();
         DemoCache.setContext(this);
         //初始化面部识别
-//        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
-//        mImage = null;
+        mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
+        mImage = null;
         //初始化mob短信验证
-        MobSDK.init(this);
+     //   MobSDK.init(this);
+        MobSDK.init(this, this.getAppkey(), this.getAppSecret());
         //初始化云信
         NIMClient.init(this, loginInfo(), options());
         if (NIMUtil.isMainProcess(this)) {

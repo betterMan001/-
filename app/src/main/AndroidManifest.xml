@@ -172,6 +172,9 @@
             <meta-data
                 android:name="android.app.default_searchable"
                 android:value=".activites.SearchActivity" />
+
+            <meta-data android:name="Mob-AppKey" android:value="2983dbd78ee8a"/>
+            <meta-data android:name="Mob-AppSecret" android:value="e9f1890fbfeb8906206a9169b648534a"/>
         </activity>
         <activity android:name=".activites.SearchActivity"
             android:launchMode="singleTop"

@@ -138,7 +138,6 @@ public class LoginActivity extends BaseActivity {
     private void initMobMessage() {
 
         SMSSDK.registerEventHandler(eventHandler);
-       // eventHandler.onUnregister();
     }
 
     private void initView() {
@@ -221,7 +220,7 @@ public class LoginActivity extends BaseActivity {
             }
             //账号密码登录
             else {
-
+                pwd="";
                 pwd += this.loginSPwdEt.getText().toString();
                 if (!("".equals(pwd))) {
                     new UserServiceImp(this).loginValidate(phone, pwd, "1");

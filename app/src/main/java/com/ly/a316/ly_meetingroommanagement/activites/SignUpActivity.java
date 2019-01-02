@@ -79,6 +79,14 @@ public class SignUpActivity extends BaseActivity {
             }).sendMessage(msg);
         }
     };
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //初始化验证码设置
+        SMSSDK.registerEventHandler(eventHandler);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,8 +94,6 @@ public class SignUpActivity extends BaseActivity {
         ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor("#00A7FF").init();
         setContentView(R.layout.activity_sign_up);
         ButterKnife.bind(this);
-        //初始化验证码设置
-        SMSSDK.registerEventHandler(eventHandler);
         //初始化视图
         initView();
     }
@@ -142,6 +148,7 @@ public class SignUpActivity extends BaseActivity {
                 //测试接口不
                  // SignUpDetailActivty.start(SignUpActivity.this,"18248618633");
                 SMSSDK.submitVerificationCode("86", phone,identifyCode);
+                Log.d(TAG, "turnNext: test");
 
             }
         } else{

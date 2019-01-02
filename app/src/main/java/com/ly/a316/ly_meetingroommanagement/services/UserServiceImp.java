@@ -57,7 +57,8 @@ public class UserServiceImp implements UserService {
                     UserInfoModel model=new UserInfoModel();
                     if(jsonObject1!=null)
                      model= MyJSONUtil.toObject(String.valueOf(jsonObject1),UserInfoModel.class);
-                    else
+                    else;
+
                     loginActivity.loginCallBack(result,model);
                 } catch (JSONException e) {
                     e.printStackTrace();
