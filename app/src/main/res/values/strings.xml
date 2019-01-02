@@ -42,6 +42,7 @@
         <item>Limit calendar range</item>
         <item>Show range</item>
     </string-array>
+    <!--云信-->
     <string name="verification">验证码</string>
     <string name="verification_hint">请输入验证码</string>
     <!--云信-->

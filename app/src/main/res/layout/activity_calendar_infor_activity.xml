@@ -9,9 +9,9 @@
     tools:context=".activites.AlarmActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/addSchedule_toolbar"
+        android:id="@+id/ca_infor_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="15dp"
         android:background="@drawable/title_bar_color"
         app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="@drawable/backtwo"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:text="新建日程"
+            android:text="日程详情"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="normal" />
@@ -45,12 +45,12 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:background="#d9d9f3"></View>
 
-    <EditText
-        android:id="@+id/sc_title"
+    <TextView
+        android:id="@+id/ca_infor_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:hint="标题"
+        android:text="标题"
         android:padding="15dp" />
 
     <View
@@ -59,16 +59,15 @@
         android:layout_marginLeft="@dimen/dp_10"
         android:background="#d9d9f3"></View>
 
-    <EditText
-        android:id="@+id/sc_location"
+    <TextView
+        android:id="@+id/ca_infor_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:hint="地点"
+        android:text="地点"
         android:padding="15dp" />
 
     <View
-
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:background="#5Cbfbfbf"></View>
@@ -87,17 +86,13 @@
             android:textColor="#000"
             android:textSize="@dimen/text_size_15" />
 
-        <ToggleButton
-            android:id="@+id/toggleButton"
+        <TextView
+            android:id="@+id/ca_infor_allday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="-40dp"
-            android:background="@android:color/transparent"
-            android:button="@drawable/kaigaun"
-            android:checked="false"
-            android:text="ds"
-            android:textOff=""
-            android:textOn="" />
+             android:layout_marginRight="@dimen/dp_10"
+            android:text="全天"
+            />
     </LinearLayout>
 
     <View
@@ -111,7 +106,6 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/add_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -120,23 +114,14 @@
             android:textSize="@dimen/text_size_15" />
 
         <TextView
-            android:id="@+id/add_startTime"
+            android:id="@+id/ca_infor_startTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_10"
-            android:layout_toRightOf="@+id/add_start"
             android:gravity="right"
             android:padding="@dimen/dp_10"
-            android:text="" />
-
-        <include
-            android:id="@+id/add_choosetime_start"
-            layout="@layout/choosetime"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/add_start"
-            android:visibility="gone"></include>
+            android:text="2018-20-13" />
     </RelativeLayout>
 
     <View
@@ -151,8 +136,6 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/add_end"
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -161,28 +144,21 @@
             android:textSize="@dimen/text_size_15" />
 
         <TextView
-            android:id="@+id/add_endTime"
+            android:id="@+id/ca_infor_endTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_10"
-            android:layout_toRightOf="@+id/add_end"
             android:gravity="right"
             android:padding="@dimen/dp_10"
-            android:text="" />
+            android:text="2018.20.3" />
 
-        <LinearLayout
-            android:id="@+id/add_choosetime_end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/add_end"
-            android:orientation="horizontal"
-            android:visibility="gone"></LinearLayout>
+
 
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/add_layout_chongfu"
+        android:id="@+id/ca_infor_layout_chongfu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -197,7 +173,7 @@
             android:textColor="#000" />
 
         <TextView
-            android:id="@+id/add_chongfu"
+            android:id="@+id/ca_infor_chongfu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_10"
@@ -216,7 +192,7 @@
         android:background="#5Cbfbfbf"></View>
 
     <LinearLayout
-        android:id="@+id/add_layout_tixing"
+        android:id="@+id/ca_infor_layout_tixing"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -230,7 +206,7 @@
             android:textColor="#000" />
 
         <TextView
-            android:id="@+id/add_tixing"
+            android:id="@+id/ca_infor_tixing"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_10"
@@ -244,7 +220,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/sc_beizhu"
+        android:id="@+id/ca_infor_beizhu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"

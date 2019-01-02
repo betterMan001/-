@@ -1,73 +1,65 @@
 package com.ly.a316.ly_meetingroommanagement.activites;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.Adapter.FlipViewPaper;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.ceshi;
 import com.ly.a316.ly_meetingroommanagement.customView.LoadingImageView;
 import com.ly.a316.ly_meetingroommanagement.utils.CommonUtils;
-import com.ly.a316.ly_meetingroommanagement.utils.OsUtil;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+import butterknife.OnClick;
+//没用了这个活动
 public class SchemeetingActivity extends BaseActivity {
     ArrayList<String> list = new ArrayList<>();
     ArrayList<View> views = new ArrayList<>();
     int a[] = {R.drawable.ali, R.drawable.alii, R.drawable.aliiii, R.drawable.ali, R.drawable.alii, R.drawable.aliiii};
     int b[] = {R.color.one, R.color.two, R.color.three, R.color.four, R.color.five, R.color.six};
- String c[]={
-         "http://pic28.photophoto.cn/20130818/0020033143720852_b.jpg",
-         "https://img.zcool.cn/community/01f9ea56e282836ac72531cbe0233b.jpg@1280w_1l_2o_100sh.jpg",
-         "http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg",
-         "http://pic28.photophoto.cn/20130818/0020033143720852_b.jpg",
-         "https://img.zcool.cn/community/01f9ea56e282836ac72531cbe0233b.jpg@1280w_1l_2o_100sh.jpg",
-         "http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg",
- };
+    String c[] = {
+            "http://pic28.photophoto.cn/20130818/0020033143720852_b.jpg",
+            "https://img.zcool.cn/community/01f9ea56e282836ac72531cbe0233b.jpg@1280w_1l_2o_100sh.jpg",
+            "http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg",
+            "http://pic28.photophoto.cn/20130818/0020033143720852_b.jpg",
+            "https://img.zcool.cn/community/01f9ea56e282836ac72531cbe0233b.jpg@1280w_1l_2o_100sh.jpg",
+            "http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg",
+    };
 
 
     int sa;//翻页生成的随机数
-    ImageView im_back;
+
     CoordinatorLayout coordinatorLayout;
-    LinearLayout head_hui;
+
+    @BindView(R.id.tollbar)
+    Toolbar tollbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schemeeting);
+        ButterKnife.bind(this);
+        setSupportActionBar(tollbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
         coordinatorLayout = findViewById(R.id.coor);
-        head_hui = findViewById(R.id.head_hui);
-        im_back = findViewById(R.id.sc_back);
-        im_back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
+
+
         list.add("2A 316");
         list.add("3C 112");
         list.add("1b 201");
@@ -113,12 +105,19 @@ public class SchemeetingActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 sa = (int) (1 + Math.random() * (6 - 1 + 1)) - 1;
                 coordinatorLayout.setBackgroundResource(b[sa]);
-                head_hui.setBackgroundColor(b[sa]);
+
+                tollbar.setBackgroundColor(b[sa]);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
 
+            }
+        });
+        tollbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();//返回
             }
         });
     }

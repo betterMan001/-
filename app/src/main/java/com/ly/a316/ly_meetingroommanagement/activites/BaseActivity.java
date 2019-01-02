@@ -26,7 +26,7 @@ public class BaseActivity  extends AppCompatActivity{
     }
     protected void initImmersionBar() {
         //在BaseActivity里初始化
-        ImmersionBar.with(this).init();
+        ImmersionBar.with(this).navigationBarColor(R.color.white).init();
     }
     protected boolean isImmersionBarEnabled() {
         return true;

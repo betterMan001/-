@@ -2,9 +2,12 @@ package com.ly.a316.ly_meetingroommanagement.calendarActivity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.WeekViewEvent;
+import com.ly.a316.ly_meetingroommanagement.classes.EventModel;
+import com.ly.a316.ly_meetingroommanagement.utils.CalanderUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -17,10 +20,56 @@ public class OneDayCountActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_day_count);
     }*/
+   int colors[]={R.color.one,R.color.two,R.color.three,R.color.three,R.color.four,R.color.six,R.color.collu,R.color.miss_blue};
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-
         List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+        WeekViewEvent event = new WeekViewEvent();
+        java.util.Calendar c  = java.util.Calendar.getInstance();
+        c.set( java.util.Calendar.YEAR, Integer.valueOf(newYear));
+        c.set( java.util.Calendar.MONTH, Integer.valueOf(newMonth)-1);
+        int maxDay = c.getActualMaximum( java.util.Calendar.DAY_OF_MONTH);
+        List<EventModel> calendarEvent = null;
+        try {
+            calendarEvent = CalanderUtils.getCalendarEvent(this,newYear,newMonth,maxDay);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        for(int i=0;i<calendarEvent.size();i++){
+            Calendar startTime = Calendar.getInstance();
+            startTime.set(Calendar.HOUR_OF_DAY, calendarEvent.get(i).getShour());
+            startTime.set(Calendar.MINUTE, calendarEvent.get(i).getSmini());
+            startTime.set(Calendar.MONTH, calendarEvent.get(i).getS_month()-1);
+            startTime.set(Calendar.DAY_OF_MONTH, calendarEvent.get(i).getS_day());
+            startTime.set(Calendar.YEAR, calendarEvent.get(i).getS_year());
+
+            Calendar endTime = (Calendar) startTime.clone();
+            endTime.set(Calendar.HOUR_OF_DAY,  calendarEvent.get(i).getEhour());
+            endTime.set(Calendar.MINUTE,  calendarEvent.get(i).getEmini());
+            startTime.set(Calendar.DAY_OF_MONTH, calendarEvent.get(i).getE_day());
+            endTime.set(Calendar.MONTH,  calendarEvent.get(i).getE_meoth()-1);
+            event  = new WeekViewEvent(i, getEventTitle(startTime,endTime), startTime, endTime);
+
+            int asa = (int)(0+Math.random()*(7-0+1));
+            event.setColor(getResources().getColor(colors[asa]));
+
+            events.add(event);
+        }
+
+
+
+       /*
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, 3);
+        startTime.set(Calendar.MINUTE, 0);
+        startTime.set(Calendar.MONTH, 11);
+        startTime.set(Calendar.YEAR, newYear);
+        Calendar endTime = (Calendar) startTime.clone();
+        endTime.add(Calendar.HOUR, 1);
+        endTime.set(Calendar.MONTH, 11);
+        WeekViewEvent event = new WeekViewEvent(1, getEventTitle(startTime,endTime), startTime, endTime);
+        event.setColor(getResources().getColor(R.color.event_color_01));
+        events.add(event);
 
         Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 3);
@@ -45,7 +94,7 @@ public class OneDayCountActivity extends BaseActivity {
         endTime.set(Calendar.MONTH, 11);
         event = new WeekViewEvent(10, getEventTitle(startTime,endTime), startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_02));
-        events.add(event);
+        events.add(event);*/
 /*
         startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 4);

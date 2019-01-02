@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.activites.ChooseMettingActivity;
 import com.ly.a316.ly_meetingroommanagement.activites.IdentifyFaceActivity;
 import com.ly.a316.ly_meetingroommanagement.activites.MeetingListActivity;
 import com.ly.a316.ly_meetingroommanagement.activites.SchemeetingActivity;
@@ -144,7 +145,7 @@ public class PopupMenuUtil {
                 break;
             //预订会议
             case 1:
-                intent = new Intent(context, SchemeetingActivity.class);
+                intent = new Intent(context, ChooseMettingActivity.class);
                 break;
             //查看历史会议
             case 3:

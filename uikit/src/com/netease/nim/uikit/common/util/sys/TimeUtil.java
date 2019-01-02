@@ -22,6 +22,27 @@ public class TimeUtil {
     public static long currentTimeMillis() {
         return System.currentTimeMillis();
     }
+    public static String timeFormatStr(String time) {
+        SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            return sdf1.format(new Date(Long.parseLong(time)));
+        } catch (Exception e) {
+            return time;
+        }
+    }
+    /**
+     * 比较日期与当前日期的大小
+     */
+    public static int DateCompareDiffDay(String s1, String s2) throws ParseException {
+        //设定时间的模板
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        //得到指定模范的时间
+        Date d1 = sdf.parse(s1);
+        Date d2 = sdf.parse(s2);
+        //比较
+        int day = (int)(d1.getTime() - d2.getTime()) / (24 * 3600 * 1000);
+        return day;
+    }
 
     public static long[] getTsTimes() {
         long[] times = new long[2];

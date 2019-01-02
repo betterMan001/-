@@ -2,6 +2,7 @@ package com.ly.a316.ly_meetingroommanagement.activites;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -44,6 +46,7 @@ import com.netease.nimlib.sdk.Observer;
 import com.netease.nimlib.sdk.msg.SystemMessageObserver;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,10 +57,10 @@ import butterknife.ButterKnife;
  *  描述：主活动
  *  作者：余智强、徐文铎
  *  创建时间：2018 12/4 13：27
- */
+*/
 public class MainActivity extends UI {
     @BindView(R.id.bottom_nav)
-    BottomBarLayout bottomBarLayout;
+     BottomBarLayout bottomBarLayout;
     Fragment contactListFragment,conversationListFragment,fr_calendar, fr_mine;
     private FragmentManager fManager;
     //与状态栏同高的View
@@ -177,6 +180,8 @@ public class MainActivity extends UI {
             }
         });
     }
+
+
     void initview(){
         for (int i=0;i<tabText.length;i++){
             TabEntity item = new TabEntity();

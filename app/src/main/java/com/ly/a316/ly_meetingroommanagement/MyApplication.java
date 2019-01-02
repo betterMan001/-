@@ -11,6 +11,7 @@ import android.graphics.Matrix;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.preference.PreferenceManager;
+import android.support.multidex.MultiDex;
 import android.util.Log;
 import android.view.WindowManager;
 
@@ -20,6 +21,7 @@ import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.ContactHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
 import com.mob.MobSDK;
+import com.mob.tools.proguard.ProtectedMemberKeeper;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.SDKOptions;
@@ -33,6 +35,9 @@ import com.netease.nimlib.sdk.util.NIMUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 import cn.smssdk.SMSSDK;
 
 /*
@@ -40,7 +45,7 @@ Date:2018/12/4
 Time:17:40
 auther:xwd
 */
-public class MyApplication extends Application {
+public class MyApplication extends Application implements ProtectedMemberKeeper {
 
     //上下文环境
     private static Context context;
@@ -56,20 +61,6 @@ public class MyApplication extends Application {
     public static SharedPreferences.Editor editor;
     private static List<Activity> activityList = new ArrayList<>();
 
-
-
-
-    protected String getAppkey() {
-        return null;
-    }
-
-    protected String getAppSecret() {
-        return null;
-    }
-
-
-
-
     //初始化加载人脸识别引擎
     private final String TAG = this.getClass().toString();
     public FaceDB mFaceDB;
@@ -79,15 +70,16 @@ public class MyApplication extends Application {
         super.onCreate();
         //初始化
         context = getApplicationContext();
+        MobSDK.init(this, this.getAppkey(), this.getAppSecret());
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = pref.edit();
+        Realm.init(this);
+        RealmConfiguration configuration = new RealmConfiguration.Builder().build();
+        Realm.setDefaultConfiguration(configuration);
         DemoCache.setContext(this);
         //初始化面部识别
         mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
         mImage = null;
-        //初始化mob短信验证
-     //   MobSDK.init(this);
-        MobSDK.init(this, this.getAppkey(), this.getAppSecret());
         //初始化云信
         NIMClient.init(this, loginInfo(), options());
         if (NIMUtil.isMainProcess(this)) {
@@ -308,5 +300,10 @@ public class MyApplication extends Application {
 //
 //        // 在线状态定制初始化。
 //        NimUIKit.setOnlineStateContentProvider(new DemoOnlineStateContentProvider());
+    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this) ;
     }
 }

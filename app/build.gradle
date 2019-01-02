@@ -1,13 +1,8 @@
 apply plugin: 'com.android.application'
-/*apply plugin: 'com.mob.sdk'
+apply plugin: 'realm-android'
 
- //在MobSDK的扩展中注册SMSSDK的相关信息
-MobSDK {
-    appKey "2983dbd78ee8a"
-    appSecret "e9f1890fbfeb8906206a9169b648534a"
 
-    SMSSDK {}
-}*/
+
 android {
     compileSdkVersion 28
     buildToolsVersion '27.0.3'
@@ -17,6 +12,7 @@ android {
         targetSdkVersion 28
         versionCode 1//版本号
         versionName "界面设计测试版"//版本名
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
@@ -29,16 +25,13 @@ android {
     }
 
 
-buildTypes {
+    buildTypes {
         //正式版配置
         release {
             minifyEnabled false//是否开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-        debug {
-            minifyEnabled false
-            debuggable true
-        }
+
     }
 }
 
