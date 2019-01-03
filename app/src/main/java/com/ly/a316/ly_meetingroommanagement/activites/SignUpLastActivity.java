@@ -1,12 +1,16 @@
 package com.ly.a316.ly_meetingroommanagement.activites;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Log;
@@ -51,12 +55,13 @@ public class SignUpLastActivity extends BaseActivity {
     private PhotoFactory photoFactory;
     private static final String TAG = "SignUpLastActivity:";
     private Bitmap headImage;
-    private String headName="headImage.png";
+    private String headName="headImage.jpg";
     public String phoneURL;
     private String phoneNumber;
     private String password;
     private String nickName;
     private String imageUrl;
+    private String filePath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -144,8 +149,7 @@ public class SignUpLastActivity extends BaseActivity {
     }
     private void getFileURl(){
         //1.将headImge存到本地
-            String path =Environment.getExternalStorageDirectory() + "/" + "DCIM"+"/"+"headImage.png" ;//获取自定义SD路径
-            File photo_file=new File(path);//生成该路径的文件
+            File photo_file=new File(filePath);//生成该路径的文件
             new UploadServiceImp(SignUpLastActivity.this).uploadFile(photo_file);
     }
     private String getImagUrl() {
@@ -257,7 +261,10 @@ public class SignUpLastActivity extends BaseActivity {
 
                     @Override
                     public void onSuccess(ResultData data) {
-                        headImage=data.addScaleCompress(164, 164).GetBitmap();
+                            Uri uri= data.addScaleCompress(720,720).GetUri();
+                            filePath=getRealFilePath(SignUpLastActivity.this,uri);
+
+                        headImage=data.addScaleCompress(720,720).GetBitmap();
                         actSignUpHead.setImageBitmap(headImage);
                        // dealCropPhoto();
                     }
@@ -271,6 +278,28 @@ public class SignUpLastActivity extends BaseActivity {
                         }
                     }
                 });
+    }
+    public static String getRealFilePath(final Context context, final Uri uri ) {
+        if ( null == uri ) return null;
+        final String scheme = uri.getScheme();
+        String data = null;
+        if ( scheme == null )
+            data = uri.getPath();
+        else if ( ContentResolver.SCHEME_FILE.equals( scheme ) ) {
+            data = uri.getPath();
+        } else if ( ContentResolver.SCHEME_CONTENT.equals( scheme ) ) {
+            Cursor cursor = context.getContentResolver().query( uri, new String[] { MediaStore.Images.ImageColumns.DATA }, null, null, null );
+            if ( null != cursor ) {
+                if ( cursor.moveToFirst() ) {
+                    int index = cursor.getColumnIndex( MediaStore.Images.ImageColumns.DATA );
+                    if ( index > -1 ) {
+                        data = cursor.getString( index );
+                    }
+                }
+                cursor.close();
+            }
+        }
+        return data;
     }
     public  void uploadBack(){
 

@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.classes.TabEntity;
 import com.ly.a316.ly_meetingroommanagement.customView.BottomBarLayout;
@@ -28,11 +29,14 @@ import com.ly.a316.ly_meetingroommanagement.fragments.CalendarFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.ContactListFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.ConversationListFragment;
 import com.ly.a316.ly_meetingroommanagement.fragments.MineFragment;
+import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SystemMessageUnreadManager;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.TeamCreateHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderManager;
+import com.ly.a316.ly_meetingroommanagement.nim.user_info.UserPreferences;
 import com.ly.a316.ly_meetingroommanagement.utils.PopupMenuUtil;
+import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
 import com.netease.nim.uikit.common.ToastHelper;
 import com.netease.nim.uikit.common.activity.UI;
@@ -43,6 +47,9 @@ import com.netease.nim.uikit.support.permission.annotation.OnMPermissionNeverAsk
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.NimIntent;
 import com.netease.nimlib.sdk.Observer;
+import com.netease.nimlib.sdk.RequestCallback;
+import com.netease.nimlib.sdk.StatusBarNotificationConfig;
+import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.SystemMessageObserver;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
@@ -65,6 +72,7 @@ public class MainActivity extends UI {
     private FragmentManager fManager;
     //与状态栏同高的View
     private View statusBarView;
+    private static final String TAG = "MainActivity";
     private List<TabEntity> tabEntityList;
     private String[] tabText = {"消息","日程","工作","通讯录","我的"};
 
@@ -91,8 +99,9 @@ public class MainActivity extends UI {
             Manifest.permission.CAMERA,
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            //暂时不需要定位的权限
+//            Manifest.permission.ACCESS_COARSE_LOCATION,
+//            Manifest.permission.ACCESS_FINE_LOCATION
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -181,7 +190,11 @@ public class MainActivity extends UI {
         });
     }
 
-
+     public static final void start(Context context){
+        Intent intent=new Intent();
+        intent.setClass(context,MainActivity.class);
+        context.startActivity(intent);
+     }
     void initview(){
         for (int i=0;i<tabText.length;i++){
             TabEntity item = new TabEntity();
@@ -234,8 +247,49 @@ public class MainActivity extends UI {
         super.onNewIntent(intent);
         parseIntent();
     }
+    private void nimLogin(String phone) {
+        final String account = phone;
+        //云信的密码是账号的后六位
+        int length=account.length();
+        StringBuilder stringBuilder=new StringBuilder();
+        for(int i=length-6;i<=length-1;i++)
+            stringBuilder.append(account.charAt(i));
 
+        String token = stringBuilder.toString();
+        LoginInfo info = new LoginInfo(account, token); // config...
+        RequestCallback<LoginInfo> callback =
+                new RequestCallback<LoginInfo>() {
+                    // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
+                    @Override
+                    public void onSuccess(LoginInfo loginInfo) {
+                        Log.d(TAG, "onSuccess: 登录成功！");
+
+                        DemoCache.setAccount(account);
+
+                        //自己管理不用云信的
+//                        saveLoginInfo(account, token);
+
+                        // 初始化消息提醒配置
+                        initNotificationConfig();
+                    }
+
+                    @Override
+                    public void onFailed(int i) {
+                        Log.d(TAG, "onFailed:登录失败了！");
+                    }
+
+                    @Override
+                    public void onException(Throwable throwable) {
+                        Log.d(TAG, "onException: 登录异常！");
+                    }
+                };
+        NimUIKit.login(info, callback);
+    }
     private void initNim(){
+        //登录运行账号，因为此app在登录过账号后就可以直接跳转此活动，所以云信的登录要设置在这里
+        //1.获取phone
+        final String phone= MyApplication.getId();
+        nimLogin(phone);
         //注册/注销系统消息未读数变化
         registerSystemMessageObservers(true);
         //请求权限提示
@@ -271,7 +325,18 @@ public class MainActivity extends UI {
             fragmentTransaction.hide(fr_calendar);
         }
     }
-
+    private void initNotificationConfig() {
+        // 初始化消息提醒（先默认开启）
+        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
+        // 加载状态栏配置
+        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
+        if (statusBarNotificationConfig == null) {
+            statusBarNotificationConfig = DemoCache.getNotificationConfig();
+            UserPreferences.setStatusConfig(statusBarNotificationConfig);
+        }
+        // 更新配置
+        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

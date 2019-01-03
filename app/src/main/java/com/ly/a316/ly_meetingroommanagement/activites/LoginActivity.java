@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.CountDownButton;
@@ -22,6 +23,7 @@ import com.ly.a316.ly_meetingroommanagement.models.UserInfoModel;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 import com.ly.a316.ly_meetingroommanagement.nim.user_info.UserPreferences;
 import com.ly.a316.ly_meetingroommanagement.services.UserServiceImp;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.RequestCallback;
@@ -103,7 +105,7 @@ public class LoginActivity extends BaseActivity {
         }
     };
     @BindView(R.id.act_login_iv)
-    ImageView actLoginIv;
+    RoundedImageView actLoginIv;
     @BindView(R.id.login_ll)
     LinearLayout loginLl;
     @BindView(R.id.login_button)
@@ -159,7 +161,15 @@ public class LoginActivity extends BaseActivity {
 
      }
      else{
-         Glide.with(this).load(imageURL).into(this.actLoginIv);
+         //设置glide加载的选项
+         RequestOptions requestOptions=new RequestOptions()
+                 .placeholder(R.drawable.touxiang)
+                 .error(R.drawable.touxiang);
+         Glide
+                 .with(this)
+                 .load(imageURL)
+                 .apply(requestOptions)
+                 .into(this.actLoginIv);
      }
 
     }
@@ -211,10 +221,8 @@ public class LoginActivity extends BaseActivity {
 
     void login() {
         /*
-        测试：不登陆对应的云信账号
-             测试自己服务服务器的登录接口
         */
-        nimLogin();
+
         phone="";
         phone += this.loginSUserIDEt.getText().toString();
         String pwd = "";
@@ -240,52 +248,7 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    private void nimLogin() {
-        final String account = "betterMan";
-        String token = "xwd110";
-        LoginInfo info = new LoginInfo(account, token); // config...
-        RequestCallback<LoginInfo> callback =
-                new RequestCallback<LoginInfo>() {
-                    // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
 
-                    @Override
-                    public void onSuccess(LoginInfo loginInfo) {
-                        Log.d(TAG, "onSuccess: 登录成功！");
-
-                        DemoCache.setAccount(account);
-
-                        //自己管理不用云信的
-//                        saveLoginInfo(account, token);
-
-                        // 初始化消息提醒配置
-                        initNotificationConfig();
-                    }
-
-                    @Override
-                    public void onFailed(int i) {
-                        Log.d(TAG, "onFailed:登录失败了！");
-                    }
-
-                    @Override
-                    public void onException(Throwable throwable) {
-                        Log.d(TAG, "onException: 登录异常！");
-                    }
-                };
-        NimUIKit.login(info, callback);
-    }
-
-    private void initNotificationConfig() {
-        // 初始化消息提醒（先默认开启）
-        NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
-        // 加载状态栏配置
-        StatusBarNotificationConfig statusBarNotificationConfig = UserPreferences.getStatusConfig();
-        if (statusBarNotificationConfig == null) {
-            statusBarNotificationConfig = DemoCache.getNotificationConfig();
-            UserPreferences.setStatusConfig(statusBarNotificationConfig);
-        }
-        // 更新配置
-        NIMClient.updateStatusBarNotificationConfig(statusBarNotificationConfig);
-    }
 
 
     @Override
@@ -334,8 +297,7 @@ public class LoginActivity extends BaseActivity {
             MyApplication.setImageURL(model.profile);
             MyApplication.setUserName(model.UserName);
             //暂时不传model给mainActivity
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
+            MainActivity.start(LoginActivity.this);
             finish();
         }
     }
