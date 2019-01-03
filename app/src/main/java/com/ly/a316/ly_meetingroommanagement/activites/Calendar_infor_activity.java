@@ -1,6 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.activites;
 
 import android.annotation.SuppressLint;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
@@ -26,6 +27,7 @@ import com.ly.a316.ly_meetingroommanagement.askhttpDaoImp.ScheduleDaoImp;
 import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
+import com.ly.a316.ly_meetingroommanagement.fragments.CalendarFragment;
 import com.ly.a316.ly_meetingroommanagement.utils.CalanderUtils;
 
 import java.util.Calendar;
@@ -57,7 +59,8 @@ public class Calendar_infor_activity extends AppCompatActivity {
     java.util.Calendar calendar_all;//获取今天的时间
     @BindView(R.id.dp_test)
     DatePicker dp_test;//时间选择的控件
-
+@BindView(R.id.headddd)
+TextView headddd;
     @BindView(R.id.add_layout_chongfu)
     LinearLayout add_layout_chongfu;
     @BindView(R.id.add_layout_tixing)
@@ -72,7 +75,7 @@ public class Calendar_infor_activity extends AppCompatActivity {
     String sc_title, sc_location, sc_allday, sc_remarks;
     //重复名字
     String getSc_remarks = "0";
-    int alarmtime;//提醒的时间
+    int alarmtime = 0;//提醒的时间
     int s_yearr, s_monthr, s_dayr, s_selectHour, s_selectMiniute;//开始的时间
     int e_yearr, e_monthr, e_dayr, e_selectHour, e_selectMiniute;//结束的时间
 
@@ -91,6 +94,7 @@ public class Calendar_infor_activity extends AppCompatActivity {
     String alarmTime[] = {"无", "日程发生时", "5分钟前", "15分钟前", "30分钟前", "1小时前", "2小时前", "1天前", "2天前", "一周前"};
     int alarmTimeduiying[] = {-1, 0, 5, 15, 30, 60, 120, 1440, 2880, 10080};
 
+    String time_start,time_end;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,9 +109,6 @@ public class Calendar_infor_activity extends AppCompatActivity {
             e.printStackTrace();
         }
         init();
-        // calendar_all = java.util.Calendar.getInstance();
-
-
         dp_test.setOnChangeListener(new DatePicker.OnChangeListener() {
             @Override
             public void onChange(int year, int month, int day, int day_of_week) {
@@ -134,8 +135,8 @@ public class Calendar_infor_activity extends AppCompatActivity {
             public void onChange(int hour, int minute) {
                 start_hour = hour;//小时
                 start_miniute = minute;//分钟
-                start_time = start_time + " " + hour + "点" + ((minute < 10) ? ("0" + minute) : minute) + "分";
-                add_startTime.setText(start_time);
+                time_start = " " + hour + "点" + ((minute < 10) ? ("0" + minute) : minute) + "分";
+                add_startTime.setText(start_time+" "+time_start);
 
                 if (hour >= 24) {
                     end_hour = hour;
@@ -158,8 +159,8 @@ public class Calendar_infor_activity extends AppCompatActivity {
                 } else {
                     end_hour = start_hour;
                 }
-                end_time = end_time + "  " + end_hour + "点" + ((end_miniute < 10) ? ("0" + end_miniute) : end_miniute) + "分";
-                add_endTime.setText(end_time);
+                time_end ="  " + end_hour + "点" + ((end_miniute < 10) ? ("0" + end_miniute) : end_miniute) + "分";
+                add_endTime.setText(start_time+" "+time_end);
             }
         });
     }
@@ -192,8 +193,8 @@ public class Calendar_infor_activity extends AppCompatActivity {
             public void onChange(int hour, int minute) {
                 end_hour = hour;//结束的时间
                 end_miniute = minute;
-                end_time = end_time + " " + hour + "点" + ((minute < 10) ? ("0" + minute) : minute) + "分";
-                add_endTime.setText(end_time);
+                time_end =" " + hour + "点" + ((minute < 10) ? ("0" + minute) : minute) + "分";
+                add_endTime.setText(end_time+" "+time_end);
             }
         });
     }
@@ -216,7 +217,7 @@ public class Calendar_infor_activity extends AppCompatActivity {
                 break;
             case R.id.add_endTime:
                 if (c == 3) {
-                    dsd(e_yearr, e_monthr, e_dayr, e_selectHour, e_selectMiniute);
+                    dsd(end_year, end_month, end_day, end_hour, end_miniute);
                     add_choosetime_end.setVisibility(View.VISIBLE);
                     layput_choosetime.setVisibility(View.GONE);
                     c--;
@@ -244,12 +245,81 @@ public class Calendar_infor_activity extends AppCompatActivity {
                 break;
             case R.id.add_sure:
                 //提交日程
-                //  subbmit();
-                String starttime = s_yearr + "-" + (s_monthr) + "-" + s_dayr + " " + s_selectHour + ":" + s_selectMiniute + ":00";
-                String endtime = e_yearr + "-" + (e_monthr) + "-" + e_dayr + " " + e_selectHour + ":" + e_selectMiniute + ":00";
-                //    scheduleDao.addSchedule("15858526805", starttime, endtime, sc_title, "日程", sc_remarks, sc_location, ti);
-                break;
+                subbmit();
+                 break;
         }
+    }
+
+
+
+    @SuppressLint("MissingPermission")
+    void subbmit() {
+        sc_title = sc_titleview.getText().toString();//标题
+        sc_location = sc_locationview.getText().toString();//地点
+        //备注
+        sc_remarks = sc_beizhuview.getText().toString();
+        //修改提醒回调的地方
+        ContentValues values = new ContentValues();
+        //插入时间的event_id
+        if(sc_title != null){
+            values.put("title", sc_title);//在事件发生之前多少分钟进行提醒
+        }
+        if(sc_remarks != null){
+            values.put("description", sc_remarks);//备注
+        }
+        if(sc_allday != null){
+            values.put("allDay", sc_allday);//是否全天
+        }
+        if(sc_location != null){
+            values.put("eventLocation", sc_location);//地点
+        }
+
+        Calendar mCalendar = Calendar.getInstance();
+        //起始时间
+        mCalendar.set(Calendar.YEAR, start_year);
+        mCalendar.set(Calendar.MONTH, start_month - 1);
+        mCalendar.set(Calendar.DAY_OF_MONTH, start_day);
+        mCalendar.set(Calendar.HOUR_OF_DAY, start_hour);
+        mCalendar.set(Calendar.MINUTE, start_miniute);
+        long start = mCalendar.getTime().getTime();
+        //结束时间
+        mCalendar.set(Calendar.YEAR, end_year);
+        mCalendar.set(Calendar.MONTH, end_month - 1);
+        mCalendar.set(Calendar.DAY_OF_MONTH, end_day);
+        mCalendar.set(Calendar.HOUR_OF_DAY, end_hour);
+        mCalendar.set(Calendar.MINUTE, end_miniute);
+        long end = mCalendar.getTime().getTime();
+
+
+        values.put("dtstart", start);
+        values.put("dtend", end);
+        values.put("hasAlarm", 1);
+        if (!getSc_remarks.equals("0")) {
+            //设置重复规则
+            values.put("rrule", "FREQ=" + getSc_remarks);
+        }
+        Uri updateUri = null;
+
+        updateUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, Integer.valueOf(infor_event_idd));
+
+        int rows = getContentResolver().update(updateUri, values, null, null);
+
+
+
+        ContentValues valuess = new ContentValues();
+        //插入时间的event_id
+        valuess.put("event_id", infor_event_idd);
+        //提前10分钟有提醒
+        if(alarmtime != 0){
+            valuess.put("minutes", alarmtime);//在事件发生之前多少分钟进行提醒
+        }
+        int rowss = getContentResolver().update(Uri.parse(CalanderUtils.calanderRemiderURL), valuess, CalendarContract.Reminders.EVENT_ID + "=" + Integer.valueOf(infor_event_idd), null);
+
+        if(rows>0&&rowss>0){
+            Intent intent1 = new Intent(Calendar_infor_activity.this, CalendarFragment.class);
+            Calendar_infor_activity.this.setResult(10, intent1);
+            finish();
+         }
     }
 
 
@@ -291,7 +361,7 @@ public class Calendar_infor_activity extends AppCompatActivity {
         dsa = panduan(dsa);
         add_tixing.setText(dsa);//提醒
         sc_beizhuview.setText(schedule.getAlert_beizhu());
-
+        headddd.setText("日程详情");
         addSchedule_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -328,9 +398,7 @@ public class Calendar_infor_activity extends AppCompatActivity {
         add_choosetime_end.addView(tpp_test);
     }
 
-    public void successback() {
-        finish();
-    }
+
 
     String panduan(String dsa) {
         switch (dsa) {

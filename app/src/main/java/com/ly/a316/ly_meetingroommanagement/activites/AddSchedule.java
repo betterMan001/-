@@ -314,6 +314,7 @@ public class AddSchedule extends BaseActivity {
             ContentValues values = new ContentValues();
             //插入时间的event_id
             values.put("event_id", id);
+
             //提前10分钟有提醒
             values.put("minutes", alarmtime);//在事件发生之前多少分钟进行提醒
             getContentResolver().insert(Uri.parse(CalanderUtils.calanderRemiderURL), values);

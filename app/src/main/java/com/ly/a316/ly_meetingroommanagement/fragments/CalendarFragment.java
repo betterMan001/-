@@ -192,12 +192,18 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         calendar_adapter.setOnItemClick(new Calendar_Adapter.OnItemClick() {
             @Override
             public void onitemClick(int position,String event_idd) {
+                alarm_choose_item = position;
+                alarmyear = Schedule.list.get(position).getYear();
+                alarmmonth = Schedule.list.get(position).getMonth();
+                alarmday = Schedule.list.get(position).getDay();
+
+
                 //日程详情
                 Intent intent = new Intent(getActivity(), Calendar_infor_activity.class);
+                Log.i("zjc",event_idd);
                 intent.putExtra("event_id",event_idd);
-                startActivity(intent);
-                Toast.makeText(getContext(), "all被点击", Toast.LENGTH_SHORT).show();
-            }
+                startActivityForResult(intent, 14);
+             }
 
             @Override
             //删除操作
@@ -300,6 +306,23 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                         e.printStackTrace();
                     }
                 }
+                break;
+            case 14:
+                if(resultCode == 10){
+                    Toast.makeText(getContext(),"修改成功",Toast.LENGTH_SHORT).show();
+                    //修改日程
+                    Schedule.list.clear();
+                    //获取这个时间段的所有信息
+                    List<Schedule> calendarEvent = null;
+                    try {
+                        calendarEvent = CalanderUtils.getCalendarEventByDay(getActivity(), alarmyear, alarmmonth, alarmday);
+                        Schedule.list.addAll(calendarEvent);
+                        calendar_adapter.notifyItemChanged(alarm_choose_item);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
                 break;
         }
     }
