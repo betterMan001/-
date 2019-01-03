@@ -21,9 +21,10 @@ public class OneDayCountActivity extends BaseActivity {
         setContentView(R.layout.activity_one_day_count);
     }*/
    int colors[]={R.color.one,R.color.two,R.color.three,R.color.three,R.color.four,R.color.six,R.color.collu,R.color.miss_blue};
+    List<WeekViewEvent> events;
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
-        List<WeekViewEvent> events = new ArrayList<WeekViewEvent>();
+
         WeekViewEvent event = new WeekViewEvent();
         java.util.Calendar c  = java.util.Calendar.getInstance();
         c.set( java.util.Calendar.YEAR, Integer.valueOf(newYear));

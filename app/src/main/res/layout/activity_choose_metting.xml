@@ -1,32 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activites.ChooseMettingActivity">
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    >
-    <ImageView
-        android:id="@+id/choose_mettingpicture"
+    tools:context=".activites.chooseOffice.ChooseMettingActivity">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/choose_metting_recy"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="10dp"
-        android:scaleType="centerCrop"
-        android:background="@drawable/bb_ground" />
-</FrameLayout>
-    <com.ly.a316.ly_meetingroommanagement.customView.PreviewRecycleView
-        android:id="@+id/id_recyclerview_horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_gravity="bottom"
-        android:scrollbars="none"
-        >
-
-    </com.ly.a316.ly_meetingroommanagement.customView.PreviewRecycleView>
+        />
 </LinearLayout>

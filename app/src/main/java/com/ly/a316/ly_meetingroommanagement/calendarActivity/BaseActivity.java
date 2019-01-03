@@ -46,7 +46,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;//默认显示日视图
     @BindView(R.id.morethen)
     ImageView morethen;
-@BindView(R.id.today)
+    @BindView(R.id.today)
     TextView today;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

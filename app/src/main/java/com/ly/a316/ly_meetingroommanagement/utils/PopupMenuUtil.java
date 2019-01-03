@@ -15,10 +15,8 @@ import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.activites.ChooseMettingActivity;
-import com.ly.a316.ly_meetingroommanagement.activites.IdentifyFaceActivity;
+import com.ly.a316.ly_meetingroommanagement.activites.chooseOffice.ChooseMettingActivity;
 import com.ly.a316.ly_meetingroommanagement.activites.MeetingListActivity;
-import com.ly.a316.ly_meetingroommanagement.activites.SchemeetingActivity;
 
 public class PopupMenuUtil {
     public static PopupMenuUtil getInstance() {

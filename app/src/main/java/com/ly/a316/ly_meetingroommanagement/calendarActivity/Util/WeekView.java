@@ -67,31 +67,31 @@ public class WeekView extends View {
     @Deprecated
     public static final int LENGTH_LONG = 2;
     private final Context mContext;
-    private Paint mTimeTextPaint;
+    private Paint mTimeTextPaint;//右边时间的绘制
     private float mTimeTextWidth;
     private float mTimeTextHeight;
-    private Paint mHeaderTextPaint;
+    private Paint mHeaderTextPaint;//顶部列表的绘制
     private float mHeaderTextHeight;
     private float mHeaderHeight;
-    private GestureDetectorCompat mGestureDetector;
-    private OverScroller mScroller;
-    private PointF mCurrentOrigin = new PointF(0f, 0f);
-    private Direction mCurrentScrollDirection = Direction.NONE;
-    private Paint mHeaderBackgroundPaint;
-    private float mWidthPerDay;
-    private Paint mDayBackgroundPaint;
-    private Paint mHourSeparatorPaint;
+    private GestureDetectorCompat mGestureDetector;//Touch事件之一 触摸及手势识别
+    private OverScroller mScroller;//滚动计算辅助类
+    private PointF mCurrentOrigin = new PointF(0f, 0f);//花点
+    private Direction mCurrentScrollDirection = Direction.NONE;//手指在屏幕上的移动方向
+    private Paint mHeaderBackgroundPaint;//顶部列表背景的绘制
+    private float mWidthPerDay;//每一天的宽度
+    private Paint mDayBackgroundPaint;//每一天背景的绘制
+    private Paint mHourSeparatorPaint;//小时分割线的绘制
     private float mHeaderMarginBottom;
-    private Paint mTodayBackgroundPaint;
-    private Paint mFutureBackgroundPaint;
-    private Paint mPastBackgroundPaint;
-    private Paint mFutureWeekendBackgroundPaint;
-    private Paint mPastWeekendBackgroundPaint;
-    private Paint mNowLinePaint;
+    private Paint mTodayBackgroundPaint;//当天背景颜色的绘制
+    private Paint mFutureBackgroundPaint;//未来背景颜色的绘制
+    private Paint mPastBackgroundPaint;//过去背景颜色的绘制
+    private Paint mFutureWeekendBackgroundPaint;//未来每周背景的绘制
+    private Paint mPastWeekendBackgroundPaint;//过去每周颜色的绘制
+    private Paint mNowLinePaint;//当天线条的绘制
     private Paint mTodayHeaderTextPaint;
-    private Paint mEventBackgroundPaint;
+    private Paint mEventBackgroundPaint;//事件背景颜色的绘制
     private float mHeaderColumnWidth;
-    private List<EventRect> mEventRects;
+    private List<EventRect> mEventRects;//方格
     private List<? extends WeekViewEvent> mPreviousPeriodEvents;
     private List<? extends WeekViewEvent> mCurrentPeriodEvents;
     private List<? extends WeekViewEvent> mNextPeriodEvents;
@@ -164,6 +164,7 @@ public class WeekView extends View {
     private DateTimeInterpreter mDateTimeInterpreter;
     private ScrollListener mScrollListener;
 
+    //滑动或者按下再抬起的操作
     private final GestureDetector.SimpleOnGestureListener mGestureListener = new GestureDetector.SimpleOnGestureListener() {
 
         @Override
@@ -171,10 +172,9 @@ public class WeekView extends View {
             goToNearestOrigin();
             return true;
         }
-
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-            // Check if view is zoomed.
+            // Check if view is zoomed.  如果视图有变焦的话。
             if (mIsZooming)
                 return true;
 
