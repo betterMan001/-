@@ -146,9 +146,9 @@ public class SignUpActivity extends BaseActivity {
             }
             else{
                 //测试接口不
-                 // SignUpDetailActivty.start(SignUpActivity.this,"18248618633");
-                SMSSDK.submitVerificationCode("86", phone,identifyCode);
-                Log.d(TAG, "turnNext: test");
+                  SignUpDetailActivty.start(SignUpActivity.this,"18248618633");
+                //SMSSDK.submitVerificationCode("86", phone,identifyCode);
+                //Log.d(TAG, "turnNext: test");
 
             }
         } else{
