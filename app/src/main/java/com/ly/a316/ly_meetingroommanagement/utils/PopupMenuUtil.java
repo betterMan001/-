@@ -17,6 +17,7 @@ import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.activites.chooseOffice.ChooseMettingActivity;
 import com.ly.a316.ly_meetingroommanagement.activites.MeetingListActivity;
+import com.ly.a316.ly_meetingroommanagement.activites.chooseOffice.WriteconditionActivity;
 
 public class PopupMenuUtil {
     public static PopupMenuUtil getInstance() {
@@ -143,7 +144,7 @@ public class PopupMenuUtil {
                 break;
             //预订会议
             case 1:
-                intent = new Intent(context, ChooseMettingActivity.class);
+                intent = new Intent(context, WriteconditionActivity.class);
                 break;
             //查看历史会议
             case 3:

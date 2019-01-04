@@ -108,6 +108,9 @@
     <string name="head_update_success">头像设置成功</string>
     <string name="head_update_failed">头像设置失败，请重试</string>
     <string name="male">男</string>
+    <string name="shijiaduan">时间段选择</string>
+    <string name="shike">时刻选择</string>
+    <string name="shijian">时间</string>
 </resources>
 
 

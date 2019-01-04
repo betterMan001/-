@@ -174,7 +174,7 @@
         <activity android:name=".calendarActivity.OneDayCountActivity" />
         <activity android:name=".ceshi" />
         <activity android:name=".activites.chooseOffice.ChooseMettingActivity"></activity>
-
+<activity android:name=".activites.chooseOffice.WriteconditionActivity"></activity>
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"

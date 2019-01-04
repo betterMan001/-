@@ -91,7 +91,7 @@ public abstract class ViewPagerLayoutManager extends LinearLayoutManager {
 
     private SavedState mPendingSavedState = null;
 
-    protected float mInterval; //the mInterval of each item's mOffset
+    protected float mInterval; //the mInterval of each item_choose_shebei's mOffset
 
     /* package */ OnPageChangeListener onPageChangeListener;
 
@@ -106,7 +106,7 @@ public abstract class ViewPagerLayoutManager extends LinearLayoutManager {
     private int mRightItems;
 
     /**
-     * max visible item count
+     * max visible item_choose_shebei count
      */
     private int mMaxVisibleItemCount = DETERMINE_BY_MAX_AND_MIN;
 
@@ -120,7 +120,7 @@ public abstract class ViewPagerLayoutManager extends LinearLayoutManager {
     private View currentFocusView;
 
     /**
-     * @return the mInterval of each item's mOffset
+     * @return the mInterval of each item_choose_shebei's mOffset
      */
     protected abstract float setInterval();
 
@@ -264,20 +264,20 @@ public abstract class ViewPagerLayoutManager extends LinearLayoutManager {
     }
 
     /**
-     * Returns the max visible item count, {@link #DETERMINE_BY_MAX_AND_MIN} means it haven't been set now
+     * Returns the max visible item_choose_shebei count, {@link #DETERMINE_BY_MAX_AND_MIN} means it haven't been set now
      * And it will use {@link #maxRemoveOffset()} and {@link #minRemoveOffset()} to handle the range
      *
-     * @return Max visible item count
+     * @return Max visible item_choose_shebei count
      */
     public int getMaxVisibleItemCount() {
         return mMaxVisibleItemCount;
     }
 
     /**
-     * Set the max visible item count, {@link #DETERMINE_BY_MAX_AND_MIN} means it haven't been set now
+     * Set the max visible item_choose_shebei count, {@link #DETERMINE_BY_MAX_AND_MIN} means it haven't been set now
      * And it will use {@link #maxRemoveOffset()} and {@link #minRemoveOffset()} to handle the range
      *
-     * @param mMaxVisibleItemCount Max visible item count
+     * @param mMaxVisibleItemCount Max visible item_choose_shebei count
      */
     public void setMaxVisibleItemCount(int mMaxVisibleItemCount) {
         assertNotInLayoutOrScroll(null);
@@ -311,9 +311,9 @@ public abstract class ViewPagerLayoutManager extends LinearLayoutManager {
     }
 
     /**
-     * Used to reverse item traversal and layout order.
-     * This behaves similar to the layout change for RTL views. When set to true, first item is
-     * laid out at the end of the UI, second item is laid out before it etc.
+     * Used to reverse item_choose_shebei traversal and layout order.
+     * This behaves similar to the layout change for RTL views. When set to true, first item_choose_shebei is
+     * laid out at the end of the UI, second item_choose_shebei is laid out before it etc.
      * <p>
      * For horizontal layouts, it depends on the layout direction.
      * When set to true, If {@link android.support.v7.widget.RecyclerView} is LTR, than it will
