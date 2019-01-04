@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10"
+    >
+    <LinearLayout
+        android:id="@+id/item_choose_time_xia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/shijian"
+            android:textSize="@dimen/text_size_15" />
+        <ImageView
+            android:layout_width="@dimen/text_size_25"
+            android:layout_height="@dimen/text_size_20"
+            android:background="@drawable/xiabian" />
+    </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/item_time_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center"
+        >
+        <Button
+            android:id="@+id/item_choose_shike"
+            android:textSize="@dimen/dp_14"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/shike"
+            android:background="@android:color/transparent"
+            />
+        <View
+            android:layout_width="0.3dp"
+            android:layout_height="wrap_content"
+            android:background="#d9d9f3"></View>
+        <Button
+            android:id="@+id/item_choose_shijianduan"
+            android:textSize="@dimen/dp_14"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/shijiaduan"
+            android:background="@android:color/transparent"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/item_choose_shikeview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <com.ly.a316.ly_meetingroommanagement.customView.DatePicker
+
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center"
+
+            android:layout_gravity="center_horizontal"/>
+    </LinearLayout>
+
+
+</LinearLayout>

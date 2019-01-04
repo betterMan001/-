@@ -24,18 +24,18 @@ public interface WheelAdapter {
 	public int getItemsCount();
 	
 	/**
-	 * Gets a wheel item by index.
+	 * Gets a wheel item_choose_shebei by index.
 	 * 
-	 * @param index the item index
-	 * @return the wheel item text or null
+	 * @param index the item_choose_shebei index
+	 * @return the wheel item_choose_shebei text or null
 	 */
 	public String getItem(int index);
 	
 	/**
-	 * Gets maximum item length. It is used to determine the wheel width. 
+	 * Gets maximum item_choose_shebei length. It is used to determine the wheel width.
 	 * If -1 is returned there will be used the default wheel width.
 	 * 
-	 * @return the maximum item length or -1
+	 * @return the maximum item_choose_shebei length or -1
 	 */
 	public int getMaximumLength();
 }

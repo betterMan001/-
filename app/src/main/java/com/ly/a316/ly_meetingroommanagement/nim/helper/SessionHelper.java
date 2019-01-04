@@ -252,8 +252,8 @@ public class SessionHelper {
 //                }
 //
 //                @Override
-//                public MsgAttachment createStickerAttachment(String category, String item) {
-//                    return new StickerAttachment(category, item);
+//                public MsgAttachment createStickerAttachment(String category, String item_choose_shebei) {
+//                    return new StickerAttachment(category, item_choose_shebei);
 //                }
 //            };
 //
@@ -316,7 +316,7 @@ public class SessionHelper {
 //                }
 //
 //                @Override
-//                public MsgAttachment createStickerAttachment(String category, String item) {
+//                public MsgAttachment createStickerAttachment(String category, String item_choose_shebei) {
 //                    return null;
 //                }
 //            };

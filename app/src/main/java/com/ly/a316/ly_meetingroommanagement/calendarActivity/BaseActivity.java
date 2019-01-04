@@ -157,8 +157,8 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
           return true;
       }*/
    /* @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public boolean onOptionsItemSelected(MenuItem item_choose_shebei) {
+        int id = item_choose_shebei.getItemId();
         setupDateTimeInterpreter(id == R.id.action_week_view);
         switch (id) {
             case R.id.action_today://点击了今天的按钮
@@ -182,7 +182,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
                 return true;*//*
         }
 
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item_choose_shebei);
     }
 */
     private void setupDateTimeInterpreter(final boolean shortDate) {

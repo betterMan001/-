@@ -33,10 +33,10 @@ public class SchemeetingActivity extends BaseActivity {
     String c[] = {
             "http://pic28.photophoto.cn/20130818/0020033143720852_b.jpg",
             "https://img.zcool.cn/community/01f9ea56e282836ac72531cbe0233b.jpg@1280w_1l_2o_100sh.jpg",
-            "http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg",
+            "http://img5.duitang.com/uploads/item_choose_shebei/201411/07/20141107164412_v284V.jpeg",
             "http://pic28.photophoto.cn/20130818/0020033143720852_b.jpg",
             "https://img.zcool.cn/community/01f9ea56e282836ac72531cbe0233b.jpg@1280w_1l_2o_100sh.jpg",
-            "http://img5.duitang.com/uploads/item/201411/07/20141107164412_v284V.jpeg",
+            "http://img5.duitang.com/uploads/item_choose_shebei/201411/07/20141107164412_v284V.jpeg",
     };
 
 

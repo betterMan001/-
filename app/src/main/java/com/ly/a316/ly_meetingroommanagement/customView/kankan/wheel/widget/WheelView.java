@@ -94,7 +94,7 @@ public class WheelView extends View {
 			0x00FFFFFF, 0x00FFFFFF };
 
 	/** 
-	 * Additional items height (is added to standard text item height) 
+	 * Additional items height (is added to standard text item_choose_shebei height)
 	 * 
 	 *  </br>
 	 * ������ĸ߶���ĸ߶�  (��λӦ����dp) </br>
@@ -147,7 +147,7 @@ public class WheelView extends View {
 	 *  </br>
 	 * ���  </br>
 	 * ���ѡ����ڲ���䣬���ѡ���Ǹ�TextView�Ļ������������õļ���TextView����� </br>
-	 * =��=��������뻹���п���item��ɶ��Ҳ��֪��
+	 * =��=��������뻹���п���item_choose_shebei��ɶ��Ҳ��֪��
 	 */
 	private static final int PADDING = 10;
 
@@ -205,7 +205,7 @@ public class WheelView extends View {
 	 * Item height
 	 * 
 	 *  </br>
-	 * ��item�ĸ�
+	 * ��item_choose_shebei�ĸ�
 	 */
 	private int itemHeight = 0;
 
@@ -574,9 +574,9 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Sets the current item. Does nothing when index is wrong.
+	 * Sets the current item_choose_shebei. Does nothing when index is wrong.
 	 * 
-	 * @param index the item index
+	 * @param index the item_choose_shebei index
 	 * @param animated the animation flag
 	 *
 	 * </br>
@@ -614,9 +614,9 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Sets the current item w/o animation. Does nothing when index is wrong.
+	 * Sets the current item_choose_shebei w/o animation. Does nothing when index is wrong.
 	 * 
-	 * @param index the item index
+	 * @param index the item_choose_shebei index
 	 *
 	 * </br>
 	 * ���õ�ǰѡ���Ĭ���ǲ�����������
@@ -626,7 +626,7 @@ public class WheelView extends View {
 	}	
 	
 	/**
-	 * Tests if wheel is cyclic. That means before the 1st item there is shown the last one
+	 * Tests if wheel is cyclic. That means before the 1st item_choose_shebei there is shown the last one
 	 * @return true if wheel is cyclic
 	 *
 	 * </br>
@@ -729,9 +729,9 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Returns text item by index
-	 * @param index the item index
-	 * @return the item or null
+	 * Returns text item_choose_shebei by index
+	 * @param index the item_choose_shebei index
+	 * @return the item_choose_shebei or null
 	 * 
 	 * </br> 
 	 * ָ�����������ѡ����ı�ֵ(Sring) </br>
@@ -790,7 +790,7 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Returns the max item length that can be present
+	 * Returns the max item_choose_shebei length that can be present
 	 * @return the max length
 	 * 
 	 *  </br>
@@ -822,8 +822,8 @@ public class WheelView extends View {
 	}
 
 	/**
-	 * Returns height of wheel item
-	 * @return the item height
+	 * Returns height of wheel item_choose_shebei
+	 * @return the item_choose_shebei height
 	 * 
 	 * </br>
 	 * ���ѡ���

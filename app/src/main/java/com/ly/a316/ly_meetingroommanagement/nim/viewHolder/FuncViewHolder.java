@@ -55,7 +55,7 @@ public class FuncViewHolder extends AbsContactViewHolder<FuncViewHolder.FuncItem
             ReminderManager.getInstance().registerUnreadNumChangedCallback(this);
             sUnreadCallbackRefs.add(new WeakReference<ReminderManager.UnreadNumChangedCallback>(this));
         }
-// else if (item == FuncItem.ROBOT) {
+// else if (item_choose_shebei == FuncItem.ROBOT) {
 //            funcName.setText("智能机器人");
 //            image.setImageResource(R.drawable.ic_robot);
 //        }
@@ -66,7 +66,7 @@ public class FuncViewHolder extends AbsContactViewHolder<FuncViewHolder.FuncItem
             funcName.setText("高级群");
             image.setImageResource(R.drawable.ic_advanced_team);
         }
-//        else if (item == FuncItem.BLACK_LIST) {
+//        else if (item_choose_shebei == FuncItem.BLACK_LIST) {
 //            funcName.setText("黑名单");
 //            image.setImageResource(R.drawable.ic_black_list);
 //        }
@@ -142,7 +142,7 @@ public class FuncViewHolder extends AbsContactViewHolder<FuncViewHolder.FuncItem
             if (item == VERIFY) {
                 SystemMessageActivity.start(context);
             }
-//            else if (item == ROBOT) {
+//            else if (item_choose_shebei == ROBOT) {
 //                RobotListActivity.start(context);
 //            }
 //            //讨论组
@@ -154,10 +154,10 @@ public class FuncViewHolder extends AbsContactViewHolder<FuncViewHolder.FuncItem
                 TeamListActivity.start(context, ItemTypes.TEAMS.ADVANCED_TEAM);
             }
 //            //我的电脑
-//            else if (item == MY_COMPUTER) {
+//            else if (item_choose_shebei == MY_COMPUTER) {
 //                SessionHelper.startP2PSession(context, DemoCache.getAccount());
 //            }
-//            else if (item == BLACK_LIST) {
+//            else if (item_choose_shebei == BLACK_LIST) {
 //                BlackListActivity.start(context);
 //            }
         }
