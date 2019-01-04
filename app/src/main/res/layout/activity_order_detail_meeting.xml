@@ -9,14 +9,19 @@
     android:background="@color/gray"
     tools:context=".activites.OrderDetailMeetingActivity">
        <include
-           android:id="@+id/custom_bar"
            layout="@layout/customize_bar"
            />
     <!--边界回弹的ScrollView-->
-    <com.ly.a316.ly_meetingroommanagement.customView.OverScrollView
+    <LinearLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:paddingTop="0dp"
+        android:orientation="vertical"
         >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -26,9 +31,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
-                android:paddingRight="10dp"
+                android:paddingRight="5dp"
                 android:background="@color/white"
                 >
                 <ImageView
@@ -38,21 +42,21 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/huiyi_list_item"
+                    android:background="@drawable/jilu001"
                     />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-
                     android:gravity="center_vertical"
                     android:text="开始时间"
+                    android:textColor="@color/black"
                     >
                 </TextView>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical||right"
+                    android:gravity="center_vertical|right"
                     android:text="2019-01-04 14:54:40"
                     >
                 </TextView>
@@ -61,9 +65,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginLeft="50dp"
-                android:background="@color/gray7"
                 >
             </ImageView>
+            <!--时间相关-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +87,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-
+                    android:textColor="@color/black"
                     android:gravity="center_vertical"
                     android:text="开始时间"
                     >
@@ -92,7 +96,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical||right"
+                    android:gravity="center_vertical|right"
                     android:text="2019-01-04 14:54:40"
                     >
                 </TextView>
@@ -104,6 +108,7 @@
                 android:background="@color/gray7"
                 >
             </ImageView>
+            <!--时间相关-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -123,7 +128,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-
+                    android:textColor="@color/black"
                     android:gravity="center_vertical"
                     android:text="开始时间"
                     >
@@ -132,7 +137,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical||right"
+                    android:gravity="center_vertical|right"
                     android:text="2019-01-04 14:54:40"
                     >
                 </TextView>
@@ -143,48 +148,9 @@
                 android:layout_marginLeft="50dp"
                 android:background="@color/gray7"
                 >
-            </ImageView>            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingRight="10dp"
-            android:background="@color/white"
-            >
-            <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/huiyi_list_item"
-                />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-
-                android:gravity="center_vertical"
-                android:text="开始时间"
-                >
-            </TextView>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical||right"
-                android:text="2019-01-04 14:54:40"
-                >
-            </TextView>
-        </LinearLayout>
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="50dp"
-                android:background="@color/gray7"
-                >
             </ImageView>
         </LinearLayout>
-    </com.ly.a316.ly_meetingroommanagement.customView.OverScrollView>
+    </LinearLayout>
 
 
 </LinearLayout>

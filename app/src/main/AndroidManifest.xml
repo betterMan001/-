@@ -152,11 +152,6 @@
         <activity
             android:name=".activites.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activites.LoginActivity" />
         <activity android:name=".activites.SignUpActivity" />
@@ -288,7 +283,12 @@
 
         <activity android:name=".activites.AlarmActivity" />
         <activity android:name=".activites.Calendar_infor_activity" />
-        <activity android:name=".activites.OrderDetailMeetingActivity"></activity>
+        <activity android:name=".activites.OrderDetailMeetingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
