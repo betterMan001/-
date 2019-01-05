@@ -46,16 +46,22 @@ public class CardAdapter extends RecyclerView.Adapter {
             view = LayoutInflater.from(context).inflate(R.layout.item_choose_shebei, parent, false);
             EquipmentHolder equipmentHolder = new EquipmentHolder(view);
             return equipmentHolder;
-        } else if(viewType == TIME){
+        } else if (viewType == TIME) {
             view = LayoutInflater.from(context).inflate(R.layout.item_choose_time, parent, false);
             TimeViewHolder timeViewHolder = new TimeViewHolder(view);
             return timeViewHolder;
-        }else{
+        } else if (viewType == PLACE) {
+            view = LayoutInflater.from(context).inflate(R.layout.itme_choose_didian, parent, false);
+            PlaceViewHolder timeViewHolder = new PlaceViewHolder(view);
+            return timeViewHolder;
+        } else {
             view = LayoutInflater.from(context).inflate(R.layout.row_empty_card, parent, false);
             PeopleViewHolder peopleViewHolder = new PeopleViewHolder(view);
             return peopleViewHolder;
         }
     }
+
+    TimeViewHolder ds;
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
@@ -68,7 +74,8 @@ public class CardAdapter extends RecyclerView.Adapter {
                     onclickItem.OnItem_shebei_Click(i, ((EquipmentHolder) viewHolder));
                 }
             });
-        } else if( viewHolder instanceof TimeViewHolder){
+        } else if (viewHolder instanceof TimeViewHolder) {
+            ds = (TimeViewHolder) viewHolder;
             ((TimeViewHolder) viewHolder).item_choose_time_xia.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("WrongConstant")
                 @Override
@@ -77,6 +84,8 @@ public class CardAdapter extends RecyclerView.Adapter {
                         ((CardAdapter.TimeViewHolder) viewHolder).item_time_choose.setVisibility(View.VISIBLE);
                     } else {
                         ((CardAdapter.TimeViewHolder) viewHolder).item_time_choose.setVisibility(View.GONE);
+                        ((CardAdapter.TimeViewHolder) viewHolder).item_choose_shikeview.setVisibility(View.GONE);
+                        ((CardAdapter.TimeViewHolder) viewHolder).item_choose_shijainduan.setVisibility(View.GONE);
                     }
                 }
             });
@@ -85,8 +94,8 @@ public class CardAdapter extends RecyclerView.Adapter {
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onClick(View v) {
-                    onclickItem.OnItem_time_Click(((TimeViewHolder) viewHolder),1);
-                    Toast.makeText(context,"点击了时刻", Toast.LENGTH_SHORT).show();
+                    onclickItem.OnItem_time_Click(((TimeViewHolder) viewHolder), 1);
+                    Toast.makeText(context, "点击了时刻", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -94,11 +103,26 @@ public class CardAdapter extends RecyclerView.Adapter {
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onClick(View v) {
-                    onclickItem.OnItem_time_Click(((TimeViewHolder) viewHolder),2);
-                    Toast.makeText(context,"点击了时间段", Toast.LENGTH_SHORT).show();
+                    onclickItem.OnItem_time_Click(((TimeViewHolder) viewHolder), 2);
+                    Toast.makeText(context, "点击了时间段", Toast.LENGTH_SHORT).show();
                 }
             });
-        }else{
+        } else if (viewHolder instanceof PlaceViewHolder) {
+            ((PlaceViewHolder) viewHolder).item_choose_didian_xia.setOnClickListener(new View.OnClickListener() {
+                @SuppressLint("WrongConstant")
+                @Override
+                public void onClick(View v) {
+                    if (((PlaceViewHolder) viewHolder).item_didian_she.getVisibility() == 8) {
+                        ((PlaceViewHolder) viewHolder).item_didian_she.setVisibility(View.VISIBLE);
+                    }
+                    if (ds.item_time_choose.getVisibility() != 8) {
+                        ds.item_time_choose.setVisibility(View.GONE);
+                        ds.item_choose_shikeview.setVisibility(View.GONE);
+                        ds.item_choose_shijainduan.setVisibility(View.GONE);
+                    }
+                }
+            });
+        } else {
             ((PeopleViewHolder) viewHolder).one.setHint(list.get(i));
         }
     }
@@ -111,6 +135,7 @@ public class CardAdapter extends RecyclerView.Adapter {
     //参会人的样式
     public class PeopleViewHolder extends RecyclerView.ViewHolder {
         EditText one;
+
         public PeopleViewHolder(View itemView) {
             super(itemView);
             one = itemView.findViewById(R.id.i_one);
@@ -120,6 +145,7 @@ public class CardAdapter extends RecyclerView.Adapter {
     //设备需求的样式
     public class EquipmentHolder extends RecyclerView.ViewHolder {
         public LinearLayout item_choose_shebei_xia, item_choose_she;
+
         public EquipmentHolder(@NonNull View itemView) {
             super(itemView);
             item_choose_shebei_xia = itemView.findViewById(R.id.item_choose_shebei_xia);
@@ -128,9 +154,10 @@ public class CardAdapter extends RecyclerView.Adapter {
     }
 
     //时间选择
-    public class TimeViewHolder extends RecyclerView.ViewHolder{
-        LinearLayout item_choose_time_xia,item_time_choose,item_choose_shikeview;
-        Button item_choose_shike,item_choose_shijianduan;
+    public class TimeViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout item_choose_time_xia, item_time_choose, item_choose_shikeview, item_choose_shijainduan;
+        Button item_choose_shike, item_choose_shijianduan;
+
         public TimeViewHolder(@NonNull View itemView) {
             super(itemView);
             item_choose_time_xia = itemView.findViewById(R.id.item_choose_time_xia);
@@ -138,25 +165,44 @@ public class CardAdapter extends RecyclerView.Adapter {
             item_choose_shijianduan = itemView.findViewById(R.id.item_choose_shijianduan);
             item_time_choose = itemView.findViewById(R.id.item_time_choose);
             item_choose_shikeview = itemView.findViewById(R.id.item_choose_shikeview);
+            item_choose_shijainduan = itemView.findViewById(R.id.item_choose_shijainduan);
         }
     }
+
+    //地点选择
+    public class PlaceViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout item_choose_didian_xia, item_didian_she;
+
+        public PlaceViewHolder(@NonNull View itemView) {
+            super(itemView);
+            item_choose_didian_xia = itemView.findViewById(R.id.item_choose_didian_xia);
+            item_didian_she = itemView.findViewById(R.id.item_didian_she);
+
+        }
+    }
+
     @Override
     public int getItemViewType(int position) {
         if (position == EQUIPMENT_COUNT) {
             return EQUIPMENT_COUNT;
-        } else if(position == TIME){
-            return  TIME;
-        }else{
+        } else if (position == TIME) {
+            return TIME;
+        } else if (position == PLACE) {
+            return PLACE;
+        } else {
             return PROPLE_COUNT;
         }
     }
 
 
-    public interface  OnclickItem{
+    public interface OnclickItem {
         void OnItem_shebei_Click(int position, RecyclerView.ViewHolder viewHolder);//选择设备的时候调用
+
         void OnItem_ren_Click(RecyclerView.ViewHolder viewHolder);//点击人的时候调用
-        void OnItem_time_Click(RecyclerView.ViewHolder viewHolder,int whoclick);//选择时间
+
+        void OnItem_time_Click(RecyclerView.ViewHolder viewHolder, int whoclick);//选择时间
     }
+
     OnclickItem onclickItem;
 
     public void setOnclickItem(OnclickItem onclickItem) {

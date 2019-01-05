@@ -82,7 +82,7 @@ public class DatePicker extends LinearLayout {
 
 
         newDays = new WheelView(context);
-        LayoutParams newDays_param = new LayoutParams(800, LayoutParams.WRAP_CONTENT);//设置显示日期的长度
+        LayoutParams newDays_param = new LayoutParams(700, LayoutParams.WRAP_CONTENT);//设置显示日期的长度
         newDays_param.setMargins(0, 0, 0, 0);
         newDays.setLayoutParams(newDays_param);
         newDays.setAdapter(new StringWheelAdapter(dateList, 10));
