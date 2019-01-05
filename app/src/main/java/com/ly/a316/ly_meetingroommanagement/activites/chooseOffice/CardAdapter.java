@@ -3,9 +3,11 @@ package com.ly.a316.ly_meetingroommanagement.activites.chooseOffice;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +20,9 @@ import com.ly.a316.ly_meetingroommanagement.R;
 import com.netease.nim.uikit.common.framework.infra.TaskObservable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 作者：余智强
@@ -33,11 +37,20 @@ public class CardAdapter extends RecyclerView.Adapter {
 
     View view;
     private List<String> list = new ArrayList();
+    List<String> equiment_list;
+    List<String> place_list;
     Context context;
+    Map<Integer,String> map =new HashMap<>();
 
-    public CardAdapter(List<String> list, Context context) {
+    public Map<Integer, String> getMap() {
+        return map;
+    }
+
+    public CardAdapter(List<String> list, Context context, List<String> equiment_list, List<String> place_list) {
         this.list = list;
         this.context = context;
+        this.equiment_list = equiment_list;
+        this.place_list = place_list;
     }
 
     @Override
@@ -67,6 +80,14 @@ public class CardAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder, final int i) {
         //设备需求
         if (viewHolder instanceof EquipmentHolder) {
+            //创建LinearLayoutManager
+            LinearLayoutManager manager = new LinearLayoutManager(context);
+            //设置为横向滑动
+            manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            shebeiAdapter shebeiAdapter = new shebeiAdapter(context,equiment_list,1);
+
+            ((CardAdapter.EquipmentHolder) viewHolder).item_choose_shebei_recycleview.setLayoutManager(manager);
+            ((CardAdapter.EquipmentHolder) viewHolder).item_choose_shebei_recycleview.setAdapter(shebeiAdapter);
             ((EquipmentHolder) viewHolder).item_choose_shebei_xia.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("WrongConstant")
                 @Override
@@ -108,12 +129,24 @@ public class CardAdapter extends RecyclerView.Adapter {
                 }
             });
         } else if (viewHolder instanceof PlaceViewHolder) {
+            //创建LinearLayoutManager
+            LinearLayoutManager manager = new LinearLayoutManager(context);
+            //设置为横向滑动
+            manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            shebeiAdapter shebeiAdapter = new shebeiAdapter(context,place_list,2);
+            ((CardAdapter.PlaceViewHolder) viewHolder).item_choose_didian_recycleview.setLayoutManager(manager);
+            ((CardAdapter.PlaceViewHolder) viewHolder).item_choose_didian_recycleview.setAdapter(shebeiAdapter);
+
+
             ((PlaceViewHolder) viewHolder).item_choose_didian_xia.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onClick(View v) {
                     if (((PlaceViewHolder) viewHolder).item_didian_she.getVisibility() == 8) {
                         ((PlaceViewHolder) viewHolder).item_didian_she.setVisibility(View.VISIBLE);
+                    }else{
+                        ((PlaceViewHolder) viewHolder).item_didian_she.setVisibility(View.GONE);
+
                     }
                     if (ds.item_time_choose.getVisibility() != 8) {
                         ds.item_time_choose.setVisibility(View.GONE);
@@ -145,11 +178,12 @@ public class CardAdapter extends RecyclerView.Adapter {
     //设备需求的样式
     public class EquipmentHolder extends RecyclerView.ViewHolder {
         public LinearLayout item_choose_shebei_xia, item_choose_she;
-
+        RecyclerView item_choose_shebei_recycleview;
         public EquipmentHolder(@NonNull View itemView) {
             super(itemView);
             item_choose_shebei_xia = itemView.findViewById(R.id.item_choose_shebei_xia);
             item_choose_she = itemView.findViewById(R.id.item_choose_she);
+            item_choose_shebei_recycleview = itemView.findViewById(R.id.item_choose_shebei_recycleview);
         }
     }
 
@@ -172,12 +206,12 @@ public class CardAdapter extends RecyclerView.Adapter {
     //地点选择
     public class PlaceViewHolder extends RecyclerView.ViewHolder {
         LinearLayout item_choose_didian_xia, item_didian_she;
-
+        RecyclerView item_choose_didian_recycleview;
         public PlaceViewHolder(@NonNull View itemView) {
             super(itemView);
             item_choose_didian_xia = itemView.findViewById(R.id.item_choose_didian_xia);
             item_didian_she = itemView.findViewById(R.id.item_didian_she);
-
+            item_choose_didian_recycleview = itemView.findViewById(R.id.item_choose_didian_recycleview);
         }
     }
 
