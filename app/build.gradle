@@ -48,6 +48,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
+    //时间选择器
     implementation 'com.contrarywind:Android-PickerView:3.2.4'
     //沉浸式通知栏
     implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta04'

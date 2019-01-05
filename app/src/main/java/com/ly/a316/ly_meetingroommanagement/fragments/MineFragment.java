@@ -54,7 +54,7 @@ public class MineFragment extends Fragment {
     }
     private void loginOut(){
         //1.清空本地存储的数据
-        MyApplication.editor.remove("id");
+        MyApplication.editor.remove("token");
         MyApplication.editor.commit();
         //2.退出云信账号
         NIMClient.getService(AuthService.class).logout();

@@ -20,7 +20,7 @@
     </LinearLayout>
     <TextView
         android:text="详情"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="16sp"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
