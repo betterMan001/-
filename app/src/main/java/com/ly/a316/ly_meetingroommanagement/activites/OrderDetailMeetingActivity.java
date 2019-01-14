@@ -3,6 +3,7 @@ package com.ly.a316.ly_meetingroommanagement.activites;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,6 +28,8 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     @BindView(R.id.end_time_tv)
     TextView endTimeTv;
      boolean flag=false;
+     //日程内容对话框的编辑框
+    EditText contextET;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +40,6 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     }
 
     private void initView() {
-        // customizeBarRl.setBackgroundColor(getResources().getColor(R.color.white));
     }
 
     @Override
@@ -91,7 +93,7 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         return format.format(date);
     }
 
-    @OnClick({R.id.begin_time_ll, R.id.end_time_ll})
+    @OnClick({R.id.begin_time_ll, R.id.end_time_ll,R.id.content_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //开始时间
@@ -104,6 +106,23 @@ public class OrderDetailMeetingActivity extends BaseActivity {
                 flag=true;
                 showTimeSelect();
                 break;
+            case R.id.content_tv:
+                showContentDialog();
+                break;
+
         }
+    }
+    private void showContentDialog(){
+        ContentDialogActivity.start(OrderDetailMeetingActivity.this);
+//        AlertDialog.Builder customizeDialog= new AlertDialog.Builder(OrderDetailMeetingActivity.this);
+//        final View dialogView= LayoutInflater
+//                                .from(OrderDetailMeetingActivity.this)
+//                                 .inflate(R.layout.customize_dialog,null);
+//         contextET=dialogView.findViewById(R.id.content_tv);
+//         // contextET.setMinLines(5);
+//         customizeDialog.setTitle("");
+//         customizeDialog.setView(dialogView);
+//         //customizeDialog.setPositiveButton()
+//        customizeDialog.show();
     }
 }
