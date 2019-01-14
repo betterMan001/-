@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
-            abiFilters  'armeabi-v7a'
+            abiFilters 'armeabi-v7a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
         sourceSets.main {
@@ -41,6 +41,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'com.android.support:design:28.0.0'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
@@ -48,6 +49,7 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.ddz.materialdesign:FloatingActionButton:1.0.4'
+    //时间选择器
     implementation 'com.contrarywind:Android-PickerView:3.2.4'
     //沉浸式通知栏
     implementation 'com.gyf.immersionbar:immersionbar:2.3.2-beta04'

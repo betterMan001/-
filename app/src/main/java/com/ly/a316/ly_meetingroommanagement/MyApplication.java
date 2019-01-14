@@ -158,7 +158,8 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
     }
 
     public   static String getToken() {
-        return token;
+
+        return pref.getString("token","");
     }
 
     public   static void setToken(String token) {

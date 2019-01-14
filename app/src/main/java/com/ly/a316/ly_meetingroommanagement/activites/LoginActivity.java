@@ -132,12 +132,6 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-
-    }
-
-    @Override
     protected void onRestart() {
         super.onRestart();
         SMSSDK.registerEventHandler(eventHandler);
@@ -152,10 +146,12 @@ public class LoginActivity extends BaseActivity {
         //离线的头像和名字
      String userName=MyApplication.getUserName();
      String imageURL=MyApplication.getImageURL();
+     String phoneNumber=MyApplication.getToken();
      if("".equals(userName)){
 
      }else{
          this.actHintTitle.setText("Hello! "+userName+"\n欢迎回来");
+         this.loginSUserIDEt.setText(phoneNumber);
      }
      if("".equals(imageURL)){
 
@@ -296,6 +292,7 @@ public class LoginActivity extends BaseActivity {
             MyApplication.setId(phone);
             MyApplication.setImageURL(model.profile);
             MyApplication.setUserName(model.UserName);
+            MyApplication.setToken("1");
             //暂时不传model给mainActivity
             MainActivity.start(LoginActivity.this);
             finish();
