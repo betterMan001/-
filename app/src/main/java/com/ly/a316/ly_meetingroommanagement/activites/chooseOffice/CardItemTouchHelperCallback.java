@@ -61,7 +61,7 @@ public class CardItemTouchHelperCallback<T> extends ItemTouchHelper.Callback {
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-// 移除 onTouchListener,否则触摸滑动会乱了
+        // 移除 onTouchListener,否则触摸滑动会乱了
         viewHolder.itemView.setOnTouchListener(null);
         int layoutPosition = viewHolder.getLayoutPosition();
         T remove = dataList.remove(layoutPosition);

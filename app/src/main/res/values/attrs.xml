@@ -58,4 +58,7 @@
         <attr name="normalColor" format="color"/>
         <attr name="countDownColor" format="color"/>
     </declare-styleable>
+    <declare-styleable name="RoundImageViewww">
+        <attr name="radiussd" format="dimension" />
+    </declare-styleable>
 </resources>

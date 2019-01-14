@@ -4,27 +4,30 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.ly.a316.ly_meetingroommanagement.Adapter.Calendar_Adapter;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
-import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
-import com.netease.nim.uikit.business.robot.parser.elements.group.LinearLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class WriteconditionActivity extends AppCompatActivity {
     RecyclerView writeChooseRecycleview;
@@ -35,12 +38,81 @@ public class WriteconditionActivity extends AppCompatActivity {
     AlertDialog parkIdsdialog;
     CardAdapter cardAdapter;
     Toast toast;
-    public  static Map<Integer,String> map = new HashMap<>();//设备
-    public  static  Map<Integer,String> mapwhere = new HashMap<>();//地点
+    public static Map<Integer, String> map = new HashMap<>();//设备
+    public static Map<Integer, String> mapwhere = new HashMap<>();//地点
+    int weizhi = -1;
+    @BindView(R.id.linear)
+    LinearLayout linear;
+    private List<Integer> listtu = new ArrayList<>();
+    int dsa[] = {R.drawable.img_avatar_01, R.drawable.img_avatar_02, R.drawable.img_avatar_03, R.drawable.img_avatar_04, R.drawable.img_avatar_05, R.drawable.img_avatar_06, R.drawable.img_avatar_07};
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_writecondition);
+        setContentView(R.layout.writecondition);
+        ButterKnife.bind(this);
+        initData();
+        init();
+        initView();
+    }
+
+    private void initView() {
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.wri_recyclerView);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(new MyAdapter());
+
+        CardItemTouchHelperCallback cardCallback = new CardItemTouchHelperCallback(recyclerView.getAdapter(), listtu);
+        cardCallback.setOnSwipedListener(new OnSwipeListener<Integer>() {
+
+            @Override
+            public void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction) {
+                MyAdapter.MyViewHolder myHolder = (MyAdapter.MyViewHolder) viewHolder;
+                viewHolder.itemView.setAlpha(1 - Math.abs(ratio) * 0.2f);
+                if (direction == CardConfig.SWIPING_LEFT) {
+                    myHolder.dislikeImageView.setAlpha(Math.abs(ratio));
+                } else if (direction == CardConfig.SWIPING_RIGHT) {
+                    myHolder.likeImageView.setAlpha(Math.abs(ratio));
+                } else {
+                    myHolder.dislikeImageView.setAlpha(0f);
+                    myHolder.likeImageView.setAlpha(0f);
+                }
+            }
+
+            @Override
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, Integer o, int direction) {
+                if (weizhi == -1) {
+                    weizhi = o;
+                }
+                Log.i("zjc",(o-weizhi)+"");
+                linear.setBackgroundResource(dsa[o-weizhi]);
+                MyAdapter.MyViewHolder myHolder = (MyAdapter.MyViewHolder) viewHolder;
+                viewHolder.itemView.setAlpha(1f);
+                myHolder.dislikeImageView.setAlpha(0f);
+                myHolder.likeImageView.setAlpha(0f);
+                Toast.makeText(WriteconditionActivity.this, direction == CardConfig.SWIPED_LEFT ? "swiped left" : "swiped right", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onSwipedClear() {
+                Toast.makeText(WriteconditionActivity.this, "data clear", Toast.LENGTH_SHORT).show();
+                recyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        initData();
+                        recyclerView.getAdapter().notifyDataSetChanged();
+                    }
+                }, 3000L);
+            }
+
+        });
+        final ItemTouchHelper touchHelper = new ItemTouchHelper(cardCallback);
+        final CardLayoutManager cardLayoutManager = new CardLayoutManager(recyclerView, touchHelper);
+        recyclerView.setLayoutManager(cardLayoutManager);
+        touchHelper.attachToRecyclerView(recyclerView);
+    }
+
+    private void initData() {
         list.add("参会人数");
         list.add("设备需求");
         list.add("时间");
@@ -61,9 +133,15 @@ public class WriteconditionActivity extends AppCompatActivity {
         place_list.add("1A");
         place_list.add("2A");
         place_list.add("2C");
-        init();
-}
 
+        listtu.add(R.drawable.img_avatar_01);
+        listtu.add(R.drawable.img_avatar_02);
+        listtu.add(R.drawable.img_avatar_03);
+        listtu.add(R.drawable.img_avatar_04);
+        listtu.add(R.drawable.img_avatar_05);
+        listtu.add(R.drawable.img_avatar_06);
+        listtu.add(R.drawable.img_avatar_07);
+    }
 
     void init() {
         View bottomView = View.inflate(WriteconditionActivity.this, R.layout.activity_writecondition, null);//填充ListView布局
@@ -71,7 +149,7 @@ public class WriteconditionActivity extends AppCompatActivity {
         btn_que = bottomView.findViewById(R.id.queding);
         final int spacing = getResources().getDimensionPixelOffset(R.dimen.default_spacing_small);
         writeChooseRecycleview.setLayoutManager(new MyManager(this));
-        cardAdapter = new CardAdapter(list, this,equiment_list,place_list);
+        cardAdapter = new CardAdapter(list, this, equiment_list, place_list);
         writeChooseRecycleview.setAdapter(cardAdapter);
         writeChooseRecycleview.addItemDecoration(new ItemOffsetDecoration(spacing));
         final LayoutAnimationController controller =
@@ -87,7 +165,8 @@ public class WriteconditionActivity extends AppCompatActivity {
         btn_que.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //提交
+                parkIdsdialog.dismiss();
+              /*  //提交
                 RecyclerView.LayoutManager manager = writeChooseRecycleview.getLayoutManager();
                 View vieww = manager.findViewByPosition(0);
                 CardAdapter.PeopleViewHolder holder = (CardAdapter.PeopleViewHolder) writeChooseRecycleview.getChildViewHolder(vieww);
@@ -104,7 +183,7 @@ public class WriteconditionActivity extends AppCompatActivity {
                     if(mapwhere.get(i)!=null){
                         Log.i("zjc",mapwhere.get(i));
                     }
-                }
+                }*/
             }
         });
 
@@ -155,5 +234,39 @@ public class WriteconditionActivity extends AppCompatActivity {
             toast.setText(bodystring);
         }
         toast.show();
+    }
+
+    private class MyAdapter extends RecyclerView.Adapter {
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_huiyishi, parent, false);
+            return new MyViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+            ImageView avatarImageView = ((MyViewHolder) holder).avatarImageView;
+            avatarImageView.setImageResource(listtu.get(position));
+        }
+
+        @Override
+        public int getItemCount() {
+            return listtu.size();
+        }
+
+        class MyViewHolder extends RecyclerView.ViewHolder {
+
+            ImageView avatarImageView;
+            ImageView likeImageView;
+            ImageView dislikeImageView;
+
+            MyViewHolder(View itemView) {
+                super(itemView);
+                avatarImageView = (ImageView) itemView.findViewById(R.id.iv_avatar);
+                likeImageView = (ImageView) itemView.findViewById(R.id.iv_like);
+                dislikeImageView = (ImageView) itemView.findViewById(R.id.iv_dislike);
+            }
+
+        }
     }
 }
