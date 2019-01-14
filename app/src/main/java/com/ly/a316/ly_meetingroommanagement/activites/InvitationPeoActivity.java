@@ -13,10 +13,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ly.a316.ly_meetingroommanagement.Adapter.MettingPeopleAdapter;
+import com.ly.a316.ly_meetingroommanagement.meetting.adapter.MettingPeopleAdapter;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.classes.MettingPeople;
+import com.ly.a316.ly_meetingroommanagement.meetting.classes.MettingPeople;
 
 import java.io.Serializable;
 import java.util.ArrayList;

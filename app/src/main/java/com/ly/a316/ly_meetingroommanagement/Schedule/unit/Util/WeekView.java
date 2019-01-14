@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.calendarActivity.Util;
+package com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util;
 
 /**
  * 作者：余智强
@@ -28,7 +28,6 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
@@ -49,8 +48,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 
-import static com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.WeekViewUtil.isSameDay;
-import static com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.WeekViewUtil.today;
+import static com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.WeekViewUtil.isSameDay;
+import static com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.WeekViewUtil.today;
 
 /**
  * Created by Raquib-ul-Alam Kanak on 7/21/2014.

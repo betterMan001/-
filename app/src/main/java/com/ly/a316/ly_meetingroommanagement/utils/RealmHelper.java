@@ -1,11 +1,10 @@
 package com.ly.a316.ly_meetingroommanagement.utils;
 
-import com.ly.a316.ly_meetingroommanagement.classes.EventModel;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import java.util.logging.SimpleFormatter;
 
 import io.realm.Realm;
 import io.realm.RealmResults;

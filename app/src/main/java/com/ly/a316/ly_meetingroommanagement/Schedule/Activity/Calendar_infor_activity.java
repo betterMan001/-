@@ -18,11 +18,11 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
 import com.ly.a316.ly_meetingroommanagement.main.fragment.CalendarFragment;
-import com.ly.a316.ly_meetingroommanagement.utils.CalanderUtils;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
 
 import java.util.Calendar;
 

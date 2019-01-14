@@ -1,15 +1,10 @@
-package com.ly.a316.ly_meetingroommanagement.calendarActivity;
-
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
+package com.ly.a316.ly_meetingroommanagement.Schedule.Activity;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.WeekViewEvent;
-import com.ly.a316.ly_meetingroommanagement.classes.EventModel;
-import com.ly.a316.ly_meetingroommanagement.utils.CalanderUtils;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.WeekViewEvent;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 

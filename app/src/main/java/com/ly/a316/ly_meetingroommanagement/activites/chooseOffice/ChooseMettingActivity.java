@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.ly.a316.ly_meetingroommanagement.Adapter.choosemettingAdapter;
+import com.ly.a316.ly_meetingroommanagement.meetting.adapter.choosemettingAdapter;
 import com.ly.a316.ly_meetingroommanagement.R;
 
 import butterknife.BindView;

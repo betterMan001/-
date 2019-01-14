@@ -1,25 +1,19 @@
-package com.ly.a316.ly_meetingroommanagement.calendarActivity;
+package com.ly.a316.ly_meetingroommanagement.Schedule.Activity;
 
-import android.content.Intent;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.DateTimeInterpreter;
-import com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.MonthLoader;
-import com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.WeekView;
-import com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.WeekViewEvent;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.DateTimeInterpreter;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.MonthLoader;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.WeekView;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.WeekViewEvent;
 import com.zaaach.toprightmenu.TopRightMenu;
 
 import java.text.SimpleDateFormat;

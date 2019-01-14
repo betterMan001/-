@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.classes;
+package com.ly.a316.ly_meetingroommanagement.Schedule.Classes;
 
 import android.annotation.SuppressLint;
 import android.os.Build;

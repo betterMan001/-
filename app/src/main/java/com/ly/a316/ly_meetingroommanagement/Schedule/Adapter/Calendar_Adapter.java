@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.Adapter;
+package com.ly.a316.ly_meetingroommanagement.Schedule.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.R;
 
 import java.util.List;

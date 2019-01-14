@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/gray"
-    tools:context=".activites.OrderDetailMeetingActivity">
+    tools:context=".meetting.activity.OrderDetailMeetingActivity">
        <include
            layout="@layout/customize_bar"
            />

@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.askhttpDaoImp;
+package com.ly.a316.ly_meetingroommanagement.Schedule.DaoImp;
 
 import android.os.Handler;
 import android.os.Message;
@@ -6,7 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AddSchedule;
-import com.ly.a316.ly_meetingroommanagement.askhttpDao.ScheduleDao;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Dao.ScheduleDao;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;
 
 import org.json.JSONException;

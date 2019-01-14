@@ -170,10 +170,10 @@
         <activity android:name=".FacePack.PermissionAcitivity" />
         <activity android:name=".FacePack.RegisterActivity" />
         <activity android:name=".FacePack.DetecterActivity" />
-        <activity android:name=".activites.SchemeetingActivity" />
+        <activity android:name=".meetting.activity.SchemeetingActivity" />
         <activity android:name=".activites.DetailsMettingActivity" />
         <activity android:name=".activites.InvitationPeoActivity" />
-        <activity android:name=".calendarActivity.OneDayCountActivity" />
+        <activity android:name=".Schedule.Activity.OneDayCountActivity" />
         <activity android:name=".ceshi" />
         <activity android:name=".activites.chooseOffice.ChooseMettingActivity" />
         <activity android:name=".activites.chooseOffice.WriteconditionActivity" />
@@ -290,7 +290,7 @@
 
         <activity android:name=".Schedule.Activity.AlarmActivity" />
         <activity android:name=".Schedule.Activity.Calendar_infor_activity" />
-        <activity android:name=".activites.OrderDetailMeetingActivity">
+        <activity android:name=".meetting.activity.OrderDetailMeetingActivity">
 
         </activity>
         <activity android:name=".activites.ContentDialogActivity"

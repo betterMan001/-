@@ -1,6 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.calendarActivity.Util;
-
-import com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.WeekViewEvent;
+package com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util;
 
 import java.util.Calendar;
 import java.util.List;

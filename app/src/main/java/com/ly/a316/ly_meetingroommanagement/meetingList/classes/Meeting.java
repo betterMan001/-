@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.models;
+package com.ly.a316.ly_meetingroommanagement.meetingList.classes;
 
 /*
 Date:2018/12/9

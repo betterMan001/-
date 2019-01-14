@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.utils;
+package com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -7,21 +7,17 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Build;
 import android.provider.CalendarContract;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.classes.EventModel;
-import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Schedule;
 import com.netease.nim.uikit.common.util.sys.TimeUtil;
 
 import java.lang.ref.WeakReference;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;

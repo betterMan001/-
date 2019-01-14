@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
-import com.ly.a316.ly_meetingroommanagement.classes.Alarm;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Alarm;
 import com.ly.a316.ly_meetingroommanagement.main.fragment.CalendarFragment;
 
 import java.util.ArrayList;

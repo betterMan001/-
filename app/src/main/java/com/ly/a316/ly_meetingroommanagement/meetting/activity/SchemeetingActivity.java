@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.meetting.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +11,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.Adapter.FlipViewPaper;
+import com.ly.a316.ly_meetingroommanagement.activites.DetailsMettingActivity;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.LoadingImageView;
-import com.ly.a316.ly_meetingroommanagement.utils.CommonUtils;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CommonUtils;
 
 import java.util.ArrayList;
 

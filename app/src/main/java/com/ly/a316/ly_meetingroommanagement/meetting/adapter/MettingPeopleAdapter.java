@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.Adapter;
+package com.ly.a316.ly_meetingroommanagement.meetting.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.classes.MettingPeople;
+import com.ly.a316.ly_meetingroommanagement.meetting.classes.MettingPeople;
 
 import java.util.List;
 

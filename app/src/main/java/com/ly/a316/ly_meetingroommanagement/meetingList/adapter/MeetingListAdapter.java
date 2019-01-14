@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.models.Meeting;
+import com.ly.a316.ly_meetingroommanagement.meetingList.classes.Meeting;
 
 import java.util.List;
 

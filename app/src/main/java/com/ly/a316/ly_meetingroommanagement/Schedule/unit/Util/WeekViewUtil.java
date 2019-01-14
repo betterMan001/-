@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.calendarActivity.Util;
+package com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util;
 
 import java.util.Calendar;
 

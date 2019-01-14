@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.utils;
+package com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util;
 
 import android.content.Context;
 import android.util.DisplayMetrics;

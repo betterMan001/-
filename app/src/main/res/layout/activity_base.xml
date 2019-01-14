@@ -55,7 +55,7 @@
             android:background="@drawable/dian" />
     </LinearLayout>
 
-    <com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.WeekView
+    <com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.classes;
+package com.ly.a316.ly_meetingroommanagement.meetting.classes;
 
 import java.io.Serializable;
 

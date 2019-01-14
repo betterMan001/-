@@ -18,7 +18,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.ListDropDownAdapter;
 import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.MeetingListAdapter;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.models.Meeting;
+import com.ly.a316.ly_meetingroommanagement.meetingList.classes.Meeting;
 import com.yyydjk.library.DropDownMenu;
 
 import java.util.ArrayList;

@@ -1,10 +1,10 @@
-package com.ly.a316.ly_meetingroommanagement.calendarActivity.Util;
+package com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.ly.a316.ly_meetingroommanagement.calendarActivity.Util.WeekViewUtil.isSameDay;
+import static com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.WeekViewUtil.isSameDay;
 
 /**
  * 作者：余智强
