@@ -163,8 +163,8 @@
         <activity android:name=".login.activities.SignUpActivity" />
         <activity android:name=".login.activities.SignUpDetailActivty" />
         <activity android:name=".login.activities.SignUpLastActivity" />
-        <activity android:name=".activites.ForgetPWDOneActivity" />
-        <activity android:name=".activites.ForgetPWDTwoActivity" />
+        <activity android:name=".login.activities.ForgetPWDOneActivity" />
+        <activity android:name=".login.activities.ForgetPWDTwoActivity" />
         <activity android:name=".Schedule.Activity.AddSchedule" />
         <activity android:name=".activites.IdentifyFaceActivity" />
         <activity android:name=".FacePack.PermissionAcitivity" />
@@ -175,8 +175,8 @@
         <activity android:name=".activites.InvitationPeoActivity" />
         <activity android:name=".Schedule.Activity.OneDayCountActivity" />
         <activity android:name=".ceshi" />
-        <activity android:name=".activites.chooseOffice.ChooseMettingActivity" />
-        <activity android:name=".activites.chooseOffice.WriteconditionActivity" />
+        <activity android:name=".chooseOffice.ChooseMettingActivity" />
+        <activity android:name=".chooseOffice.WriteconditionActivity" />
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -293,7 +293,7 @@
         <activity android:name=".meetting.activity.OrderDetailMeetingActivity">
 
         </activity>
-        <activity android:name=".activites.ContentDialogActivity"
+        <activity android:name=".meetting.activity.ContentDialogActivity"
             android:theme="@style/MyDialogStyle"
             >
         </activity>

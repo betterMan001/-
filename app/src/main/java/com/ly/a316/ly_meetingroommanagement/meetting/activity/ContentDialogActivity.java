@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.meetting.activity;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -6,10 +6,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
-import android.view.WindowManager;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.customView.NoteEditor;
+import com.ly.a316.ly_meetingroommanagement.meetting.widgets.NoteEditor;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

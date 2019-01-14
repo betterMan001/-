@@ -11,7 +11,7 @@
        <include
            layout="@layout/customize_bar"
            />
-<com.ly.a316.ly_meetingroommanagement.customView.OverScrollView
+<com.ly.a316.ly_meetingroommanagement.meetting.widgets.OverScrollView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     >
@@ -546,6 +546,6 @@
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </LinearLayout>
-</com.ly.a316.ly_meetingroommanagement.customView.OverScrollView>
+</com.ly.a316.ly_meetingroommanagement.meetting.widgets.OverScrollView>
 
 </LinearLayout>

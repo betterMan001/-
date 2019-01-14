@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.activites.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice;
 
 import android.support.v4.view.MotionEventCompat;
 import android.support.v7.widget.RecyclerView;

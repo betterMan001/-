@@ -1,7 +1,6 @@
 package com.ly.a316.ly_meetingroommanagement.Adapter;
 
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 

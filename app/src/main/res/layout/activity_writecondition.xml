@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/yuanjiao"
-    tools:context=".activites.chooseOffice.WriteconditionActivity">
+    tools:context=".chooseOffice.WriteconditionActivity">
     <LinearLayout
         android:background="@drawable/yuanjiao"
         android:layout_width="match_parent"

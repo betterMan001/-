@@ -18,11 +18,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.activites.ForgetPWDOneActivity;
 import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.customView.CountDownButton;
 import com.ly.a316.ly_meetingroommanagement.login.models.UserInfoModel;
-import com.ly.a316.ly_meetingroommanagement.services.UserServiceImp;
+import com.ly.a316.ly_meetingroommanagement.login.services.UserServiceImp;
 import com.makeramen.roundedimageview.RoundedImageView;
 
 import butterknife.BindView;

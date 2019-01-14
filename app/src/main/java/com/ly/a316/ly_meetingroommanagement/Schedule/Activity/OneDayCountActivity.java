@@ -5,6 +5,7 @@ import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.WeekViewEvent;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
 import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class OneDayCountActivity extends BaseActivity {
         setContentView(R.layout.activity_one_day_count);
     }*/
    int colors[]={R.color.one,R.color.two,R.color.three,R.color.three,R.color.four,R.color.six,R.color.collu,R.color.miss_blue};
-    List<WeekViewEvent> events;
+    List<WeekViewEvent> events=new ArrayList<WeekViewEvent>();
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
