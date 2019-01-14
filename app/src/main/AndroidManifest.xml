@@ -149,20 +149,20 @@
             android:process=":core" />
 
         <activity
-            android:name=".activites.MainActivity"
+            android:name=".main.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
-            android:name=".activites.WelcomeActivity"
+            android:name=".login.activities.WelcomeActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activites.LoginActivity" />
-        <activity android:name=".activites.SignUpActivity" />
-        <activity android:name=".activites.SignUpDetailActivty" />
-        <activity android:name=".activites.SignUpLastActivity" />
+        <activity android:name=".login.activities.LoginActivity" />
+        <activity android:name=".login.activities.SignUpActivity" />
+        <activity android:name=".login.activities.SignUpDetailActivty" />
+        <activity android:name=".login.activities.SignUpLastActivity" />
         <activity android:name=".activites.ForgetPWDOneActivity" />
         <activity android:name=".activites.ForgetPWDTwoActivity" />
         <activity android:name=".Schedule.Activity.AddSchedule" />
@@ -183,7 +183,7 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activites.MeetingListActivity"
+            android:name=".meetingList.activities.MeetingListActivity"
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -198,7 +198,7 @@
                 android:value=".activites.SearchActivity" />
         </activity>
         <activity
-            android:name=".activites.SearchActivity"
+            android:name=".meetingList.activities.SearchActivity"
             android:launchMode="singleTop" />
         <activity
             android:name=".nim.activity.SystemMessageActivity"
@@ -288,8 +288,8 @@
             android:name=".utils.SearchSuggestionSampleProvider"
             android:authorities="com.crazy.gemi.ui.cheaper.SearchSuggestionSampleProvider" />
 
-        <activity android:name=".activites.AlarmActivity" />
-        <activity android:name=".activites.Calendar_infor_activity" />
+        <activity android:name=".Schedule.Activity.AlarmActivity" />
+        <activity android:name=".Schedule.Activity.Calendar_infor_activity" />
         <activity android:name=".activites.OrderDetailMeetingActivity">
 
         </activity>

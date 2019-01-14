@@ -1,16 +1,16 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.login.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 
 public class WelcomeActivity extends BaseActivity {
     //本地保存

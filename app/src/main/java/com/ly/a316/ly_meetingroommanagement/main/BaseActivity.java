@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.main;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

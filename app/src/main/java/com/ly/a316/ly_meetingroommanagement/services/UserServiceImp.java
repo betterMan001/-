@@ -1,7 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.services;
 
-import com.ly.a316.ly_meetingroommanagement.activites.LoginActivity;
-import com.ly.a316.ly_meetingroommanagement.models.UserInfoModel;
+import com.ly.a316.ly_meetingroommanagement.login.activities.LoginActivity;
+import com.ly.a316.ly_meetingroommanagement.login.models.UserInfoModel;
 import com.ly.a316.ly_meetingroommanagement.utils.MathUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.MyHttpUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.MyJSONUtil;

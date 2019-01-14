@@ -1,6 +1,6 @@
 package com.ly.a316.ly_meetingroommanagement.services;
 
-import com.ly.a316.ly_meetingroommanagement.activites.SignUpLastActivity;
+import com.ly.a316.ly_meetingroommanagement.login.activities.SignUpLastActivity;
 import com.ly.a316.ly_meetingroommanagement.utils.MyHttpUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;
 

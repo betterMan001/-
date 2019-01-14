@@ -1,6 +1,5 @@
 package com.ly.a316.ly_meetingroommanagement.FacePack;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -28,10 +27,8 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.arcsoft.ageestimation.ASAE_FSDKAge;
 import com.arcsoft.ageestimation.ASAE_FSDKEngine;
@@ -63,10 +60,7 @@ import com.guo.android_extend.widget.CameraGLSurfaceView;
 import com.guo.android_extend.widget.CameraSurfaceView;
 import com.guo.android_extend.widget.CameraSurfaceView.OnCameraListener;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
-import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.activites.BaseActivity;
-import com.ly.a316.ly_meetingroommanagement.activites.IdentifyFaceActivity;
-import com.ly.a316.ly_meetingroommanagement.activites.MainActivity;
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,7 +68,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

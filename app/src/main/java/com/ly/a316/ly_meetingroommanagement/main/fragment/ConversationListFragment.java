@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.fragments;
+package com.ly.a316.ly_meetingroommanagement.main.fragment;
 
 
 import android.graphics.Color;

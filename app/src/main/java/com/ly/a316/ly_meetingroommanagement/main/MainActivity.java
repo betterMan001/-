@@ -1,34 +1,28 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.main;
 
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
-import android.os.Looper;
-import android.os.MessageQueue;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.classes.TabEntity;
 import com.ly.a316.ly_meetingroommanagement.customView.BottomBarLayout;
-import com.ly.a316.ly_meetingroommanagement.fragments.CalendarFragment;
-import com.ly.a316.ly_meetingroommanagement.fragments.ContactListFragment;
-import com.ly.a316.ly_meetingroommanagement.fragments.ConversationListFragment;
-import com.ly.a316.ly_meetingroommanagement.fragments.MineFragment;
+import com.ly.a316.ly_meetingroommanagement.main.fragment.CalendarFragment;
+import com.ly.a316.ly_meetingroommanagement.main.fragment.ContactListFragment;
+import com.ly.a316.ly_meetingroommanagement.main.fragment.ConversationListFragment;
+import com.ly.a316.ly_meetingroommanagement.main.fragment.MineFragment;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SystemMessageUnreadManager;
@@ -53,7 +47,6 @@ import com.netease.nimlib.sdk.auth.LoginInfo;
 import com.netease.nimlib.sdk.msg.SystemMessageObserver;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 

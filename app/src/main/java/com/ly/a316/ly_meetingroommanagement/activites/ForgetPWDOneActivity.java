@@ -1,19 +1,17 @@
 package com.ly.a316.ly_meetingroommanagement.activites;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.CountDownButton;
-import com.ly.a316.ly_meetingroommanagement.services.UserServiceImp;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

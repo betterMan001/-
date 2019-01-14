@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ly.a316.ly_meetingroommanagement.activites.BaseActivity;
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

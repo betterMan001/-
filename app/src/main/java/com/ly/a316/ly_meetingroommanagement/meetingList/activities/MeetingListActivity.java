@@ -1,26 +1,22 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.meetingList.activities;
 
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.MessageQueue;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.ly.a316.ly_meetingroommanagement.Adapter.ListDropDownAdapter;
-import com.ly.a316.ly_meetingroommanagement.Adapter.MeetingListAdapter;
+import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.ListDropDownAdapter;
+import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.MeetingListAdapter;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.models.Meeting;
 import com.yyydjk.library.DropDownMenu;

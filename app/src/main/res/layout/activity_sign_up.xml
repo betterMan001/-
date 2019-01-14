@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F0F0F0"
-    tools:context=".activites.SignUpActivity">
+    tools:context=".login.activities.SignUpActivity">
     <!--自定义标题栏-->
     <RelativeLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.meetingList.activities;
 
 import android.app.SearchManager;
 import android.content.Intent;

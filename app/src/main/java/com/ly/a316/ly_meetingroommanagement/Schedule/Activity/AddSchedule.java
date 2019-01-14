@@ -20,8 +20,7 @@ import android.widget.ToggleButton;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.activites.AlarmActivity;
-import com.ly.a316.ly_meetingroommanagement.activites.BaseActivity;
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.askhttpDao.ScheduleDao;
 import com.ly.a316.ly_meetingroommanagement.askhttpDaoImp.ScheduleDaoImp;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;

@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.login.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,26 +9,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.activites.ForgetPWDOneActivity;
+import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.customView.CountDownButton;
-import com.ly.a316.ly_meetingroommanagement.models.UserInfoModel;
-import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
-import com.ly.a316.ly_meetingroommanagement.nim.user_info.UserPreferences;
+import com.ly.a316.ly_meetingroommanagement.login.models.UserInfoModel;
 import com.ly.a316.ly_meetingroommanagement.services.UserServiceImp;
 import com.makeramen.roundedimageview.RoundedImageView;
-import com.netease.nim.uikit.api.NimUIKit;
-import com.netease.nimlib.sdk.NIMClient;
-import com.netease.nimlib.sdk.RequestCallback;
-import com.netease.nimlib.sdk.StatusBarNotificationConfig;
-import com.netease.nimlib.sdk.auth.LoginInfo;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

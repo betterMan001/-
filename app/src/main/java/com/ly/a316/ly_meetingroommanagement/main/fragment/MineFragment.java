@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.fragments;
+package com.ly.a316.ly_meetingroommanagement.main.fragment;
 
 
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.activites.WelcomeActivity;
+import com.ly.a316.ly_meetingroommanagement.login.activities.WelcomeActivity;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.AuthService;
 

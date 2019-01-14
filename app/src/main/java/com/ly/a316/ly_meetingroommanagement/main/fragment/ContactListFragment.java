@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.fragments;
+package com.ly.a316.ly_meetingroommanagement.main.fragment;
 
 
 import android.os.Bundle;
@@ -12,10 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.activites.MainActivity;
-import com.ly.a316.ly_meetingroommanagement.calendarActivity.BaseActivity;
+import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.AddFriendActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.AdvancedTeamSearchActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.FuncViewHolder;
@@ -29,7 +27,6 @@ import com.netease.nim.uikit.business.team.helper.TeamHelper;
 import com.netease.nim.uikit.common.activity.UI;
 import com.zaaach.toprightmenu.TopRightMenu;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;

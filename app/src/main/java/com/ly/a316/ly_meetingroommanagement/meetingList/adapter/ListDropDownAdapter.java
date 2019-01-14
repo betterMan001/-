@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.Adapter;
+package com.ly.a316.ly_meetingroommanagement.meetingList.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

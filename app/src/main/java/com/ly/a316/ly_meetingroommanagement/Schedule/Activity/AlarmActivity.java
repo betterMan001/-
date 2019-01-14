@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.Schedule.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AddSchedule;
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.classes.Alarm;
-import com.ly.a316.ly_meetingroommanagement.fragments.CalendarFragment;
+import com.ly.a316.ly_meetingroommanagement.main.fragment.CalendarFragment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,15 +7,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.Adapter.FlipViewPaper;
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.ceshi;
 import com.ly.a316.ly_meetingroommanagement.customView.LoadingImageView;
 import com.ly.a316.ly_meetingroommanagement.utils.CommonUtils;
 
@@ -23,7 +20,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+
 //没用了这个活动
 public class SchemeetingActivity extends BaseActivity {
     ArrayList<String> list = new ArrayList<>();

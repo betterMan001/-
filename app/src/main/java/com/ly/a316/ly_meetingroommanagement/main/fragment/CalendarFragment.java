@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.fragments;
+package com.ly.a316.ly_meetingroommanagement.main.fragment;
 
 
 import android.annotation.SuppressLint;
@@ -34,8 +34,8 @@ import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.ly.a316.ly_meetingroommanagement.Adapter.Calendar_Adapter;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AddSchedule;
-import com.ly.a316.ly_meetingroommanagement.activites.AlarmActivity;
-import com.ly.a316.ly_meetingroommanagement.activites.Calendar_infor_activity;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AlarmActivity;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.Calendar_infor_activity;
 import com.ly.a316.ly_meetingroommanagement.calendarActivity.OneDayCountActivity;
 import com.ly.a316.ly_meetingroommanagement.classes.EventModel;
 import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
