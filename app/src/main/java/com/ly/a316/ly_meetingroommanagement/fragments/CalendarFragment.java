@@ -2,34 +2,26 @@ package com.ly.a316.ly_meetingroommanagement.fragments;
 
 
 import android.annotation.SuppressLint;
-import android.app.ActivityOptions;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.transition.Slide;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import android.util.Log;
-import android.util.SparseArray;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -41,11 +33,10 @@ import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.ly.a316.ly_meetingroommanagement.Adapter.Calendar_Adapter;
-import com.ly.a316.ly_meetingroommanagement.activites.AddSchedule;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AddSchedule;
 import com.ly.a316.ly_meetingroommanagement.activites.AlarmActivity;
 import com.ly.a316.ly_meetingroommanagement.activites.Calendar_infor_activity;
 import com.ly.a316.ly_meetingroommanagement.calendarActivity.OneDayCountActivity;
-import com.ly.a316.ly_meetingroommanagement.ceshi;
 import com.ly.a316.ly_meetingroommanagement.classes.EventModel;
 import com.ly.a316.ly_meetingroommanagement.classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.classes.jilei;
@@ -54,10 +45,7 @@ import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
 import com.ly.a316.ly_meetingroommanagement.utils.CalanderUtils;
-import com.ly.a316.ly_meetingroommanagement.utils.RealmHelper;
 
-import java.text.ParseException;
-import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

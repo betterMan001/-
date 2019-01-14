@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.Schedule.Activity;
 
 
 import android.annotation.SuppressLint;
@@ -10,25 +10,24 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.activites.AlarmActivity;
+import com.ly.a316.ly_meetingroommanagement.activites.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.askhttpDao.ScheduleDao;
 import com.ly.a316.ly_meetingroommanagement.askhttpDaoImp.ScheduleDaoImp;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
 
 import com.ly.a316.ly_meetingroommanagement.utils.CalanderUtils;
-import com.ly.a316.ly_meetingroommanagement.utils.Net;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -36,9 +35,6 @@ import java.util.TimeZone;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 
 
 public class AddSchedule extends BaseActivity {

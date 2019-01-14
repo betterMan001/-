@@ -3,7 +3,6 @@ package com.ly.a316.ly_meetingroommanagement.activites;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -14,11 +13,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AddSchedule;
 import com.ly.a316.ly_meetingroommanagement.classes.Alarm;
 import com.ly.a316.ly_meetingroommanagement.fragments.CalendarFragment;
-import com.netease.nim.uikit.business.robot.parser.elements.group.LinearLayout;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

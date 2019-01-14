@@ -165,7 +165,7 @@
         <activity android:name=".activites.SignUpLastActivity" />
         <activity android:name=".activites.ForgetPWDOneActivity" />
         <activity android:name=".activites.ForgetPWDTwoActivity" />
-        <activity android:name=".activites.AddSchedule" />
+        <activity android:name=".Schedule.Activity.AddSchedule" />
         <activity android:name=".activites.IdentifyFaceActivity" />
         <activity android:name=".FacePack.PermissionAcitivity" />
         <activity android:name=".FacePack.RegisterActivity" />
