@@ -1,8 +1,7 @@
-package com.ly.a316.ly_meetingroommanagement.activites.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 /**
  * 作者：余智强

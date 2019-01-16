@@ -21,7 +21,7 @@
         android:background="@drawable/x001"
         >
     </ImageView>
-<com.ly.a316.ly_meetingroommanagement.customView.NoteEditor
+<com.ly.a316.ly_meetingroommanagement.meetting.widgets.NoteEditor
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"

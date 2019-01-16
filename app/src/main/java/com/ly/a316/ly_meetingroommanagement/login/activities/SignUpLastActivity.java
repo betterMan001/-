@@ -30,8 +30,8 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.services.SignUpServiceImp;
-import com.ly.a316.ly_meetingroommanagement.services.UploadServiceImp;
+import com.ly.a316.ly_meetingroommanagement.login.services.SignUpServiceImp;
+import com.ly.a316.ly_meetingroommanagement.login.services.UploadServiceImp;
 import com.ly.a316.ly_meetingroommanagement.utils.PointConst;
 import com.makeramen.roundedimageview.RoundedImageView;
 

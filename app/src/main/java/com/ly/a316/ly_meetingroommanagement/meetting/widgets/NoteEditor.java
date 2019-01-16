@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.customView;
+package com.ly.a316.ly_meetingroommanagement.meetting.widgets;
 
 /*
 Date:2019/1/6

@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.services;
+package com.ly.a316.ly_meetingroommanagement.login.services;
 
 import com.ly.a316.ly_meetingroommanagement.login.activities.LoginActivity;
 import com.ly.a316.ly_meetingroommanagement.login.models.UserInfoModel;

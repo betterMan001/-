@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.activites.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,9 +11,7 @@ import android.widget.CompoundButton;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * 作者：余智强

@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingListActivity;
-import com.ly.a316.ly_meetingroommanagement.activites.chooseOffice.WriteconditionActivity;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.WriteconditionActivity;
 
 public class PopupMenuUtil {
     public static PopupMenuUtil getInstance() {

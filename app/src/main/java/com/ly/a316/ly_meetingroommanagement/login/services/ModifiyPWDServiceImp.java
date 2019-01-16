@@ -1,6 +1,6 @@
-package com.ly.a316.ly_meetingroommanagement.services;
+package com.ly.a316.ly_meetingroommanagement.login.services;
 
-import com.ly.a316.ly_meetingroommanagement.activites.ForgetPWDTwoActivity;
+import com.ly.a316.ly_meetingroommanagement.login.activities.ForgetPWDTwoActivity;
 import com.ly.a316.ly_meetingroommanagement.utils.MathUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.MyHttpUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;

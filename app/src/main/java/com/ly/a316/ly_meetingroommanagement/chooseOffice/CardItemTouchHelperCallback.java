@@ -1,7 +1,6 @@
-package com.ly.a316.ly_meetingroommanagement.activites.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice;
 
 import android.graphics.Canvas;
-import android.hardware.camera2.CameraManager;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
