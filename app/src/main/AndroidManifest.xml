@@ -153,12 +153,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".login.activities.WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".login.activities.LoginActivity" />
         <activity android:name=".login.activities.SignUpActivity" />
         <activity android:name=".login.activities.SignUpDetailActivty" />
@@ -291,12 +286,16 @@
         <activity android:name=".Schedule.Activity.AlarmActivity" />
         <activity android:name=".Schedule.Activity.Calendar_infor_activity" />
         <activity android:name=".meetting.activity.OrderDetailMeetingActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".meetting.activity.ContentDialogActivity"
-            android:theme="@style/MyDialogStyle"
-            >
-        </activity>
+        <activity
+            android:name=".meetting.activity.ContentDialogActivity"
+            android:theme="@style/MyDialogStyle"></activity>
+        <activity android:name=".meetting.activity.InviteActivity"></activity>
     </application>
 
 </manifest>

@@ -94,7 +94,7 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         return format.format(date);
     }
 
-    @OnClick({R.id.begin_time_ll, R.id.end_time_ll,R.id.content_tv})
+    @OnClick({R.id.begin_time_ll, R.id.end_time_ll,R.id.content_tv,R.id.meeting_person_ll})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //开始时间
@@ -110,7 +110,9 @@ public class OrderDetailMeetingActivity extends BaseActivity {
             case R.id.content_tv:
                 showContentDialog();
                 break;
-
+                //跳转到选择界面
+            case R.id.meeting_person_ll:
+                InviteActivity.start(OrderDetailMeetingActivity.this);
         }
     }
     private void showContentDialog(){

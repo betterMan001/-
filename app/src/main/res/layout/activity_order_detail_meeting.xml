@@ -423,11 +423,12 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     >
-                    <!--地点-->
+                    <!--会议参会人-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:id="@+id/meeting_person_ll"
                         android:paddingRight="5dp"
                         android:background="@color/white"
                         >
@@ -438,13 +439,13 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/place001"
+                            android:background="@drawable/meeting_person001"
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="主题"
+                            android:text="会议参会人"
                             android:textColor="@color/black"
                             >
                         </TextView>
@@ -453,7 +454,7 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical|right"
-                            android:text="选择地点 >"
+                            android:text=">"
                             >
                         </TextView>
                     </LinearLayout>
