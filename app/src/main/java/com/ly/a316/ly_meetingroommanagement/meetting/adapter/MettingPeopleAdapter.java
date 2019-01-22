@@ -11,7 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.meetting.classes.MettingPeople;
+import com.ly.a316.ly_meetingroommanagement.meetting.models.MettingPeople;
 
 import java.util.List;
 

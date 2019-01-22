@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.meetting.classes;
+package com.ly.a316.ly_meetingroommanagement.meetting.models;
 
 import com.chad.library.adapter.base.entity.AbstractExpandableItem;
 import com.chad.library.adapter.base.entity.MultiItemEntity;

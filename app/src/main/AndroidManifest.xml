@@ -153,7 +153,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".login.activities.WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".login.activities.LoginActivity" />
         <activity android:name=".login.activities.SignUpActivity" />
         <activity android:name=".login.activities.SignUpDetailActivty" />
@@ -294,8 +294,9 @@
         </activity>
         <activity
             android:name=".meetting.activity.ContentDialogActivity"
-            android:theme="@style/MyDialogStyle"></activity>
-        <activity android:name=".meetting.activity.InviteActivity"></activity>
+            android:theme="@style/MyDialogStyle" />
+        <activity android:name=".meetting.activity.InviteActivity" />
+        <activity android:name=".meetting.activity.MeetingRecordPeopleActivity"></activity>
     </application>
 
 </manifest>

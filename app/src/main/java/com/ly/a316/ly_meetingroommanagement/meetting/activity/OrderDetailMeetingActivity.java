@@ -9,12 +9,16 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.TimePickerView;
 import com.gyf.barlibrary.ImmersionBar;
-import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
+import com.ly.a316.ly_meetingroommanagement.meetting.models.LevelOne;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,9 +32,20 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     TextView beginTime;
     @BindView(R.id.end_time_tv)
     TextView endTimeTv;
-     boolean flag=false;
-     //日程内容对话框的编辑框
+    boolean flag = false;
+    //日程内容对话框的编辑框
     EditText contextET;
+    //存放被选中的职工的Map
+    public static Map<String,LevelOne> selectedEmployees = new HashMap();
+    public static Map<String,LevelOne> recordEmployees = new HashMap();
+    public boolean isFinishMeetingPeople = false;
+    public boolean isFinishRecordMeetingPeople = false;
+    @BindView(R.id.meeting_maker)
+    TextView meetingMaker;
+    @BindView(R.id.meeting_people_tv)
+    TextView meetingPeopleTv;
+    @BindView(R.id.meeting_record_people_tv)
+    TextView meetingRecordPeopleTv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +56,8 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     }
 
     private void initView() {
+        //设置会议发起人名称，为该账号
+        meetingMaker.setText(MyApplication.getUserName());
     }
 
     @Override
@@ -49,16 +66,27 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         ImmersionBar.with(this).destroy();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if (this.isFinishMeetingPeople == true) {
+           this.meetingPeopleTv.setText("已选择");
+           this.meetingPeopleTv.setBackgroundColor(getResources().getColor(R.color.classical_blue));
+        }
+        if(this.isFinishRecordMeetingPeople == true){
+            this.meetingRecordPeopleTv.setText("");
+            meetingRecordPeopleTv.setBackground(getResources().getDrawable(R.drawable.bookstall001));
+        }
+    }
 
     private void showTimeSelect() {
         TimePickerView pvTime = new TimePickerView.Builder(OrderDetailMeetingActivity.this, new TimePickerView.OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
                 String time = getTime(date);
-                if(flag==false){
+                if (flag == false) {
                     beginTime.setText(time);
-                }
-                else{
+                } else {
                     endTimeTv.setText(time);
                 }
 
@@ -94,28 +122,29 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         return format.format(date);
     }
 
-    @OnClick({R.id.begin_time_ll, R.id.end_time_ll,R.id.content_tv,R.id.meeting_person_ll})
+    @OnClick({R.id.begin_time_ll, R.id.end_time_ll, R.id.content_tv, R.id.meeting_person_ll})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //开始时间
             case R.id.begin_time_ll:
-                flag=false;
+                flag = false;
                 showTimeSelect();
                 break;
-                //结束时间
+            //结束时间
             case R.id.end_time_ll:
-                flag=true;
+                flag = true;
                 showTimeSelect();
                 break;
             case R.id.content_tv:
                 showContentDialog();
                 break;
-                //跳转到选择界面
+            //跳转到选择界面
             case R.id.meeting_person_ll:
                 InviteActivity.start(OrderDetailMeetingActivity.this);
         }
     }
-    private void showContentDialog(){
+
+    private void showContentDialog() {
         ContentDialogActivity.start(OrderDetailMeetingActivity.this);
 //        AlertDialog.Builder customizeDialog= new AlertDialog.Builder(OrderDetailMeetingActivity.this);
 //        final View dialogView= LayoutInflater

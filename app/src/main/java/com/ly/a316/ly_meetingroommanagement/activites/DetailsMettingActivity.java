@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.bigkoo.pickerview.TimePickerView;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.meetting.classes.MettingPeople;
+import com.ly.a316.ly_meetingroommanagement.meetting.models.MettingPeople;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

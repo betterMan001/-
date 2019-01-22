@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-tools:context=".meetting.activity.InviteActivity">
+    tools:context=".meetting.activity.MeetingRecordPeopleActivity">
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:id="@+id/customize_bar_rl"
@@ -27,7 +26,7 @@ tools:context=".meetting.activity.InviteActivity">
 
         </LinearLayout>
         <TextView
-            android:text="邀请联系人"
+            android:text="添加会议记录人"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_centerInParent="true"
@@ -38,7 +37,7 @@ tools:context=".meetting.activity.InviteActivity">
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:text="完成"
-            android:id="@+id/invite_tv"
+            android:id="@+id/finish_tv"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:layout_centerVertical="true"
@@ -51,7 +50,6 @@ tools:context=".meetting.activity.InviteActivity">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/invite_rv"
-        android:layout_weight="1"
         >
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>
