@@ -36,4 +36,5 @@
     <color name="color_black">#000000</color>
 
     <color name="gray_text_light">#979797</color>
+    <color name="shijiandian">#ebedec</color>
 </resources>

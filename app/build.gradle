@@ -76,4 +76,6 @@ dependencies {
     //相片工厂
     implementation 'com.github.AnliaLee:PhotoFactory:1.2.0'
     implementation files('libs/MobCommons-2018.1128.1916.jar')
+
+    implementation 'com.wang.avi:library:2.1.3'
 }

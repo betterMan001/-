@@ -43,14 +43,14 @@
             android:maxLines="2"
             android:text="参会人姓名" />
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/metting_tel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/metting_name"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:text="暂无联系电话" />
+            android:text="暂无联系电话" />-->
 <TextView
     android:layout_width="1dp"
     android:layout_height="1dp"

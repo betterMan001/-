@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context=".chooseOffice.fragment.TimeDianFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/shijiandian"
+        android:padding="@dimen/dp_10"
+        android:text="@string/shijiaduan" />
+
+    <LinearLayout
+        android:id="@+id/shijaindianclick"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alock" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="大概时间点" />
+
+        <TextView
+            android:id="@+id/dagaishijiandian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/youbian" />
+    </LinearLayout>
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/shijiandian"
+        android:padding="8dp"
+        android:text="大概时间点" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:background="#d9d9f3"></View>
+
+    <LinearLayout
+        android:id="@+id/huiyishichang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alock" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="会议时长（分钟）" />
+
+        <TextView
+            android:id="@+id/shichang"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/youbian" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:background="#d9d9f3"></View>
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/shijiandian"
+        android:padding="@dimen/dp_10"
+        android:text="@string/shebeiname" />
+
+    <LinearLayout
+        android:id="@+id/shebeixuqiu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alock" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="设备需求（可多选）" />
+        <TextView
+            android:id="@+id/shebeixuqiu_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/youbian" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:background="#d9d9f3"></View>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/shijiandian"
+        android:padding="@dimen/dp_10"
+        android:text="会议室相关" />
+
+    <LinearLayout
+        android:id="@+id/shijiandian_didian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alock" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="会议室地点（可多选）" />
+        <TextView
+            android:id="@+id/huiyishididian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/youbian" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:background="#d9d9f3"></View>
+
+    <LinearLayout
+        android:id="@+id/getAllType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alock" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="会议室类型（可多选）" />
+        <TextView
+            android:id="@+id/huiyishitype"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/youbian" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:background="#d9d9f3"></View>
+
+    <LinearLayout
+        android:id="@+id/huiyishi_people_num"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/dp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/alock" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:text="会议室容纳人数（可多选）" />
+        <TextView
+            android:id="@+id/renshu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_gravity="center"
+            />
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/youbian" />
+    </LinearLayout>
+</LinearLayout>
+
+
+
+
