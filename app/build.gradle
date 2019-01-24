@@ -78,4 +78,8 @@ dependencies {
     implementation files('libs/MobCommons-2018.1128.1916.jar')
     //recycleView的多类型适配器
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
+
+    implementation 'com.wang.avi:library:2.1.3'
+
+
 }

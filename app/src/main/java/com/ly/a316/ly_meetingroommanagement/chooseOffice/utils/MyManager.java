@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice.utils;
 
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;

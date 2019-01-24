@@ -11,7 +11,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.meetting.models.MettingPeople;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.DeviceType;
+import com.ly.a316.ly_meetingroommanagement.meetting.classes.MettingPeople;
 
 import java.util.List;
 
@@ -21,12 +23,22 @@ import java.util.List;
  */
 public class MettingPeopleAdapter extends RecyclerView.Adapter {
     private Context context;
-    private List<MettingPeople> list;
+
+    private List<Device> list;
+    private List<DeviceType> list_type;
     private static final int MYLIVE_MODE_CHECK = 0;
     int mEditMode = MYLIVE_MODE_CHECK;
-    public MettingPeopleAdapter(Context context, List<MettingPeople> list) {
+    String whoo = "1";
+
+    public MettingPeopleAdapter(Context context, List<Device> list) {
         this.context = context;
         this.list = list;
+    }
+
+    public MettingPeopleAdapter(Context context, List<DeviceType> list, String whoo) {
+        this.context = context;
+        this.list_type = list;
+        this.whoo = whoo;
     }
 
     @NonNull
@@ -44,20 +56,36 @@ public class MettingPeopleAdapter extends RecyclerView.Adapter {
         } else {
             ((MyViewHolder) viewHolder).check_box.setVisibility(View.VISIBLE);
         }
-        if (list.get(i).getChoose().equals("0")) {
-            ((MyViewHolder) viewHolder).check_box.setImageResource(R.mipmap.ic_checked);
-        } else {
-            ((MyViewHolder) viewHolder).check_box.setImageResource(R.mipmap.ic_uncheck);
-        }
-        ((MyViewHolder) viewHolder).pan.setText(list.get(i).getChoose());
-        ((MyViewHolder) viewHolder).metting_name.setText(list.get(i).getName());
-        ((MyViewHolder) viewHolder).metting_tel.setText(list.get(i).getPeotel());
-        ((MyViewHolder) viewHolder).item.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemClickk.onItemclick(  ((MyViewHolder) viewHolder),i);
+        if (whoo.equals("3")) {
+            if (list_type.get(i).getChoose().equals("0")) {
+                ((MyViewHolder) viewHolder).check_box.setImageResource(R.mipmap.ic_checked);
+            } else {
+                ((MyViewHolder) viewHolder).check_box.setImageResource(R.mipmap.ic_uncheck);
             }
-        });
+            ((MyViewHolder) viewHolder).pan.setText(list_type.get(i).getChoose());
+            ((MyViewHolder) viewHolder).metting_name.setText(list_type.get(i).getName());
+            ((MyViewHolder) viewHolder).item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickk.onItemclick(((MyViewHolder) viewHolder), i);
+                }
+            });
+        } else {
+            if (list.get(i).getChoose().equals("0")) {
+                ((MyViewHolder) viewHolder).check_box.setImageResource(R.mipmap.ic_checked);
+            } else {
+                ((MyViewHolder) viewHolder).check_box.setImageResource(R.mipmap.ic_uncheck);
+            }
+            ((MyViewHolder) viewHolder).pan.setText(list.get(i).getChoose());
+            ((MyViewHolder) viewHolder).metting_name.setText(list.get(i).getdName());
+            ((MyViewHolder) viewHolder).item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onItemClickk.onItemclick(((MyViewHolder) viewHolder), i);
+                }
+            });
+        }
+
     }
 
     @Override
@@ -67,26 +95,30 @@ public class MettingPeopleAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return list.size();
+        if (whoo.equals("3")) {
+            return list_type.size();
+        } else {
+            return list.size();
+        }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-       public ImageView check_box;
-        public TextView metting_name, metting_tel,pan ;
+        public ImageView check_box;
+        public TextView metting_name, metting_tel, pan;
         LinearLayout item;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             check_box = itemView.findViewById(R.id.check_box);
             metting_name = itemView.findViewById(R.id.metting_name);
-            metting_tel = itemView.findViewById(R.id.metting_tel);
-            item  = itemView.findViewById(R.id.item);
+            //  metting_tel = itemView.findViewById(R.id.metting_tel);
+            item = itemView.findViewById(R.id.item);
             pan = itemView.findViewById(R.id.pan);
         }
     }
 
     public interface OnItemClickk {
-        void onItemclick(MyViewHolder myViewHolder,int position);
+        void onItemclick(MyViewHolder myViewHolder, int position);
     }
 
     OnItemClickk onItemClickk;

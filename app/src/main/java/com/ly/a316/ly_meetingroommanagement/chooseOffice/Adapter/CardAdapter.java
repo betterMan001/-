@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -185,7 +185,10 @@ public class CardAdapter extends RecyclerView.Adapter {
 
     //时间选择
     public class TimeViewHolder extends RecyclerView.ViewHolder {
-        LinearLayout item_choose_time_xia, item_time_choose, item_choose_shikeview, item_choose_shijainduan;
+        LinearLayout item_choose_time_xia;
+        LinearLayout item_time_choose;
+        public LinearLayout item_choose_shikeview;
+        public LinearLayout item_choose_shijainduan;
         Button item_choose_shike, item_choose_shijianduan;
 
         public TimeViewHolder(@NonNull View itemView) {

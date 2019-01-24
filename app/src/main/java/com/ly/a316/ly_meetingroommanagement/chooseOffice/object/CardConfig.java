@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice.object;
 
 /**
  * 作者：余智强

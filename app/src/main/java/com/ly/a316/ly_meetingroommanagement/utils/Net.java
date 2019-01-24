@@ -17,6 +17,11 @@ public class Net {
     public final static String DEPT_EMPLOYEE="dept/deptEmployee";
     //yzq
     public static String url = HEAD;
-    public static String addSchedule = url+"/Schedule/addSchedule";//新建日程
+    public static String addSchedule = url + "/Schedule/addSchedule";//新建日程
+    public static String getAllShebei = url + "/meetRoom/allDevice";//获取设备需求
+    public static String getAllDiDian = url + "/meetRoom/allAddress";//获取所有地点
+    public static String getAllType = url + "/roomType/allRoomType";//获取所有会议室类型
+    public static String subbmit_meetroom = url + "/meetRoom/allMeetRoom";//发布会议
+    public static String getOneHuiroom = url+"/meetRoom/roomDetail";//获取单个会议详情
 
 }

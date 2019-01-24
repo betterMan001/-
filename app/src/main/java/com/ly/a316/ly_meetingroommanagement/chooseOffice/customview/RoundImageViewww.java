@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice.customview;
 
 import android.content.Context;
 import android.content.res.TypedArray;

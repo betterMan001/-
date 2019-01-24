@@ -13,10 +13,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.LoadingDialog;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.fragment.TimeDianFragment;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.DeviceType;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass;
 import com.ly.a316.ly_meetingroommanagement.meetting.adapter.MettingPeopleAdapter;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.meetting.models.MettingPeople;
+
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -43,10 +49,15 @@ public class InvitationPeoActivity extends BaseActivity {
     TextView selectAll;//选择全部人
     @BindView(R.id.ll_mycollection_bottom_dialog)
     LinearLayout ll_mycollection_bottom_dialog;
+    @BindView(R.id.biaoti)
+    TextView biaoti;
     int chooseNum = 0;
     MettingPeopleAdapter mettingPeopleAdapter;
-    List<MettingPeople> list = new ArrayList<>();
-
+    List<Device> list = new ArrayList<>();
+    List<DeviceType> list_type = new ArrayList<>();
+    DeviceDaoImp deviceDaoImp = new DeviceDaoImp(this);
+    String whoo;
+    LoadingDialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,72 +66,35 @@ public class InvitationPeoActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         inviRecyclerview.setLayoutManager(linearLayoutManager);
 
-        MettingPeople mettingPeople = new MettingPeople("张一", "123654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张二", "123654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张三", "25254254", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张思", "15424", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张无", "12325424", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张六", "12254654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张七", "12362554", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张八", "12325454", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张九", "123654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张十", "1236525", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张搜", "12365254", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("愿景撒", "123652554", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张家港", "12253654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("刘水泵", "122523654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("胡思", "123652554", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("胡三", "123652254", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张一", "123654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张二", "123654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张三", "25254254", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张思", "15424", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张无", "12325424", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张六", "12254654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张七", "12362554", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张八", "12325454", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张九", "123654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张十", "1236525", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张搜", "12365254", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("愿景撒", "123652554", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("张家港", "12253654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("刘水泵", "122523654", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("胡思", "123652554", "1");
-        list.add(mettingPeople);
-        mettingPeople = new MettingPeople("胡三", "123652254", "1");
-        list.add(mettingPeople);
-
-        mettingPeopleAdapter = new MettingPeopleAdapter(this, list);
+        loadingDialog = LoadingDialog.getInstance(this);
+        loadingDialog.show();
+        Intent intent = getIntent();
+        whoo = intent.getStringExtra("who");
+        if (whoo.equals("1")) {
+            biaoti.setText("设备列表");
+        } else if (whoo.equals("2")) {
+            biaoti.setText("会议室列表");
+        } else if (whoo.equals("3")) {
+            biaoti.setText("会议类型");
+        }
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (whoo.equals("1")) {
+                    deviceDaoImp.getAllDevice();
+                } else if (whoo.equals("2")) {
+                    deviceDaoImp.getAllDiDian();
+                } else if (whoo.equals("3")) {
+                    deviceDaoImp.getAllType();
+                }
+            }
+        });
+        thread.start();
+        if (whoo.equals("3")) {
+            mettingPeopleAdapter = new MettingPeopleAdapter(this, list_type, "3");
+        } else {
+            mettingPeopleAdapter = new MettingPeopleAdapter(this, list);
+        }
         inviRecyclerview.setAdapter(mettingPeopleAdapter);
 
         mettingPeopleAdapter.setOnItemClick(new MettingPeopleAdapter.OnItemClickk() {
@@ -132,18 +106,52 @@ public class InvitationPeoActivity extends BaseActivity {
                     tvSelectNum.setText(chooseNum + "");
                     viewHolder.check_box.setImageResource(R.mipmap.ic_checked);
                     viewHolder.pan.setText("0");
-                    list.get(position).setChoose("0");
+                    if (whoo.equals("3")) {
+                        list_type.get(position).setChoose("0");
+                    } else {
+                        list.get(position).setChoose("0");
+                    }
                 } else if (a.equals("0")) {
                     chooseNum--;
                     tvSelectNum.setText(chooseNum + "");
                     viewHolder.check_box.setImageResource(R.mipmap.ic_uncheck);
                     viewHolder.pan.setText("1");
-                    list.get(position).setChoose("0");
+
+                    if (whoo.equals("3")) {
+                        list_type.get(position).setChoose("1");
+                    } else {
+                        list.get(position).setChoose("1");
+
+                    }
+
                 }
                 setBtnBackground(chooseNum);
-
             }
         });
+    }
+
+    public void call_success_back(List<Device> list_Device) {
+        loadingDialog.dismiss();
+        list.clear();
+        list.addAll(list_Device);
+        mettingPeopleAdapter.notifyDataSetChanged();
+    }
+
+    public void call_success_dedian(List<Device> list_Device) {
+        loadingDialog.dismiss();
+        list.clear();
+        list.addAll(list_Device);
+        mettingPeopleAdapter.notifyDataSetChanged();
+    }
+
+    public void call_success_type(List<DeviceType> list_typee) {
+        loadingDialog.dismiss();
+        list_type.clear();
+        list_type.addAll(list_typee);
+        mettingPeopleAdapter.notifyDataSetChanged();
+    }
+    public void call_fail(){
+        loadingDialog.dismiss();
     }
 
     @OnClick({R.id.btn_edit, R.id.btn_sure, R.id.select_all})
@@ -173,51 +181,112 @@ public class InvitationPeoActivity extends BaseActivity {
         int numm;
         if (mettingPeopleAdapter == null) return;
         if (!isSelectAll) {
-            for (int i = 0, j = list.size(); i < j; i++) {
-                list.get(i).setChoose("0");
+            if (whoo.equals("3")) {
+                for (int i = 0, j = list_type.size(); i < j; i++) {
+                    list_type.get(i).setChoose("0");
+                }
+                numm = list_type.size();
+            } else {
+                for (int i = 0, j = list.size(); i < j; i++) {
+                    list.get(i).setChoose("0");
+                }
+                numm = list.size();
             }
             btnSure.setEnabled(true);
             selectAll.setText("取消全选");
             isSelectAll = true;
-            numm = list.size();
+
         } else {
-            for (int i = 0, j = list.size(); i < j; i++) {
-                list.get(i).setChoose("1");
+            if (whoo.equals("3")) {
+                for (int i = 0, j = list_type.size(); i < j; i++) {
+                    list_type.get(i).setChoose("1");
+                }
+                numm = 0;
+            } else {
+                for (int i = 0, j = list.size(); i < j; i++) {
+                    list.get(i).setChoose("1");
+                }
+                numm = 0;
             }
+
             btnSure.setEnabled(false);
             selectAll.setText("全选");
             isSelectAll = false;
-            numm = 0;
-            chooseNum=0;
+
+            chooseNum = 0;
         }
         mettingPeopleAdapter.notifyDataSetChanged();
         setBtnBackground(numm);
         tvSelectNum.setText(String.valueOf(numm));
     }
 
+    String devicename;
+
     void subbmit() {
-        final List<MettingPeople> mlst = new ArrayList<MettingPeople>();
-        MettingPeople mettingPeople;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getChoose().equals("0")) {
-                mettingPeople = new MettingPeople(list.get(i).getName(), list.get(i).getPeotel(), list.get(i).getChoose());
-                mlst.add(mettingPeople);
+        String de_name = null;
+        final List<Device> mlst = new ArrayList<Device>();
+        final List<DeviceType> list_typee = new ArrayList<>();
+        Device device;
+        DeviceType deviceType;
+        if (whoo.equals("3")) {
+            for (int i = 0; i < list_type.size(); i++) {
+                if (list_type.get(i).getChoose().equals("0")) {
+                    deviceType = new DeviceType(list_type.get(i).getName());
+                    if(devicename == null){
+                        devicename = list_type.get(i).getId() + ",";
+                    }else{
+                        devicename += list_type.get(i).getId() + ",";
+                    }
+                    de_name += list_type.get(i).getName() + ",";
+                    list_typee.add(deviceType);
+                }
+            }
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).getChoose().equals("0")) {
+                    device = new Device(list.get(i).getdName());
+                    if(devicename == null){
+                        devicename = list.get(i).getdId() + ",";
+                    }else {
+                        devicename += list.get(i).getdId() + ",";
+                    }
+                    de_name += list.get(i).getdName() + ",";
+                    mlst.add(device);
+                }
             }
         }
-        Log.i("zjc", mlst.size() + "");
+        if (whoo.equals("3")) {
+            ShijiandianClass.HUIYI_LEIXING = devicename;
+        } else if(whoo.equals("1")){
+            ShijiandianClass.SHEBEI = devicename;
+        }
         final AlertDialog builder = new AlertDialog.Builder(this)
                 .create();
         builder.show();
         if (builder.getWindow() == null) return;
         builder.getWindow().setContentView(R.layout.pop_user);//设置弹出框加载的布局
-        TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
+        final TextView msg = (TextView) builder.findViewById(R.id.tv_msg);
         Button cancle = (Button) builder.findViewById(R.id.btn_cancle);
         Button sure = (Button) builder.findViewById(R.id.btn_sure);
         if (msg == null || cancle == null || sure == null) return;
         if (isSelectAll) {
-            msg.setText("你邀请了" + list.size() + "人，是否确实人选？");
+            if (whoo.equals("1")) {
+                msg.setText("你选了" + chooseNum + "设备，是否确定选择此设备？");
+            } else if (whoo.equals("2")) {
+                msg.setText("你选了" + chooseNum + "地点，是否确定选择此地点？");
+            } else {
+                msg.setText("你选择了" + chooseNum + "会议类型，是否确实此类型？");
+            }
         } else {
-            msg.setText("你邀请了" + chooseNum + "人，是否确实人选？");
+
+            if (whoo.equals("1")) {
+                msg.setText("你选了" + de_name + "设备，是否确定选择此设备？");
+            } else if (whoo.equals("2")) {
+                msg.setText("你选了" + de_name + "地点，是否确定选择此地点？");
+            } else {
+                msg.setText("你选择了" + de_name + "会议类型，是否确实此类型？");
+            }
+
         }
         cancle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,14 +297,39 @@ public class InvitationPeoActivity extends BaseActivity {
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(InvitationPeoActivity.this, DetailsMettingActivity.class);
-                intent1.putExtra("qqqq", (Serializable) mlst);
-                InvitationPeoActivity.this.setResult(123, intent1);
+                Intent intent1 = new Intent(InvitationPeoActivity.this, TimeDianFragment.class);
+                if (whoo.equals("1")) {
+                    //设备
+                    String dsadsa = "";
+                    for (int i = 0; i < mlst.size() - 1; i++) {
+                        dsadsa += mlst.get(i).getdName().toString() + ",";
+                    }
+                    dsadsa += mlst.get(mlst.size() - 1).getdName().toString();
+                    intent1.putExtra("qqqq", dsadsa);
+
+                    InvitationPeoActivity.this.setResult(123, intent1);
+                } else if (whoo.equals("2")) {
+                    //地点
+                    String dsadsa = "";
+                    for (int i = 0; i < mlst.size() - 1; i++) {
+                        dsadsa += mlst.get(i).getdName().toString() + ",";
+                    }
+                    dsadsa += mlst.get(mlst.size() - 1).getdName().toString();
+                    intent1.putExtra("qqqq", dsadsa);
+                    InvitationPeoActivity.this.setResult(124, intent1);
+                } else if (whoo.equals("3")) {
+                    String dsadsa = "";
+                    for (int i = 0; i < list_typee.size() - 1; i++) {
+                        dsadsa += list_typee.get(i).getName().toString() + ",";
+                    }
+                    dsadsa += list_typee.get(list_typee.size() - 1).getName().toString();
+                    intent1.putExtra("qqqq", dsadsa);
+                    InvitationPeoActivity.this.setResult(150, intent1);
+                }
                 builder.dismiss();
                 finish();
             }
         });
-
     }
 
     private void setBtnBackground(int size) {
@@ -249,4 +343,5 @@ public class InvitationPeoActivity extends BaseActivity {
             btnSure.setTextColor(ContextCompat.getColor(this, R.color.color_b7b8bd));
         }
     }
+
 }

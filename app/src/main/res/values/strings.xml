@@ -112,6 +112,11 @@
     <string name="shijiaduan">时间段选择</string>
     <string name="shike">时刻选择</string>
     <string name="shijian">时间</string>
+    <string name="about_time">时间相关</string>
+    <string name="shebeiname">设备相关</string>
+    <string name="kaishishijian">开始时间</string>
+
+
 </resources>
 
 

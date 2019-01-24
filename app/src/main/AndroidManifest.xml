@@ -153,7 +153,13 @@
             android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity
             android:name=".login.activities.WelcomeActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".login.activities.LoginActivity" />
         <activity android:name=".login.activities.SignUpActivity" />
         <activity android:name=".login.activities.SignUpDetailActivty" />
@@ -285,18 +291,15 @@
 
         <activity android:name=".Schedule.Activity.AlarmActivity" />
         <activity android:name=".Schedule.Activity.Calendar_infor_activity" />
-        <activity android:name=".meetting.activity.OrderDetailMeetingActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".meetting.activity.OrderDetailMeetingActivity" />
         <activity
             android:name=".meetting.activity.ContentDialogActivity"
             android:theme="@style/MyDialogStyle" />
-        <activity android:name=".meetting.activity.InviteActivity" />
-        <activity android:name=".meetting.activity.MeetingRecordPeopleActivity"></activity>
+        <activity android:name=".chooseOffice.activity.HuiyiActivity" />
+        <activity android:name=".chooseOffice.activity.ZhanshiHuiActivity" />
+        <activity
+            android:name=".chooseOffice.activity.HuiyiXiang_Activity"
+            android:theme="@style/Translucent"></activity>
     </application>
 
 </manifest>

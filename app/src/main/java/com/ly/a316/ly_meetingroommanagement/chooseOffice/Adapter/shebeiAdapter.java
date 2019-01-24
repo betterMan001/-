@@ -1,4 +1,4 @@
-package com.ly.a316.ly_meetingroommanagement.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice.Adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.WriteconditionActivity;
 
 import java.util.List;
 
