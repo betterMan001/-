@@ -15,7 +15,6 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.meetting.adapter.MulitemAdapter;
-import com.ly.a316.ly_meetingroommanagement.meetting.models.LevelOne;
 import com.ly.a316.ly_meetingroommanagement.meetting.models.LevelZero;
 import com.ly.a316.ly_meetingroommanagement.meetting.services.imp.DeptServiceImp;
 

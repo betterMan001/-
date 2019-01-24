@@ -1,5 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.meetting.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -65,7 +67,18 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
     }
+    public static final void start(Context context,String beginTime,String endTime,int peopleNum,String deviceLists,String place,String meetingRoomNO) {
 
+        Intent intent = new Intent();
+        intent.putExtra("beginTime",beginTime);
+        intent.putExtra("endTime",endTime);
+        intent.putExtra("peopleNum,",peopleNum);
+        intent.putExtra("deviceLists",deviceLists);
+        intent.putExtra("place",place);
+        intent.putExtra("meetingRoomNO",meetingRoomNO);
+        intent.setClass(context,OrderDetailMeetingActivity.class);
+        context.startActivity(intent);
+    }
     @Override
     protected void onRestart() {
         super.onRestart();

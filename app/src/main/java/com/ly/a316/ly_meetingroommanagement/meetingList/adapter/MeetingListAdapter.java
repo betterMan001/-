@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
@@ -55,7 +56,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
         holder1.meeting_list_message_tv.setText(model.getMessageNum());
         holder1.meeting_list_partner.setText(model.getPartnerNum());
         holder1.meeting_list_sponsor_tv.setText(model.getSponsor());
-        holder1.meeting_list_time_tv.setText(model.getDate());
+       // holder1.meeting_list_time_tv.setText(model.getDate());
         holder1.meeting_list_status_tv.setText(model.getMeetingStatus());
         holder1.meeting_title_tv.setText(model.getTitle());
         holder1.meeting_list_did_time.setText(model.getDidTime());
@@ -66,10 +67,11 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
         return count;
     }
     public class MeetingListViewHolder extends RecyclerView.ViewHolder{
-        public CardView meeting_list_item;
+        public LinearLayout meeting_list_item;
         public TextView meeting_list_sponsor_tv;
         public TextView meeting_title_tv;
-        public TextView meeting_list_time_tv;
+        public TextView meeting_list_time_tv1;
+        public TextView meeting_list_time_tv2;
         public TextView meeting_list_message_tv;
         public TextView meeting_list_partner;
         public TextView meeting_list_status_tv;
@@ -80,7 +82,8 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
             meeting_list_item=itemView.findViewById(R.id.meeting_list_item);
             meeting_list_sponsor_tv=itemView.findViewById(R.id.meeting_list_sponsor_tv);
             meeting_title_tv=itemView.findViewById(R.id.meeting_title_tv);
-            meeting_list_time_tv=itemView.findViewById(R.id.meeting_list_time_tv);
+            meeting_list_time_tv1=itemView.findViewById(R.id.meeting_list_time_tv1);
+            meeting_list_time_tv2=itemView.findViewById(R.id.meeting_list_time_tv2);
             meeting_list_message_tv=itemView.findViewById(R.id.meeting_list_message_tv);
             meeting_list_partner=itemView.findViewById(R.id.meeting_list_partner);
             meeting_list_status_tv=itemView.findViewById(R.id.meeting_list_status_tv);
