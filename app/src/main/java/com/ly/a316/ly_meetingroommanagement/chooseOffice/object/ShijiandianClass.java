@@ -14,5 +14,7 @@ public class ShijiandianClass {
     public static String HUIYI_LEIXING;
     public static String PEOPLE_NUMBER;
 
+    public static String HUIYI_Leixing;//通过id查找后得到的会议室准确类型
+
 
 }

@@ -6,9 +6,11 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.ly.a316.ly_meetingroommanagement.activites.InvitationPeoActivity;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.activity.HuiyiActivity;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.activity.HuiyiXiang_Activity;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.dao.deviceDao;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.DeviceType;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Hui_Device;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.HuiyiInformation;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;
@@ -42,8 +44,10 @@ public class DeviceDaoImp implements deviceDao {
     List<Device> device_list = new ArrayList<>();//存放的设备
     List<DeviceType> deviceType_list = new ArrayList<>();//存放所有的设备类型
     List<HuiyiInformation> list_meet = new ArrayList<>();//經過删选得到的会议室列表
+    List<Hui_Device> list_huidevice = new ArrayList<>();//存放摸个会议室的所有设备
     Gson gson = new Gson();
     HuiyiActivity huiyiActivity;
+    HuiyiXiang_Activity huiyiXiang_activity;
 
     public DeviceDaoImp(HuiyiActivity huiyiActivity) {
         this.huiyiActivity = huiyiActivity;
@@ -51,6 +55,10 @@ public class DeviceDaoImp implements deviceDao {
 
     public DeviceDaoImp(InvitationPeoActivity invitationPeoActivity) {
         this.invitationPeoActivity = invitationPeoActivity;
+    }
+
+    public DeviceDaoImp(HuiyiXiang_Activity huiyiXiang_activity) {
+        this.huiyiXiang_activity = huiyiXiang_activity;
     }
 
     Handler handler = new Handler() {
@@ -70,10 +78,12 @@ public class DeviceDaoImp implements deviceDao {
                 toast("网络请求成功");
                 invitationPeoActivity.call_success_type(deviceType_list);
             } else if (msg.what == 5) {
-                Toast.makeText(huiyiActivity,"帮你找到了以下会议室", Toast.LENGTH_SHORT).show();
+                Toast.makeText(huiyiActivity, "帮你找到了以下会议室", Toast.LENGTH_SHORT).show();
                 huiyiActivity.success(list_meet);
             } else if (msg.what == 6) {
-                Toast.makeText(huiyiActivity,"该地址没有找到会议室", Toast.LENGTH_SHORT).show();
+                Toast.makeText(huiyiActivity, "该地址没有找到会议室", Toast.LENGTH_SHORT).show();
+            }else if(msg.what == 7){
+                huiyiXiang_activity.get_success(list_huidevice);
             }
         }
     };
@@ -211,6 +221,40 @@ public class DeviceDaoImp implements deviceDao {
                     } else {
                         handler.sendEmptyMessage(6);
                     }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getOneHuiroom(String id, String type_id) {
+        url = Net.getOneHuiroom + "?roomId=" + id + "&mType=" + type_id;
+        Log.i("zjc", "查找某个会议室的网址:" + url);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(url).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendEmptyMessage(1);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String requestbody = response.body().string();
+                try {
+                    JSONObject jsonObject = new JSONObject(requestbody);
+                    JSONObject h = jsonObject.getJSONObject("map");
+                    JSONArray jsonArray = h.getJSONArray("device");
+                    String hui_type = h.getString("type");
+                    ShijiandianClass.HUIYI_Leixing = hui_type;
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        Hui_Device hui_device = new Hui_Device(jsonArray.get(i).toString());
+                        list_huidevice.add(hui_device);
+                    }
+                    handler.sendEmptyMessage(7);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

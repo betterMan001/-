@@ -1,5 +1,6 @@
 package com.ly.a316.ly_meetingroommanagement.chooseOffice.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -24,6 +25,7 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.ViewFindUtils;
 import com.ly.a316.ly_meetingroommanagement.customView.LoadingImageView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,9 +102,12 @@ public class HuiyiActivity extends AppCompatActivity {
             return fragment;
         }
     }
-    List<HuiyiInformation> list_meet;
+    List<HuiyiInformation> list_meet = new ArrayList<>();
     public void success( List<HuiyiInformation> list_meett){
+        list_meet.clear();
         list_meet.addAll(list_meett);
-
+        Intent intent =new Intent(this,ZhanshiHuiActivity.class);
+        intent.putExtra("list_meet", (Serializable) list_meet);
+        startActivity(intent);
     }
 }

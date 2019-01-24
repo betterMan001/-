@@ -1,96 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:s="http://schemas.android.com/apk/res-auto"
-    android:layout_width="336dp"
-    android:layout_height="426dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/img_card_background"
     android:gravity="center"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <com.ly.a316.ly_meetingroommanagement.chooseOffice.RoundImageViewww
-            android:id="@+id/iv_avatar"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/hy_infor_image"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="340dp"
             android:scaleType="centerCrop"
-            s:radiussd="7.5dp"
-            android:src="@drawable/img_avatar_01" />
+            android:src="@drawable/img_avatar_01"
+            />
+    </LinearLayout>
 
-        <ImageView
-            android:id="@+id/iv_dislike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="15dp"
-            android:alpha="0"
-            android:src="@drawable/img_dislike" />
-
-        <ImageView
-            android:id="@+id/iv_like"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="15dp"
-            android:alpha="0"
-            android:src="@drawable/img_like" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:paddingLeft="14dp"
-        android:paddingTop="15dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10">
 
         <TextView
-            android:id="@+id/tv_name"
-            android:layout_width="wrap_content"
+            android:id="@+id/hy_infor_huiname"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_10"
             android:gravity="center"
-            android:text="小姐姐"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:text="B栋01会议室"
+            android:textSize="@dimen/text_size_18" />
 
-        <TextView
-            android:id="@+id/tv_age"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_name"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/shape_age"
+        <View
+            android:layout_width="200dp"
+            android:layout_height="5dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/line"
+            android:outlineAmbientShadowColor="@color/one"></View>
+
+        <LinearLayout
+            android:layout_gravity="center"
             android:gravity="center"
-            android:text="♀ 23"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp_10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="容量" />
+
+                <TextView
+                    android:id="@+id/hy_infor_rongliang"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="50" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp_10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="编号" />
+
+                <TextView
+                   android:id="@+id/hy_infor_bianhao"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="4" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/dp_10"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="地点" />
+
+                <TextView
+                    android:id="@+id/hy_infor_didian"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="B栋" />
+            </LinearLayout>
+        </LinearLayout>
+        <Button
+            android:padding="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/angry_btn"
+            android:text="查看详情"
             android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tv_constellation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_name"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@id/tv_age"
-            android:background="@drawable/shape_constellation"
-            android:gravity="center"
-            android:text="狮子座"
-            android:textColor="#FFFFFF"
-            android:textSize="14sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_age"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="IT/互联网"
-            android:textColor="#cbcbcb" />
-
-    </RelativeLayout>
-
+            android:layout_width="75dp"
+            android:layout_height="30dp"
+            android:background="@drawable/button_shapee"
+            android:shadowColor="#525252"
+            android:shadowDx="0"
+            android:shadowDy="0"
+            android:shadowRadius="0"
+            android:layout_marginBottom="@dimen/dp_10"
+            />
+    </LinearLayout>
 
 </LinearLayout>

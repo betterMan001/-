@@ -34,7 +34,7 @@
     <color name="colorRed">#FF0000</color>
     <color name="color_schedule_title_text">#272E3E</color>
     <color name="color_black">#000000</color>
-
+<color name="s">#4D000000</color>
     <color name="gray_text_light">#979797</color>
     <color name="shijiandian">#ebedec</color>
 </resources>

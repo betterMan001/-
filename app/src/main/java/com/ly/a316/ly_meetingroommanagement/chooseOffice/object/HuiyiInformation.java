@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 2019/1/23
  */
 public class HuiyiInformation implements Serializable{
-    int mId;
+    String mId;
     String mRoomId;
     String mName;
     String mAddress;
@@ -25,15 +25,19 @@ public class HuiyiInformation implements Serializable{
     String mLockEmployee;
     String mImageUrl;
 
+
     public HuiyiInformation() {
 
     }
 
-    public int getmId() {
+
+
+
+    public String getmId() {
         return mId;
     }
 
-    public void setmId(int mId) {
+    public void setmId(String mId) {
         this.mId = mId;
     }
 

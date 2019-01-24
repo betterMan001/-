@@ -20,6 +20,13 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.Adapter.CardAdapter;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.dao.OnSwipeListener;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.CardConfig;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.CardItemTouchHelperCallback;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.CardLayoutManager;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.ItemOffsetDecoration;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.MyManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,7 +51,7 @@ public class WriteconditionActivity extends AppCompatActivity {
     @BindView(R.id.linear)
     LinearLayout linear;
     private List<Integer> listtu = new ArrayList<>();
-    int dsa[] = {R.drawable.img_avatar_01, R.drawable.img_avatar_02, R.drawable.img_avatar_03, R.drawable.img_avatar_04, R.drawable.img_avatar_05, R.drawable.img_avatar_06, R.drawable.img_avatar_07};
+  //  int dsa[] = {R.drawable.img_avatar_01, R.drawable.img_avatar_02, R.drawable.img_avatar_03, R.drawable.img_avatar_04, R.drawable.img_avatar_05, R.drawable.img_avatar_06, R.drawable.img_avatar_07};
 
 
     @Override
@@ -85,7 +92,7 @@ public class WriteconditionActivity extends AppCompatActivity {
                     weizhi = o;
                 }
                 Log.i("zjc",(o-weizhi)+"");
-                linear.setBackgroundResource(dsa[o-weizhi]);
+              /*  linear.setBackgroundResource(dsa[o-weizhi]);*/
                 MyAdapter.MyViewHolder myHolder = (MyAdapter.MyViewHolder) viewHolder;
                 viewHolder.itemView.setAlpha(1f);
                 myHolder.dislikeImageView.setAlpha(0f);
@@ -239,7 +246,7 @@ public class WriteconditionActivity extends AppCompatActivity {
     private class MyAdapter extends RecyclerView.Adapter {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_huiyishi, parent, false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_huiyishiiii, parent, false);
             return new MyViewHolder(view);
         }
 
@@ -253,7 +260,6 @@ public class WriteconditionActivity extends AppCompatActivity {
         public int getItemCount() {
             return listtu.size();
         }
-
         class MyViewHolder extends RecyclerView.ViewHolder {
 
             ImageView avatarImageView;
@@ -268,5 +274,6 @@ public class WriteconditionActivity extends AppCompatActivity {
             }
 
         }
+
     }
 }

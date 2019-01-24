@@ -1,10 +1,13 @@
-package com.ly.a316.ly_meetingroommanagement.chooseOffice;
+package com.ly.a316.ly_meetingroommanagement.chooseOffice.utils;
 
 import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
+
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.dao.OnSwipeListener;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.CardConfig;
 
 import java.util.List;
 
@@ -17,12 +20,13 @@ import java.util.List;
 public class CardItemTouchHelperCallback<T> extends ItemTouchHelper.Callback {
     private RecyclerView.Adapter adapter;
     private List<T> dataList;
+    private List<T> dataList_t;
     private OnSwipeListener<T> mListener;
 
     public CardItemTouchHelperCallback(RecyclerView.Adapter adapter, List<T> dataList) {
         this.adapter = adapter;
         this.dataList = dataList;
-
+        this.dataList_t = dataList;
     }
 
     public CardItemTouchHelperCallback(RecyclerView.Adapter adapter, List<T> dataList, OnSwipeListener<T> mListener) {
@@ -57,6 +61,7 @@ public class CardItemTouchHelperCallback<T> extends ItemTouchHelper.Callback {
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
         return false;
     }
+
 
     @Override
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {

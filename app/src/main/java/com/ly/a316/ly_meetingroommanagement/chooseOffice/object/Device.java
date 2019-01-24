@@ -14,6 +14,8 @@ public class Device  implements Serializable{
     String choose = "1";
     String didian;
 
+
+
     public Device(int dId, String dName, String dDate, String dType) {
         this.dId = dId;
         this.dName = dName;
@@ -30,6 +32,13 @@ public class Device  implements Serializable{
 
     }
 
+    public String getDidian() {
+        return didian;
+    }
+
+    public void setDidian(String didian) {
+        this.didian = didian;
+    }
 
     public int getdId() {
         return dId;

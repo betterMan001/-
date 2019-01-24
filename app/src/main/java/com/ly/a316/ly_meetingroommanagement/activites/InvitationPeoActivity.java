@@ -118,9 +118,9 @@ public class InvitationPeoActivity extends BaseActivity {
                     viewHolder.pan.setText("1");
 
                     if (whoo.equals("3")) {
-                        list_type.get(position).setChoose("0");
+                        list_type.get(position).setChoose("1");
                     } else {
-                        list.get(position).setChoose("0");
+                        list.get(position).setChoose("1");
 
                     }
 

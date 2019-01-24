@@ -21,5 +21,6 @@ public class Net {
     public static String getAllDiDian = url + "/meetRoom/allAddress";//获取所有地点
     public static String getAllType = url + "/roomType/allRoomType";//获取所有会议室类型
     public static String subbmit_meetroom = url + "/meetRoom/allMeetRoom";//发布会议
+    public static String getOneHuiroom = url+"/meetRoom/roomDetail";//获取单个会议详情
 
 }
