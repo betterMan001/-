@@ -50,6 +50,7 @@ public class HuiyiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor(R.color.classical_blue).init();
         setContentView(R.layout.activity_huiyi);
         ButterKnife.bind(this);
         deviceDaoImp = new DeviceDaoImp(this);
