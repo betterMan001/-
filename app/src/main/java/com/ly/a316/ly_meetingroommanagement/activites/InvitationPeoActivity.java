@@ -13,6 +13,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.LoadingDialog;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.fragment.TimeDianFragment;
@@ -61,6 +62,7 @@ public class InvitationPeoActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor(R.color.white).init();
         setContentView(R.layout.activity_invitation_peo);
         ButterKnife.bind(this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

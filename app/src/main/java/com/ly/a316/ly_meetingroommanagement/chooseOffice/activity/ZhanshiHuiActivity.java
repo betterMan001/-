@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.Adapter.Zhanshi_MyAdapter;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.CardItemTouchHelperCallback;
@@ -37,6 +38,7 @@ public class ZhanshiHuiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor(R.color.white).init();
         setContentView(R.layout.activity_zhanshi_hui);
         ButterKnife.bind(this);
         addShike_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
