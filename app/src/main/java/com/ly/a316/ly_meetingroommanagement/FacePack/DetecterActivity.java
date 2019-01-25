@@ -142,7 +142,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                         .readTimeout(4, TimeUnit.MINUTES)
                         .build();
                 FormBody formBody = new FormBody.Builder()
-                        .add("access_token", "34bb464c1aa7da00373843f991e940c0594e7476")
+                        .add("access_token", "76386d42043879a90d4cc321dac29c1e18618149")
                         .add("id", "D8332")
                         .add("c", "play")
                         .add("sign", "room")
@@ -157,10 +157,12 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                 call.enqueue(new okhttp3.Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
+                        Log.i("zjc","失败");
                     }
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
+                        Log.i("zjc","成功");
 
                     }
                 });
