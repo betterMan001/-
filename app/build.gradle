@@ -16,7 +16,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
-            abiFilters 'armeabi-v7a', 'x86', 'x86_64', 'mips', 'mips64'
+            abiFilters 'armeabi-v7a'
             // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
         }
         sourceSets.main {
@@ -76,6 +76,8 @@ dependencies {
     //相片工厂
     implementation 'com.github.AnliaLee:PhotoFactory:1.2.0'
     implementation files('libs/MobCommons-2018.1128.1916.jar')
+    //recycleView的多类型适配器
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
     implementation 'com.wang.avi:library:2.1.3'
 

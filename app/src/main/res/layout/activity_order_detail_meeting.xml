@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/gray"
+    android:background="@color/gray_background"
     tools:context=".meetting.activity.OrderDetailMeetingActivity">
        <include
            layout="@layout/customize_bar"
@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="测试的小标题"
+                android:text="时间、人数"
                 />
             <android.support.v7.widget.CardView
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -210,7 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="测试的小标题"
+                android:text="主题"
                 />
             <android.support.v7.widget.CardView
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -269,7 +269,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="测试的小标题"
+                android:text="会议室"
                 />
             <android.support.v7.widget.CardView
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -312,7 +312,7 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical|right"
-                            android:text="选择地点 >"
+                            android:text="慎思楼"
                             >
                         </TextView>
                     </LinearLayout>
@@ -352,7 +352,7 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical|right"
-                            android:text="A01 >"
+                            android:text="3c316"
                             >
                         </TextView>
                     </LinearLayout>
@@ -410,7 +410,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="测试的小标题"
+                android:text="人员设置"
                 />
             <android.support.v7.widget.CardView
                 xmlns:android="http://schemas.android.com/apk/res/android"
@@ -423,11 +423,12 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     >
-                    <!--地点-->
+                    <!--会议参会人-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
+                        android:id="@+id/meeting_person_ll"
                         android:paddingRight="5dp"
                         android:background="@color/white"
                         >
@@ -438,22 +439,23 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/place001"
+                            android:background="@drawable/meeting_person001"
                             />
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="主题"
+                            android:gravity="center_vertical|left"
+                            android:layout_weight="1"
+                            android:text="会议参会人"
                             android:textColor="@color/black"
                             >
                         </TextView>
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:id="@+id/meeting_people_tv"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical|right"
-                            android:text="选择地点 >"
+                            android:gravity="center_vertical"
+                            android:text=">"
                             >
                         </TextView>
                     </LinearLayout>
@@ -478,22 +480,23 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/meeting_room001"
+                            android:background="@drawable/microphone001"
                             />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="会议室号"
+                            android:text="会议发起人"
                             android:textColor="@color/black"
                             >
                         </TextView>
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
+                            android:id="@+id/meeting_maker"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical|right"
-                            android:text="A01 >"
+                            android:text=">"
                             >
                         </TextView>
                     </LinearLayout>
@@ -503,7 +506,7 @@
                         android:background="@color/gray"
                         >
                     </ImageView>
-                    <!--日程内容-->
+                    <!--会议记录人-->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -518,22 +521,25 @@
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/content001"
+                            android:background="@drawable/record_people001"
                             />
                         <TextView
-                            android:layout_width="wrap_content"
+
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical"
-                            android:text="日程内容"
+                            android:gravity="center_vertical|left"
+
+                            android:text="会议记录人"
                             android:textColor="@color/black"
                             >
                         </TextView>
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical|right"
-                            android:text="选择地点 >"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:id="@+id/meeting_record_people_tv"
+                            android:gravity="center_vertical"
+                            android:text=">"
                             >
                         </TextView>
                     </LinearLayout>

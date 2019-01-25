@@ -13,7 +13,6 @@ import android.widget.TextView;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.DeviceType;
-import com.ly.a316.ly_meetingroommanagement.meetting.classes.MettingPeople;
 
 import java.util.List;
 
