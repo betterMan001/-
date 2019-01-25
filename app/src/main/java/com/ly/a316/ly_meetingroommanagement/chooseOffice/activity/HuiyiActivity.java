@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.SlidingTabLayout;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
@@ -48,6 +49,7 @@ public class HuiyiActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor(R.color.classical_blue).init();
         setContentView(R.layout.activity_huiyi);
         ButterKnife.bind(this);
         deviceDaoImp = new DeviceDaoImp(this);
