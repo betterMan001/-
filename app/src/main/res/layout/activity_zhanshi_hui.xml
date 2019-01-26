@@ -24,25 +24,25 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="normal" />
+        <com.clownqiang.rectcircleprogressbutton.RectCircleProgressButton
+            android:layout_gravity="right"
+            android:id="@+id/btn_rect_circle"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            s:rcpb_circle_color="@android:color/holo_green_dark"
+            s:rcpb_rec_color="@color/classical_blue"
+            s:rcpb_rec_stoke_width="1dp"
+            s:rcpb_rec_text="刷新"
+            s:rcpb_rec_text_color="#FFF"
+            s:rcpb_rec_text_size="16sp"
+            s:rcpb_rec_to_circle_color="@color/classical_blue"
+            s:rcpb_rec_to_circle_interval="600"
+            s:rcpb_rotate_speed="20"
+            />
     </android.support.v7.widget.Toolbar>
-    <com.clownqiang.rectcircleprogressbutton.RectCircleProgressButton
-        android:id="@+id/btn_rect_circle"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        s:rcpb_circle_color="@android:color/holo_green_dark"
-        s:rcpb_rec_color="@color/one"
-        s:rcpb_rec_stoke_width="1dp"
-        s:rcpb_rec_text="刷新"
-        s:rcpb_rec_text_color="@color/classical_blue"
-        s:rcpb_rec_text_size="16sp"
-        s:rcpb_rec_to_circle_color="@android:color/holo_blue_bright"
-        s:rcpb_rec_to_circle_interval="700"
-        s:rcpb_rotate_speed="30"
-
-        />
-
 
     <android.support.v7.widget.RecyclerView
+
         android:id="@+id/zhanshi_recycleview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

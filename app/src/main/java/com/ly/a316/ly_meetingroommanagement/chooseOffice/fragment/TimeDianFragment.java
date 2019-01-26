@@ -2,6 +2,7 @@ package com.ly.a316.ly_meetingroommanagement.chooseOffice.fragment;
 
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -53,7 +54,9 @@ public class TimeDianFragment extends Fragment {
     LinearLayout add_kongjian_linearlayout;//用来添加控件的
     TextView shijiandian_biaotil;
     EditText edit_input_shijian;//输入时间段
+
     int hour, miniute, year, month, day;
+
 
     public TimeDianFragment() {
 
@@ -68,7 +71,7 @@ public class TimeDianFragment extends Fragment {
         ShijiandianClass.WHO = "1";
         Calendar cd = Calendar.getInstance();
         year = cd.get(Calendar.YEAR);
-        month = cd.get(Calendar.MONTH)+1;
+        month = cd.get(Calendar.MONTH) + 1;
         day = cd.get(Calendar.DATE);
         hour = cd.get(Calendar.HOUR_OF_DAY);
         miniute = cd.get(Calendar.MINUTE);
@@ -82,7 +85,7 @@ public class TimeDianFragment extends Fragment {
         time_test = new TimePicker(getContext());
         edit_input_shijian = new EditText(getContext());
 
-
+        edit_input_shijian.setBackgroundColor(R.drawable.img_card_background);
         add_kongjian_linearlayout = shijiandian_view.findViewById(R.id.add_shiketime);
         shijiandian_biaotil = shijiandian_view.findViewById(R.id.shijiandian_biaoti);
     }
