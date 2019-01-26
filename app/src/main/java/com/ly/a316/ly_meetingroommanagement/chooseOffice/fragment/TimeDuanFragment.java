@@ -73,14 +73,14 @@ public class TimeDuanFragment extends Fragment {
         unbinder = ButterKnife.bind(this, view);
         Calendar cd = Calendar.getInstance();
         start_year = cd.get(Calendar.YEAR);
-        start_month = cd.get(Calendar.MONTH);
+        start_month = cd.get(Calendar.MONTH)+1;
         start_day = cd.get(Calendar.DATE);
         start_hour = cd.get(Calendar.HOUR_OF_DAY);
         start_miniute = cd.get(Calendar.MINUTE);
 
 
         end_year = cd.get(Calendar.YEAR);
-        end_month = cd.get(Calendar.MONTH);
+        end_month = cd.get(Calendar.MONTH)+1;
         end_day = cd.get(Calendar.DATE);
         end_hour = cd.get(Calendar.HOUR_OF_DAY);
         end_miniute = cd.get(Calendar.MINUTE);

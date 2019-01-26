@@ -137,11 +137,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxEms="11"
+            android:singleLine="true"
             android:layout_marginRight="@dimen/dp_10"
             />
         <ImageView
             android:layout_width="22dp"
-
             android:layout_height="wrap_content"
             android:background="@drawable/youbian" />
     </LinearLayout>
@@ -183,6 +185,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxEms="11"
+            android:singleLine="true"
             android:layout_marginRight="@dimen/dp_10"
             />
         <ImageView
@@ -221,6 +226,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:ellipsize="end"
+            android:maxEms="11"
+            android:singleLine="true"
             android:layout_marginRight="@dimen/dp_10"
             />
         <ImageView

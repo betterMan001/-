@@ -68,7 +68,7 @@ public class TimeDianFragment extends Fragment {
         ShijiandianClass.WHO = "1";
         Calendar cd = Calendar.getInstance();
         year = cd.get(Calendar.YEAR);
-        month = cd.get(Calendar.MONTH);
+        month = cd.get(Calendar.MONTH)+1;
         day = cd.get(Calendar.DATE);
         hour = cd.get(Calendar.HOUR_OF_DAY);
         miniute = cd.get(Calendar.MINUTE);
