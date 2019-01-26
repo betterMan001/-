@@ -61,7 +61,7 @@ public class TimeDuanFragment extends Fragment {
     int end_hour, end_miniute, end_year, end_month, end_day;
 
     public TimeDuanFragment() {
-        // Required empty public constructor
+
     }
 
 

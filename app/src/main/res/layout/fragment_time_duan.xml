@@ -141,6 +141,7 @@
             android:maxEms="11"
             android:singleLine="true"
             android:layout_marginRight="@dimen/dp_10"
+            android:maxLength="20"
             />
         <ImageView
             android:layout_width="22dp"
@@ -189,6 +190,7 @@
             android:maxEms="11"
             android:singleLine="true"
             android:layout_marginRight="@dimen/dp_10"
+            android:maxLength="20"
             />
         <ImageView
             android:layout_width="22dp"
