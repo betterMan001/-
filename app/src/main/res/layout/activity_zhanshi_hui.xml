@@ -15,7 +15,6 @@
         s:layout_scrollFlags="scroll|enterAlways"
         s:navigationIcon="@drawable/backtwo"
         s:titleTextColor="@color/white">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,6 +25,23 @@
             android:textSize="20sp"
             android:textStyle="normal" />
     </android.support.v7.widget.Toolbar>
+    <com.clownqiang.rectcircleprogressbutton.RectCircleProgressButton
+        android:id="@+id/btn_rect_circle"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        s:rcpb_circle_color="@android:color/holo_green_dark"
+        s:rcpb_rec_color="@color/one"
+        s:rcpb_rec_stoke_width="1dp"
+        s:rcpb_rec_text="刷新"
+        s:rcpb_rec_text_color="@color/classical_blue"
+        s:rcpb_rec_text_size="16sp"
+        s:rcpb_rec_to_circle_color="@android:color/holo_blue_bright"
+        s:rcpb_rec_to_circle_interval="700"
+        s:rcpb_rotate_speed="30"
+
+        />
+
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/zhanshi_recycleview"
         android:layout_width="match_parent"

@@ -62,7 +62,7 @@ public class HuiyiActivity extends AppCompatActivity {
         faqiyuding_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//发起会议
-                deviceDaoImp.subbmitHuiyi();
+                deviceDaoImp.subbmitHuiyi(1);
             }
         });
         initview();

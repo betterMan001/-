@@ -7,12 +7,16 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 
+import com.clownqiang.rectcircleprogressbutton.RectCircleProgressButton;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.Adapter.Zhanshi_MyAdapter;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.CardItemTouchHelperCallback;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.CardLayoutManager;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.dao.OnSwipeListener;
@@ -33,6 +37,11 @@ public class ZhanshiHuiActivity extends AppCompatActivity {
     List<HuiyiInformation> list_meet = new ArrayList<>();
     List<HuiyiInformation> list_old = new ArrayList<>();
     Zhanshi_MyAdapter zhanshiMyAdapter;
+    @BindView(R.id.btn_rect_circle)
+    RectCircleProgressButton rectCircleProgressButton;
+
+
+    DeviceDaoImp deviceDaoImp  = new DeviceDaoImp(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +56,27 @@ public class ZhanshiHuiActivity extends AppCompatActivity {
         });
         list_meet = (List<HuiyiInformation>) getIntent().getSerializableExtra("list_meet");
         init();
+        rectCircleProgressButton.setAnimationRectButtonListener(new RectCircleProgressButton.AnimationStatusListener() {
+            @Override
+            public void startLoading(int status) {
+                deviceDaoImp.subbmitHuiyi(2);
+                Toast.makeText(ZhanshiHuiActivity.this, "更新数据中", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void resetView(int status) {
+                Toast.makeText(ZhanshiHuiActivity.this, "更新完毕", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
+   public void success_back(List<HuiyiInformation> list_meettr ){
+       list_meet.clear();
+       list_meet.addAll(list_meettr);
+       zhanshiMyAdapter.notifyDataSetChanged();
+       rectCircleProgressButton.resetButtonView();
+    }
     void init() {
         zhanshiRecycleview.setItemAnimator(new DefaultItemAnimator());
         zhanshiMyAdapter = new Zhanshi_MyAdapter(this, list_meet);
@@ -61,12 +89,12 @@ public class ZhanshiHuiActivity extends AppCompatActivity {
 
             @Override
             public void onSwiped(RecyclerView.ViewHolder viewHolder, Object o, int direction) {
-                list_old.add((HuiyiInformation)o);
+                list_old.add((HuiyiInformation) o);
             }
 
             @Override
             public void onSwipedClear() {
-                Toast.makeText(ZhanshiHuiActivity.this,"这是最有一个会议室了",Toast.LENGTH_LONG).show();
+                Toast.makeText(ZhanshiHuiActivity.this, "这是最有一个会议室了", Toast.LENGTH_LONG).show();
                 zhanshiRecycleview.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -75,15 +103,15 @@ public class ZhanshiHuiActivity extends AppCompatActivity {
                         zhanshiMyAdapter.notifyDataSetChanged();
                         list_old.clear();
                     }
-                },1500);
+                }, 1500);
 
             }
         });
         zhanshiMyAdapter.setOnitemClick(new Zhanshi_MyAdapter.OnitemClick() {
             @Override
             public void click(HuiyiInformation huiyiInformation, int position) {
-                Intent intent = new Intent(ZhanshiHuiActivity.this,HuiyiXiang_Activity.class);
-                intent.putExtra("classs",huiyiInformation);
+                Intent intent = new Intent(ZhanshiHuiActivity.this, HuiyiXiang_Activity.class);
+                intent.putExtra("classs", huiyiInformation);
                 startActivity(intent);
             }
         });
