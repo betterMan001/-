@@ -153,6 +153,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="match_parent"
+                            android:id="@+id/peopleNum"
                             android:gravity="center_vertical|right"
                             android:text="选择人数"
                             >
@@ -248,14 +249,16 @@
                             android:textColor="@color/black"
                             >
                         </TextView>
-                        <TextView
+                        <EditText
                             android:layout_width="0dp"
                             android:layout_weight="1"
+                            android:textSize="15sp"
                             android:layout_height="match_parent"
+                            android:id="@+id/meeting_theme"
                             android:gravity="center_vertical|right"
-                            android:text=""
-                            >
-                        </TextView>
+                            android:background="@null"
+                            android:hint="请输入这次会议的主题"
+                            />
                     </LinearLayout>
                     <ImageView
                         android:layout_width="match_parent"
@@ -310,6 +313,7 @@
                         <TextView
                             android:layout_width="0dp"
                             android:layout_weight="1"
+                            android:id="@+id/meeting_place"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical|right"
                             android:text="慎思楼"
@@ -351,6 +355,7 @@
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="match_parent"
+                            android:id="@+id/meetin_room_no"
                             android:gravity="center_vertical|right"
                             android:text="3c316"
                             >
