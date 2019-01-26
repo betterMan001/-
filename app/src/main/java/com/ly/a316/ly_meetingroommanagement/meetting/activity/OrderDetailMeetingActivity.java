@@ -48,6 +48,8 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     TextView meetingPeopleTv;
     @BindView(R.id.meeting_record_people_tv)
     TextView meetingRecordPeopleTv;
+    //日程内容
+    public static String meeting_content="";
     //预定会议相关数据源
     String beginTime_s;
     String endTime_s;
