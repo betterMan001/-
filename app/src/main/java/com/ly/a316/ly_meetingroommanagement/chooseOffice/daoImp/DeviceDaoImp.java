@@ -191,9 +191,17 @@ public class DeviceDaoImp implements deviceDao {
 
     @Override
     public void subbmitHuiyi() {
-        url = Net.subbmit_meetroom + "?address=" + ShijiandianClass.HUIYI_WHERE + "&number=" + ShijiandianClass.PEOPLE_NUMBER
-                + "&dateString=" + ShijiandianClass.DATESTRING + "&beginTime=" + "" + "&endTime=" + "" + "&device=" + ShijiandianClass.SHEBEI + "&duration=" + ShijiandianClass.HUIYISHICHANG_TIME +
-                "&types=" + ShijiandianClass.HUIYI_LEIXING;
+         if(ShijiandianClass.WHO.equals("1")){
+             url = Net.subbmit_meetroom + "?address=" + ShijiandianClass.HUIYI_WHERE + "&number=" + ShijiandianClass.PEOPLE_NUMBER
+                     + "&dateString=" + ShijiandianClass.DATESTRING + "&beginTime=" + "" + "&endTime=" + "" + "&device=" + ShijiandianClass.SHEBEI + "&duration=" + ShijiandianClass.HUIYISHICHANG_TIME +
+                     "&types=" + ShijiandianClass.HUIYI_LEIXING;
+         }
+         if(ShijiandianClass.WHO.equals("2")){
+             url = Net.subbmit_meetroom + "?address=" + ShijiandianClass.HUIYI_WHERE + "&number=" + ShijiandianClass.PEOPLE_NUMBER
+                     + "&dateString=" + "" + "&beginTime=" + ShijiandianClass.START_TIME + "&endTime=" + ShijiandianClass.END_TIME + "&device=" + ShijiandianClass.SHEBEI + "&duration=" + ShijiandianClass.HUIYISHICHANG_TIME +
+                     "&types=" + ShijiandianClass.HUIYI_LEIXING;
+         }
+
         Log.i("zjc", "寻找会议的网址:" + url);
         OkHttpClient okHttpClient = new OkHttpClient();
         final Request request = new Request.Builder().url(url).build();

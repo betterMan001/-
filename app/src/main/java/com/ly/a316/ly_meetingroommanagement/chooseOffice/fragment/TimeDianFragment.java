@@ -22,6 +22,8 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
 
+import java.util.Calendar;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -63,7 +65,13 @@ public class TimeDianFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_time_dian, container, false);
 
         shijiandian_view = LayoutInflater.from(getContext()).inflate(R.layout.shijiandian_item, null);
-
+        ShijiandianClass.WHO = "1";
+        Calendar cd = Calendar.getInstance();
+        year = cd.get(Calendar.YEAR);
+        month = cd.get(Calendar.MONTH);
+        day = cd.get(Calendar.DATE);
+        hour = cd.get(Calendar.HOUR_OF_DAY);
+        miniute = cd.get(Calendar.MINUTE);
         unbinder = ButterKnife.bind(this, view);
         initview();
         return view;
@@ -129,7 +137,8 @@ public class TimeDianFragment extends Fragment {
             }
             if (ddm_test != null) {
                 add_kongjian_linearlayout.removeView(ddm_test);
-            }  add_kongjian_linearlayout.addView(ddm_test);
+            }
+            add_kongjian_linearlayout.addView(ddm_test);
             add_kongjian_linearlayout.addView(time_test);
 
 
@@ -191,7 +200,7 @@ public class TimeDianFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (who == 1) {
-                    String time = year+"-"+month+"-"+day+" "+hour + ":" + miniute + ":"+"00";
+                    String time = year + "-" + month + "-" + day + " " + hour + ":" + miniute + ":" + "00";
                     about_time.setText(time);
                     ShijiandianClass.DATESTRING = time;
                 }
