@@ -121,9 +121,7 @@ public class InvitationPeoActivity extends BaseActivity {
                         list_type.get(position).setChoose("1");
                     } else {
                         list.get(position).setChoose("1");
-
                     }
-
                 }
                 setBtnBackground(chooseNum);
             }
