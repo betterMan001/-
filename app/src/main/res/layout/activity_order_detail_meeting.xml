@@ -146,7 +146,7 @@
                             android:layout_height="match_parent"
                             android:textColor="@color/black"
                             android:gravity="center_vertical"
-                            android:text="容纳人数"
+                            android:text="参会人数"
                             >
                         </TextView>
                         <TextView

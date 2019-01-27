@@ -132,6 +132,8 @@ public class OrderDetailMeetingActivity extends BaseActivity {
             this.meetingRecordPeopleTv.setText("");
             meetingRecordPeopleTv.setBackground(getResources().getDrawable(R.drawable.bookstall001));
         }
+        //更新参会人
+        this.peopleNum.setText(new Integer(selectedEmployees.size()));
     }
 
     private void showTimeSelect() {
