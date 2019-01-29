@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -29,6 +31,8 @@ import com.ly.a316.ly_meetingroommanagement.nim.helper.SystemMessageUnreadManage
 import com.ly.a316.ly_meetingroommanagement.nim.helper.TeamCreateHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderManager;
 import com.ly.a316.ly_meetingroommanagement.nim.user_info.UserPreferences;
+import com.ly.a316.ly_meetingroommanagement.utils.Jpush.TagAliasOperatorHelper;
+import com.ly.a316.ly_meetingroommanagement.utils.Jpush.WindowUtils;
 import com.ly.a316.ly_meetingroommanagement.utils.PopupMenuUtil;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
@@ -52,6 +56,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.ly.a316.ly_meetingroommanagement.utils.Jpush.TagAliasOperatorHelper.sequence;
 
 /**
  *  描述：主活动
@@ -93,7 +99,6 @@ public class MainActivity extends UI {
             Manifest.permission.READ_PHONE_STATE,
             Manifest.permission.RECORD_AUDIO,
             //暂时不需要定位的权限
-//            Manifest.permission.ACCESS_COARSE_LOCATION,
 //            Manifest.permission.ACCESS_FINE_LOCATION
     };
     @Override
@@ -107,6 +112,8 @@ public class MainActivity extends UI {
         bottomBarLayout.setNormalTextColor(normalTextColor);
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
+        //设置极光推送别名
+        onTagAliasAction();
         //初始化云信相关东西
         initNim();
          /*
@@ -202,7 +209,6 @@ public class MainActivity extends UI {
     private boolean parseIntent() {
 
         Intent intent = getIntent();
-
         if (intent.hasExtra(NimIntent.EXTRA_NOTIFY_CONTENT)) {
             IMMessage message = (IMMessage) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
             intent.removeExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
@@ -295,6 +301,7 @@ public class MainActivity extends UI {
                 .permissions(BASIC_PERMISSIONS)
                 .request();
     }
+
     /**
      * 注册/注销系统消息未读数变化
      */
@@ -379,5 +386,23 @@ public class MainActivity extends UI {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
         registerSystemMessageObservers(false);
+    }
+    //极光推送设置别名
+    public void onTagAliasAction() {
+        String alias = null;
+        int action = -1;
+        boolean isAliasAction = false;
+        //用户id
+        alias =MyApplication.getId();
+        isAliasAction = true;
+        //覆盖式设置Alias
+        action = TagAliasOperatorHelper.ACTION_SET;
+        TagAliasOperatorHelper.TagAliasBean tagAliasBean = new TagAliasOperatorHelper.TagAliasBean();
+        tagAliasBean.action = action;
+        sequence++;
+        tagAliasBean.alias = alias;
+        tagAliasBean.isAliasAction = isAliasAction;
+        //设置别名和处理设置别名失败请求
+        TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(),sequence,tagAliasBean);
     }
 }

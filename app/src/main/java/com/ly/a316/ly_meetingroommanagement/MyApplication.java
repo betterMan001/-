@@ -35,6 +35,7 @@ import com.netease.nimlib.sdk.util.NIMUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jpush.android.api.JPushInterface;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
@@ -78,6 +79,9 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
         //初始化面部识别
         mFaceDB = new FaceDB(this.getExternalCacheDir().getPath());
         mImage = null;
+        //初始化极光推送
+        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
         //初始化云信
         NIMClient.init(this, loginInfo(), options());
         if (NIMUtil.isMainProcess(this)) {
