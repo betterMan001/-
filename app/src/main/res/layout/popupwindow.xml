@@ -53,9 +53,41 @@
                 android:textColor="@color/black"
                 android:text="默认文本ssssss"
                 android:textSize="16sp" />
+            <TextView
+                android:id="@+id/hideTint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:visibility="gone"
+                android:layout_below="@id/title_divider"
+                android:textColor="@color/black"
+                android:text="请输入您拒绝参加会议的理由:"
+                android:textSize="16sp" />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="20dp"
+                android:id="@+id/hide_ll"
+                android:background="@drawable/input_edit"
+                android:layout_below="@id/hideTint"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                >
+                <EditText
+                    android:layout_width="match_parent"
+                    android:id="@+id/reject_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:background="@null"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/one_group"
                 android:layout_alignParentBottom="true"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
@@ -73,6 +105,38 @@
                     android:text="拒绝" />
                 <Button
                     android:id="@+id/positiveBtn"
+                    android:layout_width="wrap_content"
+                    android:background="@drawable/invite_btn"
+                    android:textColor="@drawable/invite_text"
+                    android:layout_height="wrap_content"
+                    android:autoLink="all"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:focusable="true"
+                    android:text="同意"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/second_group"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                >
+                <Button
+                    android:id="@+id/hideNegativeBtn"
+                    android:background="@drawable/invite_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp"
+                    android:textColor="@color/classical_blue"
+                    android:autoLink="all"
+                    android:focusable="true"
+                    android:text="取消" />
+                <Button
+                    android:id="@+id/hide_PositiveBtn"
                     android:layout_width="wrap_content"
                     android:background="@drawable/invite_btn"
                     android:textColor="@drawable/invite_text"

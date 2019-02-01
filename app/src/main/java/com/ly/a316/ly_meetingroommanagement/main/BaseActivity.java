@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.LoadingDialog;
 
 /**
  *  描述：基本类 实现沉浸式效果
@@ -15,6 +16,7 @@ import com.ly.a316.ly_meetingroommanagement.R;
  *  创建时间：12/3 14:13
  */
 public class BaseActivity  extends AppCompatActivity{
+    public LoadingDialog loadingDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +25,7 @@ public class BaseActivity  extends AppCompatActivity{
             initImmersionBar();
         }
         // ImmersionBar.with(this).init();
+        loadingDialog= LoadingDialog.getInstance(this);
     }
     protected void initImmersionBar() {
         //在BaseActivity里初始化

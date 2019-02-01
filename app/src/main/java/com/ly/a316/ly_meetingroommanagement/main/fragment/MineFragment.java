@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.login.activities.WelcomeActivity;
+import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.auth.AuthService;
 
@@ -62,7 +63,10 @@ public class MineFragment extends Fragment {
         Intent intent = new Intent(MyApplication.getContext(), WelcomeActivity.class);
         //4.将loginActivity放入新的task
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //5.跳转
+        //5.移除极光推送的别名
+        ((MainActivity)getActivity()).onTagAliasAction(false);
+        //6.跳转
         MyApplication.getContext().startActivity(intent);
+        getActivity().finish();
     }
 }

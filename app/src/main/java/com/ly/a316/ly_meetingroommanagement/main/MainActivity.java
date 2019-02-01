@@ -113,7 +113,7 @@ public class MainActivity extends UI {
         bottomBarLayout.setSelectTextColor(selectTextColor);
         bottomBarLayout.setTabList(tabEntityList);
         //设置极光推送别名
-        onTagAliasAction();
+        onTagAliasAction(true);
         //初始化云信相关东西
         initNim();
          /*
@@ -388,12 +388,12 @@ public class MainActivity extends UI {
         registerSystemMessageObservers(false);
     }
     //极光推送设置别名
-    public void onTagAliasAction() {
+    public void onTagAliasAction(boolean isSet) {
         String alias = null;
         int action = -1;
         boolean isAliasAction = false;
         //用户id
-        alias =MyApplication.getId();
+        alias =(isSet==true)?MyApplication.getId():"";
         isAliasAction = true;
         //覆盖式设置Alias
         action = TagAliasOperatorHelper.ACTION_SET;

@@ -15,12 +15,14 @@ import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.meetting.models.LevelOne;
+import com.ly.a316.ly_meetingroommanagement.meetting.services.imp.OrderDetailMeetingServiceImp;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,7 +56,6 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     String beginTime_s;
     String endTime_s;
     int peopleNum_i;
-    String deviceLists;
     String place;
     String meetingRoomNO;
     @BindView(R.id.peopleNum)
@@ -74,7 +75,6 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         ButterKnife.bind(this);
         initView();
     }
-
     private void initView() {
         Intent intent = getIntent();
         //设置会议发起人名称，为该账号
@@ -85,8 +85,6 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         endTime_s = intent.getStringExtra("endTime");
         //人数
         peopleNum_i = intent.getIntExtra("peopleNum", 0);
-        //设备列表
-        deviceLists = intent.getStringExtra("deviceLists");
         //地点
         place = intent.getStringExtra("place");
         //会议室号
@@ -100,6 +98,7 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         this.peopleNum.setText(new Integer(peopleNum_i).toString());
         meetingPlace.setText(place);
         this.meetinRoomNo.setText(this.meetingRoomNO);
+        subThreadToast("已经为您锁定了: "+meetingRoomNO+ "会议室,请在30分钟内完成会议详情的填写哦");
     }
 
     @Override
@@ -133,7 +132,7 @@ public class OrderDetailMeetingActivity extends BaseActivity {
             meetingRecordPeopleTv.setBackground(getResources().getDrawable(R.drawable.bookstall001));
         }
         //更新参会人
-        this.peopleNum.setText(new Integer(selectedEmployees.size()));
+        this.peopleNum.setText(new Integer(selectedEmployees.size()).toString());
     }
 
     private void showTimeSelect() {
@@ -179,7 +178,7 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         return format.format(date);
     }
 
-    @OnClick({R.id.begin_time_ll, R.id.end_time_ll, R.id.content_tv, R.id.meeting_person_ll})
+    @OnClick({R.id.begin_time_ll, R.id.end_time_ll, R.id.content_tv, R.id.meeting_person_ll,R.id.back_ll,R.id.finish_tv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             //开始时间
@@ -198,9 +197,32 @@ public class OrderDetailMeetingActivity extends BaseActivity {
             //跳转到选择界面
             case R.id.meeting_person_ll:
                 InviteActivity.start(OrderDetailMeetingActivity.this);
+                break;
+                //退回上一个界面
+            case R.id.back_ll:
+                new OrderDetailMeetingServiceImp(OrderDetailMeetingActivity.this).unlockRoom(meetingRoomNO);
+                break;
+                //发起预订
+            case R.id.finish_tv:
+                orderMeetingRoom();
+               break;
         }
     }
-
+    private void orderMeetingRoom(){
+        //参会人数据,会议记录人数据
+        String attends="";
+        String recordPeoples="";
+        //遍历集合从中获取数据
+        for(String temp:selectedEmployees.keySet()){
+            attends+=temp;
+            attends+=",";
+        }
+        for(String temp:recordEmployees.keySet()){
+            recordPeoples+=temp;
+            recordPeoples+=",";
+        }
+        new OrderDetailMeetingServiceImp((OrderDetailMeetingActivity.this)).bookMeetRoom(MyApplication.getId(),meetingRoomNO,beginTime.getText().toString(),endTimeTv.getText().toString(),meetingTheme.getText().toString(),meeting_content,attends,recordPeoples);
+    }
     private void showContentDialog() {
         ContentDialogActivity.start(OrderDetailMeetingActivity.this);
 //        AlertDialog.Builder customizeDialog= new AlertDialog.Builder(OrderDetailMeetingActivity.this);
@@ -213,5 +235,29 @@ public class OrderDetailMeetingActivity extends BaseActivity {
 //         customizeDialog.setView(dialogView);
 //         //customizeDialog.setPositiveButton()
 //        customizeDialog.show();
+    }
+
+    public void unLookCallBack(){
+    //会议室解锁成功退回上一个界面，这个设计不是我想的诶
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                loadingDialog.dismiss();
+                finish();
+            }
+        });
+    }
+    public void orderMeetingRoomCallBack(final String result){
+      if("success".equals(result)){
+          subThreadToast("预订会议成功！");
+      }else{
+          subThreadToast("预订会议失败！");
+      }
+      this.runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+              loadingDialog.dismiss();
+          }
+      });
     }
 }

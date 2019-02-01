@@ -14,7 +14,10 @@ public class Net {
     public final static String REGISTER="User/register";//注册
     public final static String UPLOAD="User/uploadProfile";//上传文件，返回URL
     public final static String DEPT_INFO="dept/deptInfo";//获取所有部门数据
-    public final static String DEPT_EMPLOYEE="dept/deptEmployee";
+    public final static String DEPT_EMPLOYEE="dept/deptEmployee";//获取对应部门的员工信息
+    public final static String UNLOCK_ROOM="meetRoom/unlockRoom";//解锁选定会议室
+    public final static String BOOK_MEET_ROOM="meetRoom/bookMeetRoom";//预订会议室接口
+    public final static String OPTIN="Meeting/optIn";
     //yzq
     public static String url = HEAD;
     public static String addSchedule = url + "/Schedule/addSchedule";//新建日程

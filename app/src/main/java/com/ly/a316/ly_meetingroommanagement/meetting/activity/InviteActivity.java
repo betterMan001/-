@@ -84,6 +84,7 @@ public class InviteActivity extends BaseActivity {
             //退回到上一个界面
             case R.id.back_ll:
                 OrderDetailMeetingActivity.selectedEmployees.clear();
+                finish();
                 break;
                 //提交参会人的列表
             case R.id.invite_tv:

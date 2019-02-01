@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -12,9 +14,16 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.meetting.services.imp.OrderDetailMeetingServiceImp;
+
+import org.w3c.dom.Text;
 
 
 /*
@@ -28,16 +37,33 @@ public class WindowUtils {
     private static WindowManager mWindowManager = null;
     private static Context mContext = null;
     public static Boolean isShown = false;
+    public static Boolean isReject=false;
+    public static String[] spit;
     /**
      * 显示弹出框
      *
      */
+    private static Handler mhandler=new Handler() {
+        @Override
+        public void handleMessage(Message msg){
+        super.handleMessage(msg);
+        //被邀请人做出了自己的决定，并发送给了服务器，然后更新
+            if(msg.what==12){
+               //弹Toast
+                String temp=(isReject==false)?"同意":"拒绝";
+                Toast.makeText(MyApplication.getContext(),"您已经"+temp+"该会议!",Toast.LENGTH_LONG).show();
+                //关闭悬浮窗
+                WindowUtils.hidePopupWindow();
+            }
+        }
+    };
     public static void showPopupWindow(final Context context) {
         if (isShown) {
             Log.i(LOG_TAG, "return cause already shown");
             return;
         }
         isShown = true;
+        spit=MyReceiver.customString.split(",");
         Log.i(LOG_TAG, "showPopupWindow");
         // 获取应用的Context
         mContext = context.getApplicationContext();
@@ -56,7 +82,7 @@ public class WindowUtils {
         //params.type = WindowManager.LayoutParams.TYPE_SYSTEM_ALERT;
         // WindowManager.LayoutParams.TYPE_SYSTEM_ALERT
         // 设置flag
-        int flags = WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM;
+        int flags = WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL;
         // | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE;
         // 如果设置了WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE，弹出的View收不到Back键的事件
         params.flags = flags;
@@ -86,24 +112,64 @@ public class WindowUtils {
         Log.i(LOG_TAG, "setUp view");
         View view = LayoutInflater.from(context).inflate(R.layout.popupwindow,
                 null);
-        TextView tintView=(TextView) view.findViewById(R.id.content);
-        tintView.setText(MyReceiver.customString);
+       final TextView tintView=(TextView) view.findViewById(R.id.content);
+        tintView.setText(spit[0]);
         Button positiveBtn = (Button) view.findViewById(R.id.positiveBtn);
+        //隐藏的提示字
+        final     TextView hideTint=view.findViewById(R.id.hideTint);
+        //包裹写拒绝内容的布局
+        final      LinearLayout hideContentll=view.findViewById(R.id.hide_ll);
+        final  EditText reject_content=view.findViewById(R.id.reject_content);
+        //第一个button布局
+       final LinearLayout one_group=view.findViewById(R.id.one_group);
+        //隐藏的button布局
+     final   LinearLayout second_group=view.findViewById(R.id.second_group);
+        //隐藏的取消按钮
+        final     Button hideNegativeBtn=view.findViewById(R.id.hideNegativeBtn);
+        //隐藏的确定按钮
+        final    Button hide_PositiveBtn=view.findViewById(R.id.hide_PositiveBtn);
         positiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "ok on click");
                 // 打开安装包
-                // 隐藏弹窗
-                //WindowUtils.hidePopupWindow();
+                isReject=false;
+                new OrderDetailMeetingServiceImp().optIn(spit[1],MyApplication.getId(),"","1");
             }
         });
-        Button negativeBtn = (Button) view.findViewById(R.id.negativeBtn);
+        final Button negativeBtn = (Button) view.findViewById(R.id.negativeBtn);
         negativeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "cancel on click");
-                WindowUtils.hidePopupWindow();
+                //WindowUtils.hidePopupWindow();
+                //隐藏现在的布局，显示隐藏的拒绝的布局
+
+                tintView.setVisibility(View.GONE);
+                //显示新的布局
+                hideTint.setVisibility(View.VISIBLE);
+                hideContentll.setVisibility(View.VISIBLE);
+                second_group.setVisibility(View.VISIBLE);
+                one_group.setVisibility(View.GONE);
+            }
+        });
+        hideNegativeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //隐藏现在的布局，显示隐藏的拒绝的布局
+                hideTint.setVisibility(View.GONE);
+                hideContentll.setVisibility(View.GONE);
+                //显示新的布局
+                one_group.setVisibility(View.VISIBLE);
+                tintView.setVisibility(View.VISIBLE);
+                second_group.setVisibility(View.GONE);
+            }
+        });
+        hide_PositiveBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isReject=true;
+                new OrderDetailMeetingServiceImp().optIn(spit[1],MyApplication.getId(),reject_content.getText().toString(),"0");
             }
         });
         // 点击窗口外部区域可消除
@@ -141,5 +207,11 @@ public class WindowUtils {
         });
         return view;
     }
+    public static void inviteCallBack(final String result){
+        if("success".equals(result)==true){
+            mhandler.sendEmptyMessage(12);
+        }else{
 
+        }
+    }
 }
