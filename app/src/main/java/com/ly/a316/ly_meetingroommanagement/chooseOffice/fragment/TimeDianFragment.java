@@ -85,7 +85,6 @@ public class TimeDianFragment extends Fragment {
         time_test = new TimePicker(getContext());
         edit_input_shijian = new EditText(getContext());
 
-        edit_input_shijian.setBackgroundColor(R.drawable.img_card_background);
         add_kongjian_linearlayout = shijiandian_view.findViewById(R.id.add_shiketime);
         shijiandian_biaotil = shijiandian_view.findViewById(R.id.shijiandian_biaoti);
     }

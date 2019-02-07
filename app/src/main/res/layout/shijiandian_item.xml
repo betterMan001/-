@@ -28,11 +28,12 @@
         <LinearLayout
             android:padding="@dimen/dp_10"
             android:id="@+id/add_shiketime"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center"
             android:gravity="center"
+            android:textSize="5dp"
             >
 
         </LinearLayout>
@@ -77,10 +78,4 @@
                 android:textSize="14sp" />
         </LinearLayout>
     </LinearLayout>
-
-
-
-
-
-
 </LinearLayout>

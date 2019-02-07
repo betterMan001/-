@@ -158,8 +158,10 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
         </activity>
+
         <activity android:name=".login.activities.LoginActivity" />
         <activity android:name=".login.activities.SignUpActivity" />
         <activity android:name=".login.activities.SignUpDetailActivty" />
@@ -167,7 +169,7 @@
         <activity android:name=".login.activities.ForgetPWDOneActivity" />
         <activity android:name=".login.activities.ForgetPWDTwoActivity" />
         <activity android:name=".Schedule.Activity.AddSchedule" />
-        <activity android:name=".activites.IdentifyFaceActivity" />
+        <activity android:name=".FacePack.IdentifyFaceActivity" />
         <activity android:name=".FacePack.PermissionAcitivity" />
         <activity android:name=".FacePack.RegisterActivity" />
         <activity android:name=".FacePack.DetecterActivity" />

@@ -3,6 +3,8 @@ package com.ly.a316.ly_meetingroommanagement.customView;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.ly.a316.ly_meetingroommanagement.customView.kankan.wheel.widget.DateObject;
@@ -82,12 +84,13 @@ public class DatePicker extends LinearLayout {
 
 
         newDays = new WheelView(context);
-        LayoutParams newDays_param = new LayoutParams(700, LayoutParams.WRAP_CONTENT);//设置显示日期的长度
+        LayoutParams newDays_param = new LayoutParams(500, LayoutParams.WRAP_CONTENT);//设置显示日期的长度
         newDays_param.setMargins(0, 0, 0, 0);
         newDays.setLayoutParams(newDays_param);
         newDays.setAdapter(new StringWheelAdapter(dateList, 10));
         newDays.setVisibleItems(3);
         newDays.setCyclic(true);
+
 
         newDays.addChangingListener(onDaysChangedListener);
         addView(newDays);

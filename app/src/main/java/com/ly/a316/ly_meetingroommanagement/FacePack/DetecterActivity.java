@@ -171,7 +171,6 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
     };
 
     class FRAbsLoop extends AbsLoop {
-
         AFR_FSDKVersion version = new AFR_FSDKVersion();
         AFR_FSDKEngine engine = new AFR_FSDKEngine();
         AFR_FSDKFace result = new AFR_FSDKFace();
@@ -496,10 +495,11 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                             case 1:
                                 //拍摄照片
                                 Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-                                //将拍摄的图片保存至手机相册
-                                ContentValues values = new ContentValues(1);
+                                //将拍摄的图片保存至手机相册 ContentValues在操作数据库的时候会被使用
+                                ContentValues values = new ContentValues(1);//ContentValues存储对象的时候，以(key,value)的形式来存储数据
                                 values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
                                 Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                                //uri:'content://media/external/images/media/11064'
                                 ((MyApplication)(DetecterActivity.this.getApplicationContext())).setCaptureImage(uri);
                                 //测试的uri=/storage/emulated/0/DCIM/Camera/1543628773578.jpg
                                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);//指定拍照的输出地址
@@ -539,7 +539,8 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
             Log.i(TAG, "path="+path);
         } else if (requestCode == REQUEST_CODE_IMAGE_CAMERA && resultCode == RESULT_OK) {
             Uri mPath = ((MyApplication)(DetecterActivity.this.getApplicationContext())).getCaptureImage();
-            String file = getPath(mPath);
+            //  mPath = content://media/external/images/media/11064
+            String file = getPath(mPath);//  file =  '/storage/emulated/0/Pictures/1549167291578.jpg'
             Bitmap bmp = MyApplication.decodeImage(file);
             startRegister(bmp, file);
         }
@@ -555,7 +556,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
 
     private String getPath(Uri uri) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            if (DocumentsContract.isDocumentUri(this, uri)) {
+            if (DocumentsContract.isDocumentUri(this, uri)) {//判断是否被document包装过
                 // ExternalStorageProvider
                 if (isExternalStorageDocument(uri)) {
                     final String docId = DocumentsContract.getDocumentId(uri);
