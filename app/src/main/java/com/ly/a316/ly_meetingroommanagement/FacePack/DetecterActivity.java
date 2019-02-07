@@ -51,6 +51,7 @@ import com.arcsoft.genderestimation.ASGE_FSDKGender;
 import com.arcsoft.genderestimation.ASGE_FSDKVersion;
 
 import com.ddz.floatingactionbutton.FloatingActionButton;
+import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.guo.android_extend.java.AbsLoop;
 import com.guo.android_extend.java.ExtByteArrayOutputStream;
@@ -302,7 +303,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
         mHeight = 960;
         mFormat = ImageFormat.NV21;
         mHandler = new Handler();
-
+        ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor(R.color.white).init();
         setContentView(R.layout.activity_detecter);
         mGLSurfaceView = (CameraGLSurfaceView) findViewById(R.id.glsurfaceView);
         mGLSurfaceView.setOnTouchListener(this);

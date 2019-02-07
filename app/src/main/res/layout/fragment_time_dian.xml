@@ -138,6 +138,9 @@
                 android:id="@+id/shebeixuqiu_num"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxEms="11"
+                android:singleLine="true"
                 android:layout_gravity="center"
                 android:layout_marginRight="@dimen/dp_10"
 
@@ -187,6 +190,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
+                android:maxEms="11"
+                android:singleLine="true"
                 android:layout_marginRight="@dimen/dp_10"
                 android:maxLength="18" />
 
@@ -228,6 +234,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
+                android:maxEms="11"
+                android:singleLine="true"
                 android:layout_marginRight="@dimen/dp_10"
                 android:maxLength="18"
 
@@ -263,7 +272,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:padding="8dp"
-                android:text="会议室容纳人数（可多选）" />
+                android:text="会议室容纳人数" />
 
             <TextView
                 android:id="@+id/renshu"

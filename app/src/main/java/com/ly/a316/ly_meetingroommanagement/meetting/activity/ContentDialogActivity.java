@@ -38,11 +38,13 @@ public class ContentDialogActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        noteEditEt.setNotesMinLines(5);
+        noteEditEt.setNotesMinLines(7);
+        noteEditEt.setText(OrderDetailMeetingActivity.meeting_content);
     }
 
     @OnClick(R.id.close_iv)
     public void onViewClicked() {
-         finish();
+        OrderDetailMeetingActivity.meeting_content=noteEditEt.getText().toString();
+        finish();
     }
 }

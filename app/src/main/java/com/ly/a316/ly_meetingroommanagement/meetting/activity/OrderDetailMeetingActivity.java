@@ -38,8 +38,8 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     //日程内容对话框的编辑框
     EditText contextET;
     //存放被选中的职工的Map
-    public static Map<String,LevelOne> selectedEmployees = new HashMap();
-    public static Map<String,LevelOne> recordEmployees = new HashMap();
+    public static Map<String, LevelOne> selectedEmployees = new HashMap();
+    public static Map<String, LevelOne> recordEmployees = new HashMap();
     public boolean isFinishMeetingPeople = false;
     public boolean isFinishRecordMeetingPeople = false;
     @BindView(R.id.meeting_maker)
@@ -48,6 +48,24 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     TextView meetingPeopleTv;
     @BindView(R.id.meeting_record_people_tv)
     TextView meetingRecordPeopleTv;
+    //日程内容
+    public static String meeting_content="";
+    //预定会议相关数据源
+    String beginTime_s;
+    String endTime_s;
+    int peopleNum_i;
+    String deviceLists;
+    String place;
+    String meetingRoomNO;
+    @BindView(R.id.peopleNum)
+    TextView peopleNum;
+    @BindView(R.id.meeting_theme)
+    EditText meetingTheme;
+    @BindView(R.id.meeting_place)
+    TextView meetingPlace;
+    @BindView(R.id.meetin_room_no)
+    TextView meetinRoomNo;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,8 +76,30 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     }
 
     private void initView() {
+        Intent intent = getIntent();
         //设置会议发起人名称，为该账号
         meetingMaker.setText(MyApplication.getUserName());
+        //设置会议开始时间
+        beginTime_s = intent.getStringExtra("beginTime");
+        //设置会议结束时间
+        endTime_s = intent.getStringExtra("endTime");
+        //人数
+        peopleNum_i = intent.getIntExtra("peopleNum", 0);
+        //设备列表
+        deviceLists = intent.getStringExtra("deviceLists");
+        //地点
+        place = intent.getStringExtra("place");
+        //会议室号
+        meetingRoomNO = intent.getStringExtra("meetingRoomNO");
+        //初始化各个视图
+        beginTime.setText(beginTime_s);
+        if(endTime_s==null||endTime_s.equals(""))
+            endTimeTv.setText("时间点选择");
+        else
+            endTimeTv.setText(endTime_s);
+        this.peopleNum.setText(new Integer(peopleNum_i).toString());
+        meetingPlace.setText(place);
+        this.meetinRoomNo.setText(this.meetingRoomNO);
     }
 
     @Override
@@ -67,26 +107,28 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
     }
-    public static final void start(Context context,String beginTime,String endTime,int peopleNum,String deviceLists,String place,String meetingRoomNO) {
+
+    public static final void start(Context context, String beginTime, String endTime, int peopleNum, String deviceLists, String place, String meetingRoomNO) {
 
         Intent intent = new Intent();
-        intent.putExtra("beginTime",beginTime);
-        intent.putExtra("endTime",endTime);
-        intent.putExtra("peopleNum,",peopleNum);
-        intent.putExtra("deviceLists",deviceLists);
-        intent.putExtra("place",place);
-        intent.putExtra("meetingRoomNO",meetingRoomNO);
-        intent.setClass(context,OrderDetailMeetingActivity.class);
+        intent.putExtra("beginTime", beginTime);
+        intent.putExtra("endTime", endTime);
+        intent.putExtra("peopleNum", peopleNum);
+        intent.putExtra("deviceLists", deviceLists);
+        intent.putExtra("place", place);
+        intent.putExtra("meetingRoomNO", meetingRoomNO);
+        intent.setClass(context, OrderDetailMeetingActivity.class);
         context.startActivity(intent);
     }
+
     @Override
     protected void onRestart() {
         super.onRestart();
         if (this.isFinishMeetingPeople == true) {
-           this.meetingPeopleTv.setText("已选择");
-           this.meetingPeopleTv.setBackgroundColor(getResources().getColor(R.color.classical_blue));
+            this.meetingPeopleTv.setText("已选择");
+            this.meetingPeopleTv.setBackgroundColor(getResources().getColor(R.color.classical_blue));
         }
-        if(this.isFinishRecordMeetingPeople == true){
+        if (this.isFinishRecordMeetingPeople == true) {
             this.meetingRecordPeopleTv.setText("");
             meetingRecordPeopleTv.setBackground(getResources().getDrawable(R.drawable.bookstall001));
         }

@@ -25,6 +25,7 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.HuiyiInformation
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.ViewFindUtils;
 import com.ly.a316.ly_meetingroommanagement.customView.LoadingImageView;
+import com.ly.a316.ly_meetingroommanagement.meetting.activity.OrderDetailMeetingActivity;
 
 import java.io.Serializable;
 import java.util.ArrayList;

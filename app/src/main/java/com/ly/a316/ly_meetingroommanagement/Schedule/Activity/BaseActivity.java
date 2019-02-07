@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.DateTimeInterpreter;
 import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.MonthLoader;
@@ -68,7 +69,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
         // the week view. This is optional.
         setupDateTimeInterpreter(false);
     }
-
 
 
     @OnClick({R.id.morethen,R.id.today})
