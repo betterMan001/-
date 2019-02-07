@@ -55,11 +55,11 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
         //设置相应的属性和监听事件
         holder1.meeting_list_message_tv.setText(model.getMessageNum());
         holder1.meeting_list_partner.setText(model.getPartnerNum());
-        holder1.meeting_list_sponsor_tv.setText(model.getSponsor());
+       // holder1.meeting_list_sponsor_tv.setText(model.getSponsor());
        // holder1.meeting_list_time_tv.setText(model.getDate());
         holder1.meeting_list_status_tv.setText(model.getMeetingStatus());
         holder1.meeting_title_tv.setText(model.getTitle());
-        holder1.meeting_list_did_time.setText(model.getDidTime());
+        //holder1.meeting_list_did_time.setText(model.getDidTime());
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
         public TextView meeting_list_message_tv;
         public TextView meeting_list_partner;
         public TextView meeting_list_status_tv;
-        public TextView meeting_list_did_time;
+       // public TextView meeting_list_did_time;
         //对应select_item中单项
         public MeetingListViewHolder(View itemView) {
             super(itemView);
@@ -87,7 +87,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
             meeting_list_message_tv=itemView.findViewById(R.id.meeting_list_message_tv);
             meeting_list_partner=itemView.findViewById(R.id.meeting_list_partner);
             meeting_list_status_tv=itemView.findViewById(R.id.meeting_list_status_tv);
-            meeting_list_did_time=itemView.findViewById(R.id.meeting_list_did_time);
+            //meeting_list_did_time=itemView.findViewById(R.id.meeting_list_did_time);
         }
 
     }

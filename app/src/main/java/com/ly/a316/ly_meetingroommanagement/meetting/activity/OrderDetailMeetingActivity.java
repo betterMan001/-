@@ -107,13 +107,12 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         ImmersionBar.with(this).destroy();
     }
 
-    public static final void start(Context context, String beginTime, String endTime, int peopleNum, String deviceLists, String place, String meetingRoomNO) {
+    public static final void start(Context context, String beginTime, String endTime, int peopleNum, String place, String meetingRoomNO) {
 
         Intent intent = new Intent();
         intent.putExtra("beginTime", beginTime);
         intent.putExtra("endTime", endTime);
         intent.putExtra("peopleNum", peopleNum);
-        intent.putExtra("deviceLists", deviceLists);
         intent.putExtra("place", place);
         intent.putExtra("meetingRoomNO", meetingRoomNO);
         intent.setClass(context, OrderDetailMeetingActivity.class);

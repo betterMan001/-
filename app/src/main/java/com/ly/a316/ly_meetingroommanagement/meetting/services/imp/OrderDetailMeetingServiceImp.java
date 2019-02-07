@@ -111,7 +111,7 @@ public class OrderDetailMeetingServiceImp implements OrderDetailMeetingService {
         builder.add("reason",reason);
         builder.add("type",type);
         RequestBody body=builder.build();
-        MyHttpUtil.sendOkhttpGetRequest(URL, new Callback() {
+        MyHttpUtil.sendOkhttpPostRequest(URL, body,new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.i(TAG, Net.FAIL);
