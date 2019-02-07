@@ -1,6 +1,5 @@
-package com.ly.a316.ly_meetingroommanagement.activites;
+package com.ly.a316.ly_meetingroommanagement.FacePack;
 
-import android.app.Application;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -22,8 +21,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
-import com.ly.a316.ly_meetingroommanagement.FacePack.RegisterActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 

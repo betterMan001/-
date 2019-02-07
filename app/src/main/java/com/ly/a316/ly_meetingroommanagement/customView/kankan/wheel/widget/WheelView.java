@@ -109,7 +109,7 @@ public class WheelView extends View {
 	 *  </br>
 	 * �ֺ�
 	 */
-	private static final int TEXT_SIZE = 40;
+	private static final int TEXT_SIZE = 30;//40改变字体大小
 
 	/** 
 	 * Top and bottom items offset (to hide that) 
@@ -382,7 +382,7 @@ public class WheelView extends View {
 	private void initData(Context context) {
 		gestureDetector = new GestureDetector(context, gestureListener);
 		gestureDetector.setIsLongpressEnabled(false); //���û��������ʲô�ã������ã������ó�true����Ӱ��Ч��
-		
+
 		scroller = new Scroller(context);
 	}
 	

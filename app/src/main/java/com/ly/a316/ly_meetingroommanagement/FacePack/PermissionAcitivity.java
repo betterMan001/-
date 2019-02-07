@@ -8,12 +8,10 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Process;
-import android.util.Log;
 import android.widget.Toast;
 
 
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
-import com.ly.a316.ly_meetingroommanagement.activites.IdentifyFaceActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +86,6 @@ public class PermissionAcitivity extends Activity {
                         @Override
                         public void run() {
                             mProgressDialog.cancel();
-                            Log.i("zjc","我被执行了");
                             Intent intent = new Intent(PermissionAcitivity.this, IdentifyFaceActivity.class);
                             startActivityForResult(intent, PERMISSION_REQ);
                         }

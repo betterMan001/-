@@ -138,7 +138,7 @@ public class PopupMenuUtil {
         Intent intent = new Intent();
         //点击相应项跳转到相应的界面
         switch (str) {
-            //人脸注册
+            //签到开门
             case 4:
                 intent = new Intent(context, DetecterActivity.class);
                 break;
@@ -146,7 +146,7 @@ public class PopupMenuUtil {
             case 1:
                 intent = new Intent(context, HuiyiActivity.class);
                 break;
-            //查看历史会议
+            //查看会议列表
             case 3:
                 intent=new Intent(context,MeetingListActivity.class);
         }

@@ -1,7 +1,5 @@
 package com.ly.a316.ly_meetingroommanagement.Schedule.Activity;
 
-
-import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.WeekViewEvent;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
@@ -13,12 +11,11 @@ import java.util.List;
 
 public class OneDayCountActivity extends BaseActivity {
 
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//
-//        setContentView(R.layout.activity_one_day_count);
-//    }
+   /* @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_one_day_count);
+    }*/
    int colors[]={R.color.one,R.color.two,R.color.three,R.color.three,R.color.four,R.color.six,R.color.collu,R.color.miss_blue};
     List<WeekViewEvent> events=new ArrayList<WeekViewEvent>();
     @Override
