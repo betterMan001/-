@@ -6,6 +6,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
 
+import com.ly.a316.ly_meetingroommanagement.BuildConfig;
+
 import java.io.File;
 
 /**
@@ -53,7 +55,8 @@ public class OpenFile {
        Uri uri;
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
            String authority = mContext.getPackageName() + ".provider";
-           uri = FileProvider.getUriForFile(mContext, authority, new File(path));
+        //
+           uri = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID+".provider", new File(path));
        } else {
            uri = Uri.fromFile(new File(path));
        }

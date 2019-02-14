@@ -115,6 +115,7 @@
             android:exported="false"
             android:process=":core" />
 
+
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="5353c039233226f33cac4cece3ca7887" />
