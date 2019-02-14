@@ -202,14 +202,26 @@ public class TimeDianFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (who == 1) {
-                    String time = year + "-" + month + "-" + day + " " + hour + ":" + miniute + ":" + "00";
-                    about_time.setText(time);
-                    ShijiandianClass.DATESTRING = time;
+                    about_time.setText(panduanShijina(year,month,day,hour,miniute));
+                    ShijiandianClass.DATESTRING = panduanShijina(year,month,day,hour,miniute);
                 }
                 if (who == 2) {
                     if (edit_input_shijian.getText().toString() != null) {
                         ShijiandianClass.HUIYISHICHANG_TIME = edit_input_shijian.getText().toString();//开会时长
                         shichang.setText(ShijiandianClass.HUIYISHICHANG_TIME);
+                        String shichangg = edit_input_shijian.getText().toString();//开会时长
+
+                        if (miniute >= 30) {
+                            if (hour >= 24) {
+                                hour = 1;
+                            } else {
+                                hour += 1;
+                            }
+                            miniute = miniute + Integer.valueOf(shichangg) - 60;
+                        } else {
+                            miniute += Integer.valueOf(shichangg);
+                        }
+                        ShijiandianClass.END_DIAN_TIME = panduanShijina(year,month,day,hour,miniute);
                     }
                 }
                 if (who == 3) {
@@ -227,6 +239,31 @@ public class TimeDianFragment extends Fragment {
                 alertDialog.dismiss();
             }
         });
+    }
+
+    String panduanShijina(int t_year,int t_month,int t_day,int t_hour,int t_miniute){
+        String time = t_year + "-" ;
+        if (t_month / 10 == 0) {
+            time += "0" + t_month;
+        }else{
+            time +=   t_month;
+        }
+        if (t_day / 10 == 0) {
+            time +=  "-0" + t_day + " ";
+        }else{
+            time += t_day + " ";
+        }
+        if(t_hour/10 ==0){
+            time+="0"+t_hour + ":";
+        }else{
+            time+= t_hour + ":";
+        }
+        if(t_miniute/10==0){
+            time+="0"+t_miniute + ":00";
+        }else{
+            time+=t_miniute + ":00";
+        }
+        return time;
     }
 
     void getShebeiXuqiu() {

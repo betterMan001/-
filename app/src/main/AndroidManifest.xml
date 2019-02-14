@@ -34,8 +34,8 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-     <!--极光推送相关-->
-    <!--Required  一些系统要求的权限，如访问网络等-->
+    <!-- 极光推送相关 -->
+    <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="com.ly.a316.ly_meetingroommanagement.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -62,6 +62,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="5353c039233226f33cac4cece3ca7887" />
@@ -159,21 +160,24 @@
             android:exported="false"
             android:process=":core" />
 
-        <!-- Required SDK核心功能-->
-        <receiver android:name="cn.jpush.android.service.AlarmReceiver" android:exported="false"/>
+        <!-- Required SDK核心功能 -->
+        <receiver
+            android:name="cn.jpush.android.service.AlarmReceiver"
+            android:exported="false" />
         <receiver
             android:name=".utils.Jpush.MyReceiver"
-            android:exported="false"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
-                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!--Required  用户注册SDK的intent-->
-                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!--Required  用户接收SDK消息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!--Required  用户接收SDK通知栏信息的intent-->
-                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!--Required  用户打开自定义通知栏的intent-->
-                <action android:name="cn.jpush.android.intent.CONNECTION" /><!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" /> <!-- Required  用户注册SDK的intent -->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" /> <!-- Required  用户接收SDK消息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" /> <!-- Required  用户接收SDK通知栏信息的intent -->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" /> <!-- Required  用户打开自定义通知栏的intent -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" /> <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <category android:name="com.ly.a316.ly_meetingroommanagement" />
             </intent-filter>
         </receiver>
+
         <activity
             android:name=".main.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
@@ -184,10 +188,8 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-
             </intent-filter>
         </activity>
-
         <activity android:name=".login.activities.LoginActivity" />
         <activity android:name=".login.activities.SignUpActivity" />
         <activity android:name=".login.activities.SignUpDetailActivty" />
@@ -319,19 +321,19 @@
 
         <activity android:name=".Schedule.Activity.AlarmActivity" />
         <activity android:name=".Schedule.Activity.Calendar_infor_activity" />
-        <activity android:name=".meetting.activity.OrderDetailMeetingActivity">
-
-        </activity>
+        <activity android:name=".meetting.activity.OrderDetailMeetingActivity" />
         <activity
             android:name=".meetting.activity.ContentDialogActivity"
             android:theme="@style/MyDialogStyle" />
-        <activity android:name=".meetting.activity.InviteActivity"></activity>
-        <activity android:name=".meetting.activity.MeetingRecordPeopleActivity"></activity>
+        <activity android:name=".meetting.activity.InviteActivity" />
+        <activity android:name=".meetting.activity.MeetingRecordPeopleActivity" />
         <activity android:name=".chooseOffice.activity.HuiyiActivity" />
         <activity android:name=".chooseOffice.activity.ZhanshiHuiActivity" />
         <activity
             android:name=".chooseOffice.activity.HuiyiXiang_Activity"
-            android:theme="@style/Translucent"></activity>
+            android:theme="@style/Translucent" />
+        <activity android:name=".endActivity.activity.End_Activity" />
+        <activity android:name=".endActivity.activity.FilePickerActivity"></activity>
     </application>
 
 </manifest>

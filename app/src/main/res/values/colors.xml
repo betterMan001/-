@@ -37,4 +37,20 @@
 <color name="s">#4D000000</color>
     <color name="gray_text_light">#979797</color>
     <color name="shijiandian">#ebedec</color>
+
+
+
+    <color name="colorPrimary_two">#7e6fe2</color>
+    <color name="colorPrimaryDark_two">#8a53cf</color>
+    <color name="colorAccent_two">#FF4081</color>
+    <color name="colorTransparent">#00ffffff</color>
+    <color name="colorStart">#cb5ed9</color>
+    <color name="colorEnd">#8463d4</color>
+
+
+    <color name="blue">#44B2FE</color>
+    <color name="black">#000000</color>
+    <color name="file_picker_title">#4A4A4A</color>
+    <color name="file_picker_des">#86848B</color>
+    <color name="file_bottom_line">#ECECEC</color>
 </resources>

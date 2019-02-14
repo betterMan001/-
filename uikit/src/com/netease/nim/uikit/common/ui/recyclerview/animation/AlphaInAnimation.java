@@ -6,15 +6,19 @@ import android.view.View;
 
 public class AlphaInAnimation implements BaseAnimation {
 
-    private static final float DEFAULT_ALPHA_FROM = 0f;
-    private final float mFrom;
+    private static final float DEFAULT_ALPHA_FROM = 0.0f;
+    private float mFrom;
 
     public AlphaInAnimation() {
         this(DEFAULT_ALPHA_FROM);
     }
 
-    public AlphaInAnimation(float from) {
+    public AlphaInAnimation(float from, float v) {
         mFrom = from;
+    }
+
+    public AlphaInAnimation(float defaultAlphaFrom) {
+        mFrom = defaultAlphaFrom;
     }
 
     @Override
