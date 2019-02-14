@@ -1,6 +1,5 @@
 package com.ly.a316.ly_meetingroommanagement.meetting.adapter;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 

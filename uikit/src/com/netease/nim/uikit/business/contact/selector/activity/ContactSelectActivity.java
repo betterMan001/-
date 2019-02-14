@@ -555,6 +555,7 @@ public class ContactSelectActivity extends UI implements View.OnClickListener, a
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnSelect) {
+            //从适配器获取了要加入讨论组的数据
             List<IContact> contacts = contactSelectedAdapter
                     .getSelectedContacts();
             if (option.allowSelectEmpty || checkMinMaxSelection(contacts.size())) {
@@ -562,6 +563,7 @@ public class ContactSelectActivity extends UI implements View.OnClickListener, a
                 for (IContact c : contacts) {
                     selectedAccounts.add(c.getContactId());
                 }
+                //这个最终需要的数据，是联系人id
                 onSelected(selectedAccounts);
             }
 
