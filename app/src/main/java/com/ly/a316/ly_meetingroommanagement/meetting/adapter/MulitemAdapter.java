@@ -1,6 +1,5 @@
 package com.ly.a316.ly_meetingroommanagement.meetting.adapter;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -28,8 +27,9 @@ auther:xwd
 public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, BaseViewHolder> {
     public static final int TYPE_LEVEL_0 = 0;
     public static final int TYPE_LEVEL_1 = 1;
-   public InviteActivity activity;
-    int Tpos;
+    public InviteActivity activity;
+    public  int Tpos;
+    LevelZero currentData;
     List<MultiItemEntity> levelData;
     //用map保存对应部门数据是否被加载过
     Map isLoadDepartmentMap=new HashMap();
@@ -43,28 +43,33 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
 
     @Override
     protected void convert(final BaseViewHolder helper, MultiItemEntity item) {
+
         //判断当前项的类型
         switch (helper.getItemViewType()) {
             case 0://一级列表
                 final LevelZero lv0 = (LevelZero) item;
                 helper.setText(R.id.Lv0_tv, lv0.departmentName);
-                final int poss=helper.getAdapterPosition();
+                //这个才是列表项的真正位置
+
+                currentData=lv0;
                 //设置监听事件，点击收缩或者展开。
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
+
                     @Override
                     public void onClick(View v) {
+                        final int poss=levelData.indexOf(lv0);
                         int pos = poss;
                         if (lv0.isExpanded()) {
                             //设置图片的变化
                             helper.setImageResource(R.id.list_tr,R.drawable.down_tri001);
                             collapse(pos);
                         } else {
+                           Tpos=poss;
                             helper.setImageResource(R.id.list_tr,R.drawable.right_tri001);
                             //判断部门是否被加载过
                             if(isLoadDepartmentMap.containsKey(lv0.departmentId)==true)
                             expand(pos);
                             else{
-                                Tpos=pos;
                                 new DeptServiceImp(MulitemAdapter.this).getAllEmployeeByDepartmentId(lv0.departmentId);
                             }
                         }
@@ -112,8 +117,9 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
                 break;
         }
     }
-    public void leveloneCallBack(List<LevelOne> list){
-         //更新对应部门列表的数据
+    public void leveloneCallBack(List<LevelOne> list){ ;
+
+        //更新对应部门列表的数据
         LevelZero temp=( LevelZero) levelData.get(Tpos);
         temp.setSubItems(list);
         isLoadDepartmentMap.put(temp.departmentId,temp.departmentId);

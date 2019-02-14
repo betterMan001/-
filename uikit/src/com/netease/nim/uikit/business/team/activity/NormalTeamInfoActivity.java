@@ -585,6 +585,7 @@ public class NormalTeamInfoActivity extends UI implements OnClickListener, TAdap
     private void addMembersToTeam(final ArrayList<String> selected) {
         // add members
         DialogMaker.showProgressDialog(this, getString(R.string.empty), true);
+
         NIMClient.getService(TeamService.class).addMembers(teamId, selected).setCallback(new RequestCallback<List<String>>() {
             @Override
             public void onSuccess(List<String> failedAccounts) {
