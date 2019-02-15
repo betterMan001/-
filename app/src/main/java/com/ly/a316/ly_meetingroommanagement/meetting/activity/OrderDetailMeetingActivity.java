@@ -22,7 +22,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,8 +122,8 @@ public class OrderDetailMeetingActivity extends BaseActivity {
     protected void onRestart() {
         super.onRestart();
         if (this.isFinishMeetingPeople == true) {
-            this.meetingPeopleTv.setText("已选择");
-            this.meetingPeopleTv.setBackgroundColor(getResources().getColor(R.color.classical_blue));
+            this.meetingPeopleTv.setText("");
+            this.meetingPeopleTv.setBackground(getResources().getDrawable(R.drawable.bookstall001));
         }
         if (this.isFinishRecordMeetingPeople == true) {
             this.meetingRecordPeopleTv.setText("");

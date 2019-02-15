@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     package="com.ly.a316.ly_meetingroommanagement">
 
     <!-- 操作系统日历需要用到 -->
@@ -63,15 +62,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <provider
-            android:name="com.ly.a316.ly_meetingroommanagement.endActivity.util.MyProvider"
-            android:authorities="com.ly.a316.ly_meetingroommanagement.provider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="5353c039233226f33cac4cece3ca7887" />
@@ -123,7 +113,6 @@
             android:authorities="com.netease.nim.demo.ipc.provider"
             android:exported="false"
             android:process=":core" />
-
 
         <meta-data
             android:name="com.netease.nim.appKey"
@@ -342,8 +331,9 @@
         <activity
             android:name=".chooseOffice.activity.HuiyiXiang_Activity"
             android:theme="@style/Translucent" />
-        <activity android:name=".endActivity.activity.End_Activity" />
-        <activity android:name=".endActivity.activity.FilePickerActivity"></activity>
+        <activity android:name=".meetingList.activities.AttendeeActivity"></activity>
+        <activity android:name=".meetingList.activities.NewInviteActivity" />
+        <activity android:name=".meetingList.activities.MeetingDetailActivity"></activity>
     </application>
 
 </manifest>
