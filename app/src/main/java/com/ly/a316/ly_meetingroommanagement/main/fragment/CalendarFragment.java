@@ -6,6 +6,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Intent;
 
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -40,6 +41,7 @@ import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.OneDayCountActivit
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.jilei;
+import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
 import com.ly.a316.ly_meetingroommanagement.R;
@@ -50,6 +52,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -152,25 +155,6 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     void initview() {
         setStatusBarDarkMode();
         init();
-
-        /**
-         * 伪造数据
-         */
-       /* Schedule schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);*/
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -384,6 +368,11 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_schedule:
+                //测试插入会议日程
+               // ceshi_huiyi();
+                Intent intentttt = new Intent(getContext(), End_Activity.class);
+                startActivity(intentttt);
+
                 break;
             case R.id.fl_addday:
                 //添加日程
@@ -440,5 +429,62 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             e.printStackTrace();
         }
 
+    }
+
+    @SuppressLint("MissingPermission")
+    void ceshi_huiyi(){
+        if (CalanderUtils.requestPermission(getActivity())) {
+            String calId = "";
+            //这是一条查询语句
+            Cursor userCursor = getContext().getContentResolver().query(Uri.parse(CalanderUtils.calanderURL), null,
+                    null, null, null);
+            //Uri.parse(CalanderUtils.calanderURL)打印得结果：content://com.android.calendar/calendars
+            //CalendarContract.Calendars.CONTENT_URI[打印得结果： content://com.android.calendar/calendars
+            if (userCursor.getCount() > 0) {
+                userCursor.moveToFirst();
+                calId = userCursor.getString(userCursor.getColumnIndex("_id"));
+                //打印得结果calld = 1
+            }
+            ContentValues event = new ContentValues();
+            event.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
+            event.put("title", "开会啦");//插入标题
+            event.put("description", "备注");//备注
+            event.put("calendar_id", calId);//插入hoohbood@gmail.com这个账户
+            event.put("eventLocation", "这里填的是地点");//地点
+            java.util.Calendar mCalendar = java.util.Calendar.getInstance();
+
+            //起始时间
+            mCalendar.set(java.util.Calendar.YEAR, 2019);
+            mCalendar.set(java.util.Calendar.MONTH, 1);
+            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, 7);
+            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, 15);
+            mCalendar.set(java.util.Calendar.MINUTE, 00);
+            long start = mCalendar.getTime().getTime();
+            //结束时间
+            mCalendar.set(java.util.Calendar.YEAR, 2019 );
+            mCalendar.set(java.util.Calendar.MONTH, 1);
+            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, 7);
+            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, 16);
+            mCalendar.set(java.util.Calendar.MINUTE, 00);
+            long end = mCalendar.getTime().getTime();
+
+            event.put("dtstart", start);
+            event.put("dtend", end);
+            event.put("hasAlarm", 1);
+
+            Uri newEvent = getContext().getContentResolver().insert(Uri.parse(CalanderUtils.calanderEventURL), event);
+
+            long id = Long.parseLong(newEvent.getLastPathSegment());
+            ContentValues values = new ContentValues();
+            //插入时间的event_id
+            values.put("event_id", id);
+
+            getContext().getContentResolver().insert(Uri.parse(CalanderUtils.calanderRemiderURL), values);
+            //添加会议人
+            ContentValues valuess = new ContentValues();
+            valuess.put(CalendarContract.Attendees.EVENT_ID, id);
+            valuess.put("attendeeName", "张思");
+            getContext().getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI, valuess);
+        }
     }
 }

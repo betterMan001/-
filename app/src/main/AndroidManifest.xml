@@ -342,9 +342,8 @@
         <activity
             android:name=".chooseOffice.activity.HuiyiXiang_Activity"
             android:theme="@style/Translucent" />
-        <activity android:name=".meetingList.activities.AttendeeActivity"></activity>
-        <activity android:name=".meetingList.activities.NewInviteActivity" />
-        <activity android:name=".meetingList.activities.MeetingDetailActivity"></activity>
+        <activity android:name=".endActivity.activity.End_Activity" />
+        <activity android:name=".endActivity.activity.FilePickerActivity"></activity>
     </application>
 
 </manifest>

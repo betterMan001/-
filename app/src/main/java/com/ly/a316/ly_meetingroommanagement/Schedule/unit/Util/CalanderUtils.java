@@ -38,7 +38,7 @@ public class CalanderUtils {
     public final static String EVENT = "EVENT";
 
     private static CalanderUtils sUtils;
-    private static String mepeople ="2";
+    private static String mepeople ="10";
     private Map<String, int[]> sAllHolidays = new HashMap<>();
     private Map<String, List<Integer>> sMonthTaskHint = new HashMap<>();
 
@@ -256,19 +256,34 @@ public class CalanderUtils {
                     String timeEnd = TimeUtil.timeFormatStr(dtend);//将日程时间改成yyyy-MM-dd hh:mm:ss形式
                     String startTime = timeStart.substring(11, 16);//截取日程事件的开始时间的 时和分， hh:mm
                     String endtime = timeEnd.substring(11, 16);//截取日程事件的结束时间的 时和分， hh:mm
-                    try {
+                   /* try {
                         String selections = "((event_id == " + Integer.valueOf(eventCursor.getString(eventCursor.getColumnIndex("_id"))) + "))";
                         @SuppressLint("MissingPermission")
                         Cursor eventCursors = context.getContentResolver().query(CalendarContract.Attendees.CONTENT_URI, null,
                                 selections, null, null);
                         if (eventCursors.getCount() > 0) {
                             //参会人员
+                            String hk = eventCursors.getString(eventCursors.getColumnIndex("attendeeName"));
+                            Log.i("zjc",hk);
                             mepeople = eventCursors.getString(eventCursors.getColumnIndex("attendeeName"));
                         }
-
                     } catch (Exception e) {
                         e.printStackTrace();
+                    }*/
+
+                    //查找参会人
+                    @SuppressLint("MissingPermission")
+                    Cursor attendeesCursor = context.getContentResolver().query(
+                            CalendarContract.Attendees.CONTENT_URI,
+                            ATTENDEES_COLUMNS,
+                            CalendarContract.Attendees.EVENT_ID + "=?",
+                            new String[]{ eventCursor.getString(eventCursor.getColumnIndex("_id")) },
+                            null);
+                    while (attendeesCursor.moveToNext()) {
+                     //   String rid = attendeesCursor.getString(attendeesCursor.getColumnIndex(CalendarContract.Attendees._ID));
+                       mepeople = attendeesCursor.getString(attendeesCursor.getColumnIndex(CalendarContract.Attendees.ATTENDEE_NAME));
                     }
+
                     try {
                         String selections = "((event_id == " + Integer.valueOf(eventCursor.getString(eventCursor.getColumnIndex("_id"))) + "))";
                         @SuppressLint("MissingPermission")
@@ -278,7 +293,6 @@ public class CalanderUtils {
                             if (eventCursorss.moveToFirst()) {
                                 do{
                                     alerT_time = eventCursorss.getString(eventCursorss.getColumnIndex("minutes"));//在事件发生之前多少分钟进行提醒
-                                    Log.i("zjc", "alerT_time= " + alerT_time);
                                 } while (eventCursorss.moveToNext());
                             }
                         }
@@ -286,7 +300,6 @@ public class CalanderUtils {
                         e.printStackTrace();
                     }
                     //30 29 12 12 2018 2018
-
                     int startday = Integer.parseInt(timeStart.substring(8, 10));//截取日程事件的开始时间的 day， dd
                     int endday = Integer.parseInt(timeEnd.substring(8, 10));//截取日程事件的结束时间的 day， dd
                     int startMonth = Integer.parseInt(timeStart.substring(5, 7));//截取日程事件的开始时间的 月， mm
@@ -295,12 +308,13 @@ public class CalanderUtils {
                     int endYear = Integer.parseInt(timeEnd.substring(0, 4));//截取日程事件的结束时间的 年， yyyy
                     int day = TimeUtil.DateCompareDiffDay(timeEnd, timeStart);//比较日程事件开始和结束时间，看看是否跨日了，跨日的那些天都需要特殊处理*/
 
-                    if (mepeople.equals("2")) {
+                    if (mepeople.equals("10")) {
                         Schedule schedule = new Schedule(startTime, endtime, "[日程]", location, "自己", eventTitle, description, event_idd,startYear,startMonth,startday,alerT_time);
                         eventlist.add(schedule);
                     } else {
                         Schedule schedule = new Schedule(startTime, endtime, "[会议]", location, mepeople, eventTitle, description, event_idd,startYear,startMonth,startday,alerT_time);
                         eventlist.add(schedule);
+                        mepeople="10";
                     }
                 } while (eventCursor.moveToNext());
             }
@@ -310,7 +324,12 @@ public class CalanderUtils {
         return eventlist;
     }
 
-
+    public static final String[] ATTENDEES_COLUMNS = new String[] {
+            CalendarContract.Attendees._ID,
+            CalendarContract.Attendees.ATTENDEE_NAME,
+            CalendarContract.Attendees.ATTENDEE_EMAIL,
+            CalendarContract.Attendees.ATTENDEE_STATUS
+    };
 
     public static Schedule getCalendarEventByEventId(Context context,String itemevent_id) throws Exception {
         Schedule schedule = new Schedule( );

@@ -1,22 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="2dp"
     android:background="@android:color/white"
     android:gravity="center_vertical"
     android:orientation="horizontal">
-    <com.makeramen.roundedimageview.RoundedImageView
-        android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
-        android:id="@+id/choose_one_riv"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:src="@drawable/empty_circle001"
-        android:layout_centerInParent="true"
-        app:riv_oval="true"
-        />
+    <ImageView
+        android:layout_marginLeft="10dp"
+        android:layout_width="16dp"
+        android:id="@+id/list_tr"
+        android:layout_height="16dp"
+        android:src="@drawable/right_tri001"
+        >
+    </ImageView>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -27,12 +25,4 @@
         android:text="人事部"
         android:id="@+id/Lv0_tv"
         />
-    <ImageView
-        android:layout_marginLeft="10dp"
-        android:layout_width="16dp"
-        android:id="@+id/list_tr"
-        android:layout_height="16dp"
-        android:src="@drawable/right_tri001"
-        >
-    </ImageView>
 </LinearLayout>

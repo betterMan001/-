@@ -15,13 +15,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
-import com.ly.a316.ly_meetingroommanagement.MyApplication;
-import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.LoadingDialog;
 import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.ListDropDownAdapter;
 import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.MeetingListAdapter;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.meetingList.models.Meeting;
-import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.MeetingListServiceImp;
+import com.ly.a316.ly_meetingroommanagement.meetingList.classes.Meeting;
 import com.yyydjk.library.DropDownMenu;
 
 import java.util.ArrayList;
@@ -34,6 +31,7 @@ import butterknife.OnClick;
 
 public class MeetingListActivity extends AppCompatActivity {
 
+    List<Meeting> list;
     @BindView(R.id.meeting_list_rv)
     RecyclerView meetingListRv;
     @BindView(R.id.act_meeting_list_menu)
@@ -44,16 +42,13 @@ public class MeetingListActivity extends AppCompatActivity {
     private List<View> popupViews = new ArrayList<>();
     private ListDropDownAdapter meetingAdapter;
     private MeetingListAdapter meetingListAdapter;
-    private String meetings[] = {"不限", "未开始", "正在进行中","已结束"};
-    private View statusBarView;
-    public static List<Meeting> meetingList;
-    public LoadingDialog loadingDialog;
+    private String meetings[] = {"不限", "结束的会议", "预订的会议", "正在进行中的会议", "拒绝的会议"};
+   private View statusBarView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meeting_list);
         ButterKnife.bind(this);
-        loadingDialog= LoadingDialog.getInstance(this);
         //延时加载数据
         Looper.myQueue().addIdleHandler(new MessageQueue.IdleHandler() {
             @Override
@@ -70,13 +65,16 @@ public class MeetingListActivity extends AppCompatActivity {
                 return false;
             }
         });
-        makeData();
+        //初始化视图
+        initView();
     }
 
     private void initView() {
-        //1.设置RecycleView适配器
+        //1.获取数据
+        makeData();
+        //2.设置RecycleView适配器
         initRecycleView();
-        //2.设置下拉框
+        //3.设置下拉框
         initDropDownMenu();
     }
 
@@ -103,7 +101,7 @@ public class MeetingListActivity extends AppCompatActivity {
                 //2.设置菜单标题
                 actMeetingListMenu.setTabText(position == 0 ? headers[0] : meetings[position]);
                 //3.设置指针数组
-                int length = meetingList.size();
+                int length = list.size();
                 int count = 0;
                 //如果选择不限则显示所有
                 if ("不限".equals(meetings[position])) {
@@ -112,9 +110,8 @@ public class MeetingListActivity extends AppCompatActivity {
                     }
                     count = length;
                 } else {
-                    //根据条件筛选，并刷新RecycleView
                     for (int i = 0; i < length; i++) {
-                        if (meetings[position].equals(meetingList.get(i).getState())||"正在".equals(meetingList.get(i).getState())) {
+                        if (meetings[position].equals(list.get(i).getMeetingStatus())) {
                             MeetingListAdapter.truePositon[count++] = i;
                         }
                     }
@@ -132,13 +129,58 @@ public class MeetingListActivity extends AppCompatActivity {
     }
 
     private void makeData() {
-        loadingDialog.show();
-       new MeetingListServiceImp(this).selectMeetingBySEmployeeId(MyApplication.getId());
+        list = new ArrayList<Meeting>();
+        //模拟数据
+        Meeting meeting;
+        for (int i = 0; i < 3; i++) {
+            meeting = new Meeting();
+            meeting.setTitle("发展大会");
+            meeting.setDate("时间：2018-10-16 05:55:14.0");
+            meeting.setSponsor("我");
+            meeting.setDidTime("刚刚");
+            meeting.setMeetingStatus("正在进行中的会议");
+            meeting.setMessageNum("0条动态");
+            meeting.setPartnerNum("1/4人确认参加");
+            list.add(meeting);
+        }
+        for (int i = 0; i < 3; i++) {
+            meeting = new Meeting();
+            meeting.setTitle("发展大会");
+            meeting.setDate("时间：2018-10-16 05:55:14.0");
+            meeting.setSponsor("我");
+            meeting.setDidTime("刚刚");
+            meeting.setMeetingStatus("拒绝的会议");
+            meeting.setMessageNum("0条动态");
+            meeting.setPartnerNum("1/4人确认参加");
+            list.add(meeting);
+        }
+        for (int i = 0; i < 3; i++) {
+            meeting = new Meeting();
+            meeting.setTitle("发展大会");
+            meeting.setDate("时间：2018-10-16 05:55:14.0");
+            meeting.setSponsor("我");
+            meeting.setDidTime("刚刚");
+            meeting.setMeetingStatus("预订的会议");
+            meeting.setMessageNum("0条动态");
+            meeting.setPartnerNum("1/4人确认参加");
+            list.add(meeting);
+        }
+        for (int i = 0; i < 3; i++) {
+            meeting = new Meeting();
+            meeting.setTitle("发展大会");
+            meeting.setDate("时间：2018-10-16 05:55:14.0");
+            meeting.setSponsor("我");
+            meeting.setDidTime("刚刚");
+            meeting.setMeetingStatus("结束的会议");
+            meeting.setMessageNum("0条动态");
+            meeting.setPartnerNum("1/4人确认参加");
+            list.add(meeting);
+        }
     }
 
     private void initRecycleView() {
         meetingListRv.setLayoutManager(new LinearLayoutManager(this));
-        meetingListAdapter = new MeetingListAdapter(this, meetingList, meetingList.size());
+        meetingListAdapter = new MeetingListAdapter(this, list, list.size());
         meetingListRv.setAdapter(meetingListAdapter);
 
     }
@@ -170,16 +212,7 @@ public class MeetingListActivity extends AppCompatActivity {
     }
         protected boolean isStatusBar() { return true; }
 
-    public void callBack(final List<Meeting> list){
-        meetingList=list;
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                loadingDialog.dismiss();
-                initView();
-            }
-        });
-    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -188,4 +221,5 @@ public class MeetingListActivity extends AppCompatActivity {
             actMeetingListMenu.closeMenu();
         }
     }
+
 }

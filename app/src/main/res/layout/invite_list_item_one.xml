@@ -12,7 +12,7 @@
         >
     <com.makeramen.roundedimageview.RoundedImageView
         android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="5dp"
         android:id="@+id/choose_riv"
         android:layout_width="26dp"
         android:layout_height="26dp"

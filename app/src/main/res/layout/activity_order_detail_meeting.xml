@@ -412,11 +412,10 @@
                             >
                         </TextView>
                         <TextView
-                            android:layout_width="0dp"
-                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
                             android:id="@+id/meeting_people_tv"
                             android:layout_height="match_parent"
-                            android:gravity="center_vertical|right"
+                            android:gravity="center_vertical"
                             android:text=">"
                             >
                         </TextView>
@@ -453,10 +452,11 @@
                             >
                         </TextView>
                         <TextView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:id="@+id/meeting_maker"
-                            android:gravity="center_vertical"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical|right"
                             android:text=">"
                             >
                         </TextView>
@@ -490,6 +490,7 @@
                             android:layout_weight="1"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical|left"
+
                             android:text="会议记录人"
                             android:textColor="@color/black"
                             >
@@ -540,7 +541,7 @@
                             android:layout_height="match_parent"
                             android:id="@+id/peopleNum"
                             android:gravity="center_vertical|right"
-                            android:text=""
+                            android:text="选择人数"
                             >
                         </TextView>
                     </LinearLayout>

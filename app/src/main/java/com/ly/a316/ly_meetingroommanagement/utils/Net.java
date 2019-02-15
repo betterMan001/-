@@ -18,9 +18,6 @@ public class Net {
     public final static String UNLOCK_ROOM="meetRoom/unlockRoom";//解锁选定会议室
     public final static String BOOK_MEET_ROOM="meetRoom/bookMeetRoom";//预订会议室接口
     public final static String OPTIN="Meeting/optIn";
-    public final static String SELECT_MEETING_ByS_EmployeeId="Meeting/selectMeetingBySEmployeeId";//根据职工编号获取会议
-    public final static String ATTENDERS="Meeting/attenders";
-    public final static String ADD_ATTENDER="Meeting/addAttender";
     //yzq
     public static String url = HEAD;
     public static String addSchedule = url + "/Schedule/addSchedule";//新建日程

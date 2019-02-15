@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -214,7 +213,6 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
     }
 
     void search(String nei) {
-
         // TODO: 2019/2/15 查询文件没做
         Cursor cursor = this.getContentResolver().query(
 //数据源
@@ -222,18 +220,19 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
 //查询ID和名称
                 new String[]{MediaStore.Files.FileColumns._ID, MediaStore.Files.FileColumns.TITLE,MediaStore.Files.FileColumns.DATA,SIZE},
 //条件为文件类型
-                MediaStore.Files.FileColumns.TITLE + " LIKE ? ",
+                MediaStore.Files.FileColumns.TITLE + "LIKE ?",
 //类型为“video/mp4”
                 new String[]{"%" + nei+ "%" },
 //默认排序
                 null);
+
         if (cursor != null) {
             while (cursor.moveToNext()) {
                 String path = cursor.getString(cursor.getColumnIndex(DATA));
                 String paths = cursor.getString(cursor.getColumnIndexOrThrow(
                         MediaStore.Files.FileColumns.SIZE));
                 String anme = path.substring(path.lastIndexOf("/") + 1);
-                Log.i("zjcccc", anme);
+                Log.i("zjc", anme);
             }
         }
 
