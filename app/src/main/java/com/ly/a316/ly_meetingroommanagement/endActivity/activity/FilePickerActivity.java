@@ -220,38 +220,25 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
 //查询ID和名称
                 new String[]{MediaStore.Files.FileColumns._ID, MediaStore.Files.FileColumns.TITLE,MediaStore.Files.FileColumns.DATA,SIZE},
 //条件为文件类型
-                MediaStore.Files.FileColumns.TITLE + "LIKE ?",
+                MediaStore.Files.FileColumns.TITLE + " LIKE ? ",
 //类型为“video/mp4”
                 new String[]{"%" + nei+ "%" },
 //默认排序
                 null);
 
         if (cursor != null) {
-            while (cursor.moveToNext()) {
-                String path = cursor.getString(cursor.getColumnIndex(DATA));
-                String paths = cursor.getString(cursor.getColumnIndexOrThrow(
-                        MediaStore.Files.FileColumns.SIZE));
-                String anme = path.substring(path.lastIndexOf("/") + 1);
-                Log.i("zjc", anme);
+            int sda = cursor.getCount();
+            if(sda < 10){
+                while (cursor.moveToNext()) {
+                    String path = cursor.getString(cursor.getColumnIndex(DATA));
+                    String paths = cursor.getString(cursor.getColumnIndexOrThrow(
+                            MediaStore.Files.FileColumns.SIZE));
+                    String anme = path.substring(path.lastIndexOf("/") + 1);
+                    Log.i("zjc", anme);
+                }
             }
-        }
 
-       /* ContentResolver resolver = getContentResolver();
-        Uri uri = MediaStore.Files.getContentUri("external");
-        String selection = MediaStore.Files.FileColumns.TITLE + "= ? " + nei;
-        Cursor cursor = resolver.query(uri,
-                new String[]{MediaStore.Files.FileColumns.DATA, SIZE},
-                selection,
-                null, null);
-        if (cursor != null) {
-            while (cursor.moveToNext()) {
-                String path = cursor.getString(cursor.getColumnIndex(DATA));
-                String paths = cursor.getString(cursor.getColumnIndexOrThrow(
-                        MediaStore.Files.FileColumns.SIZE));
-                String anme = path.substring(path.lastIndexOf("/") + 1);
-                Log.i("zjc", anme);
-            }
         }
-        cursor.close();*/
+        cursor.close();
     }
 }
