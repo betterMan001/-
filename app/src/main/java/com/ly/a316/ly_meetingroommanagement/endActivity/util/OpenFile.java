@@ -52,11 +52,10 @@ public class OpenFile {
 
     // TODO: 2019/2/14 这个路径还没好，
    private static Uri getUri(String path){
-       Uri uri;
+       Uri uri = null;
        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
            String authority = mContext.getPackageName() + ".provider";
-        //
-           uri = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID+".provider", new File(path));
+           uri = MyProvider.getUriForFile(mContext, authority, new File(path));
        } else {
            uri = Uri.fromFile(new File(path));
        }
@@ -120,7 +119,7 @@ public class OpenFile {
     public static Intent getImageFileIntent(String param ) {
         Intent intent = new Intent("android.intent.action.VIEW");
         intent.addCategory("android.intent.category.DEFAULT");
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_GRANT_READ_URI_PERMISSION);
         Uri uri = getUri(param);
         intent.setDataAndType(uri, "image/*");
         return intent;

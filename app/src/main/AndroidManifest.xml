@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ly.a316.ly_meetingroommanagement">
 
     <!-- 操作系统日历需要用到 -->
@@ -62,7 +63,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <provider
+            android:name="com.ly.a316.ly_meetingroommanagement.endActivity.util.MyProvider"
+            android:authorities="com.ly.a316.ly_meetingroommanagement.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="5353c039233226f33cac4cece3ca7887" />

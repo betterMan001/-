@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.endActivity.fragment.AllFileFragment;
@@ -72,8 +73,8 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
+                  search(s.toString());
+             }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -196,4 +197,7 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
         return result;
     }
 
+    void search(String nei){
+
+    }
 }
