@@ -27,12 +27,15 @@ import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.endActivity.fragment.AllFileFragment;
 import com.ly.a316.ly_meetingroommanagement.endActivity.fragment.CommFileFragment;
 import com.ly.a316.ly_meetingroommanagement.endActivity.object.FileEntity;
+import com.ly.a316.ly_meetingroommanagement.endActivity.object.FileType;
+import com.ly.a316.ly_meetingroommanagement.endActivity.object.Lingshi;
 import com.ly.a316.ly_meetingroommanagement.endActivity.object.OnUpdateDataListener;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.FileUtils;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.PickerManager;
 import com.yalantis.jellytoolbar.listener.JellyListener;
 import com.yalantis.jellytoolbar.widget.JellyToolbar;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +47,7 @@ import static android.provider.BaseColumns._ID;
 import static android.provider.MediaStore.MediaColumns.DATA;
 import static android.provider.MediaStore.MediaColumns.SIZE;
 import static android.provider.MediaStore.MediaColumns.TITLE;
+import static com.ly.a316.ly_meetingroommanagement.endActivity.util.FileUtils.getFileType;
 
 public class FilePickerActivity extends AppCompatActivity implements OnUpdateDataListener {
 
@@ -237,8 +241,42 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
                     Log.i("zjc", anme);
                 }
             }
-
         }
+        Lingshi.fileEntities.addAll(getFiles(cursor));
+        /*List<FileEntity> fileEntities = new ArrayList<>();
+        fileEntities = getFiles(cursor);*/
         cursor.close();
+    }
+
+
+    private List<FileEntity> getFiles(Cursor cursor) {
+        List<FileEntity> fileEntities = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
+            String path = cursor.getString(cursor.getColumnIndexOrThrow(DATA));
+            String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.TITLE));
+            if (path != null) {
+                FileType fileType = getFileType(PickerManager.getInstance().getFileTypes(), path);
+                if (fileType != null && !(new File(path).isDirectory())) {
+                    FileEntity entity = new FileEntity(id, title, path);
+                    entity.setFileType(fileType);
+
+                    String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MIME_TYPE));
+                    if (mimeType != null && !TextUtils.isEmpty(mimeType))
+                        entity.setMimeType(mimeType);
+                    else {
+                        entity.setMimeType("");
+                    }
+
+                    entity.setSize(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)));
+                    if(PickerManager.getInstance().files.contains(entity)){
+                        entity.setSelected(true);
+                    }
+                    if (!fileEntities.contains(entity))
+                        fileEntities.add(entity);
+                }
+            }
+        }
+        return fileEntities;
     }
 }
