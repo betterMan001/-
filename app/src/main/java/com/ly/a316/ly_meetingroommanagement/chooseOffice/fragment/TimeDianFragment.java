@@ -251,7 +251,7 @@ public class TimeDianFragment extends Fragment {
         if (t_day / 10 == 0) {
             time +=  "-0" + t_day + " ";
         }else{
-            time += t_day + " ";
+            time += "-"+t_day + " ";
         }
         if(t_hour/10 ==0){
             time+="0"+t_hour + ":";
