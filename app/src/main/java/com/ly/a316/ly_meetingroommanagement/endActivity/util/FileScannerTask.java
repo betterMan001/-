@@ -9,6 +9,7 @@ import android.webkit.MimeTypeMap;
 
 import com.ly.a316.ly_meetingroommanagement.endActivity.object.FileEntity;
 import com.ly.a316.ly_meetingroommanagement.endActivity.object.FileType;
+import com.ly.a316.ly_meetingroommanagement.endActivity.object.Lingshi;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -104,7 +105,11 @@ public class FileScannerTask extends AsyncTask<Void,Void,List<FileEntity>> {
     protected void onPostExecute(List<FileEntity> entities) {
         super.onPostExecute(entities);
         if (mFileScannerListener != null) {
-            mFileScannerListener.scannerResult(entities);
+            Lingshi.fileEntities.clear();
+            Lingshi.fileEntities.addAll(entities);
+
+         //   mFileScannerListener.scannerResult(entities);
+            mFileScannerListener.scannerResult(Lingshi.fileEntities);
         }
     }
 
