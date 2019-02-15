@@ -1,6 +1,10 @@
 package com.ly.a316.ly_meetingroommanagement.endActivity.activity;
 
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,9 +15,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,15 +27,24 @@ import android.widget.Toast;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.endActivity.fragment.AllFileFragment;
 import com.ly.a316.ly_meetingroommanagement.endActivity.fragment.CommFileFragment;
+import com.ly.a316.ly_meetingroommanagement.endActivity.object.FileEntity;
 import com.ly.a316.ly_meetingroommanagement.endActivity.object.OnUpdateDataListener;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.FileUtils;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.PickerManager;
 import com.yalantis.jellytoolbar.listener.JellyListener;
 import com.yalantis.jellytoolbar.widget.JellyToolbar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.provider.BaseColumns._ID;
+import static android.provider.MediaStore.MediaColumns.DATA;
+import static android.provider.MediaStore.MediaColumns.SIZE;
+import static android.provider.MediaStore.MediaColumns.TITLE;
 
 public class FilePickerActivity extends AppCompatActivity implements OnUpdateDataListener {
 
@@ -73,8 +88,8 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                  search(s.toString());
-             }
+                search(s.toString());
+            }
 
             @Override
             public void afterTextChanged(Editable s) {
@@ -110,7 +125,7 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
         setFragment(1);
     }
 
-    @OnClick({R.id.btn_common, R.id.btn_all,R.id.tv_confirm})
+    @OnClick({R.id.btn_common, R.id.btn_all, R.id.tv_confirm})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_common:
@@ -134,6 +149,7 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
                 break;
         }
     }
+
     private void setFragment(int type) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -175,16 +191,16 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
     @Override
     public void update(long size) {
         currentSize += size;
-         tvSize.setText(getString(R.string.already_select, FileUtils.getReadableFileSize(currentSize)));
-         String res = "("+ PickerManager.getInstance().files.size()+"/"+PickerManager.getInstance().maxCount+")";
-         tvConfirm.setText(getString(R.string.file_select_res,res));
+        tvSize.setText(getString(R.string.already_select, FileUtils.getReadableFileSize(currentSize)));
+        String res = "(" + PickerManager.getInstance().files.size() + "/" + PickerManager.getInstance().maxCount + ")";
+        tvConfirm.setText(getString(R.string.file_select_res, res));
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         if (!isConfirm) {
-             PickerManager.getInstance().files.clear();
+            PickerManager.getInstance().files.clear();
         }
     }
 
@@ -197,7 +213,103 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
         return result;
     }
 
-    void search(String nei){
+    void search(String nei) {
 
+        String selection = MediaStore.Files.FileColumns.MIME_TYPE + "= ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " and "+ MediaStore.Files.FileColumns.TITLE + " LIKE ? ";
+
+        String []selectionArgs = new String[]{
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("text"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("txt"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("doc"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("docx"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("dotx"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("dotx"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("pdf"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("ppt"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("pptx"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("potx"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("ppsx"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("xls"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("xlsx"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("xltx"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("jpg"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("jpg"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("png"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("svg"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("gif"),
+                "%" + nei+ "%"
+        };
+        // TODO: 2019/2/15 查询文件没做
+        Cursor cursor = this.getContentResolver().query(
+//数据源
+                MediaStore.Files.getContentUri("external"),
+//查询ID和名称
+                new String[]{MediaStore.Files.FileColumns._ID, MediaStore.Files.FileColumns.TITLE,MediaStore.Files.FileColumns.DATA,SIZE},
+//条件为文件类型
+                selection,
+//类型为“video/mp4”
+                selectionArgs,
+//默认排序
+                null);
+
+        /*// TODO: 2019/2/15 查询文件没做
+        Cursor cursor = this.getContentResolver().query(
+//数据源
+                MediaStore.Files.getContentUri("external"),
+//查询ID和名称
+                new String[]{MediaStore.Files.FileColumns._ID, MediaStore.Files.FileColumns.TITLE,MediaStore.Files.FileColumns.DATA,SIZE},
+//条件为文件类型
+                MediaStore.Files.FileColumns.TITLE + " LIKE ? ",
+//类型为“video/mp4”
+                new String[]{"%" + nei+ "%" },
+//默认排序
+                null);
+*/
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                String path = cursor.getString(cursor.getColumnIndex(DATA));
+                String paths = cursor.getString(cursor.getColumnIndexOrThrow(
+                        MediaStore.Files.FileColumns.SIZE));
+                String anme = path.substring(path.lastIndexOf("/") + 1);
+                Log.i("zjc", anme);
+            }
+        }
+
+       /* ContentResolver resolver = getContentResolver();
+        Uri uri = MediaStore.Files.getContentUri("external");
+        String selection = MediaStore.Files.FileColumns.TITLE + "= ? " + nei;
+        Cursor cursor = resolver.query(uri,
+                new String[]{MediaStore.Files.FileColumns.DATA, SIZE},
+                selection,
+                null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                String path = cursor.getString(cursor.getColumnIndex(DATA));
+                String paths = cursor.getString(cursor.getColumnIndexOrThrow(
+                        MediaStore.Files.FileColumns.SIZE));
+                String anme = path.substring(path.lastIndexOf("/") + 1);
+                Log.i("zjc", anme);
+            }
+        }
+        cursor.close();*/
     }
 }

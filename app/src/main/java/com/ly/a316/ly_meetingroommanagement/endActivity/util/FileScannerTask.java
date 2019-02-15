@@ -62,9 +62,11 @@ public class FileScannerTask extends AsyncTask<Void,Void,List<FileEntity>> {
                 + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
                 + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
                 + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
+                + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
                 + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? ";
         String []selectionArgs = new String[]{
                 MimeTypeMap.getSingleton().getMimeTypeFromExtension("text"),
+                MimeTypeMap.getSingleton().getMimeTypeFromExtension("txt"),
                 MimeTypeMap.getSingleton().getMimeTypeFromExtension("doc"),
                 MimeTypeMap.getSingleton().getMimeTypeFromExtension("docx"),
                 MimeTypeMap.getSingleton().getMimeTypeFromExtension("dotx"),
