@@ -16,7 +16,7 @@ public interface OnSwipeListener<T> {
        CardConfig.SWIPING_RIGHT 向右滑，
        CardConfig.SWIPING_NONE  为不偏左也不偏右
  */
-    void onSwiping(RecyclerView.ViewHolder viewHolder,float ratio,int direction);
+    void onSwiping(RecyclerView.ViewHolder viewHolder, float ratio, int direction);
 
     /**
      * 卡片完全滑出时的回调
@@ -24,7 +24,7 @@ public interface OnSwipeListener<T> {
      * @param t          该滑出卡片的数据
      * @param direction  卡片滑出的方向，同上
      */
-    void onSwiped(RecyclerView.ViewHolder viewHolder,T t,int direction);
+    void onSwiped(RecyclerView.ViewHolder viewHolder, T t, int direction);
 
     /**
      * 所有卡pain全部滑出的回调

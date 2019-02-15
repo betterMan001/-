@@ -44,7 +44,9 @@ public class CommFileFragment extends Fragment implements FileScannerTask.FileSc
     public void setOnUpdateDataListener(OnUpdateDataListener onUpdateDataListener) {
         mOnUpdateDataListener = onUpdateDataListener;
     }
-
+    public  void genxbgf(){
+         mCommonFileAdapter.notifyDataSetChanged();
+    }
     public static CommFileFragment newInstance() {
         return new CommFileFragment();
     }
@@ -130,4 +132,5 @@ public class CommFileFragment extends Fragment implements FileScannerTask.FileSc
             }
         });
     }
+
 }

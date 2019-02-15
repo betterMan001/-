@@ -82,8 +82,8 @@ public class CardAdapter extends RecyclerView.Adapter {
             manager.setOrientation(LinearLayoutManager.HORIZONTAL);
             shebeiAdapter shebeiAdapter = new shebeiAdapter(context,equiment_list,1);
 
-            ((CardAdapter.EquipmentHolder) viewHolder).item_choose_shebei_recycleview.setLayoutManager(manager);
-            ((CardAdapter.EquipmentHolder) viewHolder).item_choose_shebei_recycleview.setAdapter(shebeiAdapter);
+            ((EquipmentHolder) viewHolder).item_choose_shebei_recycleview.setLayoutManager(manager);
+            ((EquipmentHolder) viewHolder).item_choose_shebei_recycleview.setAdapter(shebeiAdapter);
             ((EquipmentHolder) viewHolder).item_choose_shebei_xia.setOnClickListener(new View.OnClickListener() {
                 @SuppressLint("WrongConstant")
                 @Override
@@ -97,12 +97,12 @@ public class CardAdapter extends RecyclerView.Adapter {
                 @SuppressLint("WrongConstant")
                 @Override
                 public void onClick(View v) {
-                    if (((CardAdapter.TimeViewHolder) viewHolder).item_time_choose.getVisibility() == 8) {
-                        ((CardAdapter.TimeViewHolder) viewHolder).item_time_choose.setVisibility(View.VISIBLE);
+                    if (((TimeViewHolder) viewHolder).item_time_choose.getVisibility() == 8) {
+                        ((TimeViewHolder) viewHolder).item_time_choose.setVisibility(View.VISIBLE);
                     } else {
-                        ((CardAdapter.TimeViewHolder) viewHolder).item_time_choose.setVisibility(View.GONE);
-                        ((CardAdapter.TimeViewHolder) viewHolder).item_choose_shikeview.setVisibility(View.GONE);
-                        ((CardAdapter.TimeViewHolder) viewHolder).item_choose_shijainduan.setVisibility(View.GONE);
+                        ((TimeViewHolder) viewHolder).item_time_choose.setVisibility(View.GONE);
+                        ((TimeViewHolder) viewHolder).item_choose_shikeview.setVisibility(View.GONE);
+                        ((TimeViewHolder) viewHolder).item_choose_shijainduan.setVisibility(View.GONE);
                     }
                 }
             });
@@ -130,8 +130,8 @@ public class CardAdapter extends RecyclerView.Adapter {
             //设置为横向滑动
             manager.setOrientation(LinearLayoutManager.HORIZONTAL);
             shebeiAdapter shebeiAdapter = new shebeiAdapter(context,place_list,2);
-            ((CardAdapter.PlaceViewHolder) viewHolder).item_choose_didian_recycleview.setLayoutManager(manager);
-            ((CardAdapter.PlaceViewHolder) viewHolder).item_choose_didian_recycleview.setAdapter(shebeiAdapter);
+            ((PlaceViewHolder) viewHolder).item_choose_didian_recycleview.setLayoutManager(manager);
+            ((PlaceViewHolder) viewHolder).item_choose_didian_recycleview.setAdapter(shebeiAdapter);
 
 
             ((PlaceViewHolder) viewHolder).item_choose_didian_xia.setOnClickListener(new View.OnClickListener() {

@@ -242,7 +242,9 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
                 }
             }
         }
+        Lingshi.fileEntities.clear();
         Lingshi.fileEntities.addAll(getFiles(cursor));
+        ((CommFileFragment) commonFileFragment).genxbgf();
         /*List<FileEntity> fileEntities = new ArrayList<>();
         fileEntities = getFiles(cursor);*/
         cursor.close();
