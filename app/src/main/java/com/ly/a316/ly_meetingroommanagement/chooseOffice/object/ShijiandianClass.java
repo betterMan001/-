@@ -24,7 +24,5 @@ public class ShijiandianClass {
 
     public static String WHO;
 
-    public static String END_DIAN_TIME;
-
 
 }

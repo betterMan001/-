@@ -1,7 +1,7 @@
-package com.ly.a316.ly_meetingroommanagement.meetting.services.imp;
+package com.ly.a316.ly_meetingroommanagement.meetingList.services.imp;
 
-import com.ly.a316.ly_meetingroommanagement.meetting.activity.InviteActivity;
-import com.ly.a316.ly_meetingroommanagement.meetting.adapter.MulitemAdapter;
+import com.ly.a316.ly_meetingroommanagement.meetingList.activities.NewInviteActivity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.MulitemAdapter;
 import com.ly.a316.ly_meetingroommanagement.meetting.models.LevelOne;
 import com.ly.a316.ly_meetingroommanagement.meetting.models.LevelZero;
 import com.ly.a316.ly_meetingroommanagement.meetting.services.DeptService;
@@ -27,7 +27,7 @@ Time:16:31
 auther:xwd
 */
 public class DeptServiceImp implements DeptService {
-    InviteActivity activity;
+    NewInviteActivity activity;
     MulitemAdapter adapter;
 
     public DeptServiceImp(MulitemAdapter adapter) {
@@ -35,7 +35,7 @@ public class DeptServiceImp implements DeptService {
     }
 
     private static final String TAG = "DeptServiceImp:";
-    public DeptServiceImp(InviteActivity activity) {
+    public DeptServiceImp(NewInviteActivity activity) {
         this.activity = activity;
     }
 
