@@ -23,17 +23,19 @@ import static com.ly.a316.ly_meetingroommanagement.endActivity.util.FileUtils.ge
  * 作者：余智强
  * 2019/2/14
  */
-public class FileScannerTask extends AsyncTask<Void,Void,List<FileEntity>> {
+public class FileScannerTask extends AsyncTask<Void, Void, List<FileEntity>> {
     public interface FileScannerListener {
         void scannerResult(List<FileEntity> entities);
     }
 
     private FileScannerListener mFileScannerListener;
     private Context context;
+
     public FileScannerTask(Context context, FileScannerListener fileScannerListener) {
         this.context = context;
         mFileScannerListener = fileScannerListener;
     }
+
     private final String[] DOC_PROJECTION = {
             MediaStore.Images.Media._ID,
             MediaStore.Images.Media.DATA,
@@ -65,7 +67,7 @@ public class FileScannerTask extends AsyncTask<Void,Void,List<FileEntity>> {
                 + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
                 + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? "
                 + " or " + MediaStore.Files.FileColumns.MIME_TYPE + " = ? ";
-        String []selectionArgs = new String[]{
+        String[] selectionArgs = new String[]{
                 MimeTypeMap.getSingleton().getMimeTypeFromExtension("text"),
                 MimeTypeMap.getSingleton().getMimeTypeFromExtension("txt"),
                 MimeTypeMap.getSingleton().getMimeTypeFromExtension("doc"),
@@ -108,7 +110,7 @@ public class FileScannerTask extends AsyncTask<Void,Void,List<FileEntity>> {
             Lingshi.fileEntities.clear();
             Lingshi.fileEntities.addAll(entities);
 
-         //   mFileScannerListener.scannerResult(entities);
+            //   mFileScannerListener.scannerResult(entities);
             mFileScannerListener.scannerResult(Lingshi.fileEntities);
         }
     }
@@ -134,7 +136,7 @@ public class FileScannerTask extends AsyncTask<Void,Void,List<FileEntity>> {
                     }
 
                     entity.setSize(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)));
-                    if(PickerManager.getInstance().files.contains(entity)){
+                    if (PickerManager.getInstance().files.contains(entity)) {
                         entity.setSelected(true);
                     }
                     if (!fileEntities.contains(entity))
