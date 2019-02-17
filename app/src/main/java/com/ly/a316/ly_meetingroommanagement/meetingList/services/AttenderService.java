@@ -8,4 +8,5 @@ auther:xwd
 public interface AttenderService {
     public void attenders(String mid);
     public void addAttender(String attender,String mid);
+    public void attendersForDetailActivity(String mid);
 }

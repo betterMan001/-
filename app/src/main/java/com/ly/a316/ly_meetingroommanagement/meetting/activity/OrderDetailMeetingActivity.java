@@ -222,7 +222,7 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         new OrderDetailMeetingServiceImp((OrderDetailMeetingActivity.this)).bookMeetRoom(MyApplication.getId(),meetingRoomNO,beginTime.getText().toString(),endTimeTv.getText().toString(),meetingTheme.getText().toString(),meeting_content,attends,recordPeoples);
     }
     private void showContentDialog() {
-        ContentDialogActivity.start(OrderDetailMeetingActivity.this);
+        ContentDialogActivity.start(OrderDetailMeetingActivity.this,"1");
 //        AlertDialog.Builder customizeDialog= new AlertDialog.Builder(OrderDetailMeetingActivity.this);
 //        final View dialogView= LayoutInflater
 //                                .from(OrderDetailMeetingActivity.this)

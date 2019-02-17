@@ -31,9 +31,11 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
     public  int Tpos;
     LevelZero currentData;
     List<MultiItemEntity> levelData;
+    Boolean checkAll=false;
     //用map保存对应部门数据是否被加载过
     Map isLoadDepartmentMap=new HashMap();
     Map isSelectDepartmentMap=new HashMap();
+    RoundedImageView imageView;
     public MulitemAdapter(List<MultiItemEntity> data, NewInviteActivity activity) {
         super(data);
         levelData=data;
@@ -64,32 +66,38 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
                     public void onClick(View v) {
                         final int poss=levelData.indexOf(lv0);
                         Tpos = poss;
-                        if (isSelectDepartmentMap.containsKey(lv0.departmentId)==false){
-                            isSelectDepartmentMap.put(lv0.departmentId,lv0.departmentId);
-                            LevelZero temp=( LevelZero) levelData.get(Tpos);
-                            List<LevelOne>list=temp.getSubItems();
-                            for(LevelOne subitem:list){
-                                final String eId=subitem.eId;
-                                if(NewInviteActivity.selectedEmployees.containsKey(eId)==false){
-                                    NewInviteActivity.selectedEmployees.put(eId,subitem);
+                        if (lv0.isExpanded()) {
+                            if (isSelectDepartmentMap.containsKey(lv0.departmentId)==false){
+                                isSelectDepartmentMap.put(lv0.departmentId,lv0.departmentId);
+                                LevelZero temp=( LevelZero) levelData.get(Tpos);
+                                List<LevelOne>list=temp.getSubItems();
+                                for(LevelOne subitem:list){
+                                    final String eId=subitem.eId;
+                                    if(NewInviteActivity.selectedEmployees.containsKey(eId)==false){
+                                        NewInviteActivity.selectedEmployees.put(eId,subitem);
+                                    }
                                 }
-                            }
 
-                            notifyDataSetChanged();
-                            selectItem.setImageResource(R.drawable.gou1);
-                        }else{
-                            LevelZero temp=( LevelZero) levelData.get(Tpos);
-                            List<LevelOne>list=temp.getSubItems();
-                            for(LevelOne subitem:list){
-                                final String eId=subitem.eId;
-                                if(NewInviteActivity.selectedEmployees.containsKey(eId)==true){
-                                    NewInviteActivity.selectedEmployees.remove(eId);
+                                notifyDataSetChanged();
+                                selectItem.setImageResource(R.drawable.gou1);
+                            }else{
+                                LevelZero temp=( LevelZero) levelData.get(Tpos);
+                                List<LevelOne>list=temp.getSubItems();
+                                for(LevelOne subitem:list){
+                                    final String eId=subitem.eId;
+                                    if(NewInviteActivity.selectedEmployees.containsKey(eId)==true){
+                                        NewInviteActivity.selectedEmployees.remove(eId);
+                                    }
                                 }
+                                selectItem.setImageResource(R.drawable.empty_circle001);
+                                isSelectDepartmentMap.remove(lv0.departmentId);
+                                notifyDataSetChanged();
                             }
-                            selectItem.setImageResource(R.drawable.empty_circle001);
-                            isSelectDepartmentMap.remove(lv0.departmentId);
-                            notifyDataSetChanged();
                         }
+                        else{
+                            activity.subThreadToast("请先展开该部门！");
+                        }
+
                 }
                 });
                 //设置监听事件，点击收缩或者展开。
@@ -101,15 +109,16 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
                         int pos = poss;
                         if (lv0.isExpanded()) {
                             //设置图片的变化
-                            helper.setImageResource(R.id.list_tr,R.drawable.down_tri001);
+                            helper.setImageResource(R.id.list_tr,R.drawable.right_tri001);
                             collapse(pos);
                         } else {
                            Tpos=poss;
-                            helper.setImageResource(R.id.list_tr,R.drawable.right_tri001);
+                            helper.setImageResource(R.id.list_tr,R.drawable.down_tri001);
                             //判断部门是否被加载过
                             if(isLoadDepartmentMap.containsKey(lv0.departmentId)==true)
                             expand(pos);
                             else{
+                                checkAll=true;
                                 new DeptServiceImp(MulitemAdapter.this).getAllEmployeeByDepartmentId(lv0.departmentId);
                             }
                         }
@@ -160,13 +169,42 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
     public void leveloneCallBack(List<LevelOne> list){
 
         //更新对应部门列表的数据
-        LevelZero temp=( LevelZero) levelData.get(Tpos);
+       final LevelZero temp=( LevelZero) levelData.get(Tpos);
         temp.setSubItems(list);
         isLoadDepartmentMap.put(temp.departmentId,temp.departmentId);
          activity.runOnUiThread(new Runnable() {
              @Override
              public void run() {
                  expand(Tpos);
+//                 if(checkAll==true){
+//                         checkAll=false;
+//                     if (isSelectDepartmentMap.containsKey(temp.departmentId)==false){
+//                         isSelectDepartmentMap.put(temp.departmentId,temp.departmentId);
+//                         LevelZero temp=( LevelZero) levelData.get(Tpos);
+//                         List<LevelOne>list=temp.getSubItems();
+//                         for(LevelOne subitem:list){
+//                             final String eId=subitem.eId;
+//                             if(NewInviteActivity.selectedEmployees.containsKey(eId)==false){
+//                                 NewInviteActivity.selectedEmployees.put(eId,subitem);
+//                             }
+//                         }
+//
+//                         notifyDataSetChanged();
+//                         imageView.setImageResource(R.drawable.gou1);
+//                     }else{
+//                         LevelZero temp=( LevelZero) levelData.get(Tpos);
+//                         List<LevelOne>list=temp.getSubItems();
+//                         for(LevelOne subitem:list){
+//                             final String eId=subitem.eId;
+//                             if(NewInviteActivity.selectedEmployees.containsKey(eId)==true){
+//                                 NewInviteActivity.selectedEmployees.remove(eId);
+//                             }
+//                         }
+//                         imageView.setImageResource(R.drawable.empty_circle001);
+//                         isSelectDepartmentMap.remove(temp.departmentId);
+//                         notifyDataSetChanged();
+//                     }
+//                 }
              }
          });
     }

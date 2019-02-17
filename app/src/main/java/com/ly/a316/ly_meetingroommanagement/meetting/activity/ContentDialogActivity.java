@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingDetailActivity;
 import com.ly.a316.ly_meetingroommanagement.meetting.widgets.NoteEditor;
 
 import butterknife.BindView;
@@ -19,6 +20,12 @@ public class ContentDialogActivity extends AppCompatActivity {
     @BindView(R.id.note_edit_et)
     NoteEditor noteEditEt;
     ActionBar actionBar;
+    //表示要显示的东西的类型
+    /*
+    * 1是预订会议详情界面
+    * 2是会议详情界面
+    * */
+    String type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -31,19 +38,26 @@ public class ContentDialogActivity extends AppCompatActivity {
         initView();
     }
 
-    public static final void start(Context context) {
+    public static final void start(Context context,String type) {
         Intent intent = new Intent();
+        intent.putExtra("type",type);
         intent.setClass(context,ContentDialogActivity.class);
         context.startActivity(intent);
     }
 
     private void initView() {
         noteEditEt.setNotesMinLines(7);
-        noteEditEt.setText(OrderDetailMeetingActivity.meeting_content);
+        //预订会议详情界面
+        if("1".equals(type))
+          noteEditEt.setText(OrderDetailMeetingActivity.meeting_content);
+        //会议详情界面
+        else
+          noteEditEt.setText(MeetingDetailActivity.model.content);
     }
 
     @OnClick(R.id.close_iv)
     public void onViewClicked() {
+        if("1".equals(type))
         OrderDetailMeetingActivity.meeting_content=noteEditEt.getText().toString();
         finish();
     }

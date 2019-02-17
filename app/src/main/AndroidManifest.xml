@@ -63,7 +63,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
-            android:name="com.ly.a316.ly_meetingroommanagement.endActivity.util.MyProvider"
+            android:name=".endActivity.util.MyProvider"
             android:authorities="com.ly.a316.ly_meetingroommanagement.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -71,6 +71,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="5353c039233226f33cac4cece3ca7887" />
@@ -245,14 +246,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".endActivity.activity.End_Activity"></activity>
+        <activity android:name=".endActivity.activity.End_Activity" />
         <activity
             android:name=".nim.activity.AddFriendActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name=".endActivity.activity.FilePickerActivity"></activity>
+        <activity android:name=".endActivity.activity.FilePickerActivity" />
         <activity
             android:name=".nim.activity.UserProfileActivity"
             android:configChanges="orientation"
@@ -342,9 +343,10 @@
         <activity
             android:name=".chooseOffice.activity.HuiyiXiang_Activity"
             android:theme="@style/Translucent" />
-        <activity android:name=".meetingList.activities.AttendeeActivity"></activity>
+        <activity android:name=".meetingList.activities.AttendeeActivity" />
         <activity android:name=".meetingList.activities.NewInviteActivity" />
-        <activity android:name=".meetingList.activities.MeetingDetailActivity"></activity>
+        <activity android:name=".meetingList.activities.MeetingDetailActivity" />
+        <activity android:name=".meetingList.activities.SignInActivity"></activity>
     </application>
 
 </manifest>
