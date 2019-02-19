@@ -92,9 +92,9 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/dp_10"
                 android:text="设备报修"
+                android:onClick="device_baoxiu"
                 android:textColor="#ffffff" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/expression"
             android:layout_width="wrap_content"
@@ -192,25 +192,24 @@
             android:onClick="add_file"
               />
     </LinearLayout>
-
-<android.support.v7.widget.RecyclerView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/xianshi_file_recycleview"
-    >
-
-</android.support.v7.widget.RecyclerView>
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_margin="@dimen/dp_10"
-        android:layout_weight="1"
         android:text="    今天开会主要讲了这个，探究合并工程的问题，解决冲突，等等，希望大家再接再厉" />
-
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/xianshi_file_recycleview"
+        >
+    </android.support.v7.widget.RecyclerView>
     <Button
+        android:onClick="end_huiyi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorRed"
         android:text="结束会议"
         />
+
 </LinearLayout>

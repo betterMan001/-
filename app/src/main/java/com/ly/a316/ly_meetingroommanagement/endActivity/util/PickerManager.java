@@ -22,7 +22,7 @@ public class PickerManager {
     /**
      * 最多能选的文件的个数
      */
-    public int maxCount = 3;
+    public int maxCount = 1;
     /**
      * 保存结果
      */

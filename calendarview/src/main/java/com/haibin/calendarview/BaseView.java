@@ -335,7 +335,7 @@ public abstract class BaseView extends View implements View.OnClickListener, Vie
      * 2、绘制矩形选中效果，也可以在这里计算矩形宽和高
      */
     protected void onPreviewHook() {
-        // TODO: 2017/11/16
+
     }
 
     /**

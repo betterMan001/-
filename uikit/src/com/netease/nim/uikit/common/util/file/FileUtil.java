@@ -67,7 +67,7 @@ public class FileUtil {
         }
         Log.i(TAG, "url:" + filePath + " " + "type:" + type);
 
-        // FIXME
+
         if (StringUtil.isEmpty(type) && filePath.endsWith("aac")) {
             type = "audio/aac";
         }

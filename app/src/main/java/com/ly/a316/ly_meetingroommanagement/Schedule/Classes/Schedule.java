@@ -9,7 +9,7 @@ import java.util.List;
  * 日程类
  */
 public class Schedule {
-    static public List<Schedule> list=new ArrayList<>();
+    public  static  List<Schedule> list  ;
     private String dateTime;//日期
     private String content;//内容
 
@@ -28,6 +28,7 @@ public class Schedule {
     public Schedule( ) {
 
     }
+
 
     private String event_idd;
 

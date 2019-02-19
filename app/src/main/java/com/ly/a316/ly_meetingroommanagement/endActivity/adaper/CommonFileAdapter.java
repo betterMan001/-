@@ -71,11 +71,13 @@ public class CommonFileAdapter extends RecyclerView.Adapter<CommonFileAdapter.Fi
     public int getItemCount() {
         return mData.size();
     }
-      class FilePickerViewHolder extends RecyclerView.ViewHolder {
+
+    class FilePickerViewHolder extends RecyclerView.ViewHolder {
         protected RelativeLayout layoutRoot;
-        protected ImageView ivType,ivChoose;
+        protected ImageView ivType, ivChoose;
         protected TextView tvName;
         protected TextView tvDetail;
+
         public FilePickerViewHolder(View itemView) {
             super(itemView);
             ivType = (ImageView) itemView.findViewById(R.id.iv_type);

@@ -288,7 +288,6 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
 
 /*        mCameraID = getIntent().getIntExtra("Camera", 0) == 0 ? Camera.CameraInfo.CAMERA_FACING_BACK : Camera.CameraInfo.CAMERA_FACING_FRONT;
@@ -347,7 +346,6 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
      */
     @Override
     protected void onDestroy() {
-        // TODO Auto-generated method stub
         super.onDestroy();
         mFRAbsLoop.shutdown();
         AFT_FSDKError err = engine.AFT_FSDK_UninitialFaceEngine();
@@ -362,7 +360,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
 
     @Override
     public Camera setupCamera() {
-        // TODO Auto-generated method stub
+
         mCamera = Camera.open(mCameraID);
         try {
             Camera.Parameters parameters = mCamera.getParameters();
@@ -568,7 +566,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                         return Environment.getExternalStorageDirectory() + "/" + split[1];
                     }
 
-                    // TODO handle non-primary volumes
+
                 } else if (isDownloadsDocument(uri)) {
 
                     final String id = DocumentsContract.getDocumentId(uri);

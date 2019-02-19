@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputFilter;
@@ -37,15 +38,28 @@ import com.arcsoft.facerecognition.AFR_FSDKError;
 import com.arcsoft.facerecognition.AFR_FSDKFace;
 import com.arcsoft.facerecognition.AFR_FSDKVersion;
 
+import com.google.gson.JsonObject;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.guo.android_extend.image.ImageConverter;
 import com.guo.android_extend.widget.ExtImageView;
 import com.guo.android_extend.widget.HListView;
+import com.ly.a316.ly_meetingroommanagement.utils.Net;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class RegisterActivity extends AppCompatActivity implements SurfaceHolder.Callback {
     private final String TAG = "zjc";
@@ -72,9 +86,22 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
     private RegisterViewAdapter mRegisterViewAdapter;
     private AFR_FSDKFace mAFR_FSDKFace;//人脸特征信息
 
+    byte[] face_information;
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 0x23) {
+                Toast.makeText(RegisterActivity.this, "网络访问失败", Toast.LENGTH_SHORT).show();
+            }
+            if (msg.what == 0x24) {
+                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_register);
         //initial data.
@@ -157,6 +184,7 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
                 Log.d(TAG, "AFD_FSDK_GetVersion =" + version.toString() + ", " + err.getCode());
                 ////输入的 data 数据为 NV21 格式（如 Camera 里 NV21 格式的 preview 数据），其中 height 不能为奇数，人脸检测返回结果保存在 result
                 err = engine.AFD_FSDK_StillImageFaceDetection(data, mBitmap.getWidth(), mBitmap.getHeight(), AFD_FSDKEngine.CP_PAF_NV21, result);
+
                 // AFD_FSDK_StillImageFaceDetection =0<1
                 Log.d(TAG, "AFD_FSDK_StillImageFaceDetection =" + err.getCode() + "<" + result.size());
 
@@ -227,6 +255,7 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
                     Log.d("com.arcsoft", "Face=" + result1.getFeatureData()[0] + "," + result1.getFeatureData()[1] + "," + result1.getFeatureData()[2] + "," + error1.getCode());
                     if (error1.getCode() == error1.MOK) {
                         mAFR_FSDKFace = result1.clone();
+                        face_information = mAFR_FSDKFace.getFeatureData();//获取人脸特征信息
                         int width = result.get(0).getRect().width();//得到刚才检测的第一张脸
                         int height = result.get(0).getRect().height();
                         Bitmap face_bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
@@ -311,6 +340,7 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
                     mExtImageView = (ExtImageView) layout.findViewById(R.id.extimageview);
                     mExtImageView.setImageBitmap((Bitmap) msg.obj);
                     final Bitmap face = (Bitmap) msg.obj;
+                    // TODO: 2019/2/18 人脸注册
                     new AlertDialog.Builder(RegisterActivity.this)
                             .setTitle("请输入注册名字")
                             .setIcon(android.R.drawable.ic_dialog_info)
@@ -320,6 +350,38 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
                                 public void onClick(DialogInterface dialog, int which) {
                                     ((MyApplication) RegisterActivity.this.getApplicationContext()).mFaceDB.addFace(mEditText.getText().toString(), mAFR_FSDKFace, face);
                                     mRegisterViewAdapter.notifyDataSetChanged();
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            OkHttpClient okHttpClient = new OkHttpClient();
+                                            FormBody formBody = new FormBody.Builder()
+                                                    .add("phone", "18248612936")
+                                                    .add("face", new String(face_information))
+                                                    .build();
+                                            final Request request = new Request.Builder().url(Net.schedule_face).post(formBody).build();
+                                            //step 4： 建立联系 创建Call对象
+                                            okHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+                                                @Override
+                                                public void onFailure(Call call, IOException e) {
+                                                    handler.sendEmptyMessage(0x23);
+                                                }
+
+                                                @Override
+                                                public void onResponse(Call call, Response response) throws IOException {
+                                                    String rebody = response.body().string();
+                                                    try {
+                                                        JSONObject jsonObject = new JSONObject(rebody);
+                                                        if (jsonObject.getString("result").equals("success"))
+                                                        {
+                                                            handler.sendEmptyMessage(0x24);
+                                                        }
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }).start();
                                     dialog.dismiss();
                                 }
                             })
@@ -355,32 +417,27 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
         LayoutInflater mLInflater;
 
         public RegisterViewAdapter(Context c) {
-            // TODO Auto-generated constructor stub
             mContext = c;
             mLInflater = LayoutInflater.from(mContext);
         }
 
         @Override
         public int getCount() {
-            // TODO Auto-generated method stub
             return ((MyApplication) mContext.getApplicationContext()).mFaceDB.mRegister.size();
         }
 
         @Override
         public Object getItem(int arg0) {
-            // TODO Auto-generated method stub
             return null;
         }
 
         @Override
         public long getItemId(int position) {
-            // TODO Auto-generated method stub
             return position;
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            // TODO Auto-generated method stub
             Holder holder = null;
             if (convertView != null) {
                 holder = (Holder) convertView.getTag();

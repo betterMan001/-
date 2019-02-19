@@ -4,6 +4,8 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -75,6 +77,16 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
     private Fragment commonFileFragment, allFileFragment;
     private boolean isConfirm = false;
 
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 0x21) {
+                ((CommFileFragment) commonFileFragment).genxbgf();
+            }
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +102,21 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                search(s.toString());
+            public void onTextChanged(final CharSequence s, int start, int before, int count) {
+
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        search(s.toString());
+                    }
+                });
+                thread.start();
+                try {
+                    thread.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
             }
 
             @Override
@@ -195,8 +220,6 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
     public void update(long size) {
         currentSize += size;
         tvSize.setText(getString(R.string.already_select, FileUtils.getReadableFileSize(currentSize)));
-        String res = "(" + PickerManager.getInstance().files.size() + "/" + PickerManager.getInstance().maxCount + ")";
-        tvConfirm.setText(getString(R.string.file_select_res, res));
     }
 
     @Override
@@ -217,66 +240,54 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
     }
 
     void search(String nei) {
-        // TODO: 2019/2/15 查询文件没做
+
         Cursor cursor = this.getContentResolver().query(
 //数据源
                 MediaStore.Files.getContentUri("external"),
 //查询ID和名称
-                new String[]{MediaStore.Files.FileColumns._ID, MediaStore.Files.FileColumns.TITLE,MediaStore.Files.FileColumns.DATA,SIZE},
+                new String[]{MediaStore.Files.FileColumns._ID, MediaStore.Files.FileColumns.TITLE, MediaStore.Files.FileColumns.DATA, SIZE, MediaStore.Files.FileColumns.MIME_TYPE},
 //条件为文件类型
                 MediaStore.Files.FileColumns.TITLE + " LIKE ? ",
 //类型为“video/mp4”
-                new String[]{"%" + nei+ "%" },
+                new String[]{"%" + nei + "%"},
 //默认排序
                 null);
 
-        if (cursor != null) {
-            int sda = cursor.getCount();
-            if(sda < 10){
-                while (cursor.moveToNext()) {
-                    String path = cursor.getString(cursor.getColumnIndex(DATA));
-                    String paths = cursor.getString(cursor.getColumnIndexOrThrow(
-                            MediaStore.Files.FileColumns.SIZE));
-                    String anme = path.substring(path.lastIndexOf("/") + 1);
-                    Log.i("zjc", anme);
-                }
-            }
-        }
         Lingshi.fileEntities.clear();
         Lingshi.fileEntities.addAll(getFiles(cursor));
-        ((CommFileFragment) commonFileFragment).genxbgf();
-        /*List<FileEntity> fileEntities = new ArrayList<>();
-        fileEntities = getFiles(cursor);*/
+        handler.sendEmptyMessage(0x21);
         cursor.close();
     }
 
-
     private List<FileEntity> getFiles(Cursor cursor) {
         List<FileEntity> fileEntities = new ArrayList<>();
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
-            String path = cursor.getString(cursor.getColumnIndexOrThrow(DATA));
-            String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.TITLE));
-            if (path != null) {
-                FileType fileType = getFileType(PickerManager.getInstance().getFileTypes(), path);
-                if (fileType != null && !(new File(path).isDirectory())) {
-                    FileEntity entity = new FileEntity(id, title, path);
-                    entity.setFileType(fileType);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
+                String path = cursor.getString(cursor.getColumnIndexOrThrow(DATA));
+                Log.i("zjc", path);
+                String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.TITLE));
+                if (path != null) {
+                    FileType fileType = getFileType(PickerManager.getInstance().getFileTypes(), path);
+                    if (fileType != null && !(new File(path).isDirectory())) {
+                        FileEntity entity = new FileEntity(id, title, path);
+                        entity.setFileType(fileType);
+                        String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MIME_TYPE));
+                        if (mimeType != null && !TextUtils.isEmpty(mimeType))
+                            entity.setMimeType(mimeType);
+                        else {
+                            entity.setMimeType("");
+                        }
 
-                    String mimeType = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MIME_TYPE));
-                    if (mimeType != null && !TextUtils.isEmpty(mimeType))
-                        entity.setMimeType(mimeType);
-                    else {
-                        entity.setMimeType("");
+                        entity.setSize(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)));
+                        if (PickerManager.getInstance().files.contains(entity)) {
+                            entity.setSelected(true);
+                        }
+                        if (!fileEntities.contains(entity))
+                            fileEntities.add(entity);
                     }
-
-                    entity.setSize(cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)));
-                    if(PickerManager.getInstance().files.contains(entity)){
-                        entity.setSelected(true);
-                    }
-                    if (!fileEntities.contains(entity))
-                        fileEntities.add(entity);
                 }
+
             }
         }
         return fileEntities;
