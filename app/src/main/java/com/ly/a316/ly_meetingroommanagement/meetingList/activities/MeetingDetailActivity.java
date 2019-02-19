@@ -90,6 +90,7 @@ public class MeetingDetailActivity extends BaseActivity {
                 AttendeeActivity.start(MeetingDetailActivity.this, mId);
                 break;
             case R.id.signature_ll:
+                SignInActivity.start(MeetingDetailActivity.this);
                 break;
             //开始会议
             case R.id.begin_meeting:
