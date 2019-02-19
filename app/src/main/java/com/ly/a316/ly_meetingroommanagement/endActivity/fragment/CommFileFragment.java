@@ -118,16 +118,16 @@ public class CommFileFragment extends Fragment implements FileScannerTask.FileSc
                     entity.setSelected(!entity.isSelected());
                     mCommonFileAdapter.notifyDataSetChanged();
                 }else {
-                   // if(PickerManager.getInstance().files.size()<PickerManager.getInstance().maxCount){
+                   if(PickerManager.getInstance().files.size()<PickerManager.getInstance().maxCount){
                         files.add(entity);
                         if(mOnUpdateDataListener!=null){
                             mOnUpdateDataListener.update(Long.parseLong(entity.getSize()));
                         }
                         entity.setSelected(!entity.isSelected());
                         mCommonFileAdapter.notifyDataSetChanged();
-                    /*}else {
+                    }else {
                         Toast.makeText(getContext(),getString(R.string.file_select_max,PickerManager.getInstance().maxCount),Toast.LENGTH_SHORT).show();
-                    }*/
+                    }
                 }
             }
         });

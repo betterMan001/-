@@ -41,12 +41,12 @@ import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.OneDayCountActivit
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.jilei;
+import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
 import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
-import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -113,6 +113,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
     @Override
     protected void initView() {
+        Schedule.list = new ArrayList<>();
         initview();
     }
 
@@ -156,25 +157,6 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         setStatusBarDarkMode();
         init();
 
-        /**
-         * 伪造数据
-         */
-       /* Schedule schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);
-        schedule = new Schedule("12:50", "13:50", "会议", "3c", "余智强", "大会", "很重要");
-        Schedule.list.add(schedule);*/
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         calRecycleview.setLayoutManager(linearLayoutManager);
@@ -194,7 +176,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 Log.i("zjc",event_idd);
                 intent.putExtra("event_id",event_idd);
                 startActivityForResult(intent, 14);
-             }
+            }
 
             @Override
             //删除操作
@@ -215,7 +197,6 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                     calendar.setDay(day);
                     ibCalendarview.removeSchemeDate(calendar);
                 }
-
             }
 
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -360,6 +341,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         // TODO: inflate a fragment view
 
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
+
         unbinder = ButterKnife.bind(this, rootView);
         setHasOptionsMenu(true);
         dp_onchanghelistener = new DatePicker.OnChangeListener() {
@@ -391,6 +373,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 // ceshi_huiyi();
                 Intent intentttt = new Intent(getContext(), End_Activity.class);
                 startActivity(intentttt);
+
                 break;
             case R.id.fl_addday:
                 //添加日程

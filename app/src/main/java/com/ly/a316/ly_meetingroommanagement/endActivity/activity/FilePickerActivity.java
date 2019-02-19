@@ -220,8 +220,6 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
     public void update(long size) {
         currentSize += size;
         tvSize.setText(getString(R.string.already_select, FileUtils.getReadableFileSize(currentSize)));
-        //  String res = "(" + PickerManager.getInstance().files.size() + "/" + PickerManager.getInstance().maxCount + ")";
-        //  tvConfirm.setText(getString(R.string.file_select_res, res));
     }
 
     @Override
@@ -242,7 +240,7 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
     }
 
     void search(String nei) {
-        // TODO: 2019/2/15 查询文件没做
+
         Cursor cursor = this.getContentResolver().query(
 //数据源
                 MediaStore.Files.getContentUri("external"),
@@ -254,30 +252,20 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
                 new String[]{"%" + nei + "%"},
 //默认排序
                 null);
-        int sda = cursor.getCount();
 
         Lingshi.fileEntities.clear();
         Lingshi.fileEntities.addAll(getFiles(cursor));
         handler.sendEmptyMessage(0x21);
-
-        /*List<FileEntity> fileEntities = new ArrayList<>();
-        fileEntities = getFiles(cursor);*/
         cursor.close();
     }
-/*String path = cursor.getString(cursor.getColumnIndex(DATA));
-                    String paths = cursor.getString(cursor.getColumnIndexOrThrow(
-                            MediaStore.Files.FileColumns.SIZE));
-                    String anme = path.substring(path.lastIndexOf("/") + 1);
-                    Log.i("zjc", anme);*/
 
     private List<FileEntity> getFiles(Cursor cursor) {
         List<FileEntity> fileEntities = new ArrayList<>();
         if (cursor != null) {
-            int sda = cursor.getCount();
-            //  if(sda < 50){
             while (cursor.moveToNext()) {
                 int id = cursor.getInt(cursor.getColumnIndexOrThrow(_ID));
                 String path = cursor.getString(cursor.getColumnIndexOrThrow(DATA));
+                Log.i("zjc", path);
                 String title = cursor.getString(cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.TITLE));
                 if (path != null) {
                     FileType fileType = getFileType(PickerManager.getInstance().getFileTypes(), path);
@@ -301,7 +289,6 @@ public class FilePickerActivity extends AppCompatActivity implements OnUpdateDat
                 }
 
             }
-            //  }
         }
         return fileEntities;
     }

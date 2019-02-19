@@ -92,9 +92,9 @@
                 android:layout_gravity="center"
                 android:padding="@dimen/dp_10"
                 android:text="设备报修"
+                android:onClick="device_baoxiu"
                 android:textColor="#ffffff" />
         </LinearLayout>
-
         <LinearLayout
             android:id="@+id/expression"
             android:layout_width="wrap_content"
@@ -205,6 +205,7 @@
         >
     </android.support.v7.widget.RecyclerView>
     <Button
+        android:onClick="end_huiyi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorRed"

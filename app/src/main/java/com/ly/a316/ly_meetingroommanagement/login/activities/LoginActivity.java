@@ -71,28 +71,24 @@ public class LoginActivity extends BaseActivity {
                     Object data = msg.obj;
                     if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                         if (result == SMSSDK.RESULT_COMPLETE) {
-                            // TODO 处理成功得到验证码的结果
                             // 请注意，此时只是完成了发送验证码的请求，验证码短信还需要几秒钟之后才送达
                             Log.d(TAG, "handleMessage: 成功发送了短信验证码");
                         } else {
-                            // TODO 处理错误的结果
                             ((Throwable) data).printStackTrace();
                             Log.d(TAG, "handleMessage: 发送短信验证码失败");
                         }
                     } else if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         if (result == SMSSDK.RESULT_COMPLETE) {
-                            // TODO 处理验证码验证通过的结果
                             Log.d(TAG, "handleMessage: 短信验证成功");
                             new UserServiceImp(LoginActivity.this).loginValidate(phone, "", "2");
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                         } else {
-                            // TODO 处理错误的结果
                             Log.d(TAG, "handleMessage: 短信验证失败");
                             ((Throwable) data).printStackTrace();
                         }
                     }
-                    // TODO 其他接口的返回结果也类似，根据event判断当前数据属于哪个接口
+
                     return false;
                 }
             }).sendMessage(msg);

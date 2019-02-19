@@ -17,7 +17,6 @@ public class PreviewRecycleView extends RecyclerView {
     public PreviewRecycleView(Context context, AttributeSet attrs)
     {
         super(context, attrs);
-        // TODO Auto-generated constructor stub
         this.setOnScrollListener(new OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {

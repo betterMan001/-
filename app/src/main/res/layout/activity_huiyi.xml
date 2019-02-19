@@ -42,7 +42,6 @@
     <com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.SlidingTabLayout
         android:id="@+id/tl_9"
         android:layout_gravity="center"
-
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="#6D8FB0"

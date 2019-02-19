@@ -16,24 +16,26 @@
         app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="@drawable/backtwo"
         app:titleTextColor="@color/white">
+
         <TextView
-android:id="@+id/alarm"
+            android:id="@+id/alarm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center"
+            android:text="提醒"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:text="提醒"
             android:textStyle="normal" />
 
     </android.support.v7.widget.Toolbar>
-     <android.support.v7.widget.RecyclerView
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:id="@+id/alarm_recycleview"
 
-         >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/alarm_recycleview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-     </android.support.v7.widget.RecyclerView>
+        >
+
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

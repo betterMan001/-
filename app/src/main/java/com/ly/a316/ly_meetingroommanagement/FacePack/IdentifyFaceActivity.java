@@ -145,7 +145,6 @@ public class IdentifyFaceActivity extends AppCompatActivity implements View.OnCl
                         return Environment.getExternalStorageDirectory() + "/" + split[1];
                     }
 
-                    // TODO handle non-primary volumes
                 } else if (isDownloadsDocument(uri)) {
 
                     final String id = DocumentsContract.getDocumentId(uri);
