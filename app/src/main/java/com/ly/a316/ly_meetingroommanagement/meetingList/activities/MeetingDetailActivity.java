@@ -41,7 +41,8 @@ public class MeetingDetailActivity extends BaseActivity {
     private String mId;
     public static MeetingDetailModel model;
     TopRightMenu mToRightMenu;
-    private  List<Attendee> attendeeList =new ArrayList<>();
+    public static   List<Attendee> attendeeList =new ArrayList<>();
+    private boolean isSignInMode=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,7 +91,8 @@ public class MeetingDetailActivity extends BaseActivity {
                 AttendeeActivity.start(MeetingDetailActivity.this, mId);
                 break;
             case R.id.signature_ll:
-                SignInActivity.start(MeetingDetailActivity.this);
+                isSignInMode=true;
+                new AttenderServiceImp(MeetingDetailActivity.this).attendersForDetailActivity(mId);
                 break;
             //开始会议
             case R.id.begin_meeting:
@@ -100,7 +102,9 @@ public class MeetingDetailActivity extends BaseActivity {
                 ContentDialogActivity.start(MeetingDetailActivity.this, "2");
         }
     }
-
+   public void startForSignIn(){
+       SignInActivity.start(MeetingDetailActivity.this,mId);
+   }
     public void showMenu() {
         final List<MenuItem> menuItems = new ArrayList<>();
         menuItems.add(new MenuItem("修改会议室"));
@@ -139,16 +143,29 @@ public class MeetingDetailActivity extends BaseActivity {
         }
     public void attenderListCallBack(final List<Attendee> list){
         attendeeList =list;
-        this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-               MeetingDetailActivity.this.loadingDialog.dismiss();
-                List<String> list=new ArrayList<String>();
-                for(Attendee temp: attendeeList){
-                    list.add(temp.getId());
+        if(isSignInMode==false){
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    MeetingDetailActivity.this.loadingDialog.dismiss();
+                    List<String> list=new ArrayList<String>();
+                    for(Attendee temp: attendeeList){
+                        list.add(temp.getId());
+                    }
+                    TeamCreateHelper.createNormalTeam(MeetingDetailActivity.this,list,false, null);
                 }
-                TeamCreateHelper.createNormalTeam(MeetingDetailActivity.this,list,false, null);
-            }
-        });
+            });
+        }else{
+            //重置该值
+            isSignInMode=false;
+            final Context context=MeetingDetailActivity.this;
+            this.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    SignInActivity.start(context,mId);
+                }
+            });
+        }
+
     }
     }

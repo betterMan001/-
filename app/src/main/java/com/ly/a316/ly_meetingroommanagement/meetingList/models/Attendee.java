@@ -9,6 +9,15 @@ public class Attendee {
     private String image;
     private String name;
     private String id;
+    private boolean isSign=false;
+
+    public boolean isSign() {
+        return isSign;
+    }
+
+    public void setSign(boolean sign) {
+        isSign = sign;
+    }
 
     public String getImage() {
         return image;

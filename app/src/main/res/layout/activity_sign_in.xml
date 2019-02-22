@@ -30,7 +30,7 @@
             android:text="签到情况10/29人"
             android:textColor="@color/white"
             android:textSize="16sp"
-
+            android:id="@+id/sign_in_status"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

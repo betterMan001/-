@@ -27,12 +27,16 @@ auther:xwd
 public class SignInPeopleAdapter extends RecyclerView.Adapter {
     private Context context;
     List<Attendee> list;
-
+    public static int signStatus=0;
+    public int count=0;
     public SignInPeopleAdapter(Context context, List<Attendee> list) {
         this.context = context;
         this.list = list;
+        count=list.size();
     }
-
+    public void setCount(int count) {
+        this.count = count;
+    }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int pos) {
@@ -44,33 +48,63 @@ public class SignInPeopleAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
      SignInPeopleHolder holder=(SignInPeopleHolder)viewHolder;
         Attendee attendee=list.get(position);
-       holder.attendee_tv.setText(attendee.getName());
-        ImageView headView=holder.head_rv;
-        //设置glide加载的选项
-        RequestOptions requestOptions=new RequestOptions()
-                .placeholder(R.drawable.user_default_head)
-                .error(R.drawable.user_default_head);
-        Glide
-                .with(context)
-                .load(attendee.getImage())
-                .apply(requestOptions)
-                .into(headView);
-        /** 方法1：
-         * ColorMatrix类有一个内置的方法可用于改变饱和度。
-         * 传入一个大于1的数字将增加饱和度，而传入一个0～1之间的数字会减少饱和度。0值将产生一幅灰度图像。
-         */
-        if(position==3){
-            ColorMatrix matrix = new ColorMatrix();
-            matrix.setSaturation(0);
-            ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-            headView.setColorFilter(filter);
+        //不限
+        if(signStatus==0){
+            holder.attendee_tv.setText(attendee.getName());
+            ImageView headView=holder.head_rv;
+            //设置glide加载的选项
+            RequestOptions requestOptions=new RequestOptions()
+                    .placeholder(R.drawable.user_default_head)
+                    .error(R.drawable.user_default_head);
+            Glide
+                    .with(context)
+                    .load(attendee.getImage())
+                    .apply(requestOptions)
+                    .into(headView);
+            //没有签到的人的头像换成灰色
+            if(attendee.isSign()==false){
+                /** 方法1：
+                 * ColorMatrix类有一个内置的方法可用于改变饱和度。
+                 * 传入一个大于1的数字将增加饱和度，而传入一个0～1之间的数字会减少饱和度。0值将产生一幅灰度图像。
+                 */
+                ColorMatrix matrix = new ColorMatrix();
+                matrix.setSaturation(0);
+                ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
+                headView.setColorFilter(filter);
+            }
+        }
+        else if(signStatus==1&&attendee.isSign()==true){
+            holder.attendee_tv.setText(attendee.getName());
+            ImageView headView=holder.head_rv;
+            //设置glide加载的选项
+            RequestOptions requestOptions=new RequestOptions()
+                    .placeholder(R.drawable.user_default_head)
+                    .error(R.drawable.user_default_head);
+            Glide
+                    .with(context)
+                    .load(attendee.getImage())
+                    .apply(requestOptions)
+                    .into(headView);
+            //未签到
+        }else if(signStatus==2&&(attendee.isSign()==false)){
+            holder.attendee_tv.setText(attendee.getName());
+            ImageView headView=holder.head_rv;
+            //设置glide加载的选项
+            RequestOptions requestOptions=new RequestOptions()
+                    .placeholder(R.drawable.user_default_head)
+                    .error(R.drawable.user_default_head);
+            Glide
+                    .with(context)
+                    .load(attendee.getImage())
+                    .apply(requestOptions)
+                    .into(headView);
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return this.count;
     }
     public class SignInPeopleHolder extends RecyclerView.ViewHolder{
         public RoundedImageView head_rv;
