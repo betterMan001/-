@@ -14,6 +14,7 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.DeviceType;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Hui_Device;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.HuiyiInformation;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass;
+import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Schedule_Activity_four;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;
 import com.netease.nim.uikit.common.framework.infra.TaskObservable;
 
@@ -50,6 +51,7 @@ public class DeviceDaoImp implements deviceDao {
     HuiyiActivity huiyiActivity;
     HuiyiXiang_Activity huiyiXiang_activity;
     ZhanshiHuiActivity zhanshiHuiActivity;
+    Schedule_Activity_four schedule_activity_four;
 
     public DeviceDaoImp(ZhanshiHuiActivity zhanshiHuiActivity) {
         this.zhanshiHuiActivity = zhanshiHuiActivity;
@@ -57,6 +59,10 @@ public class DeviceDaoImp implements deviceDao {
 
     public DeviceDaoImp(HuiyiActivity huiyiActivity) {
         this.huiyiActivity = huiyiActivity;
+    }
+
+    public DeviceDaoImp(Schedule_Activity_four schedule_activity_four) {
+        this.schedule_activity_four = schedule_activity_four;
     }
 
     public DeviceDaoImp(InvitationPeoActivity invitationPeoActivity) {
@@ -87,11 +93,22 @@ public class DeviceDaoImp implements deviceDao {
                 Toast.makeText(huiyiActivity, "帮你找到了以下会议室", Toast.LENGTH_SHORT).show();
                 huiyiActivity.success(list_meet);
             } else if (msg.what == 6) {
-                Toast.makeText(huiyiActivity, "该地址没有找到会议室", Toast.LENGTH_SHORT).show();
+                if (sa == 10) {
+                    Toast.makeText(schedule_activity_four, "该地址没有找到会议室", Toast.LENGTH_SHORT).show();
+                } else {
+
+
+                    Toast.makeText(huiyiActivity, "该地址没有找到会议室", Toast.LENGTH_SHORT).show();
+                }
             } else if (msg.what == 7) {
                 huiyiXiang_activity.get_success(list_huidevice);
             } else if (msg.what == 8) {
                 zhanshiHuiActivity.success_back(list_meet);
+            } else if (msg.what == 9) {
+                if (sa == 10) {
+                    Toast.makeText(schedule_activity_four, "帮你找到了以下会议室", Toast.LENGTH_SHORT).show();
+                    schedule_activity_four.success(list_meet);
+                }
             }
         }
     };
@@ -164,6 +181,8 @@ public class DeviceDaoImp implements deviceDao {
         });
     }
 
+    int sa;
+
     @Override
     public void getAllType() {
         url = Net.getAllType;
@@ -199,6 +218,7 @@ public class DeviceDaoImp implements deviceDao {
 
     @Override
     public void subbmitHuiyi(final int whooer) {
+        sa = whooer;
         if (ShijiandianClass.START_TIME != null) {
             url = Net.subbmit_meetroom + "?address=" + ShijiandianClass.HUIYI_WHERE + "&number=" + ShijiandianClass.PEOPLE_NUMBER
                     + "&dateString=" + "" + "&beginTime=" + ShijiandianClass.START_TIME + "&endTime=" + ShijiandianClass.END_TIME + "&device=" + ShijiandianClass.SHEBEI + "&duration=" + ShijiandianClass.HUIYISHICHANG_TIME +
@@ -238,6 +258,9 @@ public class DeviceDaoImp implements deviceDao {
                         }
                         if (whooer == 2) {
                             handler.sendEmptyMessage(8);
+                        }
+                        if (whooer == 10) {
+                            handler.sendEmptyMessage(9);
                         }
                     } else {
 

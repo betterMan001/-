@@ -1,0 +1,560 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    tools:context=".scheduleHuiHome_one.fragment.Dian_fragemnt">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/four_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/title_bar_color"
+        tl:layout_scrollFlags="scroll|enterAlways"
+        tl:navigationIcon="@drawable/backtwo"
+        tl:titleTextColor="@color/white">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="预定会议室"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/four_faqiyuding_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="right"
+            android:text="发起预定"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+
+    </android.support.v7.widget.Toolbar>
+
+    <com.ly.a316.ly_meetingroommanagement.meetting.widgets.OverScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="@dimen/text_size_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/four_title_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="时间"
+                android:textColor="#D4060608"
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/four_ly_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:id="@+id/four_lt_click_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/four_text_intime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:hint="输入时间点"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/four_img_xiala_one"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/youbian"
+                        android:foregroundGravity="center" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/s"></View>
+
+                <LinearLayout
+                    android:id="@+id/four_ly_choose_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <DatePicker
+                        android:id="@+id/four_date_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:calendarViewShown="false"
+                        android:datePickerMode="spinner"
+                        android:paddingTop="-100dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"></DatePicker>
+
+                    <TimePicker
+                        android:id="@+id/four_time_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-50dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:timePickerMode="spinner"></TimePicker>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/four_btn_cancel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="取消" />
+
+                        <Button
+                            android:id="@+id/four_btn_surer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="确定" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/four_huiyishichang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/four_edit_shichang"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="@dimen/dp_10"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="输入会议时长"
+                        android:inputType="number"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:textSize="18dp"
+                        android:theme="@style/MyEditText" />
+
+                    <com.ly.a316.ly_meetingroommanagement.scheduleHuiHome_one.customview.right_view
+                        android:id="@+id/four_panduan_donghua"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="-20dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/s"></View>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/four_text_huiyishi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="会议室"
+
+                android:textColor="#D4060608"
+                android:textSize="@dimen/sp_12"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/four_ly_where_hui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/four_text_huidi"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:hint="添加会议室地点"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/four_img_xiala_two"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/youbian"
+                        android:foregroundGravity="center" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/s"></View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/four_ly_huitype"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/four_text_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:hint="添加会议室类型"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/four_img_xiala_three"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/youbian"
+                        android:foregroundGravity="center" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/s"></View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/four_ly_wriren"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/four_edit_renshu"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="输入参会人数"
+                        android:inputType="number"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:textSize="18dp"
+                        android:theme="@style/MyEditText" />
+
+                    <com.ly.a316.ly_meetingroommanagement.scheduleHuiHome_one.customview.right_view
+                        android:id="@+id/four_ren_pan_ani"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="-20dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/s"></View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/four_ly_device"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="设备"
+                    android:textColor="#D4060608"
+                    android:textSize="@dimen/sp_12" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/four_txt_shebei"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:hint="添加设备要求"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/four_img_xiala_five"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/youbian"
+                        android:foregroundGravity="center" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/s"></View>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/four_ly_shijianduan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:text="时间"
+                    android:textColor="#D4060608"
+                    android:textSize="@dimen/sp_12" />
+
+                <LinearLayout
+                    android:id="@+id/four_ly_duan_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/four_start_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:hint="开始时间"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/four_image_start_time"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/youbian"
+                        android:foregroundGravity="center" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/s"></View>
+
+                <LinearLayout
+                    android:id="@+id/four_ly_choose_duan_start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <DatePicker
+                        android:id="@+id/four_date_start_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:calendarViewShown="false"
+                        android:datePickerMode="spinner"
+                        android:paddingTop="-100dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"></DatePicker>
+
+                    <TimePicker
+                        android:id="@+id/four_time_start_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-50dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:timePickerMode="spinner"></TimePicker>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/four_btn_start_cancel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="取消" />
+
+                        <Button
+                            android:id="@+id/four_btn_start_surer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="确定" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/four_ly_duan_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/four_end_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:hint="结束时间"
+                        android:paddingBottom="@dimen/dp_10"
+                        android:textSize="18sp" />
+
+                    <ImageView
+                        android:id="@+id/four_image_end_time"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_gravity="center"
+                        android:background="@drawable/youbian"
+                        android:foregroundGravity="center" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/s"></View>
+
+                <LinearLayout
+                    android:id="@+id/four_ly_choose_duan_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <DatePicker
+                        android:id="@+id/four_date_end_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:calendarViewShown="false"
+                        android:datePickerMode="spinner"
+                        android:paddingTop="-100dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"></DatePicker>
+
+                    <TimePicker
+                        android:id="@+id/four_time_end_picker"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="-50dp"
+                        android:scaleX="0.8"
+                        android:scaleY="0.8"
+                        android:timePickerMode="spinner"></TimePicker>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/four_btn_end_cancel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="取消" />
+
+                        <Button
+                            android:id="@+id/four_btn_end_surer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="确定" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </com.ly.a316.ly_meetingroommanagement.meetting.widgets.OverScrollView>
+</LinearLayout>

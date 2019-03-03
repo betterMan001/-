@@ -80,4 +80,10 @@
         <item name="colorControlNormal">@color/gray</item>
         <item name="colorControlActivated">@color/help_color</item>
     </style>
+
+
+    <style name="PopupAnimation" parent="android:Animation" mce_bogus="1">
+        <item name="android:windowExitAnimation">@anim/gride_in</item>
+
+    </style>
 </resources>

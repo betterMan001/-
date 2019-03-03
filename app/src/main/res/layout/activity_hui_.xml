@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".scheduleHuiHome_one.activity.Hui_Activity">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/hui_two_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/title_bar_color"
+        tl:layout_scrollFlags="scroll|enterAlways"
+        tl:navigationIcon="@drawable/backtwo"
+        tl:titleTextColor="@color/white">
+
+        <TextView
+            android:fontFamily="@font/yuan"
+            android:id="@+id/hui_two_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="预定会议室"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/hui_two_fabtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="right"
+            android:text="发起预定"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="normal"
+            android:layout_marginRight="@dimen/dp_10"
+            />
+    </android.support.v7.widget.Toolbar>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/hui_two_vp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v4.view.ViewPager>
+</LinearLayout>

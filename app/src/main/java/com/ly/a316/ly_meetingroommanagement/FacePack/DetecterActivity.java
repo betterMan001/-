@@ -143,10 +143,11 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                         .readTimeout(4, TimeUnit.MINUTES)
                         .build();
                 FormBody formBody = new FormBody.Builder()
-                        .add("access_token", "76386d42043879a90d4cc321dac29c1e18618149")
+                        .add("access_token", "5fa6e0cd9e2a435305bf22273a4394a3448b14c8")
                         .add("id", "D8332")
                         .add("c", "play")
                         .add("sign", "room")
+
                         .build();
                 Request request = new Request.Builder()
                         .url(path)
@@ -163,8 +164,9 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Log.i("zjc","成功");
+                        String sa = response.body().string();
 
+                        Log.i("zjc","控制小灯成功");
                     }
                 });
             }

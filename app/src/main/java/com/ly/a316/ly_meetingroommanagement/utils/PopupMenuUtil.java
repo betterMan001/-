@@ -15,9 +15,11 @@ import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.chooseOffice.activity.HuiyiActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingListActivity;
-import com.ly.a316.ly_meetingroommanagement.chooseOffice.WriteconditionActivity;
+import com.ly.a316.ly_meetingroommanagement.scheduleHuiHome_one.activity.Hui_Activity;
+import com.ly.a316.ly_meetingroommanagement.scheduleHuiHome_two.Activity.Schedule_Activity;
+import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Schedule_Activity_four;
+import com.ly.a316.ly_meetingroommanagement.schedule_room_three.activity.Schedule_Activity_three;
 
 public class PopupMenuUtil {
     public static PopupMenuUtil getInstance() {
@@ -144,7 +146,10 @@ public class PopupMenuUtil {
                 break;
             //预订会议
             case 1:
-                intent = new Intent(context, HuiyiActivity.class);
+               /* intent = new Intent(context,Hui_Activity.class);第一种*/
+               /* intent = new Intent(context, Schedule_Activity.class);第二种*/
+               /* intent = new Intent(context, Schedule_Activity_three.class);*/
+                intent = new Intent(context, Schedule_Activity_four.class);
                 break;
             //查看会议列表
             case 3:

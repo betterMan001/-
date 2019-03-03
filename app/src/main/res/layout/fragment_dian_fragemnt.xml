@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".scheduleHuiHome_one.fragment.Dian_fragemnt">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="@dimen/text_size_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间"
+            android:textColor="#D4060608"
+            android:textSize="@dimen/sp_12" />
+
+        <LinearLayout
+            android:id="@+id/click_shijiandian"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:hint="输入时间点"
+                android:paddingBottom="@dimen/dp_10"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/xiala_one"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:background="@drawable/youbian"
+                android:foregroundGravity="center" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/s"></View>
+
+        <LinearLayout
+            android:id="@+id/dian_shijianxuanze"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <DatePicker
+                android:id="@+id/shijiandian_date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:paddingTop="-100dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"></DatePicker>
+
+            <TimePicker
+                android:id="@+id/shijiandian_time_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="-50dp"
+                android:scaleX="0.8"
+                android:scaleY="0.8"
+                android:timePickerMode="spinner"></TimePicker>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/shijian_cancel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="取消" />
+
+                <Button
+                    android:id="@+id/shijian_surer"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="确定" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:inputType="number"
+                android:id="@+id/shijiandian_shichang"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="@dimen/dp_10"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="输入会议时长"
+                android:paddingBottom="@dimen/dp_10"
+                android:textSize="18dp"
+                android:theme="@style/MyEditText" />
+            <com.ly.a316.ly_meetingroommanagement.scheduleHuiHome_one.customview.right_view
+                android:layout_gravity="center"
+                android:id="@+id/rerererer"
+                android:layout_marginRight="-20dp"
+                android:layout_width="100dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/s"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+
+            android:text="会议室"
+            android:textColor="#D4060608"
+            android:textSize="@dimen/sp_12" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:hint="添加会议室地点"
+                android:paddingBottom="@dimen/dp_10"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/xiala_two"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:background="@drawable/youbian"
+                android:foregroundGravity="center" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/s"></View>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:hint="添加会议室类型"
+                android:paddingBottom="@dimen/dp_10"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/xiala_three"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:background="@drawable/youbian"
+                android:foregroundGravity="center" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/s"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/can_renshu"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="输入参会人数"
+                android:paddingBottom="@dimen/dp_10"
+                android:textSize="18dp"
+                android:inputType="number"
+                android:theme="@style/MyEditText" />
+            <com.ly.a316.ly_meetingroommanagement.scheduleHuiHome_one.customview.right_view
+                android:layout_gravity="center"
+                android:id="@+id/ren_rererererr"
+                android:layout_marginRight="-20dp"
+                android:layout_width="100dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/s"></View>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="设备"
+            android:textColor="#D4060608"
+            android:textSize="@dimen/sp_12" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:hint="添加设备要求"
+                android:paddingBottom="@dimen/dp_10"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/xiala_five"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_gravity="center"
+                android:background="@drawable/youbian"
+                android:foregroundGravity="center" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/s"></View>
+
+
+    </LinearLayout>
+
+</LinearLayout>
