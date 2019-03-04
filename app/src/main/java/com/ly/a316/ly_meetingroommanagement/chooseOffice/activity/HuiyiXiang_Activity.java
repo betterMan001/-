@@ -1,6 +1,5 @@
 package com.ly.a316.ly_meetingroommanagement.chooseOffice.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -97,7 +96,7 @@ public class HuiyiXiang_Activity extends AppCompatActivity {
     }
 
     void sure_go(){
-       OrderDetailMeetingActivity.start(this,ShijiandianClass.DATESTRING,ShijiandianClass.END_DIAN_TIME,Integer.valueOf(ShijiandianClass.PEOPLE_NUMBER),ShijiandianClass.HUIYI_WHERE,huiyiInformation.getmRoomId());
+       OrderDetailMeetingActivity.start(this,ShijiandianClass.DATESTRING,ShijiandianClass.END_DIAN_TIME,0,ShijiandianClass.HUIYI_WHERE,huiyiInformation.getmRoomId());
     }
     public void get_success(List<Hui_Device>  list_huidevicee) {
         huiyiType.setText("会议室类型：" + ShijiandianClass.HUIYI_Leixing);
