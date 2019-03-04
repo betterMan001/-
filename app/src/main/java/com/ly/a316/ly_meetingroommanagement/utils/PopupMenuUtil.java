@@ -4,9 +4,13 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -16,12 +20,25 @@ import android.widget.Toast;
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingListActivity;
-import com.ly.a316.ly_meetingroommanagement.scheduleHuiHome_one.activity.Hui_Activity;
-import com.ly.a316.ly_meetingroommanagement.scheduleHuiHome_two.Activity.Schedule_Activity;
+import com.ly.a316.ly_meetingroommanagement.popPage.Adapter.MyAdapter;
+import com.ly.a316.ly_meetingroommanagement.popPage.DaoImp.GetTodayHuiDaoImp;
+import com.ly.a316.ly_meetingroommanagement.popPage.object.HuiyiClass;
 import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Schedule_Activity_four;
-import com.ly.a316.ly_meetingroommanagement.schedule_room_three.activity.Schedule_Activity_three;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class PopupMenuUtil {
+
+
     public static PopupMenuUtil getInstance() {
         return MenuUtilHolder.INSTANCE;
     }
@@ -34,10 +51,14 @@ public class PopupMenuUtil {
     private PopupWindow popupWindow;
     private RelativeLayout rlClick;
     private ImageView ivBtn;
-    private LinearLayout pop_reserve, pop_notice, pop_liebiao,pop_openDoor;
+    private LinearLayout pop_reserve, pop_notice, pop_liebiao, pop_openDoor,item_pop_ly;
+    private RecyclerView pop_recycle;
     float animatorProperty[] = null;
     int top = 0;
     int bottom = 0;
+    MyAdapter myAdapter;
+    List<HuiyiClass> list_huiyi = new ArrayList<>();
+    GetTodayHuiDaoImp getTodayHuiDaoImp = new GetTodayHuiDaoImp(this);
 
     private void _createView(final Context context) {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -59,10 +80,22 @@ public class PopupMenuUtil {
             animatorProperty = new float[]{bottom, 60, -30, -20 - 10, 0};
         }
 
+
+        myAdapter = new MyAdapter(context, list_huiyi);
         initLayout(context);
+
+        if(list_huiyi.size()==0){
+           /* item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijing);*/
+            getTodayHuiDaoImp.getTodayHui("18248612936");
+        }else{
+            item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijingtwo);
+        }
+
     }
 
     private void initLayout(Context context) {
+        pop_recycle = (RecyclerView) rootVew.findViewById(R.id.pop_recycle);
+        item_pop_ly = (LinearLayout)rootVew.findViewById(R.id.item_pop_ly) ;
         rlClick = (RelativeLayout) rootVew.findViewById(R.id.pop_rl_click);
         ivBtn = (ImageView) rootVew.findViewById(R.id.pop_iv_img);//那个十字架
         pop_reserve = (LinearLayout) rootVew.findViewById(R.id.pop_reserve);
@@ -70,12 +103,19 @@ public class PopupMenuUtil {
         pop_liebiao = (LinearLayout) rootVew.findViewById(R.id.pop_liebiao);
         pop_openDoor = rootVew.findViewById(R.id.pop_openDoor);
 
-        rlClick.setOnClickListener(new MViewClick(0, context));
+        int resId = R.anim.layout_animation_fall_down;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context, resId);
+        pop_recycle.setLayoutAnimation(animation);
 
+        LinearLayoutManager ms = new LinearLayoutManager(context);
+        pop_recycle.setLayoutManager(ms);
+        pop_recycle.setAdapter(myAdapter);
+
+        rlClick.setOnClickListener(new MViewClick(0, context));
         pop_reserve.setOnClickListener(new MViewClick(1, context));
         pop_notice.setOnClickListener(new MViewClick(2, context));
         pop_liebiao.setOnClickListener(new MViewClick(3, context));
-        pop_openDoor.setOnClickListener(new MViewClick(4,context));
+        pop_openDoor.setOnClickListener(new MViewClick(4, context));
     }
 
     private class MViewClick implements View.OnClickListener {
@@ -94,7 +134,7 @@ public class PopupMenuUtil {
                 //加号按钮点击之后的执行
                 _rlClickAction();
             } else {
-                showToast(context,  index);
+                showToast(context, index);
             }
         }
     }
@@ -146,18 +186,19 @@ public class PopupMenuUtil {
                 break;
             //预订会议
             case 1:
-               /* intent = new Intent(context,Hui_Activity.class);第一种*/
-               /* intent = new Intent(context, Schedule_Activity.class);第二种*/
-               /* intent = new Intent(context, Schedule_Activity_three.class);*/
+                /* intent = new Intent(context,Hui_Activity.class);第一种*/
+                /* intent = new Intent(context, Schedule_Activity.class);第二种*/
+                /* intent = new Intent(context, Schedule_Activity_three.class);*/
                 intent = new Intent(context, Schedule_Activity_four.class);
                 break;
             //查看会议列表
             case 3:
-                intent=new Intent(context,MeetingListActivity.class);
+                intent = new Intent(context, MeetingListActivity.class);
         }
         context.startActivity(intent);
         rlClick.performClick();
     }
+
     public static int dip2px(Context context, float dipValue) {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dipValue * scale + 0.5f);
@@ -196,4 +237,11 @@ public class PopupMenuUtil {
         anim.start();
     }
 
+    public void success_back(List<HuiyiClass> list_fan) {
+        list_huiyi.clear();
+        list_huiyi.addAll(list_fan);
+        myAdapter.notifyDataSetChanged();
+        item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijingtwo);
+
+    }
 }

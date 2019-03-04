@@ -25,17 +25,25 @@ import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.LoadingDialog;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
 import com.ly.a316.ly_meetingroommanagement.endActivity.adaper.FilePickerShowAdapter;
 import com.ly.a316.ly_meetingroommanagement.endActivity.object.FileEntity;
 import com.ly.a316.ly_meetingroommanagement.endActivity.object.OnFileItemClickListener;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.OpenFile;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.PickerManager;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.TransDoucument;
+import com.ly.a316.ly_meetingroommanagement.meetting.adapter.MettingPeopleAdapter;
 
 import org.angmarch.views.NiceSpinner;
 import org.json.JSONException;
@@ -85,6 +93,17 @@ public class End_Activity extends AppCompatActivity {
     RecyclerView recyclerView;
     @BindView(R.id.relay_baoguo)
     RelativeLayout baoguo;
+    Button canel_device, sure_device;
+    DeviceDaoImp deviceDaoImp = new DeviceDaoImp(this);
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    View dialogView;
+    LinearLayout four_lt_click_time, baoxiu_ly;
+    ImageView baoxiu_img_device;
+    TextView baoxiu_txt_device;
+    RecyclerView baoxiu_recy_device;
+    MettingPeopleAdapter mettingPeopleAdapter;
+    List<Device> device_list = new ArrayList<>();//存放的设备
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +113,9 @@ public class End_Activity extends AppCompatActivity {
         ButterKnife.bind(this);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
+        init_Alert();
+        deviceDaoImp.getAllDevice_inEndActivity();
         recyclerView.setLayoutManager(manager);
-
         addScheduleToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -289,19 +309,154 @@ public class End_Activity extends AppCompatActivity {
                 }).show();
     }
 
-    public void device_baoxiu(View view) {
+
+    void init_Alert() {
         //设备报修
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-         AlertDialog dialog = builder.create();
-        View dialogView = View.inflate(this, R.layout.baoxiu, null);
+        builder = new AlertDialog.Builder(this);
+        dialog = builder.create();
+        dialogView = View.inflate(this, R.layout.baoxiu, null);
         //设置对话框布局
         dialog.setView(dialogView);
-        NiceSpinner niceSpinner = dialogView.findViewById(R.id.nice_spinner);
-        List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
-        niceSpinner.attachDataSource(dataset);
-
+        four_lt_click_time = dialogView.findViewById(R.id.four_lt_click_time);
+        baoxiu_img_device = dialogView.findViewById(R.id.baoxiu_img_device);
+        baoxiu_recy_device = dialogView.findViewById(R.id.baoxiu_recy_device);
+        canel_device = dialogView.findViewById(R.id.canel_device);
+        sure_device = dialogView.findViewById(R.id.sure_device);
+        baoxiu_ly = dialogView.findViewById(R.id.baoxiu_ly);
+        baoxiu_txt_device=dialogView.findViewById(R.id.baoxiu_txt_device);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
-        dialog.show();
+        mettingPeopleAdapter = new MettingPeopleAdapter(this, device_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        baoxiu_recy_device.setLayoutManager(linearLayoutManager);
+        baoxiu_recy_device.setAdapter(mettingPeopleAdapter);
+        mettingPeopleAdapter.setEditMode(1);
+
+        mettingPeopleAdapter.setOnItemClick(new MettingPeopleAdapter.OnItemClickk() {
+            @Override
+            public void onItemclick(MettingPeopleAdapter.MyViewHolder viewHolder, int position) {
+                String a = viewHolder.pan.getText().toString();
+                if (a.equals("1")) {
+                    chooseNum++;
+                    viewHolder.check_box.setImageResource(R.mipmap.ic_checked);
+                    viewHolder.pan.setText("0");
+                    device_list.get(position).setChoose("0");
+                } else if (a.equals("0")) {
+                    chooseNum--;
+                    viewHolder.check_box.setImageResource(R.mipmap.ic_uncheck);
+                    viewHolder.pan.setText("1");
+                    device_list.get(position).setChoose("1");
+                }
+            }
+        });
+        canel_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rotation(baoxiu_img_device, 3);
+                baoxiu_ly.setVisibility(View.VISIBLE);
+                Toast.makeText(End_Activity.this, chooseNum + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+        sure_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rotation(baoxiu_img_device, 2);
+                baoxiu_ly.setVisibility(View.GONE);
+                String nei = "";
+                int a = 1;
+                for (int i = 0; i < device_list.size(); i++) {
+                    if (device_list.get(i).getChoose().equals("0")) {
+                        if (a == 1) {
+                            nei = device_list.get(i).getdName();
+                        } else {
+                            nei += "," + device_list.get(i).getdName();
+                        }
+                        a = 0;
+                    }
+                }
+                baoxiu_txt_device.setText(nei);
+            }
+        });
 
     }
+
+
+        /*NiceSpinner niceSpinner = dialogView.findViewById(R.id.nice_spinner);
+        List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
+        niceSpinner.attachDataSource(dataset);*/
+
+    int chooseNum = 0;
+
+    public void device_baoxiu(View view) {
+        dialog.show();
+        four_lt_click_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rotation(baoxiu_img_device, 1);
+            }
+        });
+
+    }
+
+    boolean open_close = true;//true为关闭状态
+
+    void rotation(View ima_view, final int who) {
+        Animation rotate;
+        if (open_close) {
+            rotate = new RotateAnimation(0f, 90f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            open_close = false;
+        } else {
+            open_close = true;
+            rotate = new RotateAnimation(90f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        }
+        LinearInterpolator lin = new LinearInterpolator();//为匀速
+        rotate.setInterpolator(lin);//设置插值器
+        rotate.setDuration(100);//设置动画持续周期
+        rotate.setRepeatCount(0);//重复次数
+        rotate.setFillAfter(true);//动画执行完后是否停留在执行完的状态
+        ima_view.setAnimation(rotate);
+        ima_view.startAnimation(rotate);
+        rotate.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (who == 1) {
+                    if (!open_close) {
+                        baoxiu_ly.setVisibility(View.VISIBLE);
+                    } else {
+                        baoxiu_ly.setVisibility(View.GONE);
+                    }
+                } else if (who == 3) {
+                    if (!open_close) {
+                        baoxiu_ly.setVisibility(View.VISIBLE);
+                    } else {
+                        baoxiu_ly.setVisibility(View.GONE);
+                    }
+                } else if (who == 2) {
+                    if (!open_close) {
+                        baoxiu_ly.setVisibility(View.VISIBLE);
+
+                    } else {
+                        baoxiu_ly.setVisibility(View.GONE);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
+
+    public void call_success_back(List<Device> list) {
+        device_list.clear();
+        device_list.addAll(list);
+        mettingPeopleAdapter.notifyDataSetChanged();
+    }
+
 }

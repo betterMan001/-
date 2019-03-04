@@ -15,6 +15,7 @@ import android.support.multidex.MultiDex;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.ly.a316.ly_meetingroommanagement.FacePack.FaceDB;
 import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
@@ -73,6 +74,7 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         editor = pref.edit();
         Realm.init(this);
+        Fresco.initialize(this);
         RealmConfiguration configuration = new RealmConfiguration.Builder().build();
         Realm.setDefaultConfiguration(configuration);
         DemoCache.setContext(this);
