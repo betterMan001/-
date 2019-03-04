@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+
+    >
+    <com.ly.a316.ly_meetingroommanagement.schedule_room_three.customview.ChannelView
+        android:id="@+id/channelView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:channelColumn="4"
+        app:channelHeight="40dp"
+        app:channelHorizontalSpacing="10dp"
+        app:channelPadding="10dp"
+        app:channelVerticalSpacing="5dp"
+
+        />
+
+    <LinearLayout
+        android:layout_margin="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/two_sure"
+            android:background="@drawable/btn_circlr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="确定" />
+
+        <Button
+            android:id="@+id/two_quxiao"
+            android:background="@drawable/btn_circlr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消" />
+    </LinearLayout>
+</LinearLayout>

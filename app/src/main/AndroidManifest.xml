@@ -60,12 +60,11 @@
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
-        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
-            android:name=".endActivity.util.MyProvider"
+            android:name="com.ly.a316.ly_meetingroommanagement.endActivity.util.MyProvider"
             android:authorities="com.ly.a316.ly_meetingroommanagement.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -73,7 +72,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="5353c039233226f33cac4cece3ca7887" />
@@ -224,7 +222,21 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".meetingList.activities.MeetingListActivity" />
+        <activity
+            android:name=".meetingList.activities.MeetingListActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+            <!-- enable the search dialog to send searches to SearchableActivity -->
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".activites.SearchActivity" />
+        </activity>
         <activity
             android:name=".meetingList.activities.SearchActivity"
             android:launchMode="singleTop" />
@@ -234,14 +246,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".endActivity.activity.End_Activity" />
+        <activity android:name=".endActivity.activity.End_Activity"></activity>
         <activity
             android:name=".nim.activity.AddFriendActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name=".endActivity.activity.FilePickerActivity" />
+        <activity android:name=".endActivity.activity.FilePickerActivity"></activity>
         <activity
             android:name=".nim.activity.UserProfileActivity"
             android:configChanges="orientation"
@@ -348,6 +360,12 @@
                 android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".MessageList.activites.MessageListActivity"></activity>
+        <activity android:name=".meetingList.activities.MeetingDetailActivity" />
+        <activity android:name=".remind_huiyi_end.activity.Ceshi" />
+        <activity android:name=".scheduleHuiHome_one.activity.Hui_Activity" />
+        <activity android:name=".scheduleHuiHome_two.Activity.Schedule_Activity" />
+        <activity android:name=".schedule_room_three.activity.Schedule_Activity_three" />
+        <activity android:name=".schedule_room_four.activity.Schedule_Activity_four"></activity>
     </application>
 
 </manifest>

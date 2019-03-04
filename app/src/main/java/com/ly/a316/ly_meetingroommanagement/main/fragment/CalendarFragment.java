@@ -47,6 +47,7 @@ import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
 import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
+import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.activity.Ceshi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -369,10 +370,18 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_schedule:
-                //测试插入会议日程
-                // ceshi_huiyi();
+              /*
+                    测试插入会议日程
+                 ceshi_huiyi();*/
+
+
+                  //  测试结束会议
                 Intent intentttt = new Intent(getContext(), End_Activity.class);
                 startActivity(intentttt);
+
+               //测试服务
+               /*  Intent intentet = new Intent(getContext(), Ceshi.class);
+                startActivity(intentet);*/
 
                 break;
             case R.id.fl_addday:

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".schedule_room_four.activity.Schedule_Activity_four">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:text="已选条件"
+        android:textColor="#D4060608"
+        android:textSize="@dimen/sp_12" />
+
+    <com.ly.a316.ly_meetingroommanagement.schedule_room_four.customview.MyDragGrideLayout
+        android:id="@+id/gridLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4">
+
+    </com.ly.a316.ly_meetingroommanagement.schedule_room_four.customview.MyDragGrideLayout>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:text="可选条件"
+        android:textColor="#D4060608"
+        android:textSize="@dimen/sp_12" />
+
+    <com.ly.a316.ly_meetingroommanagement.schedule_room_four.customview.MyDragGrideLayout
+        android:id="@+id/gridLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="4">
+
+    </com.ly.a316.ly_meetingroommanagement.schedule_room_four.customview.MyDragGrideLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sure_four"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_circlr"
+            android:text="确定" />
+
+        <Button
+            android:id="@+id/caneel_four"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/btn_circlr"
+            android:text="取消" />
+    </LinearLayout>
+</LinearLayout>

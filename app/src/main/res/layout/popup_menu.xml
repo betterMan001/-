@@ -2,13 +2,95 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F7FFFFFF"
+    android:background="@drawable/item_pop_beijing"
     android:gravity="bottom"
+    android:id="@+id/item_pop_ly"
     android:orientation="vertical">
+
+   <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="待办会议"
+        android:textSize="17sp" />
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <TextView
+
+            android:layout_marginLeft="10dp"
+
+            android:id="@+id/item_txt_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="03"
+            android:textSize="45sp"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="17dp"
+            android:id="@+id/item_txt_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="周日"
+            android:layout_toRightOf="@+id/item_txt_day"
+            />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:id="@+id/item_txt_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:text="03/20/9"
+            android:layout_below="@+id/item_txt_week"
+            android:layout_toRightOf="@+id/item_txt_day"
+            />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="浙江"
+            android:textSize="10sp"
+            />
+        <TextView
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下雨25℃"
+            android:textSize="10sp"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/s"
+        ></View>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/pop_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></View>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="-150dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -22,8 +104,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="50dip"
-                android:layout_height="50dip"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
                 android:src="@drawable/reserve" />
 
             <TextView
@@ -46,8 +128,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="50dip"
-                android:layout_height="50dip"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
                 android:src="@drawable/notice" />
 
             <TextView
@@ -71,8 +153,8 @@
 
 
             <ImageView
-                android:layout_width="50dip"
-                android:layout_height="50dip"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
                 android:src="@drawable/liebiao" />
 
             <TextView
@@ -96,9 +178,10 @@
 
 
             <ImageView
-                android:layout_width="50dip"
-                android:layout_height="50dip"
+                android:layout_width="30dip"
+                android:layout_height="30dip"
                 android:src="@drawable/oppendoor" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

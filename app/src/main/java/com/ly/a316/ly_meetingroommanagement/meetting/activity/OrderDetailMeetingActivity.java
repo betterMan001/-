@@ -1,9 +1,14 @@
 package com.ly.a316.ly_meetingroommanagement.meetting.activity;
 
+import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -13,6 +18,7 @@ import com.bigkoo.pickerview.TimePickerView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.meetting.models.LevelOne;
 import com.ly.a316.ly_meetingroommanagement.meetting.services.imp.OrderDetailMeetingServiceImp;
@@ -22,6 +28,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -222,6 +229,65 @@ public class OrderDetailMeetingActivity extends BaseActivity {
         }
         new OrderDetailMeetingServiceImp((OrderDetailMeetingActivity.this)).bookMeetRoom(MyApplication.getId(),meetingRoomNO,beginTime.getText().toString(),endTimeTv.getText().toString(),meetingTheme.getText().toString(),meeting_content,attends,recordPeoples);
     }
+
+
+    @SuppressLint("MissingPermission")
+    void ceshi_huiyi(){
+        if (CalanderUtils.requestPermission(this)) {
+            String calId = "";
+            //这是一条查询语句
+            Cursor userCursor = getContentResolver().query(Uri.parse(CalanderUtils.calanderURL), null,
+                    null, null, null);
+            //Uri.parse(CalanderUtils.calanderURL)打印得结果：content://com.android.calendar/calendars
+            //CalendarContract.Calendars.CONTENT_URI[打印得结果： content://com.android.calendar/calendars
+            if (userCursor.getCount() > 0) {
+                userCursor.moveToFirst();
+                calId = userCursor.getString(userCursor.getColumnIndex("_id"));
+                //打印得结果calld = 1
+            }
+            ContentValues event = new ContentValues();
+            event.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
+            event.put("title", "开会啦");//插入标题
+            event.put("description", "备注");//备注
+            event.put("calendar_id", calId);//插入hoohbood@gmail.com这个账户
+            event.put("eventLocation", "这里填的是地点");//地点
+            java.util.Calendar mCalendar = java.util.Calendar.getInstance();
+
+            //起始时间
+            mCalendar.set(java.util.Calendar.YEAR, 2019);
+            mCalendar.set(java.util.Calendar.MONTH, 1);
+            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, 7);
+            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, 15);
+            mCalendar.set(java.util.Calendar.MINUTE, 00);
+            long start = mCalendar.getTime().getTime();
+            //结束时间
+            mCalendar.set(java.util.Calendar.YEAR, 2019 );
+            mCalendar.set(java.util.Calendar.MONTH, 1);
+            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, 7);
+            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, 16);
+            mCalendar.set(java.util.Calendar.MINUTE, 00);
+            long end = mCalendar.getTime().getTime();
+
+            event.put("dtstart", start);
+            event.put("dtend", end);
+            event.put("hasAlarm", 1);
+
+            Uri newEvent = getContentResolver().insert(Uri.parse(CalanderUtils.calanderEventURL), event);
+
+            long id = Long.parseLong(newEvent.getLastPathSegment());
+            ContentValues values = new ContentValues();
+            //插入时间的event_id
+            values.put("event_id", id);
+
+            getContentResolver().insert(Uri.parse(CalanderUtils.calanderRemiderURL), values);
+            //添加会议人
+            ContentValues valuess = new ContentValues();
+            valuess.put(CalendarContract.Attendees.EVENT_ID, id);
+            valuess.put("attendeeName", "张思");
+          getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI, valuess);
+        }
+    }
+
     private void showContentDialog() {
         ContentDialogActivity.start(OrderDetailMeetingActivity.this,"1");
 //        AlertDialog.Builder customizeDialog= new AlertDialog.Builder(OrderDetailMeetingActivity.this);

@@ -70,11 +70,11 @@ public class TimeDianFragment extends Fragment {
         shijiandian_view = LayoutInflater.from(getContext()).inflate(R.layout.shijiandian_item, null);
         ShijiandianClass.WHO = "1";
         Calendar cd = Calendar.getInstance();
-        year = cd.get(Calendar.YEAR);
-        month = cd.get(Calendar.MONTH) + 1;
-        day = cd.get(Calendar.DATE);
-        hour = cd.get(Calendar.HOUR_OF_DAY);
-        miniute = cd.get(Calendar.MINUTE);
+        year = cd.get(Calendar.YEAR); ShijiandianClass.start_year = year;
+        month = cd.get(Calendar.MONTH) + 1;ShijiandianClass.start_month = month;
+        day = cd.get(Calendar.DATE); ShijiandianClass.start_day = day;
+        hour = cd.get(Calendar.HOUR_OF_DAY); ShijiandianClass.start_hour = hour;
+        miniute = cd.get(Calendar.MINUTE); ShijiandianClass.start_miniute = miniute;
         unbinder = ButterKnife.bind(this, view);
         initview();
         return view;
@@ -147,16 +147,16 @@ public class TimeDianFragment extends Fragment {
             time_test.setOnChangeListener(new TimePicker.OnChangeListener() {
                 @Override
                 public void onChange(int hourr, int munite) {
-                    hour = hourr;
-                    miniute = munite;
+                    hour = hourr;ShijiandianClass.start_hour = hour;
+                    miniute = munite;ShijiandianClass.start_miniute = miniute;
                 }
             });
             ddm_test.setOnChangeListener(new DatePicker.OnChangeListener() {
                 @Override
                 public void onChange(int yearr, int monthh, int dayy, int day_of_weekk) {
-                    year = yearr;
-                    month = monthh;
-                    day = dayy;
+                    year = yearr;ShijiandianClass.start_year = year;
+                    month = monthh;ShijiandianClass.start_month = month;
+                    day = dayy;ShijiandianClass.start_day = day;
                 }
             });
 
@@ -217,11 +217,17 @@ public class TimeDianFragment extends Fragment {
                             } else {
                                 hour += 1;
                             }
+
+                            ShijiandianClass.end_hour = hour;
                             miniute = miniute + Integer.valueOf(shichangg) - 60;
+                            ShijiandianClass.end_miniute = miniute;
                         } else {
                             miniute += Integer.valueOf(shichangg);
+                            ShijiandianClass.end_miniute = miniute;
                         }
+
                         ShijiandianClass.END_DIAN_TIME = panduanShijina(year,month,day,hour,miniute);
+
                     }
                 }
                 if (who == 3) {

@@ -23,6 +23,7 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass
 import com.ly.a316.ly_meetingroommanagement.meetting.adapter.MettingPeopleAdapter;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Schedule_Activity_four;
 
 
 import java.io.Serializable;
@@ -297,7 +298,9 @@ public class InvitationPeoActivity extends BaseActivity {
         sure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //改跳转页面的时候在这改
                 Intent intent1 = new Intent(InvitationPeoActivity.this, TimeDianFragment.class);
+               // Intent intent1 = new Intent(InvitationPeoActivity.this, Schedule_Activity_four.class);
                 if (whoo.equals("1")) {
                     //设备
                     String dsadsa = "";

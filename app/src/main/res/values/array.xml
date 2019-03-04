@@ -15,4 +15,7 @@
         <item>stop</item>
 
     </string-array>
+
+        <item name="id_add_file" type="id"/>
+
 </resources>

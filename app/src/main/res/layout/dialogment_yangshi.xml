@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:layout_margin="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="已选条件"
+        android:textColor="#D4060608"
+        android:textSize="@dimen/sp_12" />
+    <GridView
+        android:id="@+id/griview_result"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/dp_10"
+        android:horizontalSpacing="@dimen/dp_10"
+        android:numColumns="3"
+        android:verticalSpacing="@dimen/dp_10"></GridView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_margin="@dimen/dp_10"
+        android:background="@color/s"></View>
+
+    <GridView
+        android:id="@+id/griview_choose"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp_10"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/dp_10"
+        android:numColumns="3"
+        android:verticalSpacing="@dimen/dp_10"></GridView>
+
+    <LinearLayout
+        android:layout_margin="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/three_sure"
+            android:background="@drawable/btn_circlr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="确定" />
+
+        <Button
+            android:id="@+id/three_quxiao"
+            android:background="@drawable/btn_circlr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="取消" />
+    </LinearLayout>
+</LinearLayout>

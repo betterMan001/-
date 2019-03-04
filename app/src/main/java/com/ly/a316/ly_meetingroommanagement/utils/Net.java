@@ -35,5 +35,6 @@ public class Net {
     public static String getOneHuiroom = url+"/meetRoom/roomDetail";//获取单个会议详情
     public static String transFile = url+"/User/uploadProfile";//上传文件
     public static String schedule_face = url+"/User/facerRgister";//上传人脸信息
+    public static String get_today_hui = url+"/Meeting/toDoMeeting";//得到当天没开的会议
 
 }
