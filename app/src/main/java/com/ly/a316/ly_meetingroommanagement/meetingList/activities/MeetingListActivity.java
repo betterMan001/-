@@ -47,7 +47,9 @@ public class MeetingListActivity extends AppCompatActivity {
     private String meetings[] = {"不限", "未开始", "正在进行中","已结束"};
     private View statusBarView;
     public static List<Meeting> meetingList;
+    public static List<Meeting> searchMeetingList;
     public LoadingDialog loadingDialog;
+    public static String mIdForSearch="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,26 @@ public class MeetingListActivity extends AppCompatActivity {
             }
         });
         makeData();
+    }
+   //在活动被唤醒的时候更新数据，显示搜索目标的活动
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+//        //1.修改指针数组
+//        int count=0;
+//        int length=meetingList.size();
+//        for(int i=0;i<length;i++){
+//            if(mIdForSearch.equals(meetingList.get(i).getmId())==true){
+//                MeetingListAdapter.truePositon[count++]=i;
+//                break;
+//            }
+//
+//        }
+//        //2.修改适配器的信息
+//        meetingListAdapter.setCount(count);
+//        //3.通知适配器刷新数据
+//        meetingListAdapter.notifyDataSetChanged();
     }
 
     private void initView() {
@@ -152,8 +174,8 @@ public class MeetingListActivity extends AppCompatActivity {
                 break;
             //搜索框
             case R.id.act_meeting_iv:
-                //启动search Dialog
-                onSearchRequested();
+                initSearch();
+
                 break;
             //进入下一层界面
             case R.id.meeting_list_rv:
@@ -161,11 +183,15 @@ public class MeetingListActivity extends AppCompatActivity {
         }
     }
 
-
-    private void initStatusBar() { if (statusBarView == null) {
+    private  void initSearch(){
+        SearchViewActivity.start(MeetingListActivity.this);
+    }
+    private void initStatusBar() {
+        if (statusBarView == null) {
         int identifier = getResources().getIdentifier("statusBarBackground", "id", "android");
         statusBarView = getWindow().findViewById(identifier); }
-        if (statusBarView != null) { statusBarView.setBackgroundResource(R.drawable.title_bar_color);
+        if (statusBarView != null) {
+            statusBarView.setBackgroundResource(R.drawable.title_bar_color);
     }
     }
         protected boolean isStatusBar() { return true; }

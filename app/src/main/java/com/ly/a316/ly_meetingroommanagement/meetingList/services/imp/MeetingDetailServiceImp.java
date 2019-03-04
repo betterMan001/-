@@ -2,7 +2,9 @@ package com.ly.a316.ly_meetingroommanagement.meetingList.services.imp;
 
 import android.util.Log;
 
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingDetailActivity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.activities.SearchViewActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.MeetingDetailModel;
 import com.ly.a316.ly_meetingroommanagement.meetingList.services.MeetingDetailService;
 import com.ly.a316.ly_meetingroommanagement.utils.MyHttpUtil;
@@ -28,9 +30,21 @@ auther:xwd
 */
 public class MeetingDetailServiceImp implements MeetingDetailService {
     MeetingDetailActivity activity;
+    SearchViewActivity searchActivity;
+    /*
+    *1.标志从内个活动访问的，好判断回调的方向
+    *2. type=1则是会议详情 type=2则是搜索活动
+    */
+    String type="";
     private static final String TAG = "MeetingDetail:";
-    public MeetingDetailServiceImp(MeetingDetailActivity activity) {
+    public MeetingDetailServiceImp(MeetingDetailActivity activity,String type) {
         this.activity = activity;
+        this.type=type;
+    }
+
+    public MeetingDetailServiceImp(SearchViewActivity searchActivity,String type) {
+        this.searchActivity = searchActivity;
+        this.type=type;
     }
 
     @Override
@@ -40,11 +54,20 @@ public class MeetingDetailServiceImp implements MeetingDetailService {
         MyHttpUtil.sendOkhttpGetRequest(URL, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                activity.runOnUiThread(new Runnable() {
+                 BaseActivity baseActivity=null;
+                //从会议详情调用
+                if("1".equals(type)){
+                    baseActivity=activity;
+
+                }else{
+                  baseActivity=searchActivity;
+                }
+                final BaseActivity temp=baseActivity;
+                baseActivity.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        activity.loadingDialog.dismiss();
-                        activity.subThreadToast(Net.FAIL);
+                        temp.loadingDialog.dismiss();
+                        temp.subThreadToast(Net.FAIL);
                     }
                 });
             }
@@ -58,11 +81,17 @@ public class MeetingDetailServiceImp implements MeetingDetailService {
                     JSONArray array=jsonObject.getJSONArray("list");
                     int length=array.length();
                     MeetingDetailModel model= MyJSONUtil.toObject(String.valueOf(array.get(0)),MeetingDetailModel.class);
-                    activity.meetingDetailCallBack(model);
+                    if("1".equals(type)){
+                        activity.meetingDetailCallBack(model);
+                    }
+                  else{
+                        searchActivity.meetingDetailCallBack(model);
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
     }
+
 }

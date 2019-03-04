@@ -27,12 +27,16 @@ auther:xwd
 public class SignInPeopleAdapter extends RecyclerView.Adapter {
     private Context context;
     List<Attendee> list;
-    public static int signStatus=0;
     public int count=0;
+    //用于筛选下拉框
+    public static int[] truePositon;
     public SignInPeopleAdapter(Context context, List<Attendee> list) {
         this.context = context;
         this.list = list;
         count=list.size();
+        truePositon=new int[count];
+        for(int i=0;i<count;i++)
+            truePositon[i]=i;
     }
     public void setCount(int count) {
         this.count = count;
@@ -47,9 +51,8 @@ public class SignInPeopleAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
      SignInPeopleHolder holder=(SignInPeopleHolder)viewHolder;
-        Attendee attendee=list.get(position);
+        Attendee attendee=list.get(truePositon[position]);
         //不限
-        if(signStatus==0){
             holder.attendee_tv.setText(attendee.getName());
             ImageView headView=holder.head_rv;
             //设置glide加载的选项
@@ -73,34 +76,6 @@ public class SignInPeopleAdapter extends RecyclerView.Adapter {
                 headView.setColorFilter(filter);
             }
         }
-        else if(signStatus==1&&attendee.isSign()==true){
-            holder.attendee_tv.setText(attendee.getName());
-            ImageView headView=holder.head_rv;
-            //设置glide加载的选项
-            RequestOptions requestOptions=new RequestOptions()
-                    .placeholder(R.drawable.user_default_head)
-                    .error(R.drawable.user_default_head);
-            Glide
-                    .with(context)
-                    .load(attendee.getImage())
-                    .apply(requestOptions)
-                    .into(headView);
-            //未签到
-        }else if(signStatus==2&&(attendee.isSign()==false)){
-            holder.attendee_tv.setText(attendee.getName());
-            ImageView headView=holder.head_rv;
-            //设置glide加载的选项
-            RequestOptions requestOptions=new RequestOptions()
-                    .placeholder(R.drawable.user_default_head)
-                    .error(R.drawable.user_default_head);
-            Glide
-                    .with(context)
-                    .load(attendee.getImage())
-                    .apply(requestOptions)
-                    .into(headView);
-        }
-
-    }
 
     @Override
     public int getItemCount() {

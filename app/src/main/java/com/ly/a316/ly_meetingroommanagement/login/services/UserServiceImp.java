@@ -51,7 +51,7 @@ public class UserServiceImp implements UserService {
             public void onResponse(Call call, Response response) throws IOException {
                 try {
                     Log.d(TAG,"登录获取服务器信息成功");
-                    JSONObject jsonObject=new JSONObject(response.body().string());
+                        JSONObject jsonObject=new JSONObject(response.body().string());
                     String result=jsonObject.getString("result");
                     UserInfoModel model=new UserInfoModel();
                     //如果map的json对象为空则直接输出结果

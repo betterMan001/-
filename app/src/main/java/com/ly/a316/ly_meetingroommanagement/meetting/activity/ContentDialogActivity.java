@@ -33,8 +33,9 @@ public class ContentDialogActivity extends AppCompatActivity {
         //关闭自带的标题
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.customize_dialog);
-
         ButterKnife.bind(this);
+        //获得对话框类型(1.预定会议详情的会议纪要2.会议详情界面的会议纪要)
+        type=getIntent().getStringExtra("type");
         initView();
     }
 

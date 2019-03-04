@@ -14,6 +14,7 @@ import com.ly.a316.ly_meetingroommanagement.meetting.activity.OrderDetailMeeting
 import com.ly.a316.ly_meetingroommanagement.meetting.models.LevelOne;
 import com.ly.a316.ly_meetingroommanagement.meetting.models.LevelZero;
 import com.ly.a316.ly_meetingroommanagement.meetting.services.imp.DeptServiceImp;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -33,6 +34,7 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
     List<MultiItemEntity> levelData;
     //用map保存对应部门数据是否被加载过
     Map isLoadDepartmentMap=new HashMap();
+    Map isSelectDepartmentMap=new HashMap();
     public MulitemAdapter(List<MultiItemEntity> data,InviteActivity activity) {
         super(data);
         levelData=data;
@@ -50,8 +52,53 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
                 final LevelZero lv0 = (LevelZero) item;
                 helper.setText(R.id.Lv0_tv, lv0.departmentName);
                 //这个才是列表项的真正位置
-
                 currentData=lv0;
+                //设置监听事件，点击选择列表下的所有员工
+                final RoundedImageView selectItem=helper.getView(R.id.choose_one_riv);
+                if(isSelectDepartmentMap.containsKey(lv0.departmentId)==false){
+                    selectItem.setImageResource(R.drawable.empty_circle001);
+                }else{
+                    selectItem.setImageResource(R.drawable.gou1);
+                }
+                selectItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final int poss=levelData.indexOf(lv0);
+                        Tpos = poss;
+                        if (lv0.isExpanded()) {
+                            if (isSelectDepartmentMap.containsKey(lv0.departmentId)==false){
+                                isSelectDepartmentMap.put(lv0.departmentId,lv0.departmentId);
+                                LevelZero temp=( LevelZero) levelData.get(Tpos);
+                                List<LevelOne>list=temp.getSubItems();
+                                for(LevelOne subitem:list){
+                                    final String eId=subitem.eId;
+                                    if(OrderDetailMeetingActivity.selectedEmployees.containsKey(eId)==false){
+                                        OrderDetailMeetingActivity.selectedEmployees.put(eId,subitem);
+                                    }
+                                }
+
+                                notifyDataSetChanged();
+                                selectItem.setImageResource(R.drawable.gou1);
+                            }else{
+                                LevelZero temp=( LevelZero) levelData.get(Tpos);
+                                List<LevelOne>list=temp.getSubItems();
+                                for(LevelOne subitem:list){
+                                    final String eId=subitem.eId;
+                                    if(OrderDetailMeetingActivity.selectedEmployees.containsKey(eId)==true){
+                                        OrderDetailMeetingActivity.selectedEmployees.remove(eId);
+                                    }
+                                }
+                                selectItem.setImageResource(R.drawable.empty_circle001);
+                                isSelectDepartmentMap.remove(lv0.departmentId);
+                                notifyDataSetChanged();
+                            }
+                        }
+                        else{
+                            activity.subThreadToast("请先展开该部门！");
+                        }
+
+                    }
+                });
                 //设置监听事件，点击收缩或者展开。
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
 

@@ -29,6 +29,7 @@ public class AttendeeAdapter extends RecyclerView.Adapter {
     private int count=50;
     List<Attendee> list;
     String mId;
+
     public AttendeeAdapter(Context context, List<Attendee> list, String mId) {
         this.context = context;
         this.list=list;
@@ -39,7 +40,8 @@ public class AttendeeAdapter extends RecyclerView.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.attendee_item,parent,false);
+
+            View view= LayoutInflater.from(context).inflate(R.layout.attendee_item,parent,false);
         return new AttendeeViewHolder(view);
     }
 

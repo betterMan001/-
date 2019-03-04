@@ -60,6 +60,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -223,21 +224,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name=".meetingList.activities.MeetingListActivity"
-            android:launchMode="singleTop">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.searchable"
-                android:resource="@xml/searchable" />
-            <!-- enable the search dialog to send searches to SearchableActivity -->
-            <meta-data
-                android:name="android.app.default_searchable"
-                android:value=".activites.SearchActivity" />
-        </activity>
+        <activity android:name=".meetingList.activities.MeetingListActivity" />
         <activity
             android:name=".meetingList.activities.SearchActivity"
             android:launchMode="singleTop" />
@@ -347,7 +334,20 @@
         <activity android:name=".meetingList.activities.AttendeeActivity" />
         <activity android:name=".meetingList.activities.NewInviteActivity" />
         <activity android:name=".meetingList.activities.MeetingDetailActivity" />
-        <activity android:name=".meetingList.activities.SignInActivity"></activity>
+        <activity android:name=".meetingList.activities.SignInActivity" />
+        <activity android:name=".meetingList.activities.SearchViewActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity android:name=".MessageList.activites.MessageListActivity"></activity>
     </application>
 
 </manifest>

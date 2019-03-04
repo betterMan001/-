@@ -15,11 +15,14 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.activites.DetailsMettingActivity;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.ListDropDownAdapter;
+import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.MeetingListAdapter;
 import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.SignInPeopleAdapter;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.Attendee;
 import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.SignInServiceImp;
+import com.ly.a316.ly_meetingroommanagement.meetting.activity.OrderDetailMeetingActivity;
 import com.yyydjk.library.DropDownMenu;
 
 import java.util.ArrayList;
@@ -68,8 +71,17 @@ public class SignInActivity extends BaseActivity {
     }
 
     public void makeData() {
+
+        //为了测试前台功能是否正常注释掉了这一行
         loadingDialog.show();
         new SignInServiceImp(this).signInCase(mId);
+        //测试用本地数据
+//        List<Attendee> list=MeetingDetailActivity.attendeeList;
+//        Attendee temp=new Attendee();
+//        temp.setName("已经签到的帅哥哥");
+//        temp.setSign(true);
+//        list.add(temp);
+//        initView();
     }
 
     private void initView() {
@@ -77,7 +89,7 @@ public class SignInActivity extends BaseActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(this, 5);
         signInRv.setLayoutManager(layoutManager);
         signInPeopleAdapter = new SignInPeopleAdapter(this, MeetingDetailActivity.attendeeList);
-        signInRv.setAdapter(new SignInPeopleAdapter(this, MeetingDetailActivity.attendeeList));
+        signInRv.setAdapter(signInPeopleAdapter);
         signInStatus.setText("签到情况"+stateResult+"人");
         initDropDownMenu();
     }
@@ -110,14 +122,24 @@ public class SignInActivity extends BaseActivity {
                 int count = 0;
                 //如果选择不限则显示所有
                 if ("不限".equals(meetings[position])) {
-                        SignInPeopleAdapter.signStatus = 0;
+                    for (int i = 0; i < length; i++) {
+                        SignInPeopleAdapter.truePositon[i] = i;
+                    }
                         signInPeopleAdapter.setCount(MeetingDetailActivity.attendeeList.size());
                 }else if ("已签到".equals(meetings[position])) {
-                    SignInPeopleAdapter.signStatus = 1;
+                    for (int i = 0; i < length; i++) {
+                        if (MeetingDetailActivity.attendeeList.get(i).isSign()==true) {
+                            SignInPeopleAdapter.truePositon[count++] = i;
+                        }
+                    }
                     signInPeopleAdapter.setCount(count);
                 } else {
-                    SignInPeopleAdapter.signStatus = 2;
-                    signInPeopleAdapter.setCount(MeetingDetailActivity.attendeeList.size()-count);
+                    for (int i = 0; i < length; i++) {
+                        if (MeetingDetailActivity.attendeeList.get(i).isSign()==false) {
+                            SignInPeopleAdapter.truePositon[count++] = i;
+                        }
+                    }
+                    signInPeopleAdapter.setCount(count);
                 }
                 //刷新RecycleView视图实现
                 signInPeopleAdapter.notifyDataSetChanged();

@@ -23,6 +23,8 @@ public class Net {
     public final static String ADD_ATTENDER="Meeting/addAttender";//添加参会人
     public final static String MEET_DETAIL="Meeting/meetDetail";//会议详情
     public final static String SIGN_INCASE="Meeting/signInCase";//签到情况
+    public final static String ADMIN_JPUSH="jpush/adminJpush";//管理员发送的通知
+    public final static String USER_JPUSH="jpush/userJpush";//用户发的通知
     //yzq
     public static String url = HEAD;
     public static String addSchedule = url + "/Schedule/addSchedule";//新建日程

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:id="@+id/accurate_search_ll"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        >
+        <com.makeramen.roundedimageview.RoundedImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:scaleType="fitCenter"
+            android:layout_margin="2dp"
+            android:id="@+id/head_rv"
+            android:src="@drawable/meeting_room_for_search001"
+            app:riv_border_color="@color/gray"
+            app:riv_border_width="1dp"
+            app:riv_corner_radius="5dp"
+            app:riv_mutate_background="true"
+            app:riv_oval="false"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:textSize="16sp"
+                android:id="@+id/accurate_meetiing_name"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:text="会议:搜索"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/accurate_meetiing_content"
+                android:textSize="14sp"
+                android:ellipsize="end"
+                android:lines="2"
+                android:text="会议内容：欢迎使用本系统的服务"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <View android:layout_marginTop="10dp" android:layout_height="1px" android:background="@color/gray" android:layout_width="fill_parent">
+    </View>
+</LinearLayout>

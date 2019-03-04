@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
+import com.ly.a316.ly_meetingroommanagement.MessageList.activites.MessageListActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.activity.HuiyiActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingListActivity;
@@ -149,6 +150,11 @@ public class PopupMenuUtil {
             //查看会议列表
             case 3:
                 intent=new Intent(context,MeetingListActivity.class);
+                break;
+                //通知列表
+            case 2:
+                intent=new Intent(context, MessageListActivity.class);
+                break;
         }
         context.startActivity(intent);
         rlClick.performClick();

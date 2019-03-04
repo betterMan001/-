@@ -21,6 +21,17 @@ public class Meeting {
     //会议参加人的比例
     private  String ratio;
     private String address;
+    //会议内容
+    public String content;
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     //会议Id
     private String mId;
 

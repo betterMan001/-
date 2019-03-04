@@ -57,7 +57,7 @@ public class MeetingDetailActivity extends BaseActivity {
 
     private void makeData() {
         loadingDialog.show();
-        new MeetingDetailServiceImp(this).meetDetail(mId);
+        new MeetingDetailServiceImp(this,"1").meetDetail(mId);
     }
 
     public static final void start(Context context, String mId) {
