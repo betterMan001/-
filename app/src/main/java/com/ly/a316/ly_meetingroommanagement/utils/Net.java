@@ -32,5 +32,9 @@ public class Net {
     public static String transFile = url+"/User/uploadProfile";//上传文件
     public static String schedule_face = url+"/User/facerRgister";//上传人脸信息
     public static String get_today_hui = url+"/Meeting/toDoMeeting";//得到当天没开的会议
+    public static String getdaiban_huiinformation = url+"/Meeting/meetDetail";//得到代办会议室的信息
+    public static String send_liuyan = url+"/commet/addCommet";//发送留言
+    public static String get_liuyan = url+"/commet/commentList";//发送留言
+
 
 }

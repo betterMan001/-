@@ -1,9 +1,12 @@
 package com.ly.a316.ly_meetingroommanagement.utils;
 
 import android.animation.ObjectAnimator;
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -22,6 +25,7 @@ import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingListActivity;
 import com.ly.a316.ly_meetingroommanagement.popPage.Adapter.MyAdapter;
 import com.ly.a316.ly_meetingroommanagement.popPage.DaoImp.GetTodayHuiDaoImp;
+import com.ly.a316.ly_meetingroommanagement.popPage.activity.Information_meet;
 import com.ly.a316.ly_meetingroommanagement.popPage.object.HuiyiClass;
 import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Schedule_Activity_four;
 
@@ -51,7 +55,7 @@ public class PopupMenuUtil {
     private PopupWindow popupWindow;
     private RelativeLayout rlClick;
     private ImageView ivBtn;
-    private LinearLayout pop_reserve, pop_notice, pop_liebiao, pop_openDoor,item_pop_ly;
+    private LinearLayout pop_reserve, pop_notice, pop_liebiao, pop_openDoor, item_pop_ly;
     private RecyclerView pop_recycle;
     float animatorProperty[] = null;
     int top = 0;
@@ -84,18 +88,16 @@ public class PopupMenuUtil {
         myAdapter = new MyAdapter(context, list_huiyi);
         initLayout(context);
 
-        if(list_huiyi.size()==0){
-           /* item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijing);*/
-            getTodayHuiDaoImp.getTodayHui("18248612936");
-        }else{
-            item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijingtwo);
-        }
+
+        /* item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijing);*/
+        getTodayHuiDaoImp.getTodayHui("18248612936");
+
 
     }
 
-    private void initLayout(Context context) {
+    private void initLayout(final Context context) {
         pop_recycle = (RecyclerView) rootVew.findViewById(R.id.pop_recycle);
-        item_pop_ly = (LinearLayout)rootVew.findViewById(R.id.item_pop_ly) ;
+        item_pop_ly = (LinearLayout) rootVew.findViewById(R.id.item_pop_ly);
         rlClick = (RelativeLayout) rootVew.findViewById(R.id.pop_rl_click);
         ivBtn = (ImageView) rootVew.findViewById(R.id.pop_iv_img);//那个十字架
         pop_reserve = (LinearLayout) rootVew.findViewById(R.id.pop_reserve);
@@ -116,6 +118,16 @@ public class PopupMenuUtil {
         pop_notice.setOnClickListener(new MViewClick(2, context));
         pop_liebiao.setOnClickListener(new MViewClick(3, context));
         pop_openDoor.setOnClickListener(new MViewClick(4, context));
+        myAdapter.setClick(new MyAdapter.Click() {
+            @Override
+            public void onCcick(String id) {
+                Intent intent = new Intent(context, Information_meet.class);
+                intent.putExtra("mId", id);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
+                }
+            }
+        });
     }
 
     private class MViewClick implements View.OnClickListener {
@@ -241,7 +253,10 @@ public class PopupMenuUtil {
         list_huiyi.clear();
         list_huiyi.addAll(list_fan);
         myAdapter.notifyDataSetChanged();
-        item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijingtwo);
-
+        if (list_huiyi.size() == 0) {
+            item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijing);
+        } else {
+            item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijingtwo);
+        }
     }
 }

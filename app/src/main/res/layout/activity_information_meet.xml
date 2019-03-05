@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FA"
+    android:orientation="vertical"
+    tools:context=".popPage.activity.Information_meet">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/information_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/title_bar_color"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:navigationIcon="@drawable/backtwo"
+        app:titleTextColor="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="会议详情"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+    </android.support.v7.widget.Toolbar>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/information_img_bg"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@drawable/information_img_bgtwo" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="330dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/information_img_bg"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="-20dp"
+            android:padding="@dimen/dp_10"
+            app:cardCornerRadius="7dp"
+            app:cardElevation="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp">
+
+                <TextView
+                    android:id="@+id/information_txt_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="今天在316开会"
+                    android:textColor="#4D4D4D"
+                    android:textSize="17sp"
+                    android:textStyle="normal" />
+
+                <ImageView
+                    android:id="@+id/information_img_time"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/information_txt_title"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/infor_time" />
+
+                <TextView
+                    android:id="@+id/information_txt_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/information_txt_title"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/information_img_time"
+                    android:text="2019-02-01 18:44:18"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/information_img_where"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/information_img_time"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/information_img_where" />
+
+                <TextView
+                    android:id="@+id/information_txt_where"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/information_img_time"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/information_img_time"
+                    android:text="2A 316"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/information_img_ren"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/information_img_where"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/information_ren" />
+
+                <TextView
+                    android:id="@+id/information_txt_renshu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/information_img_where"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/information_img_ren"
+                    android:text="参会人数：15"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/information_img_ren_two"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/information_img_ren"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/information_ren" />
+
+                <TextView
+                    android:id="@+id/information_txt_f"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/information_img_ren"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/information_img_ren"
+                    android:text="会议发起人："
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/information_txt_faqiren"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/information_img_ren"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/information_txt_f"
+                    android:text="余智强"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/information_img_ren_three"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/information_img_ren_two"
+                    android:layout_marginTop="@dimen/dp_10"
+                    android:background="@drawable/information_ren" />
+
+                <TextView
+                    android:id="@+id/information_txt_jilu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/information_img_ren_two"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/information_img_ren"
+                    android:text="会议记录人："
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/information_txt_jiluren"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/information_img_ren_two"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/information_txt_f"
+                    android:text="张剑峰"
+                    android:textSize="14sp" />
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/dp_10"
+            android:onClick="liuyan"
+            android:text="写留言"
+            android:textColor="#F7614A" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/information_recycle_jiluren"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+
+    </LinearLayout>
+
+</LinearLayout>
