@@ -183,7 +183,7 @@ public class MainActivity extends UI {
                             fTransaction.show(fr_mine);
                         }
                         fTransaction.commit();
-                        ImmersionBar.with(MainActivity.this).reset().init();
+                        ImmersionBar.with(MainActivity.this).reset().statusBarColor(R.color.classical_blue).fitsSystemWindows(true).init();
                         break;
                 }
             }

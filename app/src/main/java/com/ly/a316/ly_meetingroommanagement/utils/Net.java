@@ -25,6 +25,8 @@ public class Net {
     public final static String SIGN_INCASE="Meeting/signInCase";//签到情况
     public final static String ADMIN_JPUSH="jpush/adminJpush";//管理员发送的通知
     public final static String USER_JPUSH="jpush/userJpush";//用户发的通知
+    public final static String CHANGE_PROFILE="User/changeProfile";//修改头像
+    public final static String CHANGE_NICKNAME="User/changeNickname";//修改昵称
     //yzq
     public static String url = HEAD;
     public static String addSchedule = url + "/Schedule/addSchedule";//新建日程

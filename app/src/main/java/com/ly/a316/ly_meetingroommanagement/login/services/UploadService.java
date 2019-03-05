@@ -8,5 +8,5 @@ Time:15:37
 auther:xwd
 */
 public interface UploadService {
-    public void uploadFile(File file);
+    public void uploadFile(File file,String type);
 }

@@ -1,6 +1,11 @@
 package com.ly.a316.ly_meetingroommanagement.login.services;
 
+import android.widget.Toast;
+
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.login.activities.SignUpLastActivity;
+import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
+import com.ly.a316.ly_meetingroommanagement.main.fragment.MineFragment;
 import com.ly.a316.ly_meetingroommanagement.utils.MyHttpUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;
 
@@ -24,13 +29,17 @@ auther:xwd
 */
 public class UploadServiceImp implements UploadService {
     SignUpLastActivity activity;
-
+    MineFragment mainActivity;
     public UploadServiceImp(SignUpLastActivity activity) {
         this.activity = activity;
     }
 
+    public UploadServiceImp(MineFragment mainActivity) {
+        this.mainActivity = mainActivity;
+    }
+
     @Override
-    public void uploadFile(File file) {
+    public void uploadFile(File file, final String type) {
       String URL= Net.HEAD+Net.UPLOAD;
         MultipartBody.Builder builder = new MultipartBody.Builder();
         builder.setType(MultipartBody.FORM);
@@ -42,7 +51,16 @@ public class UploadServiceImp implements UploadService {
         MyHttpUtil.sendOkhttpPostRequest(URL, multipartBody, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+                if("1".equals(type))
                 activity.subThreadToast(Net.FAIL);
+                else{
+                    mainActivity.getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MyApplication.getContext(),Net.FAIL,Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
             }
 
             @Override
@@ -52,8 +70,15 @@ public class UploadServiceImp implements UploadService {
                 try {
                     JSONObject jsonObject = new JSONObject(result1);
                     String comeOut=jsonObject.getString("result");
-                    activity.phoneURL=comeOut;
-                    activity.uploadBack();
+                    if("1".equals(type)){
+                        activity.phoneURL=comeOut;
+                        activity.uploadBack();
+                    }
+                    else{
+                      mainActivity.phoneURL=comeOut;
+                      mainActivity.uploadBack();
+
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

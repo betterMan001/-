@@ -1,5 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.login.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -71,6 +73,11 @@ public class ForgetPWDOneActivity extends BaseActivity {
             }).sendMessage(msg);
         }
     };
+    public static final void start(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context, ForgetPWDOneActivity.class);
+        context.startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

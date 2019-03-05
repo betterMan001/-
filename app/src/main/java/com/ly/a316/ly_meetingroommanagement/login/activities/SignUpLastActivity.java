@@ -149,7 +149,7 @@ public class SignUpLastActivity extends BaseActivity {
     private void getFileURl(){
         //1.将headImge存到本地
             File photo_file=new File(filePath);//生成该路径的文件
-            new UploadServiceImp(SignUpLastActivity.this).uploadFile(photo_file);
+            new UploadServiceImp(SignUpLastActivity.this).uploadFile(photo_file,"1");
     }
     private String getImagUrl() {
         //测试默认返回本地头像
