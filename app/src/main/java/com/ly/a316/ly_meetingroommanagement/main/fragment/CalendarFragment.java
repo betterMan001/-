@@ -375,13 +375,13 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                  ceshi_huiyi();*/
 
 
-                  //  测试结束会议
+               /*   //  测试结束会议
                 Intent intentttt = new Intent(getContext(), End_Activity.class);
                 startActivity(intentttt);
-
+*/
                //测试服务
-               /*  Intent intentet = new Intent(getContext(), Ceshi.class);
-                startActivity(intentet);*/
+                Intent intentet = new Intent(getContext(), Ceshi.class);
+                startActivity(intentet);
 
                 break;
             case R.id.fl_addday:

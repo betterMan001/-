@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -38,12 +39,18 @@ public class MyAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
         ((MyHolder) viewHolder).item_txt_huiname.setText(list.get(i).getConference_name());
         ((MyHolder) viewHolder).item_txt_huiwhere.setText(list.get(i).getConference_where());
         ((MyHolder) viewHolder).item_txt_hui_time.setText(list.get(i).getConference_time());
         Uri uri = Uri.parse(list.get(i).getConference_img());
         ((MyHolder) viewHolder).simpleDraweeView.setImageURI(uri);
+        ((MyHolder) viewHolder).item_pop_lymain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                click.onCcick(list.get(i).getMeetingId());
+            }
+        });
     }
 
     @Override
@@ -56,6 +63,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         TextView item_txt_huiname;
         TextView item_txt_huiwhere;
         TextView item_txt_hui_time;
+        LinearLayout item_pop_lymain;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +71,15 @@ public class MyAdapter extends RecyclerView.Adapter {
             item_txt_hui_time = itemView.findViewById(R.id.item_txt_time);
             item_txt_huiwhere = itemView.findViewById(R.id.item_tet_where);
             item_txt_huiname = itemView.findViewById(R.id.item_tet_title);
+            item_pop_lymain=itemView.findViewById(R.id.item_pop_lymain);
         }
+    }
+    public interface Click{
+        void onCcick(String id);
+    }
+    Click click;
+
+    public void setClick(Click click) {
+        this.click = click;
     }
 }

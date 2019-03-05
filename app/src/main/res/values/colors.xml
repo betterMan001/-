@@ -38,6 +38,8 @@
 <color name="s">#4D000000</color>
     <color name="gray_text_light">#979797</color>
     <color name="shijiandian">#ebedec</color>
+    <color name="dot_hong">#E73111</color>
+    <color name="text_bottom_comment">#9B9B9B</color>
 
     <color name="colorPrimary_two">#7e6fe2</color>
     <color name="colorPrimaryDark_two">#8a53cf</color>

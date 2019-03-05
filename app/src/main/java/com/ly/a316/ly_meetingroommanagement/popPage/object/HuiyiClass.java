@@ -11,14 +11,16 @@ public class HuiyiClass {
     String conference_where;//会议地点
     String conference_img;
     String conference_id;//会议室id
+    String meetingId;//会议id
 
-    public HuiyiClass(String initiator_id,String conference_id, String conference_name, String conference_time, String conference_where,String conference_img) {
+    public HuiyiClass(String initiator_id,String conference_id, String conference_name, String conference_time, String conference_where,String conference_img,String meetingId) {
         this.initiator_id = initiator_id;
         this.conference_id = conference_id;
         this.conference_name = conference_name;
         this.conference_time = conference_time;
         this.conference_where = conference_where;
         this.conference_img = conference_img;
+        this.meetingId = meetingId;
     }
 
     public String getInitiator_id() {
@@ -67,5 +69,13 @@ public class HuiyiClass {
 
     public void setConference_id(String conference_id) {
         this.conference_id = conference_id;
+    }
+
+    public String getMeetingId() {
+        return meetingId;
+    }
+
+    public void setMeetingId(String meetingId) {
+        this.meetingId = meetingId;
     }
 }

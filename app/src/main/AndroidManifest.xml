@@ -365,7 +365,8 @@
         <activity android:name=".scheduleHuiHome_one.activity.Hui_Activity" />
         <activity android:name=".scheduleHuiHome_two.Activity.Schedule_Activity" />
         <activity android:name=".schedule_room_three.activity.Schedule_Activity_three" />
-        <activity android:name=".schedule_room_four.activity.Schedule_Activity_four"></activity>
+        <activity android:name=".schedule_room_four.activity.Schedule_Activity_four" />
+        <activity android:name=".popPage.activity.Information_meet"></activity>
     </application>
 
 </manifest>
