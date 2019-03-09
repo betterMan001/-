@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="340dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/img_avatar_01"
+            android:src="@drawable/meeting_room_for_search001"
             />
     </LinearLayout>
 

@@ -18,8 +18,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
@@ -34,7 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.LoadingDialog;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
 import com.ly.a316.ly_meetingroommanagement.endActivity.adaper.FilePickerShowAdapter;
@@ -44,30 +41,14 @@ import com.ly.a316.ly_meetingroommanagement.endActivity.util.OpenFile;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.PickerManager;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.TransDoucument;
 import com.ly.a316.ly_meetingroommanagement.meetting.adapter.MettingPeopleAdapter;
+import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.service.End_Service;
+import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.service.ServiceUtil;
 
-import org.angmarch.views.NiceSpinner;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
-
-import static com.netease.nim.uikit.common.util.file.FileUtil.getMimeType;
 
 public class End_Activity extends AppCompatActivity {
     @BindView(R.id.addSchedule_toolbar)
@@ -105,12 +86,23 @@ public class End_Activity extends AppCompatActivity {
     MettingPeopleAdapter mettingPeopleAdapter;
     List<Device> device_list = new ArrayList<>();//存放的设备
 
+    Intent service_intent;
+    String title_huiyi, start_time, end_time;
+    private final int TIME = 60 * 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final View view = View.inflate(this, R.layout.activity_end_, null);
         setContentView(view);
         ButterKnife.bind(this);
+        Toast.makeText(this, "会议开始进行,会议结束前的15分钟我们将以\n通知的方式提醒你", Toast.LENGTH_LONG).show();
+        title_huiyi = getIntent().getStringExtra("meeting_title_tv");
+        start_time = getIntent().getStringExtra("start_time");
+        end_time = getIntent().getStringExtra("end_time");
+
+        sendTimeService(true);
+
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         init_Alert();
@@ -277,6 +269,7 @@ public class End_Activity extends AppCompatActivity {
 
     //結束会议
     public void end_huiyi(View view) {
+        handler.removeCallbacks(runnable);
         for (int i = 0; i < PickerManager.getInstance().files.size(); i++) {
             FileEntity fileEntity = PickerManager.getInstance().files.get(i);
             filepath_list.add(fileEntity.getFilePath());
@@ -323,7 +316,7 @@ public class End_Activity extends AppCompatActivity {
         canel_device = dialogView.findViewById(R.id.canel_device);
         sure_device = dialogView.findViewById(R.id.sure_device);
         baoxiu_ly = dialogView.findViewById(R.id.baoxiu_ly);
-        baoxiu_txt_device=dialogView.findViewById(R.id.baoxiu_txt_device);
+        baoxiu_txt_device = dialogView.findViewById(R.id.baoxiu_txt_device);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
         mettingPeopleAdapter = new MettingPeopleAdapter(this, device_list);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -457,6 +450,36 @@ public class End_Activity extends AppCompatActivity {
         device_list.clear();
         device_list.addAll(list);
         mettingPeopleAdapter.notifyDataSetChanged();
+
     }
 
+
+    // 通过Handler实现定时任务
+    Handler handler = new Handler();
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            Intent intent = new Intent(End_Activity.this, End_Service.class);
+            intent.putExtra("title_huiyi", title_huiyi);
+            intent.putExtra("end_time",end_time);
+            intent.putExtra("start_time",start_time);
+            startService(intent);
+            handler.postDelayed(runnable, TIME);
+        }
+    };
+
+    private void sendTimeService(boolean idHandler) {
+        if (idHandler) {
+            handler.postDelayed(runnable, TIME);
+        } else {
+            ServiceUtil.startAMService(this);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacks(runnable);
+
+    }
 }

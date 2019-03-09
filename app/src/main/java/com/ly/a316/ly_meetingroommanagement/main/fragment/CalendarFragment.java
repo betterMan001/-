@@ -1,9 +1,13 @@
 package com.ly.a316.ly_meetingroommanagement.main.fragment;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.database.Cursor;
@@ -17,6 +21,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,13 +46,26 @@ import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.OneDayCountActivit
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.jilei;
+import com.ly.a316.ly_meetingroommanagement.calendar_fra.object.Day_Object;
 import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
 import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
+import com.ly.a316.ly_meetingroommanagement.login.activities.LoginActivity;
+import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.activity.Ceshi;
+import com.ly.a316.ly_meetingroommanagement.scancode.activity.ScanCode_Hui;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RequestExecutor;
+import com.yanzhenjie.permission.Setting;
+import com.yzq.zxinglibrary.android.CaptureActivity;
+import com.yzq.zxinglibrary.bean.ZxingConfig;
+import com.yzq.zxinglibrary.common.Constant;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,6 +77,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * 描述：日历
@@ -121,51 +141,13 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     @Override
     protected void initData() {
     }
-
-    void init() {
-        calendar_all = java.util.Calendar.getInstance();
-        view = jilei.view;
-        tv_today = view.findViewById(R.id.tv_today);
-        tvMonthDay = view.findViewById(R.id.tv_month_dayyy);
-        tvYear = view.findViewById(R.id.tv_year);
-        tvLunar = view.findViewById(R.id.tv_lunar);
-        ibCalendar = view.findViewById(R.id.ib_calendar);
-        tvCurrentDay = view.findViewById(R.id.tv_current_day);
-        flCurrent = view.findViewById(R.id.fl_current);
-        rlTool = view.findViewById(R.id.rl_tool);
-        ibCalendarview = view.findViewById(R.id.ib_calendarview);
-        calendarLayout = view.findViewById(R.id.calendarLayout);
-        calRecycleview = view.findViewById(R.id.cal_recycleview);
-
-        ibCalendarview.setOnCalendarSelectListener(this);
-        ibCalendarview.setOnYearChangeListener(this);
-
-
-    }
-
-
-    void moren() {
-        tvYear.setText(String.valueOf(ibCalendarview.getCurYear()));
-        mYear = ibCalendarview.getCurYear();
-        tv_today.setText((String.valueOf(ibCalendarview.getCurMonth()) + "月" + String.valueOf(ibCalendarview.getCurDay()) + "日"));
-        tvMonthDay.setText((String.valueOf(ibCalendarview.getCurMonth()) + "月" + String.valueOf(ibCalendarview.getCurDay()) + "日"));
-        tvLunar.setText("今天");
-        tvCurrentDay.setText(String.valueOf(ibCalendarview.getCurDay()));
-    }
-
-
     void initview() {
         setStatusBarDarkMode();
-        init();
+        init();//初始化各种控件
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        calRecycleview.setLayoutManager(linearLayoutManager);
-        calendar_adapter = new Calendar_Adapter(getContext(), Schedule.list);
-        calRecycleview.setAdapter(calendar_adapter);
         calendar_adapter.setOnItemClick(new Calendar_Adapter.OnItemClick() {
             @Override
-            public void onitemClick(int position,String event_idd) {
+            public void onitemClick(int position, String event_idd) {
                 alarm_choose_item = position;
                 alarmyear = Schedule.list.get(position).getYear();
                 alarmmonth = Schedule.list.get(position).getMonth();
@@ -174,8 +156,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
                 //日程详情
                 Intent intent = new Intent(getActivity(), Calendar_infor_activity.class);
-                Log.i("zjc",event_idd);
-                intent.putExtra("event_id",event_idd);
+                Log.i("zjc", event_idd);
+                intent.putExtra("event_id", event_idd);
                 startActivityForResult(intent, 14);
             }
 
@@ -220,6 +202,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 startActivityForResult(i, 12);
             }
         });
+        //让recycleview具有侧滑的功能
         calRecycleview.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         calRecycleview.addOnItemTouchListener(new SwipeItemLayout.OnSwipeItemTouchListener(getContext()));
         calRecycleview.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -234,7 +217,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             }
         });
 
-        moren();
+
         /*int year = ibCalendarview.getCurYear();
         int month = ibCalendarview.getCurMonth();
         Map<String, Calendar> map = new HashMap<>();
@@ -242,6 +225,41 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 getSchemeCalendar(year, month, 3, 0xFFdf1356, "假"));
         ibCalendarview.setSchemeDate(map);*/
     }
+
+    void init() {
+        calendar_all = java.util.Calendar.getInstance();
+        view = jilei.view;
+        tv_today = view.findViewById(R.id.tv_today);
+        tvMonthDay = view.findViewById(R.id.tv_month_dayyy);
+        tvYear = view.findViewById(R.id.tv_year);
+        tvLunar = view.findViewById(R.id.tv_lunar);
+        ibCalendar = view.findViewById(R.id.ib_calendar);
+        tvCurrentDay = view.findViewById(R.id.tv_current_day);
+        flCurrent = view.findViewById(R.id.fl_current);
+        rlTool = view.findViewById(R.id.rl_tool);
+        ibCalendarview = view.findViewById(R.id.ib_calendarview);
+        calendarLayout = view.findViewById(R.id.calendarLayout);
+        calRecycleview = view.findViewById(R.id.cal_recycleview);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        calRecycleview.setLayoutManager(linearLayoutManager);
+        calendar_adapter = new Calendar_Adapter(getContext(), Schedule.list);
+        calRecycleview.setAdapter(calendar_adapter);
+        ibCalendarview.setOnCalendarSelectListener(this);
+        ibCalendarview.setOnYearChangeListener(this);
+
+        //标题栏最上面显示的今天的信息
+        tvYear.setText(String.valueOf(ibCalendarview.getCurYear()));
+        mYear = ibCalendarview.getCurYear();
+        tv_today.setText((String.valueOf(ibCalendarview.getCurMonth()) + "月" + String.valueOf(ibCalendarview.getCurDay()) + "日"));
+        tvMonthDay.setText((String.valueOf(ibCalendarview.getCurMonth()) + "月" + String.valueOf(ibCalendarview.getCurDay()) + "日"));
+        tvLunar.setText("今天");
+        tvCurrentDay.setText(String.valueOf(ibCalendarview.getCurDay()));
+    }
+
+
+
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
         Calendar calendar = new Calendar();
@@ -281,8 +299,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 }
                 break;
             case 14:
-                if(resultCode == 10){
-                    Toast.makeText(getContext(),"修改成功",Toast.LENGTH_SHORT).show();
+                if (resultCode == 10) {
+                    Toast.makeText(getContext(), "修改成功", Toast.LENGTH_SHORT).show();
                     //修改日程
                     Schedule.list.clear();
                     //获取这个时间段的所有信息
@@ -297,6 +315,12 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 }
 
                 break;
+            case 101:
+                if (resultCode == RESULT_OK) {
+                    String content = data.getStringExtra(Constant.CODED_CONTENT);
+                    Toast.makeText(getContext(), "扫描结果为：" + content, Toast.LENGTH_SHORT).show();
+                }
+                break;
         }
     }
 
@@ -305,8 +329,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
     }
 
+    //日历被点击的时候调用
     @Override
-    //日历被点击
     public void onCalendarSelect(Calendar calendar, boolean isClick) {
         tv_today.setText(calendar.getMonth() + "月" + calendar.getDay() + "日");
         tvLunar.setVisibility(View.VISIBLE);
@@ -366,7 +390,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
 
     @SuppressLint("MissingPermission")
-    @OnClick({R.id.fl_addday, R.id.fl_schedule, R.id.tv_month_dayyy, R.id.tv_current_day, R.id.more})
+    @OnClick({R.id.fl_addday, R.id.fl_schedule, R.id.tv_month_dayyy, R.id.tv_current_day, R.id.more,R.id.erweima_saomiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_schedule:
@@ -378,11 +402,22 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                /*   //  测试结束会议
                 Intent intentttt = new Intent(getContext(), End_Activity.class);
                 startActivity(intentttt);
-*/
+                */
+
                //测试服务
                 Intent intentet = new Intent(getContext(), Ceshi.class);
                 startActivity(intentet);
 
+                /*
+              請求權限
+                 */
+               // scanCode();
+                /*
+                周日历
+                 */
+
+                /*Intent intentttt = new Intent(getContext(), ScanCode_Hui.class);
+                startActivity(intentttt);*/
                 break;
             case R.id.fl_addday:
                 //添加日程
@@ -407,16 +442,14 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 intent1 = new Intent(getActivity(), OneDayCountActivity.class);
                 startActivity(intent1);
                 break;
+            case R.id.erweima_saomiao:
+                scanCode();
+                break;
 
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
 
-    }
 
     @Override
     public void initImmersionBar() {
@@ -441,8 +474,14 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
     }
 
+
+
+
+    /**
+     * 往日历里面插入带有参会人的日程信息
+     */
     @SuppressLint("MissingPermission")
-    void ceshi_huiyi(){
+    void ceshi_huiyi() {
         if (CalanderUtils.requestPermission(getActivity())) {
             String calId = "";
             //这是一条查询语句
@@ -471,7 +510,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             mCalendar.set(java.util.Calendar.MINUTE, 00);
             long start = mCalendar.getTime().getTime();
             //结束时间
-            mCalendar.set(java.util.Calendar.YEAR, 2019 );
+            mCalendar.set(java.util.Calendar.YEAR, 2019);
             mCalendar.set(java.util.Calendar.MONTH, 1);
             mCalendar.set(java.util.Calendar.DAY_OF_MONTH, 7);
             mCalendar.set(java.util.Calendar.HOUR_OF_DAY, 16);
@@ -496,5 +535,38 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             valuess.put("attendeeName", "张思");
             getContext().getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI, valuess);
         }
+    }
+
+    /**
+     * 扫码功能
+     */
+    void scanCode() {
+        Intent intent = new Intent(getContext(), CaptureActivity.class);
+        /*ZxingConfig是配置类  可以设置是否显示底部布局，闪光灯，相册，是否播放提示音  震动等动能
+         * 也可以不传这个参数
+         * 不传的话  默认都为默认不震动  其他都为true
+         * */
+
+        ZxingConfig config = new ZxingConfig();
+        config.setShowbottomLayout(true);//底部布局（包括闪光灯和相册）
+        //config.setPlayBeep(true);//是否播放提示音
+        //config.setShake(true);//是否震动
+        config.setShowAlbum(true);//是否显示相册
+        //config.setShowFlashLight(true);//是否显示闪光灯
+        intent.putExtra(Constant.INTENT_ZXING_CONFIG, config);
+        startActivityForResult(intent, 101);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+
+    }
+    List<Day_Object> day_list = new ArrayList<>();
+    public  void success_callback(List<Day_Object> list){
+        day_list.clear();
+        day_list.addAll(list);
+
     }
 }

@@ -64,7 +64,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
-            android:name="com.ly.a316.ly_meetingroommanagement.endActivity.util.MyProvider"
+            android:name=".endActivity.util.MyProvider"
             android:authorities="com.ly.a316.ly_meetingroommanagement.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -72,6 +72,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="5353c039233226f33cac4cece3ca7887" />
@@ -109,6 +110,12 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".remind_huiyi_end.border.YesReceiver">
+            <intent-filter>
+                <action android:name="YES" />
+                <action android:name="NO" />
+            </intent-filter>
+        </receiver>
 
         <!-- 云信进程间通信 Receiver -->
         <receiver android:name="com.netease.nimlib.service.ResponseReceiver" />
@@ -143,6 +150,7 @@
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE"
             android:process=":core" />
+        <service android:name=".remind_huiyi_end.service.End_Service" />
 
         <!-- 云信监视系统启动和网络变化的广播接收器，保持和 NimService 同一进程 -->
         <receiver
@@ -246,14 +254,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".endActivity.activity.End_Activity"></activity>
+        <activity android:name=".endActivity.activity.End_Activity" />
         <activity
             android:name=".nim.activity.AddFriendActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name=".endActivity.activity.FilePickerActivity"></activity>
+        <activity android:name=".endActivity.activity.FilePickerActivity" />
         <activity
             android:name=".nim.activity.UserProfileActivity"
             android:configChanges="orientation"
@@ -359,14 +367,17 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".MessageList.activites.MessageListActivity"></activity>
+        <activity android:name=".MessageList.activites.MessageListActivity" />
         <activity android:name=".meetingList.activities.MeetingDetailActivity" />
         <activity android:name=".remind_huiyi_end.activity.Ceshi" />
         <activity android:name=".scheduleHuiHome_one.activity.Hui_Activity" />
         <activity android:name=".scheduleHuiHome_two.Activity.Schedule_Activity" />
         <activity android:name=".schedule_room_three.activity.Schedule_Activity_three" />
         <activity android:name=".schedule_room_four.activity.Schedule_Activity_four" />
-        <activity android:name=".popPage.activity.Information_meet"></activity>
+        <activity android:name=".popPage.activity.Information_meet" />
+        <activity android:name=".scancode.activity.ScanCode_Hui" />
+        <activity android:name=".schedule_room_four.activity.Choose_Activity" />
+        <activity android:name=".all_hui_room.activity.All_Hui_Room_Activity"></activity>
     </application>
 
 </manifest>

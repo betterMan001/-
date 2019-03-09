@@ -240,11 +240,22 @@ public class AddSchedule extends BaseActivity {
             case R.id.add_sure:
                 //提交日程
                 subbmit();
-                String starttime = s_yearr + "-" + (s_monthr) + "-" + s_dayr + " " + s_selectHour + ":" + s_selectMiniute + ":00";
-                String endtime = e_yearr + "-" + (e_monthr) + "-" + e_dayr + " " + e_selectHour + ":" + e_selectMiniute + ":00";
-                scheduleDao.addSchedule("15858526805", starttime, endtime, sc_title, "日程", sc_remarks, sc_location, ti);
+
+                String starttime = s_yearr + "-" + panduan(s_monthr) + "-" + panduan(s_dayr) + " " + panduan(s_selectHour) + ":" + panduan(s_selectMiniute) + ":00";
+                String endtime = e_yearr + "-" + panduan(e_monthr) + "-" + panduan(e_dayr) + " " + panduan(e_selectHour) + ":" + panduan(e_selectMiniute) + ":00";
+                scheduleDao.addSchedule("18248612936", starttime, endtime, sc_title, "日程", sc_remarks, sc_location, ti);
                 break;
         }
+    }
+
+    String panduan(int time) {
+        String s_time = "";
+        if (time / 10 == 0) {
+            s_time = "0" + time;
+        }else{
+            s_time = String.valueOf(time);
+        }
+        return s_time;
     }
 
     @SuppressLint("MissingPermission")

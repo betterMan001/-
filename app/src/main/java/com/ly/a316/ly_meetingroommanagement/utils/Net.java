@@ -41,6 +41,7 @@ public class Net {
     public static String getdaiban_huiinformation = url+"/Meeting/meetDetail";//得到代办会议室的信息
     public static String send_liuyan = url+"/commet/addCommet";//发送留言
     public static String get_liuyan = url+"/commet/commentList";//发送留言
-
+    public static String get_allroom = url+"/meetRoom/allRoom";//获取所有会议室
+    public static String get_allHuiyi = url + "/Schedule/selectScheduleBySEmployeeId";//获取某天的会议
 
 }

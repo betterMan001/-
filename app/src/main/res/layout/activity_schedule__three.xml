@@ -1,23 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".schedule_room_four.activity.Schedule_Activity_four">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/three_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/title_bar_color"
+        tl:layout_scrollFlags="scroll|enterAlways"
+        tl:navigationIcon="@drawable/backtwo"
+        tl:titleTextColor="@color/white">
 
-    <TextView
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="预定会议室"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:id="@+id/finish_img"
+            android:layout_gravity="right"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:background="@drawable/cah"
+            android:layout_margin="50dp"
+            />
+    <TextView
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
         android:text="已选条件"
         android:textColor="#D4060608"
         android:textSize="@dimen/sp_12" />
-
+</LinearLayout>
     <com.ly.a316.ly_meetingroommanagement.schedule_room_four.customview.MyDragGrideLayout
         android:id="@+id/gridLayout1"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:columnCount="4">
 
@@ -25,41 +61,44 @@
 
 
     <TextView
+        android:layout_gravity="center"
+        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
+        android:layout_marginTop="20dp"
         android:text="可选条件"
         android:textColor="#D4060608"
         android:textSize="@dimen/sp_12" />
 
     <com.ly.a316.ly_meetingroommanagement.schedule_room_four.customview.MyDragGrideLayout
         android:id="@+id/gridLayout2"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:columnCount="4">
 
     </com.ly.a316.ly_meetingroommanagement.schedule_room_four.customview.MyDragGrideLayout>
-
+<View
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"></View>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
+        android:layout_marginBottom="80dp"
         android:orientation="horizontal">
 
-        <Button
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
             android:id="@+id/sure_four"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/btn_circlr"
-            android:text="确定" />
-
-        <Button
-            android:id="@+id/caneel_four"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/btn_circlr"
-            android:text="取消" />
+            android:text="下一步"
+            android:textSize="20sp"
+            android:textColor="#102E37"
+            />
     </LinearLayout>
 </LinearLayout>

@@ -31,7 +31,7 @@ import static android.widget.GridLayout.LayoutParams.*;
 public class MyDragGrideLayout extends GridLayout {
 
     private List<String> items;
-    private int margin = 8;
+    private int margin = 6;
     //是否可以拖拽
     private boolean isCanDrag;
     //是否显示叉叉
@@ -92,31 +92,26 @@ public class MyDragGrideLayout extends GridLayout {
         txt1.setBackgroundResource(R.drawable.dialog_label);
         txt1.setPadding(10,10,10,10);
         RelativeLayout.LayoutParams params_re = new RelativeLayout.LayoutParams(WRAP_CONTENT,WRAP_CONTENT);
-        params_re.width = RelativeLayout.LayoutParams.WRAP_CONTENT;params_re.height =  RelativeLayout.LayoutParams.WRAP_CONTENT;;
+        params_re.width = 180;
+        params_re.height =  90;;
         params_re.setMargins(margin,margin,margin,margin);
 
         txt1.setLayoutParams(params_re);
 
-        ImageView img1 = new ImageView(getContext());
-        img1.setBackgroundResource(R.drawable.chachatwo);
-        if(show_cha){
-            img1.setVisibility(VISIBLE);
-        }else{
-            img1.setVisibility(GONE);
-        }
+
         RelativeLayout.LayoutParams params_re_tw = new RelativeLayout.LayoutParams(WRAP_CONTENT,
                 WRAP_CONTENT);
         params_re_tw.setMargins(0,5,0,0);
         params_re_tw.width =20;params_re_tw.height = (int)dipToPx(getContext(),15);
         params_re_tw.addRule(RelativeLayout.RIGHT_OF, R.id.id_add_file);
-        img1.setLayoutParams(params_re_tw);
+
 
 
 
         RelativeLayout layout1 = new RelativeLayout(getContext());
         layout1.setLayoutParams(new  RelativeLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
         layout1.addView(txt1);
-        layout1.addView(img1);
+
 
 
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();

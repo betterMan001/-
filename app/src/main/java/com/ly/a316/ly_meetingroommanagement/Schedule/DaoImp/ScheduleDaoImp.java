@@ -32,30 +32,31 @@ public class ScheduleDaoImp implements ScheduleDao {
     public ScheduleDaoImp(AddSchedule addSchedule) {
         this.addSchedule = addSchedule;
     }
-    Handler handler = new Handler(){
+
+    Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
                     //网络访问失败
-                    Toast.makeText(addSchedule,"网络请求失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addSchedule, "网络请求失败", Toast.LENGTH_SHORT).show();
                     break;
                 case 2:
                     //新建日程成功
-                    Toast.makeText(addSchedule,"网络请求成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(addSchedule, "网络请求成功", Toast.LENGTH_SHORT).show();
                     addSchedule.successback();
                     break;
             }
         }
     };
+
     //新建日程
     @Override
     public void addSchedule(String eId, String begin, String end, String theme, String meetType, String context, String address, String remind) {
         String path = Net.addSchedule;
-
-        String url= Net.addSchedule+"?eId="+eId+"&begin="+begin+"&end="+end+"&theme="+theme+"&meetType="+meetType+"&context="+context+"&address="+address+"&remind="+remind;
-Log.i("zjc",url);
+        String url = Net.addSchedule + "?eId=" + eId + "&begin=" + begin + "&end=" + end + "&theme=" + theme + "&meetType=" + meetType + "&context=" + context + "&address=" + address + "&remind=" + remind;
+        Log.i("zjc", url);
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .connectTimeout(11, TimeUnit.MINUTES)
                 .readTimeout(11, TimeUnit.MINUTES)
@@ -63,12 +64,12 @@ Log.i("zjc",url);
         FormBody formBody = new FormBody.Builder()
                 .add("eId", eId)
                 .add("begin", begin)
-                .add("end",end)
-                .add("theme",theme)
-                .add("meetType",meetType)
-                .add("context",context)
-                .add("address",address)
-                .add("remind",remind)
+                .add("end", end)
+                .add("theme", theme)
+                .add("meetType", meetType)
+                .add("context", context)
+                .add("address", address)
+                .add("remind", remind)
                 .build();
         Request request = new Request.Builder()
                 .url(path)
@@ -86,9 +87,9 @@ Log.i("zjc",url);
                 String string = response.body().string();
                 try {
                     JSONObject jsonObject = new JSONObject(string);
-                    if(jsonObject.getString("result").equals("success")){
+                    if (jsonObject.getString("result").equals("success")) {
                         handler.sendEmptyMessage(2);
-                    }else{
+                    } else {
                         handler.sendEmptyMessage(1);
                     }
                 } catch (JSONException e) {

@@ -52,8 +52,8 @@ public class Calendar_infor_activity extends AppCompatActivity {
     java.util.Calendar calendar_all;//获取今天的时间
     @BindView(R.id.dp_test)
     DatePicker dp_test;//时间选择的控件
-@BindView(R.id.headddd)
-TextView headddd;
+    @BindView(R.id.headddd)
+     TextView headddd;
     @BindView(R.id.add_layout_chongfu)
     LinearLayout add_layout_chongfu;
     @BindView(R.id.add_layout_tixing)

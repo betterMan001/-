@@ -23,12 +23,14 @@ import android.widget.Toast;
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.MessageList.activites.MessageListActivity;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.all_hui_room.activity.All_Hui_Room_Activity;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.activity.HuiyiActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingListActivity;
 import com.ly.a316.ly_meetingroommanagement.popPage.Adapter.MyAdapter;
 import com.ly.a316.ly_meetingroommanagement.popPage.DaoImp.GetTodayHuiDaoImp;
 import com.ly.a316.ly_meetingroommanagement.popPage.activity.Information_meet;
 import com.ly.a316.ly_meetingroommanagement.popPage.object.HuiyiClass;
+import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Choose_Activity;
 import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Schedule_Activity_four;
 
 import java.io.IOException;
@@ -202,17 +204,18 @@ public class PopupMenuUtil {
             case 1:
                 /* intent = new Intent(context,Hui_Activity.class);第一种*/
                 /* intent = new Intent(context, Schedule_Activity.class);第二种*/
-                /* intent = new Intent(context, Schedule_Activity_three.class);*/
-                intent = new Intent(context, Schedule_Activity_four.class);
+                /* intent = new Intent(context, Schedule_Activity_three.class);第三种*/
+               /* intent = new Intent(context, Schedule_Activity_four.class);第四种*/
+                intent = new Intent(context, Choose_Activity.class);
                 break;
             //查看会议列表
             case 3:
-                intent = new Intent(context, MeetingListActivity.class);
                 intent=new Intent(context,MeetingListActivity.class);
                 break;
                 //通知列表
             case 2:
-                intent=new Intent(context, MessageListActivity.class);
+              //  intent=new Intent(context, MessageListActivity.class);
+                intent=new Intent(context, All_Hui_Room_Activity.class);
                 break;
         }
         context.startActivity(intent);
