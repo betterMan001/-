@@ -55,11 +55,12 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
         //根据truePostion指针来获取被筛选的model
         Meeting model=list.get(truePositon[position]);
         //设置相应的属性和监听事件
-        holder1.meeting_list_time_tv1.setText(model.getBegin());
+        holder1.meeting_list_time_tv1.setText("时间:"+model.getBegin());
         holder1.meeting_list_time_tv2.setText(generate(model.getDuration()));
         holder1.meeting_title_tv.setText(model.getName());
+        holder1.meeting_list_sponsor_tv.setText(model.getInitiator());
         holder1.meeting_list_message_tv.setText(model.getAddress());
-        holder1.meeting_list_partner.setText(model.getRatio());
+        holder1.meeting_list_partner.setText(model.getRatio()+"人确认参加");
         String meetingStatus="";
         switch (model.getState()){
             case "未开始":
@@ -87,7 +88,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
         Integer hours= temp/60;
         Integer minutes=temp%60;
         StringBuilder builder=new StringBuilder();
-        builder.append("持续时间:");
+       // builder.append("持续时间:");
         builder.append(hours.toString());
         builder.append("小时");
         builder.append(minutes.toString());

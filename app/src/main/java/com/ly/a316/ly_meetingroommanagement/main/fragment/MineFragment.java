@@ -141,7 +141,7 @@ public class MineFragment extends Fragment {
             .placeholder(R.drawable.beaty_head001)
             .error(R.drawable.beaty_head001);
     Glide
-            .with(getActivity())
+            .with(this)
             .load(MyApplication.getImageURL())
             .apply(requestOptions)
             .into(headView);

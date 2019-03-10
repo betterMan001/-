@@ -5,6 +5,7 @@ import android.widget.Toast;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.main.fragment.MineFragment;
 import com.ly.a316.ly_meetingroommanagement.main.services.ModifyInformationService;
+import com.ly.a316.ly_meetingroommanagement.utils.MathUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.MyHttpUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;
 
@@ -12,6 +13,8 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /*
@@ -28,8 +31,13 @@ public class ModifyInformationServiceImp  implements ModifyInformationService {
 
     @Override
     public void changeProfile(String phone, String image) {
-         String URL= Net.HEAD+Net.CHANGE_PROFILE+"?phone="+phone+"&image="+image;
-        MyHttpUtil.sendOkhttpGetRequest(URL, new Callback() {
+
+        String URL= Net.HEAD+Net.CHANGE_PROFILE;
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("phone",phone);
+        builder.add("image",image);
+        RequestBody body=builder.build();
+        MyHttpUtil.sendOkhttpPostRequest(URL,body, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 fragment.getActivity().runOnUiThread(new Runnable() {
