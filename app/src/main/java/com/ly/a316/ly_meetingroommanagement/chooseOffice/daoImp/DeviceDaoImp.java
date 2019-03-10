@@ -12,6 +12,7 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.dao.deviceDao;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.DeviceType;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Hui_Device;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Hui_Shiyong;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.HuiyiInformation;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass;
 import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
@@ -118,6 +119,8 @@ public class DeviceDaoImp implements deviceDao {
                 end_activity.call_success_back(device_list);
             }else if(msg.what == 11){
                 toast_end("网络请求失败");
+            }else if(msg.what == 12){
+                huiyiXiang_activity.get_success_shi(hui_shiyong);
             }
         }
     };
@@ -345,6 +348,37 @@ public class DeviceDaoImp implements deviceDao {
                         device_list.add(device);
                     }
                     handler.sendEmptyMessage(10);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+    Hui_Shiyong hui_shiyong = new Hui_Shiyong();
+    @Override
+    public void getOneHuiShiyong(String roomId, String dates) {
+        String url = Net.getShijian+"?roomId="+roomId+"&dates="+dates;
+        Log.i("zjc", "获取会议室时间使用：" + url);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(url).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendEmptyMessage(11);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resBody = response.body().string();
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(resBody);
+                    JSONArray jsonArray = jsonObject.getJSONArray("list");
+                    JSONObject jsonObject1 = jsonArray.getJSONObject(0);
+                    String time = jsonObject1.getString(dates);
+                    hui_shiyong.setTime(time);
+                    handler.sendEmptyMessage(12);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

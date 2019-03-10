@@ -68,10 +68,15 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
                 onItemClick.onitemDelete(list.get(i).getNoId(),i);
             }
         });
+        if(list.get(i).getState().equals("1")){
+            ((MyViewHolder)viewHolder).finish.setText("未完成");
+        }else{
+            ((MyViewHolder)viewHolder).finish.setText("已完成");
+        }
         ((MyViewHolder)viewHolder).finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick.onitenFinish(i,list.get(i).getNoId());
+                onItemClick.onitenFinish(i,list.get(i).getNoId(),  ((MyViewHolder) viewHolder));
             }
         });
     }
@@ -106,7 +111,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
         void onitemClick(int position,String event_idd);
         void onitemDelete(String position,int weizhi);
         void onitemAlarm(int position,String weizzhi);
-        void onitenFinish(int position,String eveniIdd);
+        void onitenFinish(int position,String eveniIdd,MyViewHolder viewHolder);
     }
 
     OnItemClick onItemClick;

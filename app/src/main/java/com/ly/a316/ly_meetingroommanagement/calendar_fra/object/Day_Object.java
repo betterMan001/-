@@ -20,8 +20,9 @@ public class Day_Object implements Serializable {
     String endTime;
 
     String leadersId;//发起人电话
+    String state;
 
-    public Day_Object(String address, String mId, String remark, String leaders , String content, String noId, String remind, String meetType, String startTime, String endTime , String leadersId) {
+    public Day_Object(String address, String mId, String remark, String leaders , String content, String noId, String remind, String meetType, String startTime, String endTime , String leadersId,String state) {
         this.address = address;
         this.mId = mId;
         this.remark = remark;
@@ -36,6 +37,15 @@ public class Day_Object implements Serializable {
         this.endTime = endTime;
 
         this.leadersId = leadersId;
+        this.state =state;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getAddress() {

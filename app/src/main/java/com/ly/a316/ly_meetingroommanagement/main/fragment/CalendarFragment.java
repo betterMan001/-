@@ -202,7 +202,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             }
 
             @Override
-            public void onitenFinish(int position, String eveniIdd) {
+            public void onitenFinish(int position, String eveniIdd,Calendar_Adapter.MyViewHolder viewHolder) {
+                viewHolder.delete.setText("已完成");
                 getOneDay_daoImp.finish(eveniIdd);
             }
         });
@@ -482,8 +483,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             int maxDay = c.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
             List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(), Integer.valueOf(t_year), Integer.valueOf(t_month), maxDay);*/
             for (int i = 0; i < day_list.size(); i++) {
-                map.put(getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(5, 7))))-1, Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日").toString(),
-                        getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(5, 7))))-1, Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日"));
+                map.put(getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(5, 7)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日").toString(),
+                        getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(5, 7)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日"));
                 ibCalendarview.setSchemeDate(map);
             }
        /* } catch (Exception e) {

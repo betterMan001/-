@@ -9,8 +9,6 @@ import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.R;
@@ -21,6 +19,10 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.dao.OnSwipeListener;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.HuiyiInformation;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.CardItemTouchHelperCallback;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.CardLayoutManager;
+import com.ly.a316.ly_meetingroommanagement.scancode.activity.ScanCode_Hui;
+import com.necer.calendar.WeekCalendar;
+import com.necer.entity.NDate;
+import com.necer.listener.OnWeekSelectListener;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -48,6 +50,8 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
     NiceSpinner spinner2;
     @BindView(R.id.spinner3)
     NiceSpinner spinner3;
+    @BindView(R.id.all_weekCalendar)
+    WeekCalendar allWeekCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,14 +101,14 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
             }
         });
 
-        List<String> dataset_didian = new LinkedList<>(Arrays.asList("全部地点","2A", "3C", "A栋", "B栋", "C栋", "早10", "行健楼"));
+        List<String> dataset_didian = new LinkedList<>(Arrays.asList("全部地点", "2A", "3C", "A栋", "B栋", "C栋", "早10", "行健楼"));
         spinner2.attachDataSource(dataset_didian);  //设置下拉列表框的下拉选项样式
         spinner2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
+                if (position == 0) {
                     didian = "";
-                }else{
+                } else {
                     didian = dataset_didian.get(position);
                 }
 
@@ -122,14 +126,14 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
         });
 
 
-        List<String> dataset_type = new LinkedList<>(Arrays.asList("全部","接见式", "董事会式", "U型", "回型", "剧院", "课桌", "围桌","T型","多功能厅","大礼堂式","国会式"));
+        List<String> dataset_type = new LinkedList<>(Arrays.asList("全部", "接见式", "董事会式", "U型", "回型", "剧院", "课桌", "围桌", "T型", "多功能厅", "大礼堂式", "国会式"));
         spinner3.attachDataSource(dataset_type);  //设置下拉列表框的下拉选项样式
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if(position == 0){
-                    type =-1;
-                }else{
+                if (position == 0) {
+                    type = -1;
+                } else {
                     type = position;
                 }
                 shaixuan();
@@ -176,11 +180,13 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
 
             }
         });
+        //查看会议详情
         all_hui_room_adapter.setOnitemClick(new All_Hui_Room_Adapter.OnitemClick() {
             @Override
             public void click(HuiyiInformation huiyiInformation, int position) {
                 Intent intent = new Intent(All_Hui_Room_Activity.this, HuiyiXiang_Activity.class);
                 intent.putExtra("classs", huiyiInformation);
+                intent.putExtra("dates",s_year+"-"+s_month+"-"+s_day);//时间
                 startActivity(intent);
             }
         });
@@ -188,6 +194,27 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
         final CardLayoutManager cardLayoutManager = new CardLayoutManager(allHuiRoomRecycleview, touchHelper);
         allHuiRoomRecycleview.setLayoutManager(cardLayoutManager);
         touchHelper.attachToRecyclerView(allHuiRoomRecycleview);
+
+        allWeekCalendar.setOnWeekSelectListener(new OnWeekSelectListener() {
+            @Override
+            public void onWeekSelect(NDate date, boolean isClick) {
+                s_year = panduan(date.localDate.getYear());
+                s_month =panduan(date.localDate.getMonthOfYear());
+                s_day = panduan(date.localDate.getDayOfMonth());
+
+                Toast.makeText(All_Hui_Room_Activity.this,s_year+"-"+s_month+"-"+s_day,Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+    String s_year,s_month,s_day;
+    String panduan(int timee) {
+        String times;
+        if (timee / 10 == 0) {
+            times = "0" + timee;
+        } else {
+            times = String.valueOf(timee);
+        }
+        return times;
     }
 
     public void callBack(List<HuiyiInformation> list_meett) {

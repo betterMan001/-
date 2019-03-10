@@ -46,4 +46,5 @@ public class Net {
     public static String get_allHuiyi = url + "/Schedule/selectScheduleBySEmployeeId";//获取某天的会议
     public static String delete_sche = url+"/Schedule/deleteSchedule";
     public static String finish_activity = url +"/Schedule/achieve";//完成
+    public static String getShijian = url +"/Meeting/seeRoomUsage";//获取某间会议室
 }
