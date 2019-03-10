@@ -203,7 +203,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
             @Override
             public void onitenFinish(int position, String eveniIdd,Calendar_Adapter.MyViewHolder viewHolder) {
-                viewHolder.delete.setText("已完成");
+                viewHolder.finish.setText("已完成");
                 getOneDay_daoImp.finish(eveniIdd);
             }
         });
