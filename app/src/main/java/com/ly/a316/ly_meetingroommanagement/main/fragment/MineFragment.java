@@ -38,6 +38,8 @@ import com.ly.a316.ly_meetingroommanagement.login.activities.ForgetPWDOneActivit
 import com.ly.a316.ly_meetingroommanagement.login.activities.WelcomeActivity;
 import com.ly.a316.ly_meetingroommanagement.login.services.UploadServiceImp;
 import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
+import com.ly.a316.ly_meetingroommanagement.main.activites.ChangeNameActivity;
+import com.ly.a316.ly_meetingroommanagement.main.activites.StatisticalActivity;
 import com.ly.a316.ly_meetingroommanagement.main.services.imp.ModifyInformationServiceImp;
 import com.ly.a316.ly_meetingroommanagement.utils.CleanCacheUtil;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -74,6 +76,9 @@ public class MineFragment extends Fragment {
     private String headName = "headImage.jpg";
     private String filePath;
     public String phoneURL;
+    //修改名称要用的属性
+    public static String newName="";
+    public static String type="1";
     //标记开关的状态
     boolean isSwitch = true;
 
@@ -167,7 +172,7 @@ public class MineFragment extends Fragment {
         getActivity().finish();
     }
 
-    @OnClick({R.id.change_password_ll, R.id.change_head_ll, R.id.change_phone_ll, R.id.change_name_ll, R.id.message_item, R.id.notify_item, R.id.my_clean, R.id.my_exit_ll})
+    @OnClick({R.id.change_password_ll, R.id.change_head_ll, R.id.change_phone_ll, R.id.change_name_ll, R.id.message_item, R.id.notify_item, R.id.my_clean, R.id.my_exit_ll,R.id.schedue_state})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.change_password_ll:
@@ -191,39 +196,29 @@ public class MineFragment extends Fragment {
             case R.id.my_exit_ll:
                 loginOut();
                 break;
+            case R.id.schedue_state:
+                StatisticalActivity.start(getActivity());
+                break;
         }
     }
 
     private void changeName() {
-        AlertDialog.Builder customizeDialog =
-                new AlertDialog.Builder(getActivity());
-        final View dialogView = LayoutInflater.from(getActivity())
-                .inflate(R.layout.change_name_dialog, null);
-        customizeDialog.setTitle("");
-        customizeDialog.setView(dialogView);
-        customizeDialog.setPositiveButton("确定",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        // 获取EditView中的输入内容
-                        EditText edit_text =
-                                (EditText) dialogView.findViewById(R.id.change_name);
-                        userName.setText(edit_text.getText().toString());
-                        MyApplication.setUserName(edit_text.getText().toString());
-                        new ModifyInformationServiceImp(MineFragment.this).changeNickname(MyApplication.getId(), edit_text.getText().toString());
-                    }
-                });
-        customizeDialog.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        customizeDialog.show();
-
+        ChangeNameActivity.start(getActivity());
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+       //
+        if("2".equals(MineFragment.type)==true){
+            type="1";
+            //显示修改的名字
+            userName.setText(newName);
+            //向后台提交修改
+            new ModifyInformationServiceImp(MineFragment.this).changeNickname(MyApplication.getId(),newName);
+        }
+    }
     private void uploadHeadImage() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_popupwindow, null);
         TextView btnCamera = view.findViewById(R.id.btn_take_photo);

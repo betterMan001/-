@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
@@ -21,6 +22,7 @@ import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.classes.TabEntity;
 import com.ly.a316.ly_meetingroommanagement.customView.BottomBarLayout;
+import com.ly.a316.ly_meetingroommanagement.login.activities.LoginActivity;
 import com.ly.a316.ly_meetingroommanagement.main.fragment.CalendarFragment;
 import com.ly.a316.ly_meetingroommanagement.main.fragment.ContactListFragment;
 import com.ly.a316.ly_meetingroommanagement.main.fragment.ConversationListFragment;
@@ -34,10 +36,14 @@ import com.ly.a316.ly_meetingroommanagement.nim.user_info.UserPreferences;
 import com.ly.a316.ly_meetingroommanagement.utils.Jpush.TagAliasOperatorHelper;
 import com.ly.a316.ly_meetingroommanagement.utils.Jpush.WindowUtils;
 import com.ly.a316.ly_meetingroommanagement.utils.PopupMenuUtil;
+import com.netease.nim.avchatkit.AVChatProfile;
+import com.netease.nim.avchatkit.activity.AVChatActivity;
+import com.netease.nim.avchatkit.constant.AVChatExtras;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.business.contact.selector.activity.ContactSelectActivity;
 import com.netease.nim.uikit.common.ToastHelper;
 import com.netease.nim.uikit.common.activity.UI;
+import com.netease.nim.uikit.common.util.string.MD5;
 import com.netease.nim.uikit.support.permission.MPermission;
 import com.netease.nim.uikit.support.permission.annotation.OnMPermissionDenied;
 import com.netease.nim.uikit.support.permission.annotation.OnMPermissionGranted;
@@ -53,6 +59,7 @@ import com.netease.nimlib.sdk.msg.model.IMMessage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -206,9 +213,22 @@ public class MainActivity extends UI {
             tabEntityList.add(item);
         }
     }
+    private void onLogout() {
+        //Preferences.saveUserToken("");
+        // 清理缓存&注销监听
+       // LogoutHelper.logout();
+        // 启动登录
+       // LoginActivity.start(this);
+        finish();
+    }
     private boolean parseIntent() {
 
         Intent intent = getIntent();
+        if (intent.hasExtra(EXTRA_APP_QUIT)) {
+            intent.removeExtra(EXTRA_APP_QUIT);
+            onLogout();
+            return true;
+        }
         if (intent.hasExtra(NimIntent.EXTRA_NOTIFY_CONTENT)) {
             IMMessage message = (IMMessage) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
             intent.removeExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
@@ -224,22 +244,37 @@ public class MainActivity extends UI {
             return true;
         }
 
-//        if (intent.hasExtra(AVChatActivity.INTENT_ACTION_AVCHAT) && AVChatProfile.getInstance().isAVChatting()) {
-//            intent.removeExtra(AVChatActivity.INTENT_ACTION_AVCHAT);
-//            Intent localIntent = new Intent();
-//            localIntent.setClass(this, AVChatActivity.class);
-//            startActivity(localIntent);
-//            return true;
-//        }
+        if (intent.hasExtra(AVChatActivity.INTENT_ACTION_AVCHAT) && AVChatProfile.getInstance().isAVChatting()) {
+            intent.removeExtra(AVChatActivity.INTENT_ACTION_AVCHAT);
+            Intent localIntent = new Intent();
+            localIntent.setClass(this, AVChatActivity.class);
+            startActivity(localIntent);
+            return true;
+        }
 //
-//        String account = intent.getStringExtra(AVChatExtras.EXTRA_ACCOUNT);
-//        if (intent.hasExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION) && !TextUtils.isEmpty(account)) {
-//            intent.removeExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION);
-//            SessionHelper.startP2PSession(this, account);
-//            return true;
-//        }
+        String account = intent.getStringExtra(AVChatExtras.EXTRA_ACCOUNT);
+        if (intent.hasExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION) && !TextUtils.isEmpty(account)) {
+            intent.removeExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION);
+            SessionHelper.startP2PSession(this, account);
+            return true;
+        }
 
         return false;
+    }
+    public static void start(Context context, Intent extras) {
+        Intent intent = new Intent();
+        intent.setClass(context, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        if (extras != null) {
+            intent.putExtras(extras);
+        }
+        context.startActivity(intent);
+    }
+    // 注销
+    public static void logout(Context context, boolean quit) {
+        Intent extra = new Intent();
+        extra.putExtra(EXTRA_APP_QUIT, quit);
+        start(context, extra);
     }
     @Override
     protected void onNewIntent(Intent intent) {
@@ -247,7 +282,9 @@ public class MainActivity extends UI {
         parseIntent();
     }
     private void nimLogin(String phone) {
+        //为了测试音视频做的注释
         final String account = phone;
+      //  final String account="3";
         //云信的密码是账号的后六位
         int length=account.length();
         StringBuilder stringBuilder=new StringBuilder();
@@ -255,6 +292,8 @@ public class MainActivity extends UI {
             stringBuilder.append(account.charAt(i));
 
         String token = stringBuilder.toString();
+       // String token="e10adc3949ba59abbe56e057f20f883e";
+
         LoginInfo info = new LoginInfo(account, token); // config...
         RequestCallback<LoginInfo> callback =
                 new RequestCallback<LoginInfo>() {

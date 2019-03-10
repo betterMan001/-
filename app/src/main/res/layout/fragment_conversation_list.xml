@@ -7,15 +7,31 @@
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolBar"
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
+        android:id="@+id/customize_bar_rl"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/classical_blue"
-        app:titleTextColor="@color/white"
-        app:layout_scrollFlags="scroll|enterAlways"
-        app:title="@string/sesson_list"
-        />
+        >
+        <TextView
+            android:text="会话列表"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp"
+            android:layout_alignParentLeft="true"
+            android:gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <ImageView
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/do_something"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/scanner001"
+            />
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

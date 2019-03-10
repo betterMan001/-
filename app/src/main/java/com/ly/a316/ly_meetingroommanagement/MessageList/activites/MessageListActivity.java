@@ -1,5 +1,7 @@
 package com.ly.a316.ly_meetingroommanagement.MessageList.activites;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -16,6 +18,7 @@ import com.ly.a316.ly_meetingroommanagement.MessageList.services.imp.MessageServ
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
+import com.ly.a316.ly_meetingroommanagement.meetting.activity.MeetingRecordPeopleActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +57,11 @@ public class MessageListActivity extends BaseActivity {
         ButterKnife.bind(this);
         makeData();
     }
-
+    public static void start(Context context) {
+        Intent intent = new Intent();
+        intent.setClass(context, MessageListActivity.class);
+        context.startActivity(intent);
+    }
     private void makeData() {
         new MessageServiceImp(this).userJpush(MyApplication.getId());
     }

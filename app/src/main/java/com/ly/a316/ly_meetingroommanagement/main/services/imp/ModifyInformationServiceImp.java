@@ -54,7 +54,7 @@ public class ModifyInformationServiceImp  implements ModifyInformationService {
 
     @Override
     public void changeNickname(String phone, String nickname) {
-        String URL= Net.HEAD+Net.CHANGE_PROFILE+"?phone="+phone+"&nickname="+nickname;
+        String URL= Net.HEAD+Net.CHANGE_NICKNAME+"?phone="+phone+"&nickname="+nickname;
         MyHttpUtil.sendOkhttpGetRequest(URL, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {

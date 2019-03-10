@@ -97,7 +97,7 @@
                 android:id="@+id/erweima_saomiao"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@drawable/erweima_saomiao"
+                android:background="@drawable/messge001"
                 android:layout_toLeftOf="@+id/fl_current"
                 />
             <TextView

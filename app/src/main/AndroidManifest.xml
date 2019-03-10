@@ -64,7 +64,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <provider
-            android:name=".endActivity.util.MyProvider"
+            android:name="com.ly.a316.ly_meetingroommanagement.endActivity.util.MyProvider"
             android:authorities="com.ly.a316.ly_meetingroommanagement.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -73,6 +73,7 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
+        <!-- vip key= 45c6af3c98409b18a84451215d0bdd6e-->
         <meta-data
             android:name="com.netease.nim.appKey"
             android:value="5353c039233226f33cac4cece3ca7887" />
@@ -131,9 +132,6 @@
             android:exported="false"
             android:process=":core" />
 
-        <meta-data
-            android:name="com.netease.nim.appKey"
-            android:value="5353c039233226f33cac4cece3ca7887" />
         <!-- 云信后台服务，请使用独立进程。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
@@ -367,13 +365,20 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".MessageList.activites.MessageListActivity" />
-        <activity android:name=".meetingList.activities.MeetingDetailActivity" />
+        <activity android:name=".MessageList.activites.MessageListActivity"></activity>
         <activity android:name=".remind_huiyi_end.activity.Ceshi" />
         <activity android:name=".scheduleHuiHome_one.activity.Hui_Activity" />
         <activity android:name=".scheduleHuiHome_two.Activity.Schedule_Activity" />
         <activity android:name=".schedule_room_three.activity.Schedule_Activity_three" />
         <activity android:name=".schedule_room_four.activity.Schedule_Activity_four" />
+        <activity android:name=".popPage.activity.Information_meet" />
+        <activity android:name=".main.activites.StatisticalActivity" />
+        <activity android:name=".main.activites.ChangeNameActivity"
+            android:theme="@style/MyDialogStyle"
+            >
+
+        </activity>
+        <activity android:name=".main.activites.ScanActivity"></activity>
         <activity android:name=".popPage.activity.Information_meet" />
         <activity android:name=".scancode.activity.ScanCode_Hui" />
         <activity android:name=".schedule_room_four.activity.Choose_Activity" />
