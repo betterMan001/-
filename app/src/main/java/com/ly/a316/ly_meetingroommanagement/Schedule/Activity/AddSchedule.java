@@ -19,6 +19,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Dao.ScheduleDao;
@@ -243,7 +244,7 @@ public class AddSchedule extends BaseActivity {
 
                 String starttime = s_yearr + "-" + panduan(s_monthr) + "-" + panduan(s_dayr) + " " + panduan(s_selectHour) + ":" + panduan(s_selectMiniute) + ":00";
                 String endtime = e_yearr + "-" + panduan(e_monthr) + "-" + panduan(e_dayr) + " " + panduan(e_selectHour) + ":" + panduan(e_selectMiniute) + ":00";
-                scheduleDao.addSchedule("18248612936", starttime, endtime, sc_title, "日程", sc_remarks, sc_location, ti);
+                scheduleDao.addSchedule(MyApplication.getId(), starttime, endtime, sc_title, "日程", sc_remarks, sc_location, ti);
                 break;
         }
     }
@@ -305,7 +306,7 @@ public class AddSchedule extends BaseActivity {
             mCalendar.set(Calendar.HOUR_OF_DAY, e_selectHour);
             mCalendar.set(Calendar.MINUTE, e_selectMiniute);
             long end = mCalendar.getTime().getTime();
-
+            event.put(CalendarContract.Events.HAS_ALARM, 1);//设置有闹钟提醒
             event.put("dtstart", start);
             event.put("dtend", end);
             event.put("hasAlarm", 1);
@@ -320,7 +321,7 @@ public class AddSchedule extends BaseActivity {
             ContentValues values = new ContentValues();
             //插入时间的event_id
             values.put("event_id", id);
-
+            values.put(CalendarContract.Reminders.METHOD, 1);
             //提前10分钟有提醒
             values.put("minutes", alarmtime);//在事件发生之前多少分钟进行提醒
             getContentResolver().insert(Uri.parse(CalanderUtils.calanderRemiderURL), values);

@@ -43,5 +43,6 @@ public class Net {
     public static String get_liuyan = url+"/commet/commentList";//发送留言
     public static String get_allroom = url+"/meetRoom/allRoom";//获取所有会议室
     public static String get_allHuiyi = url + "/Schedule/selectScheduleBySEmployeeId";//获取某天的会议
+    public static String delete_sche = url+"/Schedule/deleteSchedule";
 
 }

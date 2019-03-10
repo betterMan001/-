@@ -38,6 +38,7 @@ import com.ddz.floatingactionbutton.FloatingActionButton;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Adapter.Calendar_Adapter;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AddSchedule;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AlarmActivity;
@@ -46,6 +47,7 @@ import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.OneDayCountActivit
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.jilei;
+import com.ly.a316.ly_meetingroommanagement.calendar_fra.DaoImp.GetOneDay_DaoImp;
 import com.ly.a316.ly_meetingroommanagement.calendar_fra.object.Day_Object;
 import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
@@ -55,6 +57,7 @@ import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
 import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
 import com.ly.a316.ly_meetingroommanagement.login.activities.LoginActivity;
 import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingDetailActivity;
 import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.activity.Ceshi;
 import com.ly.a316.ly_meetingroommanagement.scancode.activity.ScanCode_Hui;
 import com.yanzhenjie.permission.Action;
@@ -67,6 +70,7 @@ import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.bean.ZxingConfig;
 import com.yzq.zxinglibrary.common.Constant;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -126,6 +130,10 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     String alarm_item_eventid = "0";
     int alarm_choose_item;
 
+
+    Day_Object day_object;
+    GetOneDay_DaoImp getOneDay_daoImp = new GetOneDay_DaoImp(this, getContext());
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_fr_calendar;
@@ -141,51 +149,39 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     @Override
     protected void initData() {
     }
+
     void initview() {
         setStatusBarDarkMode();
         init();//初始化各种控件
 
+        getOneDay_daoImp.getOneDayinformation(MyApplication.getId(), ibCalendarview.getCurYear() + "-" +panduan(ibCalendarview.getCurMonth()) + "-" + panduan(ibCalendarview.getCurDay()));
+
         calendar_adapter.setOnItemClick(new Calendar_Adapter.OnItemClick() {
             @Override
             public void onitemClick(int position, String event_idd) {
-                alarm_choose_item = position;
-                alarmyear = Schedule.list.get(position).getYear();
-                alarmmonth = Schedule.list.get(position).getMonth();
-                alarmday = Schedule.list.get(position).getDay();
-
-
-                //日程详情
-                Intent intent = new Intent(getActivity(), Calendar_infor_activity.class);
+               /* //日程详情
+               Intent intent = new Intent(getActivity(), Calendar_infor_activity.class);
                 Log.i("zjc", event_idd);
                 intent.putExtra("event_id", event_idd);
+                startActivityForResult(intent, 14);*/
+                //会议详情
+                Intent intent = new Intent(getActivity(), MeetingDetailActivity.class);
+                Log.i("zjc", event_idd);
+                intent.putExtra("mId", event_idd);
                 startActivityForResult(intent, 14);
             }
 
             @Override
             //删除操作
             public void onitemDelete(String event_idd, int position) {
-                int year = Schedule.list.get(position).getYear();
-                int month = Schedule.list.get(position).getMonth();
-                int day = Schedule.list.get(position).getDay();
-                //通过Event_id可以将本地日历存的内容删掉
-                Uri deleteUri = null;
-                deleteUri = ContentUris.withAppendedId(Uri.parse(CalanderUtils.calanderEventURL), Integer.valueOf(event_idd));
-                int rows = getActivity().getContentResolver().delete(deleteUri, null, null);
-                Schedule.list.remove(position);
-                calendar_adapter.notifyDataSetChanged();
-                if (Schedule.list.size() == 0) {
-                    Calendar calendar = new Calendar();
-                    calendar.setYear(year);
-                    calendar.setMonth(month);
-                    calendar.setDay(day);
-                    ibCalendarview.removeSchemeDate(calendar);
-                }
+                getOneDay_daoImp.deleteSch(day_list.get(position).getNoId());
             }
 
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onitemAlarm(int po, String event_idd) {
-                alarm_choose_item = po;
+
+              /*  alarm_choose_item = po;
                 alarmyear = Schedule.list.get(po).getYear();
                 alarmmonth = Schedule.list.get(po).getMonth();
                 alarmday = Schedule.list.get(po).getDay();
@@ -194,11 +190,12 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 View vieww = manager.findViewByPosition(po);
                 Calendar_Adapter.MyViewHolder holder = (Calendar_Adapter.MyViewHolder) calRecycleview.getChildViewHolder(vieww);
                 holder.item_calendar_alerm.setBackgroundColor(R.drawable.btn_delete);
-
+*/
                 Intent i = new Intent(getActivity(), AlarmActivity.class);
                 i.putExtra("title", "新建提醒");
                 i.putExtra("choose", "1");
-                i.putExtra("alerttime", holder.item_alerttime.getText().toString());
+                i.putExtra("alerttime","1");
+                day_object = day_list.get(po);
                 startActivityForResult(i, 12);
             }
         });
@@ -244,7 +241,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         calRecycleview.setLayoutManager(linearLayoutManager);
-        calendar_adapter = new Calendar_Adapter(getContext(), Schedule.list);
+        calendar_adapter = new Calendar_Adapter(getContext(), day_list);
         calRecycleview.setAdapter(calendar_adapter);
         ibCalendarview.setOnCalendarSelectListener(this);
         ibCalendarview.setOnYearChangeListener(this);
@@ -256,9 +253,18 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         tvMonthDay.setText((String.valueOf(ibCalendarview.getCurMonth()) + "月" + String.valueOf(ibCalendarview.getCurDay()) + "日"));
         tvLunar.setText("今天");
         tvCurrentDay.setText(String.valueOf(ibCalendarview.getCurDay()));
+
     }
 
-
+    String panduan(int timee) {
+        String times;
+        if (timee / 10 == 0) {
+            times = "0" + timee;
+        } else {
+            times = String.valueOf(timee);
+        }
+        return times;
+    }
 
 
     private Calendar getSchemeCalendar(int year, int month, int day, int color, String text) {
@@ -280,7 +286,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         switch (requestCode) {
             case 12:
                 //修改提醒回调的地方
-                ContentValues values = new ContentValues();
+              /*  ContentValues values = new ContentValues();
                 //插入时间的event_id
                 values.put("minutes", alarmTimeduiying[resultCode]);//在事件发生之前多少分钟进行提醒
                 int rows = getActivity().getContentResolver().update(Uri.parse(CalanderUtils.calanderRemiderURL), values, CalendarContract.Reminders.EVENT_ID + "=" + Integer.valueOf(alarm_item_eventid), null);
@@ -296,7 +302,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }
+                }*/
+                ceshi_huiyi(day_object, alarmTimeduiying[resultCode]);
                 break;
             case 14:
                 if (resultCode == 10) {
@@ -342,7 +349,10 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         t_year = calendar.getYear() + "";
         t_day = calendar.getDay() + "";
         t_month = calendar.getMonth() + "";
-        try {
+
+        getOneDay_daoImp.getOneDayinformation(MyApplication.getId(),panduan(calendar.getYear())+"-"+panduan(calendar.getMonth())+"-"+panduan(calendar.getDay()));
+
+       /* try {
             Schedule.list.clear();
             //获取这个时间段的所有信息
             List<Schedule> calendarEvent = CalanderUtils.getCalendarEventByDay(getActivity(), calendar.getYear(), calendar.getMonth(), calendar.getDay());
@@ -351,7 +361,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             getAll();
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
@@ -390,7 +400,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
 
     @SuppressLint("MissingPermission")
-    @OnClick({R.id.fl_addday, R.id.fl_schedule, R.id.tv_month_dayyy, R.id.tv_current_day, R.id.more,R.id.erweima_saomiao})
+    @OnClick({R.id.fl_addday, R.id.fl_schedule, R.id.tv_month_dayyy, R.id.tv_current_day, R.id.more, R.id.erweima_saomiao})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_schedule:
@@ -404,14 +414,14 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 startActivity(intentttt);
                 */
 
-               //测试服务
+                //测试服务
                 Intent intentet = new Intent(getContext(), Ceshi.class);
                 startActivity(intentet);
 
                 /*
               請求權限
                  */
-               // scanCode();
+                // scanCode();
                 /*
                 周日历
                  */
@@ -440,6 +450,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 break;
             case R.id.more:
                 intent1 = new Intent(getActivity(), OneDayCountActivity.class);
+                intent1.putExtra("list", (Serializable) day_list);
                 startActivity(intent1);
                 break;
             case R.id.erweima_saomiao:
@@ -448,7 +459,6 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
         }
     }
-
 
 
     @Override
@@ -475,13 +485,11 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     }
 
 
-
-
     /**
      * 往日历里面插入带有参会人的日程信息
      */
     @SuppressLint("MissingPermission")
-    void ceshi_huiyi() {
+    void ceshi_huiyi(Day_Object day_object,int alarmtime) {
         if (CalanderUtils.requestPermission(getActivity())) {
             String calId = "";
             //这是一条查询语句
@@ -496,27 +504,27 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             }
             ContentValues event = new ContentValues();
             event.put(CalendarContract.Events.EVENT_TIMEZONE, TimeZone.getDefault().getID());
-            event.put("title", "开会啦");//插入标题
-            event.put("description", "备注");//备注
+            event.put("title", day_object.getContent());//插入标题
+            event.put("description", day_object.getRemark());//备注
             event.put("calendar_id", calId);//插入hoohbood@gmail.com这个账户
-            event.put("eventLocation", "这里填的是地点");//地点
+            event.put("eventLocation", day_object.getAddress());//地点
             java.util.Calendar mCalendar = java.util.Calendar.getInstance();
 
             //起始时间
-            mCalendar.set(java.util.Calendar.YEAR, 2019);
-            mCalendar.set(java.util.Calendar.MONTH, 1);
-            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, 7);
-            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, 15);
-            mCalendar.set(java.util.Calendar.MINUTE, 00);
+            mCalendar.set(java.util.Calendar.YEAR, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(0,4)))));
+            mCalendar.set(java.util.Calendar.MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(5,7))))-1);
+            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(8,10)))));
+            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(11,13)))));
+            mCalendar.set(java.util.Calendar.MINUTE, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(14,16)))));
             long start = mCalendar.getTime().getTime();
             //结束时间
-            mCalendar.set(java.util.Calendar.YEAR, 2019);
-            mCalendar.set(java.util.Calendar.MONTH, 1);
-            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, 7);
-            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, 16);
-            mCalendar.set(java.util.Calendar.MINUTE, 00);
+            mCalendar.set(java.util.Calendar.YEAR, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(0,4)))));
+            mCalendar.set(java.util.Calendar.MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(5,7))))-1);
+            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(8,10)))));
+            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(11,13)))));
+            mCalendar.set(java.util.Calendar.MINUTE,Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(14,16)))));
             long end = mCalendar.getTime().getTime();
-
+            event.put(CalendarContract.Events.HAS_ALARM, 1);//设置有闹钟提醒
             event.put("dtstart", start);
             event.put("dtend", end);
             event.put("hasAlarm", 1);
@@ -528,12 +536,18 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             //插入时间的event_id
             values.put("event_id", id);
 
+            values.put( CalendarContract.Reminders.MINUTES, alarmtime);//在事件发生之前多少分钟进行提醒
+            values.put(CalendarContract.Reminders.METHOD, 1);//添加提醒这个必须有
             getContext().getContentResolver().insert(Uri.parse(CalanderUtils.calanderRemiderURL), values);
             //添加会议人
             ContentValues valuess = new ContentValues();
             valuess.put(CalendarContract.Attendees.EVENT_ID, id);
-            valuess.put("attendeeName", "张思");
-            getContext().getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI, valuess);
+            valuess.put("attendeeName", day_object.getLeaders());
+
+           getContext().getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI, valuess);
+
+
+
         }
     }
 
@@ -563,10 +577,15 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         unbinder.unbind();
 
     }
+
     List<Day_Object> day_list = new ArrayList<>();
-    public  void success_callback(List<Day_Object> list){
+
+    public void success_callback(List<Day_Object> list) {
         day_list.clear();
         day_list.addAll(list);
-
+        calendar_adapter.notifyDataSetChanged();
+    }
+    public void success_delete( ){
+        getOneDay_daoImp.getOneDayinformation(MyApplication.getId(),panduan(Integer.valueOf(t_year))+"-"+panduan(Integer.valueOf(t_month))+"-"+panduan(Integer.valueOf(t_day)));
     }
 }

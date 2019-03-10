@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.calendar_fra.object.Day_Object;
 
 import java.util.List;
 
@@ -21,9 +22,9 @@ import java.util.List;
  */
 public class Calendar_Adapter extends RecyclerView.Adapter {
     private Context context;
-    private List<Schedule> list;
+    private List<Day_Object> list;
 
-    public Calendar_Adapter(Context context, List<Schedule> list) {
+    public Calendar_Adapter(Context context, List<Day_Object> list) {
         this.context = context;
         this.list = list;
     }
@@ -38,31 +39,33 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
-        ((MyViewHolder) viewHolder).item_mettingstart.setText(list.get(i).getAlert_startTime());
-        ((MyViewHolder) viewHolder).item_mettingend.setText(list.get(i).getAlert_endtime());
-        ((MyViewHolder) viewHolder).item_mettinghead.setText(list.get(i).getAlert_head());
-        ((MyViewHolder) viewHolder).item_mettingpeople.setText(list.get(i).getAlert_people());
-        ((MyViewHolder) viewHolder).item_mettingwhere.setText(list.get(i).getAlert_difang());
-        ((MyViewHolder) viewHolder).item_mettingplan.setText(list.get(i).getAlert_beizhu());
-        ((MyViewHolder) viewHolder).item_calendar_day.setText(list.get(i).getAttribute());
-        ((MyViewHolder) viewHolder).item_alerttime.setText(list.get(i).getAlert_time());
+        String start_time = list.get(i).getStartTime().substring(11,16);
+        String end_time = list.get(i).getEndTime().substring(11,16);
+        ((MyViewHolder) viewHolder).item_mettingstart.setText(start_time);
+        ((MyViewHolder) viewHolder).item_mettingend.setText(end_time);
+        ((MyViewHolder) viewHolder).item_mettinghead.setText(list.get(i).getContent());
+        ((MyViewHolder) viewHolder).item_mettingpeople.setText(list.get(i).getLeaders());
+        ((MyViewHolder) viewHolder).item_mettingwhere.setText(list.get(i).getAddress());
+        ((MyViewHolder) viewHolder).item_mettingplan.setText(list.get(i).getRemark());
+        ((MyViewHolder) viewHolder).item_calendar_day.setText("["+list.get(i).getMeetType()+"]");
+      //   ((MyViewHolder) viewHolder).item_alerttime.setText(list.get(i).getAlert_time());
         ((MyViewHolder)viewHolder).item_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick.onitemClick(i,list.get(i).getEvent_idd());
+                onItemClick.onitemClick(i,list.get(i).getNoId());
             }
         });
 
         ((MyViewHolder)viewHolder).item_calendar_alerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick.onitemAlarm(i,list.get(i).getEvent_idd());
+                onItemClick.onitemAlarm(i,list.get(i).getNoId());
             }
         });
         ((MyViewHolder)viewHolder).delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick.onitemDelete(list.get(i).getEvent_idd(),i);
+                onItemClick.onitemDelete(list.get(i).getNoId(),i);
             }
         });
     }

@@ -1,10 +1,12 @@
 package com.ly.a316.ly_meetingroommanagement.calendar_fra.object;
 
+import java.io.Serializable;
+
 /**
  * 作者：余智强
  * 2019/3/9
  */
-public class Day_Object {
+public class Day_Object implements Serializable {
     String address;
     String mId;//会议发起人的id
     String remark;//备注

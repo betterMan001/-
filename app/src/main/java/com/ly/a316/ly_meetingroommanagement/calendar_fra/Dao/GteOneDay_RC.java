@@ -6,4 +6,5 @@ package com.ly.a316.ly_meetingroommanagement.calendar_fra.Dao;
  */
 public interface GteOneDay_RC {
     void getOneDayinformation(String leadersid,String date);
+    void deleteSch(String sid);
 }

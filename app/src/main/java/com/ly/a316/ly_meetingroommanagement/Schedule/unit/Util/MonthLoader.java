@@ -22,7 +22,7 @@ public class MonthLoader implements WeekViewLoader {
 
     @Override
     public List<? extends WeekViewEvent> onLoad(int periodIndex){
-        return mOnMonthChangeListener.onMonthChange(periodIndex / 12, periodIndex % 12 + 1);
+         return mOnMonthChangeListener.onMonthChange(periodIndex / 12, periodIndex % 12 + 1);
     }
 
     public MonthChangeListener getOnMonthChangeListener() {

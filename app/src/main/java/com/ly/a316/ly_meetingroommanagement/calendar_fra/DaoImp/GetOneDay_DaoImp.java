@@ -50,6 +50,8 @@ public class GetOneDay_DaoImp implements GteOneDay_RC {
                 toast("网络请求失败");
             } else if (msg.what == 0x34) {
                 calendarFragment.success_callback(list);
+            }else if(msg.what == 0x36){
+                calendarFragment.success_delete();
             }
         }
     };
@@ -79,6 +81,7 @@ public class GetOneDay_DaoImp implements GteOneDay_RC {
                             Day_Object day_object = gson.fromJson(String.valueOf(jsonArray.get(i)), Day_Object.class);
                             list.add(day_object);
                         }
+                        handler.sendEmptyMessage(0x34);
                     }else{
                         handler.sendEmptyMessage(0x33);
                     }
@@ -89,7 +92,27 @@ public class GetOneDay_DaoImp implements GteOneDay_RC {
         });
     }
 
-    Toast toast;
+    @Override
+    public void deleteSch(String sid) {
+        String url = Net.delete_sche+"?sId="+sid;
+        Log.i("zjc", "删除日程：" + url);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(url).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendEmptyMessage(0x33);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                handler.sendEmptyMessage(0x36);
+            }
+        });
+    }
+
+    Toast toast ;
 
     void toast(String neirong) {
         if (toast == null) {

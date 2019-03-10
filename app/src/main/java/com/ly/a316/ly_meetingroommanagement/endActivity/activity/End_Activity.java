@@ -31,6 +31,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
@@ -291,7 +292,7 @@ public class End_Activity extends AppCompatActivity {
                 .setMessage(mess)
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        String tels = "18248612936";              //获取电话
+                        String tels = MyApplication.getId();              //获取电话
                         String contents = "复制链接在浏览器中打开进行查看：" + file_path;      //获取短信内容
                         Intent intent = new Intent();                        //创建 Intent 实例
                         intent.setAction(Intent.ACTION_SENDTO);             //设置动作为发送短信
