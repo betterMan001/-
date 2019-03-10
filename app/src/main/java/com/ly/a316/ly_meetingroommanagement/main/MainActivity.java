@@ -283,16 +283,16 @@ public class MainActivity extends UI {
     }
     private void nimLogin(String phone) {
         //为了测试音视频做的注释
-      //  final String account = phone;
-        final String account="3";
+        final String account = phone;
+      //  final String account="3";
         //云信的密码是账号的后六位
         int length=account.length();
-//        StringBuilder stringBuilder=new StringBuilder();
-//        for(int i=length-6;i<=length-1;i++)
-//            stringBuilder.append(account.charAt(i));
+        StringBuilder stringBuilder=new StringBuilder();
+        for(int i=length-6;i<=length-1;i++)
+            stringBuilder.append(account.charAt(i));
 
-        //String token = stringBuilder.toString();
-        String token="e10adc3949ba59abbe56e057f20f883e";
+        String token = stringBuilder.toString();
+       // String token="e10adc3949ba59abbe56e057f20f883e";
 
         LoginInfo info = new LoginInfo(account, token); // config...
         RequestCallback<LoginInfo> callback =

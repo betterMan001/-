@@ -38,6 +38,7 @@ import com.ddz.floatingactionbutton.FloatingActionButton;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
+import com.ly.a316.ly_meetingroommanagement.MessageList.activites.MessageListActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Adapter.Calendar_Adapter;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AddSchedule;
@@ -455,7 +456,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 startActivity(intent1);
                 break;
             case R.id.erweima_saomiao:
-                scanCode();
+                MessageListActivity.start(getActivity());
+                //scanCode();
                 break;
 
         }
