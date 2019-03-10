@@ -114,7 +114,7 @@ public class DeviceDaoImp implements deviceDao {
                     schedule_activity_four.success(list_meet);
                 }
             }else if(msg.what == 10){
-                toast_end("网络请求成功");
+                //toast_end("网络请求成功");
                 end_activity.call_success_back(device_list);
             }else if(msg.what == 11){
                 toast_end("网络请求失败");

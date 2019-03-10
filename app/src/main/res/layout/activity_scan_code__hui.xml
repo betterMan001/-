@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".scancode.activity.ScanCode_Hui">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/scancode_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@drawable/title_bar_color"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:navigationIcon="@drawable/backtwo"
+        app:titleTextColor="@color/white">
+
+        <TextView
+            android:id="@+id/headddd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="预定会议室"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/add_sure"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="right"
+            android:text="发起预定"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="normal" />
+    </android.support.v7.widget.Toolbar>
+    <com.necer.calendar.WeekCalendar
+        android:id="@+id/weekCalendar"
+        android:layout_width="match_parent"
+        app:lunarTextColor="#00aa00"
+        android:layout_height="50dp" />
+
+</LinearLayout>

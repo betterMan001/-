@@ -3,10 +3,13 @@ package com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.transition.Explode;
+import android.transition.Fade;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -95,21 +98,32 @@ public class Schedule_Activity_four extends AppCompatActivity {
     @BindView(R.id.four_btn_start_cancel)
     Button four_btn_start_cancel;
     @BindView(R.id.four_image_end_time)
-            ImageView four_image_end_time;
+    ImageView four_image_end_time;
     @BindView(R.id.four_ly_choose_duan_end_time)
-            LinearLayout four_ly_choose_duan_end_time;
+    LinearLayout four_ly_choose_duan_end_time;
     @BindView(R.id.four_end_time)
-            TextView four_end_time;
+    TextView four_end_time;
     @BindView(R.id.four_start_time)
-            TextView four_start_time;
+    TextView four_start_time;
     DeviceDaoImp deviceDaoImp;
+
+    List<String> lids = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_schedule_);
         ButterKnife.bind(this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(new Fade().setDuration(2000));
+            getWindow().setExitTransition(new Fade().setDuration(2500));
+        }
+
         deviceDaoImp = new DeviceDaoImp(this);
+        lids = getIntent().getStringArrayListExtra("listdetail");
+        for (String nei : lids) {
+            whichone_show(nei);
+        }
         initview();
         four_toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,17 +131,10 @@ public class Schedule_Activity_four extends AppCompatActivity {
                 finish();
             }
         });
-        myDialogFragment_four = new MyDialogFragment_four();
-        myDialogFragment_four.show(getSupportFragmentManager(), "df");
 
-        myDialogFragment_four.setDiaFragment_interface(new MyDialogFragment_four.DiaFragment_interface() {
-            @Override
-            public void success(List<String> list) {
-                for (String nei : list) {
-                    whichone_show(nei);
-                }
-            }
-        });
+
+
+
     }
 
     void whichone_show(String why_nei) {
@@ -169,7 +176,7 @@ public class Schedule_Activity_four extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.four_btn_start_surer,R.id.four_btn_end_surer,R.id.four_btn_end_cancel,R.id.four_ly_duan_end,R.id.four_btn_start_cancel, R.id.four_ly_duan_start, R.id.four_lt_click_time, R.id.four_btn_cancel, R.id.four_btn_surer, R.id.four_ly_where_hui, R.id.four_ly_huitype, R.id.four_ly_device, R.id.four_faqiyuding_btn})
+    @OnClick({R.id.four_btn_start_surer, R.id.four_btn_end_surer, R.id.four_btn_end_cancel, R.id.four_ly_duan_end, R.id.four_btn_start_cancel, R.id.four_ly_duan_start, R.id.four_lt_click_time, R.id.four_btn_cancel, R.id.four_btn_surer, R.id.four_ly_where_hui, R.id.four_ly_huitype, R.id.four_ly_device, R.id.four_faqiyuding_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.four_lt_click_time:
@@ -209,7 +216,7 @@ public class Schedule_Activity_four extends AppCompatActivity {
                 break;
             case R.id.four_ly_duan_start:
                 rotation(four_image_start_time, 2);
-                if(four_ly_choose_duan_end_time.getVisibility() == View.VISIBLE){
+                if (four_ly_choose_duan_end_time.getVisibility() == View.VISIBLE) {
                     four_ly_choose_duan_end_time.setVisibility(View.GONE);
                 }
                 break;
@@ -227,7 +234,7 @@ public class Schedule_Activity_four extends AppCompatActivity {
                 break;
             case R.id.four_ly_duan_end:
                 rotation(four_image_end_time, 3);
-                if(four_ly_choose_duan_start_time.getVisibility() == View.VISIBLE){
+                if (four_ly_choose_duan_start_time.getVisibility() == View.VISIBLE) {
                     four_ly_choose_duan_start_time.setVisibility(View.GONE);
                 }
                 break;
@@ -255,12 +262,12 @@ public class Schedule_Activity_four extends AppCompatActivity {
                 hour += 1;
             }
             ShijiandianClass.end_hour = hour;
-            if(!ShijiandianClass.HUIYISHICHANG_TIME.equals("")){
+            if (!ShijiandianClass.HUIYISHICHANG_TIME.equals("")) {
                 miniute = miniute + Integer.valueOf(ShijiandianClass.HUIYISHICHANG_TIME) - 60;
                 ShijiandianClass.end_miniute = miniute;
             }
         } else {
-            if(!ShijiandianClass.HUIYISHICHANG_TIME.equals("")){
+            if (!ShijiandianClass.HUIYISHICHANG_TIME.equals("")) {
                 miniute += Integer.valueOf(ShijiandianClass.HUIYISHICHANG_TIME);
                 ShijiandianClass.end_miniute = miniute;
             }
@@ -375,18 +382,18 @@ public class Schedule_Activity_four extends AppCompatActivity {
                         fourLyChooseTime.setVisibility(View.GONE);
                     }
                 } else if (who == 2) {
-                    if(!open_close){
+                    if (!open_close) {
                         four_ly_choose_duan_start_time.setVisibility(View.VISIBLE);
                         addLayoutAnimation(four_ly_choose_duan_start_time);
-                    }else{
+                    } else {
                         four_ly_choose_duan_start_time.setVisibility(View.GONE);
                     }
 
-                }else if(who == 3){
+                } else if (who == 3) {
                     if (!open_close) {
                         four_ly_choose_duan_end_time.setVisibility(View.VISIBLE);
                         addLayoutAnimation(four_ly_choose_duan_end_time);
-                    }else{
+                    } else {
                         four_ly_choose_duan_end_time.setVisibility(View.GONE);
                     }
                 }
@@ -430,7 +437,7 @@ public class Schedule_Activity_four extends AppCompatActivity {
     @BindView(R.id.four_time_start_picker)
     TimePicker four_time_start_picker;
     @BindView(R.id.four_time_end_picker)
-            TimePicker four_time_end_picker;
+    TimePicker four_time_end_picker;
     int duan_start_year, duan_start_month, duan_start_day, duan_start_hour, duan_start_miniute;
     int duan_end_year, duan_end_month, duan_end_day, duan_end_hour, duan_end_miniute;
 
@@ -444,7 +451,8 @@ public class Schedule_Activity_four extends AppCompatActivity {
         }
 
     }
-    void huoqu_end_time(){
+
+    void huoqu_end_time() {
         duan_end_year = four_date_end_picker.getYear();
         duan_end_month = four_date_end_picker.getMonth() + 1;
         duan_end_day = four_date_end_picker.getDayOfMonth();

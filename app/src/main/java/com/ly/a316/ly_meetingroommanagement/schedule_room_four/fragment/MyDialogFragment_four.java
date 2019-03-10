@@ -204,17 +204,14 @@ public class MyDialogFragment_four extends DialogFragment {
 
     }
 
-    @OnClick({R.id.sure_four, R.id.caneel_four})
+    @OnClick({R.id.sure_four})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.sure_four:
                 diaFragment_interface.success(list_choose);
                 dismiss();
                 break;
-            case R.id.caneel_four:
-                list_choose.clear();
-                dismiss();
-                break;
+
         }
     }
 

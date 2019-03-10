@@ -94,7 +94,7 @@ public class ZhanshiHuiActivity extends AppCompatActivity {
 
             @Override
             public void onSwipedClear() {
-                Toast.makeText(ZhanshiHuiActivity.this, "这是最有一个会议室了", Toast.LENGTH_LONG).show();
+                Toast.makeText(ZhanshiHuiActivity.this, "这是最后一个会议室了", Toast.LENGTH_LONG).show();
                 zhanshiRecycleview.postDelayed(new Runnable() {
                     @Override
                     public void run() {

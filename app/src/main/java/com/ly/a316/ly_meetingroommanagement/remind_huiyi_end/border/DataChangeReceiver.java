@@ -30,7 +30,6 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class DataChangeReceiver extends BroadcastReceiver {
     String time;
 
-
     @Override
     public void onReceive(Context context, Intent intent) {
        if (intent.ACTION_TIME_TICK.equals(intent.getAction())) {

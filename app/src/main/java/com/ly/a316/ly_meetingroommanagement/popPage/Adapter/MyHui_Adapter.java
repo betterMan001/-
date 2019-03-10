@@ -41,7 +41,7 @@ public class MyHui_Adapter extends RecyclerView.Adapter {
         if(!liuYan_classes.get(i).getImage().equals(null)){
             Uri uri = Uri.parse(liuYan_classes.get(i).getImage());
             ((MyviewHoder)viewHolder).simpleDraweeView.setImageURI(uri);
-        }
+       }
         ((MyviewHoder)viewHolder).TextView_content.setText(liuYan_classes.get(i).getComment());
         ((MyviewHoder)viewHolder).textView_name.setText(liuYan_classes.get(i).getName());
     }

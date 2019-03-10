@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.service.End_Service;
@@ -23,14 +25,14 @@ public class Ceshi extends AppCompatActivity {
     Button startService;
     @BindView(R.id.end_service)
     Button endService;
-    Intent intent;
+
     private final int TIME = 5*1000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ceshi2);
         ButterKnife.bind(this);
-        intent   = new Intent(this,End_Service.class);
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -44,13 +46,16 @@ public class Ceshi extends AppCompatActivity {
                   startService(intent);
                  */
                 //通过Handler实现定时任务
+                Log.i("zjc","点击了start");
                 sendTimeService(true);
                 break;
             case R.id.end_service:
+                Log.i("zjc","点击了end");
                 handler.removeCallbacks(runnable);
                 break;
         }
     }
+
 
 
 

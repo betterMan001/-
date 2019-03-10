@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.Attendee;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.Meeting;
@@ -17,6 +18,7 @@ import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.AttenderSer
 import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.MeetingDetailServiceImp;
 import com.ly.a316.ly_meetingroommanagement.meetting.activity.ContentDialogActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.TeamCreateHelper;
+import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.activity.Ceshi;
 import com.zaaach.toprightmenu.MenuItem;
 import com.zaaach.toprightmenu.TopRightMenu;
 
@@ -96,6 +98,14 @@ public class MeetingDetailActivity extends BaseActivity {
                 break;
             //开始会议
             case R.id.begin_meeting:
+                String start_time = model.begin.substring(11,13);
+                String end_time = model.begin.substring(14,16);
+
+                /* Intent intentet = new Intent(this, Ceshi.class);*/
+                Intent intentet = new Intent(this, End_Activity.class);
+                intentet.putExtra("end_time",end_time);
+                intentet.putExtra("start_time",start_time);
+                startActivity(intentet);
                 break;
             //会议内容
             case R.id.meeting_content_ll:

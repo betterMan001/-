@@ -91,7 +91,15 @@
                     android:textColor="#000"
                     android:textSize="12sp" />
             </FrameLayout>
-
+            <ImageView
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/erweima_saomiao"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="@drawable/erweima_saomiao"
+                android:layout_toLeftOf="@+id/fl_current"
+                />
             <TextView
                 android:id="@+id/more"
                 android:layout_width="wrap_content"
