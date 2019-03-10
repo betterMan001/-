@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background">
+    android:background="@drawable/ceshibeijing">
     <!--用户相关提示-->
     <LinearLayout
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10dp"
                 android:text="注册"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
         </RelativeLayout>
         <TextView
@@ -44,6 +44,7 @@
             android:text="@string/welcome"
             android:textSize="30sp"
             android:textStyle="bold"
+            android:textColor="#fff"
             />
     </LinearLayout>
     <!--输入框-->
@@ -164,7 +165,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:text="@string/message_verification"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold" />
         <TextView
@@ -173,9 +174,10 @@
             android:layout_alignParentRight="true"
             android:text="@string/forget_password"
             android:textSize="15sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold"
             android:id="@+id/act_forget_password"
+
             />
     </RelativeLayout>
 </LinearLayout>

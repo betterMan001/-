@@ -136,6 +136,9 @@ public class LoginActivity extends BaseActivity {
         //离线的头像和名字
      String userName=MyApplication.getUserName();
      String imageURL=MyApplication.getImageURL();
+        this.loginSPwdEt.setHintTextColor(getResources().getColor(R.color.tran_white));
+        this.loginSUserIDEt.setHintTextColor(getResources().getColor(R.color.tran_white));
+
      String phoneNumber=MyApplication.getToken();
      if("".equals(userName)){
 
