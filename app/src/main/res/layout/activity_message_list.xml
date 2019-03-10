@@ -43,11 +43,11 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/message_tl"
             android:background="#FFFFFF"
-            app:tabTextColor="#00A7FF"
+            app:tabTextColor="#dccdcd"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             app:tabIndicatorColor="#FFFFFF"
-            app:tabSelectedTextColor="#dccdcd"
+            app:tabSelectedTextColor="#00A7FF"
             >
         </android.support.design.widget.TabLayout>
         <ImageView

@@ -1,1 +1,1 @@
-include ':app', ':calendarview', ':uikit'
+include ':app', ':calendarview', ':uikit', ':avchatkit', ':faceunity'

@@ -1,18 +1,19 @@
 package com.ly.a316.ly_meetingroommanagement.main.fragment;
 
 
-import android.graphics.Color;
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ly.a316.ly_meetingroommanagement.R;
-
-
+import com.ly.a316.ly_meetingroommanagement.main.activites.ScanActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderManager;
 import com.ly.a316.ly_meetingroommanagement.nim.session.GuessAttachment;
@@ -34,6 +35,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
+import cn.simonlee.xcodescanner.core.ZBarDecoder;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +47,11 @@ import java.util.Map;
 public class ConversationListFragment extends Fragment {
 
     private static final String TAG = "ConversationListFragmen";
+    Unbinder unbinder;
+    private int[] mCodeTypeArray = new int[]{
+        ZBarDecoder.CODABAR, ZBarDecoder.CODE39, ZBarDecoder.CODE93, ZBarDecoder.CODE128, ZBarDecoder.DATABAR, ZBarDecoder.DATABAR_EXP
+                , ZBarDecoder.EAN8, ZBarDecoder.EAN13, ZBarDecoder.I25, ZBarDecoder.ISBN10, ZBarDecoder.ISBN13, ZBarDecoder.PDF417, ZBarDecoder.QRCODE
+                , ZBarDecoder.UPCA, ZBarDecoder.UPCE};
     public ConversationListFragment() {
         // Required empty public constructor
         //setContainerId(MainTab.RECENT_CONTACTS.fragmentId);
@@ -51,12 +62,10 @@ public class ConversationListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_conversation_list, container, false);
+        unbinder = ButterKnife.bind(this, view);
         return view;
 
     }
-
-
-
 
 
     private RecentContactsFragment fragment;
@@ -148,4 +157,30 @@ public class ConversationListFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
+    }
+
+    @OnClick(R.id.do_something)
+    public void onViewClicked() {
+        //新api
+        startScan(1);
+
+    }
+    private void startScan(int api) {
+        int permissionState = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
+        if (permissionState == PackageManager.PERMISSION_GRANTED) {
+            Intent intent = new Intent(getActivity(), ScanActivity.class);
+            intent.putExtra("newAPI", api == 1);
+            intent.putExtra("codeType", getCodeType());
+            startActivity(intent);
+        } else {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, api);
+        }
+    }
+    private int[] getCodeType() {
+        return mCodeTypeArray;
+    }
 }

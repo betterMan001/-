@@ -50,10 +50,10 @@
     <!-- SDK 权限申明, 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
     <!-- 和下面的 uses-permission 一起加入到你的 AndroidManifest 文件中。 -->
     <permission
-        android:name="com.netease.nim.demo.permission.RECEIVE_MSG"
+        android:name="com.ly.a316.ly_meetingroommanagement.permission.RECEIVE_MSG"
         android:protectionLevel="signature" />
     <!-- 接收 SDK 消息广播权限， 第三方 APP 接入时，请将 com.netease.nim.demo 替换为自己的包名 -->
-    <uses-permission android:name="com.netease.nim.demo.permission.RECEIVE_MSG" />
+    <uses-permission android:name="com.ly.a316.ly_meetingroommanagement.permission.RECEIVE_MSG" />
 
     <application
         android:name=".MyApplication"
@@ -62,9 +62,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme.NoActionBar">
         <provider
-            android:name="com.ly.a316.ly_meetingroommanagement.endActivity.util.MyProvider"
+            android:name=".endActivity.util.MyProvider"
             android:authorities="com.ly.a316.ly_meetingroommanagement.provider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -72,9 +72,10 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
+
         <meta-data
             android:name="com.netease.nim.appKey"
-            android:value="5353c039233226f33cac4cece3ca7887" />
+            android:value="45c6af3c98409b18a84451215d0bdd6e" />
         <!-- 云信后台服务，请使用独立进程。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
@@ -124,9 +125,6 @@
             android:exported="false"
             android:process=":core" />
 
-        <meta-data
-            android:name="com.netease.nim.appKey"
-            android:value="5353c039233226f33cac4cece3ca7887" />
         <!-- 云信后台服务，请使用独立进程。 -->
         <service
             android:name="com.netease.nimlib.service.NimService"
@@ -246,14 +244,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".endActivity.activity.End_Activity"></activity>
+        <activity android:name=".endActivity.activity.End_Activity" />
         <activity
             android:name=".nim.activity.AddFriendActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
-        <activity android:name=".endActivity.activity.FilePickerActivity"></activity>
+        <activity android:name=".endActivity.activity.FilePickerActivity" />
         <activity
             android:name=".nim.activity.UserProfileActivity"
             android:configChanges="orientation"
@@ -359,14 +357,21 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".MessageList.activites.MessageListActivity"></activity>
+        <activity android:name=".MessageList.activites.MessageListActivity" />
         <activity android:name=".meetingList.activities.MeetingDetailActivity" />
         <activity android:name=".remind_huiyi_end.activity.Ceshi" />
         <activity android:name=".scheduleHuiHome_one.activity.Hui_Activity" />
         <activity android:name=".scheduleHuiHome_two.Activity.Schedule_Activity" />
         <activity android:name=".schedule_room_three.activity.Schedule_Activity_three" />
         <activity android:name=".schedule_room_four.activity.Schedule_Activity_four" />
-        <activity android:name=".popPage.activity.Information_meet"></activity>
+        <activity android:name=".popPage.activity.Information_meet" />
+        <activity android:name=".main.activites.StatisticalActivity" />
+        <activity android:name=".main.activites.ChangeNameActivity"
+            android:theme="@style/MyDialogStyle"
+            >
+
+        </activity>
+        <activity android:name=".main.activites.ScanActivity"></activity>
     </application>
 
 </manifest>

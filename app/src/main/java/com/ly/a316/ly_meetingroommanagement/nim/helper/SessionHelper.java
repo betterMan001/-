@@ -13,8 +13,10 @@ import android.view.View;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 
+import com.ly.a316.ly_meetingroommanagement.nim.action.AVChatAction;
 import com.ly.a316.ly_meetingroommanagement.nim.action.FileAction;
 import com.ly.a316.ly_meetingroommanagement.nim.action.GuessAction;
+import com.ly.a316.ly_meetingroommanagement.nim.action.TeamAVChatAction;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.MessageHistoryActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.MessageInfoActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.SearchMessageActivity;
@@ -27,12 +29,14 @@ import com.ly.a316.ly_meetingroommanagement.nim.session.RedPacketAttachment;
 import com.ly.a316.ly_meetingroommanagement.nim.session.SessionTeamCustomization;
 import com.ly.a316.ly_meetingroommanagement.nim.session.SnapChatAttachment;
 import com.ly.a316.ly_meetingroommanagement.nim.session.StickerAttachment;
+import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderAVChat;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderDefCustom;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderFile;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderGuess;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderSnapChat;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderSticker;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.MsgViewHolderTip;
+import com.netease.nim.avchatkit.TeamAVChatProfile;
 import com.netease.nim.uikit.api.NimUIKit;
 import com.netease.nim.uikit.api.model.recent.RecentCustomization;
 import com.netease.nim.uikit.api.model.session.SessionCustomization;
@@ -53,6 +57,8 @@ import com.netease.nim.uikit.impl.cache.TeamDataCache;
 import com.netease.nim.uikit.impl.customization.DefaultRecentCustomization;
 import com.netease.nimlib.sdk.NIMClient;
 
+import com.netease.nimlib.sdk.avchat.constant.AVChatType;
+import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
 import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.MsgServiceObserve;
 import com.netease.nimlib.sdk.msg.attachment.FileAttachment;
@@ -178,10 +184,10 @@ public class SessionHelper {
 
              //定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
             ArrayList<BaseAction> actions = new ArrayList<>();
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-//                actions.add(new AVChatAction(AVChatType.AUDIO));
-//                actions.add(new AVChatAction(AVChatType.VIDEO));
-//            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                //actions.add(new AVChatAction(AVChatType.AUDIO));
+                actions.add(new AVChatAction(AVChatType.VIDEO));
+            }
 //            actions.add(new RTSAction());
 //            actions.add(new SnapChatAction());
             actions.add(new GuessAction());
@@ -392,16 +398,16 @@ public class SessionHelper {
 //
 //        return recentCustomization;
 //    }
-//
+//d
     private static SessionCustomization getTeamCustomization(String tid) {
         if (normalTeamCustomization == null) {
 
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
-//            final TeamAVChatAction avChatAction = new TeamAVChatAction(AVChatType.VIDEO);
-//            TeamAVChatProfile.sharedInstance().registerObserver(true);
+            final TeamAVChatAction avChatAction = new TeamAVChatAction(AVChatType.VIDEO);
+            TeamAVChatProfile.sharedInstance().registerObserver(true);
 
             ArrayList<BaseAction> actions = new ArrayList<>();
-//            actions.add(avChatAction);
+            actions.add(avChatAction);
             actions.add(new GuessAction());
             actions.add(new FileAction());
 //            if (NIMRedPacketClient.isEnable()) {
@@ -418,12 +424,12 @@ public class SessionHelper {
 
                 @Override
                 public void onSelectedAccountsResult(ArrayList<String> selectedAccounts) {
-//                    avChatAction.onSelectedAccountsResult(selectedAccounts);
+                    avChatAction.onSelectedAccountsResult(selectedAccounts);
                 }
 
                 @Override
                 public void onSelectedAccountFail() {
-//                    avChatAction.onSelectedAccountFail();
+                    avChatAction.onSelectedAccountFail();
                 }
             };
             normalTeamCustomization = new SessionTeamCustomization(listener) {
@@ -438,11 +444,11 @@ public class SessionHelper {
 
         if (advancedTeamCustomization == null) {
             // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
-//            final TeamAVChatAction avChatAction = new TeamAVChatAction(AVChatType.VIDEO);
-//            TeamAVChatProfile.sharedInstance().registerObserver(true);
+            final TeamAVChatAction avChatAction = new TeamAVChatAction(AVChatType.VIDEO);
+            TeamAVChatProfile.sharedInstance().registerObserver(true);
 
             ArrayList<BaseAction> actions = new ArrayList<>();
-//            actions.add(avChatAction);
+            actions.add(avChatAction);
               actions.add(new GuessAction());
               actions.add(new FileAction());
 //            actions.add(new AckMessageAction());
@@ -461,12 +467,12 @@ public class SessionHelper {
 
                 @Override
                 public void onSelectedAccountsResult(ArrayList<String> selectedAccounts) {
-//                    avChatAction.onSelectedAccountsResult(selectedAccounts);
+                    avChatAction.onSelectedAccountsResult(selectedAccounts);
                 }
 
                 @Override
                 public void onSelectedAccountFail() {
-//                    avChatAction.onSelectedAccountFail();
+                    avChatAction.onSelectedAccountFail();
                 }
             };
 
@@ -493,7 +499,7 @@ public class SessionHelper {
 
     private static void registerViewHolders() {
           NimUIKit.registerMsgItemViewHolder(FileAttachment.class, MsgViewHolderFile.class);
-         // NimUIKit.registerMsgItemViewHolder(AVChatAttachment.class, MsgViewHolderAVChat.class);
+          NimUIKit.registerMsgItemViewHolder(AVChatAttachment.class, MsgViewHolderAVChat.class);
           NimUIKit.registerMsgItemViewHolder(GuessAttachment.class, MsgViewHolderGuess.class);
           NimUIKit.registerMsgItemViewHolder(CustomAttachment.class, MsgViewHolderDefCustom.class);
           NimUIKit.registerMsgItemViewHolder(StickerAttachment.class, MsgViewHolderSticker.class);

@@ -17,13 +17,21 @@ import android.view.WindowManager;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.ly.a316.ly_meetingroommanagement.FacePack.FaceDB;
+import com.ly.a316.ly_meetingroommanagement.login.activities.WelcomeActivity;
 import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.ContactHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
+import com.ly.a316.ly_meetingroommanagement.nim.utils.LogHelper;
 import com.mob.MobSDK;
 import com.mob.tools.proguard.ProtectedMemberKeeper;
+import com.netease.nim.avchatkit.AVChatKit;
+import com.netease.nim.avchatkit.config.AVChatOptions;
+import com.netease.nim.avchatkit.model.ITeamDataProvider;
+import com.netease.nim.avchatkit.model.IUserInfoProvider;
 import com.netease.nim.uikit.api.NimUIKit;
+import com.netease.nim.uikit.business.team.helper.TeamHelper;
+import com.netease.nim.uikit.business.uinfo.UserInfoHelper;
 import com.netease.nimlib.sdk.NIMClient;
 import com.netease.nimlib.sdk.SDKOptions;
 import com.netease.nimlib.sdk.StatusBarNotificationConfig;
@@ -89,12 +97,51 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
         if (NIMUtil.isMainProcess(this)) {
             // 在主进程中初始化UI组件，判断所属进程方法请参见demo源码。
             initUiKit();
+            // 初始化音视频模块
+            initAVChatKit();
         }
     }
     protected String getAppkey() {
         return null;
     }
+    private void initAVChatKit() {
+        AVChatOptions avChatOptions = new AVChatOptions() {
+            @Override
+            public void logout(Context context) {
+                MainActivity.logout(context, true);
+            }
+        };
+        avChatOptions.entranceActivity = WelcomeActivity.class;
+        avChatOptions.notificationIconRes = R.drawable.ic_stat_notify_msg;
+        AVChatKit.init(avChatOptions);
 
+        // 初始化日志系统
+        LogHelper.init();
+        // 设置用户相关资料提供者
+        AVChatKit.setUserInfoProvider(new IUserInfoProvider() {
+            @Override
+            public UserInfo getUserInfo(String account) {
+                return NimUIKit.getUserInfoProvider().getUserInfo(account);
+            }
+
+            @Override
+            public String getUserDisplayName(String account) {
+                return UserInfoHelper.getUserDisplayName(account);
+            }
+        });
+        // 设置群组数据提供者
+        AVChatKit.setTeamDataProvider(new ITeamDataProvider() {
+            @Override
+            public String getDisplayNameWithoutMe(String teamId, String account) {
+                return TeamHelper.getDisplayNameWithoutMe(teamId, account);
+            }
+
+            @Override
+            public String getTeamMemberDisplayName(String teamId, String account) {
+                return TeamHelper.getTeamMemberDisplayName(teamId, account);
+            }
+        });
+    }
     protected String getAppSecret() {
         return null;
     }

@@ -11,6 +11,7 @@ import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
+import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 
 public class WelcomeActivity extends BaseActivity {
     //本地保存
@@ -19,7 +20,7 @@ public class WelcomeActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-
+        DemoCache.setMainTaskLaunching(true);
         MyApplication.finishAllActivities();
         //开线程,延迟跳转
         pref= PreferenceManager.getDefaultSharedPreferences(getApplication());
