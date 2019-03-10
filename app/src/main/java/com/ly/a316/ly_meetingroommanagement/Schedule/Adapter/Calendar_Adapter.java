@@ -52,7 +52,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
         ((MyViewHolder)viewHolder).item_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick.onitemClick(i,list.get(i).getNoId());
+                onItemClick.onitemClick(i,list.get(i).getmId());
             }
         });
 
@@ -68,6 +68,12 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
                 onItemClick.onitemDelete(list.get(i).getNoId(),i);
             }
         });
+        ((MyViewHolder)viewHolder).finish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemClick.onitenFinish(i,list.get(i).getNoId());
+            }
+        });
     }
 
     @Override
@@ -77,7 +83,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
     public class MyViewHolder extends RecyclerView.ViewHolder {
         LinearLayout item_all;
         public TextView item_mettingstart, item_mettingend,item_mettinghead,item_mettingpeople,item_mettingwhere,item_mettingplan,item_calendar_day,item_alerttime;
-        public   Button delete,item_calendar_alerm;
+        public   Button delete,item_calendar_alerm,finish;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -89,6 +95,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
             item_mettingplan = itemView.findViewById(R.id.item_mettingplan);
             item_all = itemView.findViewById(R.id.item_all);
             delete = itemView.findViewById(R.id.delete);
+            finish = itemView.findViewById(R.id.finish);
             item_calendar_alerm = itemView.findViewById(R.id.item_calendar_alerm);
             item_calendar_day = itemView.findViewById(R.id.item_calendar_day);
             item_alerttime =  itemView.findViewById(R.id.item_alerttime);
@@ -99,6 +106,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
         void onitemClick(int position,String event_idd);
         void onitemDelete(String position,int weizhi);
         void onitemAlarm(int position,String weizzhi);
+        void onitenFinish(int position,String eveniIdd);
     }
 
     OnItemClick onItemClick;
