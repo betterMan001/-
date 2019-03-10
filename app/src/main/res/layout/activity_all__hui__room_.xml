@@ -10,7 +10,7 @@
         android:id="@+id/all_hui_room_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/title_bar_color"
+        android:background="@color/classical_blue"
         s:layout_scrollFlags="scroll|enterAlways"
         s:navigationIcon="@drawable/backtwo"
         s:titleTextColor="@color/white">
