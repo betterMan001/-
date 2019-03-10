@@ -64,6 +64,25 @@
                 android:background="@drawable/chacha"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_marginLeft="@dimen/text_size_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="会议已占用的时间："
+                android:textSize="10sp"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/hui_txt_shijian"
+                ></TextView>
+        </LinearLayout>
 
         <TextView
             android:layout_marginTop="@dimen/text_size_15"

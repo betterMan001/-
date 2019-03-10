@@ -200,6 +200,12 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 day_object = day_list.get(po);
                 startActivityForResult(i, 12);
             }
+
+            @Override
+            public void onitenFinish(int position, String eveniIdd,Calendar_Adapter.MyViewHolder viewHolder) {
+                viewHolder.delete.setText("已完成");
+                getOneDay_daoImp.finish(eveniIdd);
+            }
         });
         //让recycleview具有侧滑的功能
         calRecycleview.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
@@ -470,20 +476,20 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     }
 
     void getAll() {
-        try {
+     /*   try {
             java.util.Calendar c = java.util.Calendar.getInstance();
             c.set(java.util.Calendar.YEAR, Integer.valueOf(t_year));
             c.set(java.util.Calendar.MONTH, Integer.valueOf(t_month) - 1);
             int maxDay = c.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-            List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(), Integer.valueOf(t_year), Integer.valueOf(t_month), maxDay);
-            for (int i = 0; i < calendarEvent.size(); i++) {
-                map.put(getSchemeCalendar(calendarEvent.get(i).getS_year(), calendarEvent.get(i).getS_month(), calendarEvent.get(i).getS_day(), 0xFFdf1356, "日").toString(),
-                        getSchemeCalendar(calendarEvent.get(i).getS_year(), calendarEvent.get(i).getS_month(), calendarEvent.get(i).getS_day(), 0xFFdf1356, "日"));
+            List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(), Integer.valueOf(t_year), Integer.valueOf(t_month), maxDay);*/
+            for (int i = 0; i < day_list.size(); i++) {
+                map.put(getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(5, 7)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日").toString(),
+                        getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(5, 7)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日"));
                 ibCalendarview.setSchemeDate(map);
             }
-        } catch (Exception e) {
+       /* } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
 
     }
 
@@ -587,6 +593,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         day_list.clear();
         day_list.addAll(list);
         calendar_adapter.notifyDataSetChanged();
+        getAll();
     }
     public void success_delete( ){
         getOneDay_daoImp.getOneDayinformation(MyApplication.getId(),panduan(Integer.valueOf(t_year))+"-"+panduan(Integer.valueOf(t_month))+"-"+panduan(Integer.valueOf(t_day)));

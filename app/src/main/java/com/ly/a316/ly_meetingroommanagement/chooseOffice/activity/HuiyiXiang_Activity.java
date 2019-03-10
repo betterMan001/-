@@ -15,6 +15,7 @@ import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.Adapter.OneHui_MyAdapter;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Hui_Device;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Hui_Shiyong;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.HuiyiInformation;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass;
 import com.ly.a316.ly_meetingroommanagement.meetting.activity.OrderDetailMeetingActivity;
@@ -38,6 +39,8 @@ public class HuiyiXiang_Activity extends AppCompatActivity {
     TextView huiyiType;
     @BindView(R.id.hui_recycleview_she)
     RecyclerView huiRecycleviewShe;
+    @BindView(R.id.hui_txt_shijian)
+    TextView hui_txt_shijian;
     @BindView(R.id.hui_dizhi)
     TextView hui_dizhi;
     @BindView(R.id.hui_xiang)
@@ -47,12 +50,16 @@ public class HuiyiXiang_Activity extends AppCompatActivity {
     DeviceDaoImp deviceDaoImp;
     List<Hui_Device> list_huidevice = new ArrayList<>();
     OneHui_MyAdapter oneHui_myAdapter;
+    String dates = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_huiyi_xiang_);
         ButterKnife.bind(this);
         huiyiInformation = (HuiyiInformation) getIntent().getSerializableExtra("classs");
+        if(getIntent().getStringExtra("dates")!=null){
+            dates = getIntent().getStringExtra("dates");
+        }
         Log.i("zjc", huiyiInformation.getmAddress());
         initview();
         initdata();
@@ -69,13 +76,16 @@ public class HuiyiXiang_Activity extends AppCompatActivity {
             @Override
             public void run() {
                 deviceDaoImp.getOneHuiroom(huiyiInformation.getmRoomId(), huiyiInformation.getmType());
+                if(dates != null){
+                    deviceDaoImp.getOneHuiShiyong(huiyiInformation.getmRoomId(),dates);
+                }
             }
         });
         thread.start();
     }
 
     void initdata() {
-          oneHui_myAdapter = new OneHui_MyAdapter(this,list_huidevice);
+        oneHui_myAdapter = new OneHui_MyAdapter(this,list_huidevice);
         huiRecycleviewShe.setAdapter(oneHui_myAdapter);
         LinearLayoutManager ms= new LinearLayoutManager(this);
         ms.setOrientation(LinearLayoutManager.HORIZONTAL);// 设置 recyclerview 布局
@@ -102,5 +112,25 @@ public class HuiyiXiang_Activity extends AppCompatActivity {
         huiyiType.setText("会议室类型：" + ShijiandianClass.HUIYI_Leixing);
         list_huidevice.addAll( list_huidevicee);
         oneHui_myAdapter.notifyDataSetChanged();
+    }
+    public void get_success_shi(Hui_Shiyong hui_shiyong){
+
+        String dsafdsf= "";
+        try {
+            String[] strs;
+            strs = hui_shiyong.getTime().split(",");
+            if(strs.length >=2){
+                dsafdsf+=strs[0].substring(2,13)+"  ";
+                for(int i=1;i<strs.length - 1;i++){
+                    dsafdsf+=strs[i].substring(1,12)+"  ";
+                }
+                dsafdsf = dsafdsf+strs[strs.length-1].substring(1,12);
+            }else{
+                dsafdsf+=strs[0].substring(2,13);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        hui_txt_shijian.setText(dsafdsf);
     }
 }

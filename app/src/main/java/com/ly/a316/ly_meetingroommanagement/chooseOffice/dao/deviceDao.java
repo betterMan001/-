@@ -11,4 +11,5 @@ public interface deviceDao {
     void subbmitHuiyi(int whooer);//发布会议
     void getOneHuiroom(String roomid, String type_id);  //和取单个会议室信息
     void getAllDevice_inEndActivity();
+    void getOneHuiShiyong(String roomId,String dates);//获取某间会议室的使用情况
 }

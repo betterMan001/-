@@ -136,7 +136,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
-                android:text="通知"
+                android:text="所有会议室"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:textColor="#333333"
                 android:textSize="12sp" />
         </LinearLayout>

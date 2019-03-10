@@ -135,7 +135,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         >
         <Button
             android:layout_gravity="center"
@@ -155,6 +155,16 @@
             android:layout_height="wrap_content"
             android:background="@drawable/btn_delete"
             android:text="删除"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+        <Button
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:id="@+id/finish"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:background="@color/four"
+            android:text="完成"
             android:textColor="#ffffff"
             android:textSize="16sp" />
     </LinearLayout>

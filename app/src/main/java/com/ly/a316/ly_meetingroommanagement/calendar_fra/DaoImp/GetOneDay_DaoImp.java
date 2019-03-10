@@ -52,6 +52,8 @@ public class GetOneDay_DaoImp implements GteOneDay_RC {
                 calendarFragment.success_callback(list);
             }else if(msg.what == 0x36){
                 calendarFragment.success_delete();
+            }else if(msg.what == 0x38){
+                Log.i("zjc","完成success");
             }
         }
     };
@@ -108,6 +110,26 @@ public class GetOneDay_DaoImp implements GteOneDay_RC {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 handler.sendEmptyMessage(0x36);
+            }
+        });
+    }
+
+    @Override
+    public void finish(String event_id) {
+        String url = Net.finish_activity+"?sId="+event_id;
+        Log.i("zjc", "完成日程：" + url);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(url).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendEmptyMessage(0x36);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                handler.sendEmptyMessage(0x38);
             }
         });
     }

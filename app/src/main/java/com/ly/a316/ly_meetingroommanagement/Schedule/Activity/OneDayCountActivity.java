@@ -51,8 +51,9 @@ public class OneDayCountActivity extends BaseActivity {
             Calendar endTime = (Calendar) startTime.clone();
             endTime.set(Calendar.HOUR_OF_DAY, Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getEndTime().substring(11, 13)))));
             endTime.set(Calendar.MINUTE, Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getEndTime().substring(14, 16)))));
-            startTime.set(Calendar.DAY_OF_MONTH, Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getEndTime().substring(8, 10))))-1);
-            endTime.set(Calendar.MONTH, Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getEndTime().substring(5, 7)))));
+            endTime.set(Calendar.MONTH, Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getEndTime().substring(5, 7))))-1);
+            endTime.set(Calendar.DAY_OF_MONTH, Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getEndTime().substring(8, 10)))));
+            endTime.set(Calendar.YEAR, Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getEndTime().substring(0, 4)))));
             event = new WeekViewEvent(i, getEventTitle(startTime, endTime), startTime, endTime);
 
             int asa = (int) (0 + Math.random() * (7 - 0 + 1));
