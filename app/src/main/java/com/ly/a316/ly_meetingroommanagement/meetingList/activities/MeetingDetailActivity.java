@@ -130,6 +130,7 @@ public class MeetingDetailActivity extends BaseActivity {
                 int sure=new Integer(model.sure);
                 intentet.putExtra("weidao",new Integer(all-sure).toString());
                 intentet.putExtra("duration",getIntent().getStringExtra("duration"));
+                intentet.putExtra("mId",mId);
                 startActivity(intentet);
                 break;
             //会议内容

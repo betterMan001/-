@@ -94,7 +94,8 @@ public class End_Activity extends AppCompatActivity {
     Intent service_intent;
     String title_huiyi, start_time, end_time;
     private final int TIME = 60 * 1000;
-    String weidao_number,kaihuishichang_txt;
+    String weidao_number, kaihuishichang_txt;
+    String mId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,7 +109,8 @@ public class End_Activity extends AppCompatActivity {
         end_time = getIntent().getStringExtra("end_time");
         kaihuishichang_txt = getIntent().getStringExtra("duration");
         weidao_number = getIntent().getStringExtra("weidao");
-        kaihuishichang.setText("会议持续时长: "+zhuanhuanshijian(kaihuishichang_txt));
+        mId = getIntent().getStringExtra("mId");
+        kaihuishichang.setText("会议持续时长: " + zhuanhuanshijian(kaihuishichang_txt));
         sendTimeService(true);
         weidaorenshu.setText(weidao_number);
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -468,10 +470,13 @@ public class End_Activity extends AppCompatActivity {
         @Override
         public void run() {
             Intent intent = new Intent(End_Activity.this, End_Service.class);
+            //这个界面需要的是结束的小时和分
             intent.putExtra("title_huiyi", title_huiyi);
-            intent.putExtra("end_time", end_time);
-            intent.putExtra("start_time", start_time);
-
+            String hui_time = panduan(end_time);
+            String ds[] = hui_time.split(",");
+            intent.putExtra("end_time", ds[1]);//传结束分
+            intent.putExtra("start_time", ds[0]);//传结束的小时
+            intent.putExtra("mId", mId);//会议id
             startService(intent);
             handler.postDelayed(runnable, TIME);
         }
@@ -491,15 +496,27 @@ public class End_Activity extends AppCompatActivity {
         handler.removeCallbacks(runnable);
 
     }
-    String zhuanhuanshijian(String time_mini){
-        int mini = Integer.valueOf(time_mini);
-        if(mini<60){
-            return time_mini+"分";
-        }else{
-            int hour = mini/60;
-            int min = mini%60;
-            String result = hour+"小时"+min+"分";
-            return result;
+
+    String zhuanhuanshijian(String time_mini) {
+        int hour = Integer.valueOf(time_mini) / 60;
+        int mini = Integer.valueOf(time_mini) % 60;
+        String result = hour + "小时" + mini + "分";
+        return result;
+    }
+
+    String panduan(String time) {
+        int huimin, hui_hour;
+        String dd[] = time.split(",");
+        int mini = Integer.valueOf(dd[1]);
+        int hour = Integer.valueOf(dd[0]);
+        if (mini < 15) {
+            hui_hour = hour - 1;
+            mini = mini + 60;
+            huimin = mini - 15;
+        } else {
+            huimin = mini - 15;
+            hui_hour = hour;
         }
+        return hui_hour + "," + huimin;
     }
 }

@@ -28,6 +28,7 @@ import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.LoadingDialog;
 import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
 import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
+import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.YanChangDaoImp;
 import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.activity.Ceshi;
 import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.border.DataChangeReceiver;
 import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.border.YesReceiver;
@@ -43,10 +44,11 @@ public class End_Service extends Service {
     //通过handler方式实现的定时任务
     private String TAG = "zjc";
     private String time;
-    private String title_huiyi;
+    private String title_huiyi,mId;
     int hour, minute;
     String channelId,channelName,start_time,end_time;
     private NotificationManager mManager;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -74,6 +76,7 @@ public class End_Service extends Service {
         title_huiyi = intent.getStringExtra("title_huiyi");
         start_time = intent.getStringExtra("start_time");
         end_time = intent.getStringExtra("end_time");
+        mId=intent.getStringExtra("mId");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             channelId = "channelId";
             channelName = "这是用来测试的";
@@ -182,6 +185,7 @@ public class End_Service extends Service {
     //创建点击通知 YES 按钮时发送的广播
         Intent yesIntent = new Intent(context, YesReceiver.class);
         yesIntent.setAction("YES");
+        yesIntent.putExtra("mId",mId);
         PendingIntent yesPendingIntent = PendingIntent.getBroadcast(context,0,yesIntent,0);
         Notification.Action yesActionBuilder = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
