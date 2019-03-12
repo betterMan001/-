@@ -54,6 +54,10 @@ import butterknife.ButterKnife;
 public class End_Activity extends AppCompatActivity {
     @BindView(R.id.addSchedule_toolbar)
     Toolbar addScheduleToolbar;
+    @BindView(R.id.weidaorenshu)
+    TextView weidaorenshu;
+    @BindView(R.id.kaihuishichang)
+    TextView kaihuishichang;
 
     private LinearLayout imageview;
     private int window_width;
@@ -90,6 +94,7 @@ public class End_Activity extends AppCompatActivity {
     Intent service_intent;
     String title_huiyi, start_time, end_time;
     private final int TIME = 60 * 1000;
+    String weidao_number,kaihuishichang_txt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,9 +106,11 @@ public class End_Activity extends AppCompatActivity {
         title_huiyi = getIntent().getStringExtra("meeting_title_tv");
         start_time = getIntent().getStringExtra("start_time");
         end_time = getIntent().getStringExtra("end_time");
-
+        kaihuishichang_txt = getIntent().getStringExtra("duration");
+        weidao_number = getIntent().getStringExtra("weidao");
+        kaihuishichang.setText("会议持续时长: "+zhuanhuanshijian(kaihuishichang_txt));
         sendTimeService(true);
-
+        weidaorenshu.setText(weidao_number);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         init_Alert();
@@ -462,8 +469,9 @@ public class End_Activity extends AppCompatActivity {
         public void run() {
             Intent intent = new Intent(End_Activity.this, End_Service.class);
             intent.putExtra("title_huiyi", title_huiyi);
-            intent.putExtra("end_time",end_time);
-            intent.putExtra("start_time",start_time);
+            intent.putExtra("end_time", end_time);
+            intent.putExtra("start_time", start_time);
+
             startService(intent);
             handler.postDelayed(runnable, TIME);
         }
@@ -482,5 +490,16 @@ public class End_Activity extends AppCompatActivity {
         super.onDestroy();
         handler.removeCallbacks(runnable);
 
+    }
+    String zhuanhuanshijian(String time_mini){
+        int mini = Integer.valueOf(time_mini);
+        if(mini<60){
+            return time_mini+"分";
+        }else{
+            int hour = mini/60;
+            int min = mini%60;
+            String result = hour+"小时"+min+"分";
+            return result;
+        }
     }
 }
