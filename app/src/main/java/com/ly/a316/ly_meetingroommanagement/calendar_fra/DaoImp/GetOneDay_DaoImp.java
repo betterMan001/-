@@ -54,6 +54,8 @@ public class GetOneDay_DaoImp implements GteOneDay_RC {
                 calendarFragment.success_delete();
             }else if(msg.what == 0x38){
                 Log.i("zjc","完成success");
+            }else if(msg.what == 0x39){
+                calendarFragment.success_call_all(list_all);
             }
         }
     };
@@ -84,6 +86,47 @@ public class GetOneDay_DaoImp implements GteOneDay_RC {
                             list.add(day_object);
                         }
                         handler.sendEmptyMessage(0x34);
+                    }else{
+                        handler.sendEmptyMessage(0x33);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    List<Day_Object> list_all = new ArrayList<>();
+    @Override
+    public void getAllIndormation(String leadersid) {
+        String url = Net.get_allHuiyi + "?leadersId=" + leadersid + "&date=";
+        Log.i("zjc", "获取日程：" + url);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(url).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                handler.sendEmptyMessage(0x33);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                list_all.clear();
+                String resBody = response.body().string();
+                try {
+                    JSONObject jsonObject = new JSONObject(resBody);
+                    if(jsonObject.getString("result").equals("success")){
+                        JSONArray jsonArray = jsonObject.getJSONArray("list");
+                        for(int i=0;i<jsonArray.length();i++){
+                            Day_Object day_object = gson.fromJson(String.valueOf(jsonArray.get(i)), Day_Object.class);
+                            if((day_object.getStartTime().equals("未填写"))||(day_object.getEndTime().equals("未填写"))){
+
+                            }else{
+                                list_all.add(day_object);
+                            }
+                        }
+                       handler.sendEmptyMessage(0x39);
                     }else{
                         handler.sendEmptyMessage(0x33);
                     }

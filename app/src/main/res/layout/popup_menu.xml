@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/item_pop_ly"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/item_pop_beijing"
     android:gravity="bottom"
-    android:id="@+id/item_pop_ly"
     android:orientation="vertical">
 
-   <TextView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -15,73 +15,72 @@
         android:gravity="center"
         android:text="待办会议"
         android:textSize="17sp" />
+
     <RelativeLayout
-
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <TextView
-
-            android:layout_marginLeft="10dp"
-
             android:id="@+id/item_txt_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="03"
-            android:textSize="45sp"
-            />
-        <TextView
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="17dp"
+            android:text="03"
+            android:textSize="45sp" />
+
+        <TextView
             android:id="@+id/item_txt_week"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="周日"
-            android:layout_toRightOf="@+id/item_txt_day"
-            />
-        <TextView
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="17dp"
+            android:layout_toRightOf="@+id/item_txt_day"
+            android:text="周日"
+            android:textSize="10sp" />
+
+        <TextView
             android:id="@+id/item_txt_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:text="03/20/9"
             android:layout_below="@+id/item_txt_week"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/item_txt_day"
-            />
+            android:text="03/20/9"
+            android:textSize="10sp" />
     </RelativeLayout>
+
     <LinearLayout
-        android:layout_marginLeft="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="浙江"
-            android:textSize="10sp"
-            />
+            android:textSize="10sp" />
+
         <TextView
-            android:layout_marginLeft="@dimen/dp_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
             android:text="下雨25℃"
-            android:textSize="10sp"
-            />
+            android:textSize="10sp" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/s"
-        ></View>
+        android:background="@color/s"></View>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/pop_recycle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -135,10 +134,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dip"
-                android:text="所有会议室"
                 android:layout_gravity="center"
+                android:layout_marginTop="10dip"
                 android:gravity="center"
+                android:text="所有会议室"
                 android:textColor="#333333"
                 android:textSize="12sp" />
         </LinearLayout>

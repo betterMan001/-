@@ -1,5 +1,6 @@
 package com.ly.a316.ly_meetingroommanagement.popPage.activity;
 
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.popPage.Adapter.MyHui_Adapter;
 import com.ly.a316.ly_meetingroommanagement.popPage.DaoImp.GetInformationDaoImp;
@@ -29,7 +31,7 @@ import butterknife.ButterKnife;
 public class Information_meet extends AppCompatActivity {
     String mID;
     @BindView(R.id.information_img_bg)
-    ImageView informationImgBg;//会议室的照片
+    SimpleDraweeView informationImgBg;//会议室的照片
     @BindView(R.id.information_txt_title)
     TextView informationTxtTitle;//会议主题
     @BindView(R.id.information_txt_time)
@@ -50,6 +52,7 @@ public class Information_meet extends AppCompatActivity {
     RecyclerView informationRecycleJiluren;
     MyHui_Adapter myHui_adapter;
     List<LiuYan_class> liuYan_classes_one;
+    String img_url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,9 @@ public class Information_meet extends AppCompatActivity {
             getWindow().setEnterTransition(new Slide().setDuration(500));
         }
         mID = getIntent().getStringExtra("mId");
+        img_url = getIntent().getStringExtra("img");
+        Uri uri = Uri.parse(img_url);
+        informationImgBg.setImageURI(uri);
         getInformationDao = new GetInformationDaoImp(this);
         getInformationDao.getAllinformation(mID);
 
@@ -113,7 +119,7 @@ public class Information_meet extends AppCompatActivity {
 
     public void success_get(List<LiuYan_class> liuYan_classes) {
         liuYan_classes_one.clear();
-        liuYan_classes_one.addAll( liuYan_classes);
+        liuYan_classes_one.addAll(liuYan_classes);
         myHui_adapter.notifyDataSetChanged();
     }
 }

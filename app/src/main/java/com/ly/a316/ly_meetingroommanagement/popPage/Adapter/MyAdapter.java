@@ -48,7 +48,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         ((MyHolder) viewHolder).item_pop_lymain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                click.onCcick(list.get(i).getMeetingId());
+                click.onCcick(list.get(i).getMeetingId(),list.get(i).getConference_img());
             }
         });
     }
@@ -75,7 +75,7 @@ public class MyAdapter extends RecyclerView.Adapter {
         }
     }
     public interface Click{
-        void onCcick(String id);
+        void onCcick(String id,String url);
     }
     Click click;
 
