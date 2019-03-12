@@ -1,9 +1,15 @@
 package com.ly.a316.ly_meetingroommanagement.main.fragment;
 
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -14,6 +20,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,31 +33,43 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.ddz.floatingactionbutton.FloatingActionButton;
 import com.haibin.calendarview.Calendar;
 import com.haibin.calendarview.CalendarLayout;
 import com.haibin.calendarview.CalendarView;
 import com.ly.a316.ly_meetingroommanagement.MessageList.activites.MessageListActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
-import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Adapter.Calendar_Adapter;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AddSchedule;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.AlarmActivity;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.Calendar_infor_activity;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Activity.OneDayCountActivity;
-import com.ly.a316.ly_meetingroommanagement.Schedule.Adapter.Calendar_Adapter;
+import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.EventModel;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.Schedule;
 import com.ly.a316.ly_meetingroommanagement.Schedule.Classes.jilei;
-import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
 import com.ly.a316.ly_meetingroommanagement.calendar_fra.DaoImp.GetOneDay_DaoImp;
 import com.ly.a316.ly_meetingroommanagement.calendar_fra.object.Day_Object;
+import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
 import com.ly.a316.ly_meetingroommanagement.customView.DatePicker;
 import com.ly.a316.ly_meetingroommanagement.customView.SwipeItemLayout;
+import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.customView.TimePicker;
+import com.ly.a316.ly_meetingroommanagement.Schedule.unit.Util.CalanderUtils;
+import com.ly.a316.ly_meetingroommanagement.login.activities.LoginActivity;
+import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingDetailActivity;
 import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.activity.Ceshi;
+import com.ly.a316.ly_meetingroommanagement.scancode.activity.ScanCode_Hui;
+import com.yanzhenjie.permission.Action;
+import com.yanzhenjie.permission.AndPermission;
+import com.yanzhenjie.permission.Permission;
+import com.yanzhenjie.permission.Rationale;
+import com.yanzhenjie.permission.RequestExecutor;
+import com.yanzhenjie.permission.Setting;
 import com.yzq.zxinglibrary.android.CaptureActivity;
 import com.yzq.zxinglibrary.bean.ZxingConfig;
 import com.yzq.zxinglibrary.common.Constant;
-import com.zaaach.toprightmenu.MenuItem;
 import com.zaaach.toprightmenu.TopRightMenu;
 
 import java.io.Serializable;
@@ -70,6 +91,7 @@ import static android.app.Activity.RESULT_OK;
  * 作者： 余智强
  * 创建时间：12/4 21：06 第一次提交
  */
+//onitemClick
 public class CalendarFragment extends jilei implements CalendarView.OnCalendarSelectListener, CalendarView.OnYearChangeListener {
     View view;
     TextView tvMonthDay, tvYear, tvLunar, tvCurrentDay, tv_today;
@@ -81,13 +103,13 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     RecyclerView calRecycleview;
     Calendar_Adapter calendar_adapter;
     @BindView(R.id.fl_addday)
-    FloatingActionButton flAddday;
+    com.ddz.floatingactionbutton.FloatingActionButton flAddday;
     @BindView(R.id.fl_schedule)
     FloatingActionButton fl_schedule;
 
-    Unbinder unbinder;
 
     ImageView xialacainan;
+    Unbinder unbinder;
     private int mYear;
     String t_year, t_month, t_day;
     List<Schedule> list = new ArrayList<>();
@@ -111,6 +133,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
     int alarmTimeduiying[] = {-1, 0, 5, 15, 30, 60, 120, 1440, 2880, 10080};
     String alarm_item_eventid = "0";
     int alarm_choose_item;
+
 
     Day_Object day_object;
     GetOneDay_DaoImp getOneDay_daoImp = new GetOneDay_DaoImp(this, getContext());
@@ -136,10 +159,10 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         init();//初始化各种控件
 
         getOneDay_daoImp.getOneDayinformation(MyApplication.getId(), ibCalendarview.getCurYear() + "-" + panduan(ibCalendarview.getCurMonth()) + "-" + panduan(ibCalendarview.getCurDay()));
-
+        getOneDay_daoImp.getAllIndormation(MyApplication.getId());
         calendar_adapter.setOnItemClick(new Calendar_Adapter.OnItemClick() {
             @Override
-            public void onitemClick(int position, String event_idd) {
+            public void onitemClick(int position, String event_idd,String starttime,String endtime) {
                /* //日程详情
                Intent intent = new Intent(getActivity(), Calendar_infor_activity.class);
                 Log.i("zjc", event_idd);
@@ -147,7 +170,9 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 startActivityForResult(intent, 14);*/
                 //会议详情
                 //   Intent intent = new Intent(getActivity(), MeetingDetailActivity.class);
-                MeetingDetailActivity.start(getContext(), event_idd, "");
+                String end_hour = endtime.substring(0,2);
+                String end_mini = endtime.substring(3,5);
+                MeetingDetailActivity.start(getContext(), event_idd, end_hour+","+end_mini,"1");
                 //  Log.i("zjc", event_idd);
                 ///   intent.putExtra("mId", event_idd);
                 // startActivityForResult(intent, 14);
@@ -225,7 +250,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         ibCalendarview = view.findViewById(R.id.ib_calendarview);
         calendarLayout = view.findViewById(R.id.calendarLayout);
         calRecycleview = view.findViewById(R.id.cal_recycleview);
-        xialacainan  = view.findViewById(R.id.xialacainan);
+        xialacainan = view.findViewById(R.id.xialacainan);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         calRecycleview.setLayoutManager(linearLayoutManager);
@@ -246,9 +271,9 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         xialacainan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final List<MenuItem> menuItems = new ArrayList<>();
-                menuItems.add(new MenuItem(R.drawable.tongjitwo, "统计"));
-                menuItems.add(new MenuItem(R.drawable.xaioxitwo, "消息"));
+                final List<com.zaaach.toprightmenu.MenuItem> menuItems = new ArrayList<>();
+                menuItems.add(new com.zaaach.toprightmenu.MenuItem(R.drawable.tongjitwo, "统计"));
+                menuItems.add(new com.zaaach.toprightmenu.MenuItem(R.drawable.xaioxitwo, "消息"));
                 mToRightMenu
                         .setHeight(180)     //默认高度480
                         .setWidth(200)      //默认宽度wrap_content

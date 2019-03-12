@@ -66,10 +66,11 @@ public class MeetingDetailActivity extends BaseActivity {
         new MeetingDetailServiceImp(this, "1").meetDetail(mId);
     }
 
-    public static final void start(Context context, String mId, String duration) {
+    public static final void start(Context context, String mId, String duration,String type) {
         Intent intent = new Intent();
         intent.putExtra("mId", mId);
         intent.putExtra("duration", duration);
+        intent.putExtra("type", type);
         intent.setClass(context, MeetingDetailActivity.class);
         context.startActivity(intent);
     }
@@ -115,11 +116,11 @@ public class MeetingDetailActivity extends BaseActivity {
             case R.id.begin_meeting:
                 String start_time = model.begin.substring(11, 13) + "," + model.begin.substring(14, 16);
                 String end_time = generate(getIntent().getStringExtra("duration"));
-
                 /* Intent intentet = new Intent(this, Ceshi.class);*/
                 Intent intentet = new Intent(this, End_Activity.class);
                 intentet.putExtra("end_time", end_time);
                 intentet.putExtra("start_time", start_time);
+
                 startActivity(intentet);
                 break;
             //会议内容
