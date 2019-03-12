@@ -50,6 +50,7 @@ public class MeetingListActivity extends AppCompatActivity {
     public static List<Meeting> searchMeetingList;
     public LoadingDialog loadingDialog;
     public static String mIdForSearch="";
+    public static String duration="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -14,6 +14,24 @@ public class MeetingDetailModel {
     public String sign;
     public String all;
     public String content;
+    public String state;
+    public String senderId;
+
+    public String getSenderId() {
+        return senderId;
+    }
+
+    public void setSenderId(String senderId) {
+        this.senderId = senderId;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 
     public String getTitle() {
         return title;

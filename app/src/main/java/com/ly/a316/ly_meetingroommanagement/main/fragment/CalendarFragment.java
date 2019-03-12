@@ -167,7 +167,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 startActivityForResult(intent, 14);*/
                 //会议详情
              //   Intent intent = new Intent(getActivity(), MeetingDetailActivity.class);
-                MeetingDetailActivity.start(getContext(),event_idd);
+                MeetingDetailActivity.start(getContext(),event_idd,"");
               //  Log.i("zjc", event_idd);
              ///   intent.putExtra("mId", event_idd);
                // startActivityForResult(intent, 14);

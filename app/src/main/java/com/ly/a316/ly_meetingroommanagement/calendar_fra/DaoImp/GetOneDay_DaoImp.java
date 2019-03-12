@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.calendar_fra.Dao.GteOneDay_RC;
 import com.ly.a316.ly_meetingroommanagement.calendar_fra.object.Day_Object;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
@@ -138,7 +139,7 @@ public class GetOneDay_DaoImp implements GteOneDay_RC {
 
     void toast(String neirong) {
         if (toast == null) {
-            toast = Toast.makeText(context, neirong, Toast.LENGTH_SHORT);
+            toast = Toast.makeText(MyApplication.getContext(), neirong, Toast.LENGTH_SHORT);
         } else {
             toast.setText(neirong);
         }

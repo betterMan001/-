@@ -286,6 +286,8 @@ public class LoginActivity extends BaseActivity {
             MyApplication.setImageURL(model.profile);
             MyApplication.setUserName(model.UserName);
             MyApplication.setToken("1");
+            MyApplication.setDepartment(model.department);
+            MyApplication.setPosition(model.position);
             //暂时不传model给mainActivity
             MainActivity.start(LoginActivity.this);
             finish();

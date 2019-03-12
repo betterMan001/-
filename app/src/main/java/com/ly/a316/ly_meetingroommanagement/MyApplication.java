@@ -64,6 +64,29 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
 
     private static String imageURL="";
     private static String userName="";
+    private static String position="";
+    private static String department="";
+
+    public static String getPosition() {
+        return pref.getString("position",position);
+    }
+
+    public static void setPosition(String position) {
+        MyApplication.position = position;
+        editor.putString("position",position);
+        editor.commit();
+    }
+
+    public static String getDepartment() {
+        return pref.getString("department",department);
+    }
+
+    public static void setDepartment(String department) {
+        MyApplication.department = department;
+        editor.putString("department",department);
+        editor.commit();
+    }
+
     //本地保存数据
     private static SharedPreferences pref;
     public static SharedPreferences.Editor editor;

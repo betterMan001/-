@@ -56,9 +56,9 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
                 //设置监听事件，点击选择列表下的所有员工
                 final RoundedImageView selectItem=helper.getView(R.id.choose_one_riv);
                 if(isSelectDepartmentMap.containsKey(lv0.departmentId)==false){
-                    selectItem.setImageResource(R.drawable.empty_circle001);
+                    selectItem.setImageResource(R.color.white);
                 }else{
-                    selectItem.setImageResource(R.drawable.gou1);
+                    selectItem.setImageResource(R.drawable.check_001);
                 }
                 selectItem.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -78,7 +78,7 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
                                 }
 
                                 notifyDataSetChanged();
-                                selectItem.setImageResource(R.drawable.gou1);
+                                selectItem.setImageResource(R.drawable.check_001);
                             }else{
                                 LevelZero temp=( LevelZero) levelData.get(Tpos);
                                 List<LevelOne>list=temp.getSubItems();
@@ -88,7 +88,7 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
                                         OrderDetailMeetingActivity.selectedEmployees.remove(eId);
                                     }
                                 }
-                                selectItem.setImageResource(R.drawable.empty_circle001);
+                                selectItem.setImageResource(R.color.white);
                                 isSelectDepartmentMap.remove(lv0.departmentId);
                                 notifyDataSetChanged();
                             }
@@ -130,32 +130,34 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
                 final String eId=lv1.eId;
                 //通过map的里存的值判断是否被选中，以此可以保存被收起来的项的状态
                 if(OrderDetailMeetingActivity.selectedEmployees.containsKey(eId)==false){
-                    helper.setImageResource(R.id.choose_riv,R.drawable.empty_circle001);
+                    helper.setImageResource(R.id.choose_riv,R.color.white);
                 }
                 else{
-                    helper.setImageResource(R.id.choose_riv,R.drawable.gou1);
+                    helper.setImageResource(R.id.choose_riv,R.drawable.check_001);
                 }
-                //设置头像
-                ImageView headView=helper.getView(R.id.invite_head);
-                //设置glide加载的选项
-                RequestOptions requestOptions=new RequestOptions()
-                        .placeholder(R.drawable.user_default_head)
-                        .error(R.drawable.user_default_head);
-                Glide
-                        .with(activity)
-                        .load(lv1.getHeadURL())
-                        .apply(requestOptions)
-                        .into(headView);
+                //废弃了带头像的样式这个方案
+
+//                //设置头像
+//                ImageView headView=helper.getView(R.id.invite_head);
+//                //设置glide加载的选项
+//                RequestOptions requestOptions=new RequestOptions()
+//                        .placeholder(R.drawable.user_default_head)
+//                        .error(R.drawable.user_default_head);
+//                Glide
+//                        .with(activity)
+//                        .load(lv1.getHeadURL())
+//                        .apply(requestOptions)
+//                        .into(headView);
                 //点击相应的项，向map插入数据，并且改变（是否选中）的图片
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                            if(OrderDetailMeetingActivity.selectedEmployees.containsKey(eId)==false){
-                               helper.setImageResource(R.id.choose_riv,R.drawable.gou1);
+                               helper.setImageResource(R.id.choose_riv,R.drawable.check_001);
                                OrderDetailMeetingActivity.selectedEmployees.put(eId,lv1);
                            }
                            else{
-                               helper.setImageResource(R.id.choose_riv,R.drawable.empty_circle001);
+                               helper.setImageResource(R.id.choose_riv,R.color.white);
                                OrderDetailMeetingActivity.selectedEmployees.remove(eId);
                            }
                     }

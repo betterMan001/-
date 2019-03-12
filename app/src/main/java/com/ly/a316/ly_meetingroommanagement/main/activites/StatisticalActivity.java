@@ -107,6 +107,7 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
         barChart.setDrawBarShadow(false);
         barChart.setDrawGridBackground(false);
         barChart.setTouchEnabled(false);
+
         //设置x轴的位置
         XAxis xAxis = barChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
@@ -119,6 +120,8 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
         barChart.getAxisRight().setDrawAxisLine(false);
         //隐藏坐标轴上的数字
         barChart.getAxisRight().setDrawLabels(false);
+        //调整Y坐标轴的0的位置
+        barChart.getAxisLeft().setAxisMinimum(0f);
         //自定义x轴数据
         barChart.getXAxis().setValueFormatter(new IAxisValueFormatter() {
             @Override
@@ -148,6 +151,7 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
         lineChart.setDrawBorders(false);
 
         lineChart.getAxisLeft().setEnabled(false);
+        lineChart.getAxisLeft().setAxisMinimum(0f);
         lineChart.getAxisRight().setDrawAxisLine(false);
         lineChart.getAxisRight().setDrawGridLines(false);
         //设置x轴在底部显示
@@ -171,8 +175,13 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
         String stringList = dataList;
         String[] weekScheduleList = stringList.split(",");
         //这里初始化的是最近一周的数据
-        for (int i = 1; i <= 7; i++)
-            entries.add(new Entry(i, new Integer(weekScheduleList[i - 1])));
+        for (int i = 1; i <= 7; i++){
+            int val=0;
+            if(i<=weekScheduleList.length)
+                val=new Integer(weekScheduleList[i - 1]);
+            entries.add(new Entry(i,val));
+        }
+
         //这就是这条线的坐标集合，可以加多条线
         LineDataSet dataSet = new LineDataSet(entries, "完成情况");
         //设置线的样式
@@ -198,8 +207,12 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
         //解析从接口拿到的数据
         String stringList = model.getThisWeekDoScheduleList();
         String[] weekScheduleList = stringList.split(",");
+        //如果是当前周的前几天后几天的数据要自己填
         for (int i = 0; i < 7; i++) {
-            int val = new Integer(weekScheduleList[i]);
+            int val=0;
+            if(i<weekScheduleList.length){
+                 val = new Integer(weekScheduleList[i]);
+            }
             values.add(new BarEntry(i, val));
         }
         BarDataSet set1;
@@ -219,7 +232,9 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
         int max=0;
         int pos=0;
         for(int i=0;i<7;i++){
-            int temp=new Integer(weekScheduleList[i]);
+            int temp=0;
+            if(i<weekScheduleList.length)
+             temp=new Integer(weekScheduleList[i]);
             if(temp>max){
                 max=temp;
                 pos=i;

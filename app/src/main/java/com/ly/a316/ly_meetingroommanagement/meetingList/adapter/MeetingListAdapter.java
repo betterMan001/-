@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.AttendeeActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingDetailActivity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingListActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.Meeting;
 
 import java.util.List;
@@ -76,10 +77,11 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
         final String mId=model.getmId();
         holder1.meeting_list_status_tv.setText(meetingStatus);
         holder1.meeting_title_tv.setText(model.getName());
+        MeetingListActivity.duration=model.getDuration();
         holder1.meeting_list_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MeetingDetailActivity.start(context,mId);
+                MeetingDetailActivity.start(context,mId,model.getDuration());
             }
         });
     }

@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
-            android:text="一键啦群"
+            android:text="一键拉群"
             android:id="@+id/finish_tv"
             android:textColor="@color/white"
             android:textSize="16sp"

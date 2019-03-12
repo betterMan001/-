@@ -1,38 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="40dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginBottom="2dp"
-    android:background="@android:color/white"
+    android:background="@drawable/bg_invite_bottom"
     android:gravity="center_vertical"
     android:orientation="horizontal">
+    <FrameLayout
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_width="wrap_content"
+        android:background="@drawable/invite_list_item_bg"
+        >
     <com.makeramen.roundedimageview.RoundedImageView
         android:layout_gravity="center"
-        android:layout_marginLeft="5dp"
         android:id="@+id/choose_one_riv"
-        android:layout_width="26dp"
-        android:layout_height="26dp"
-        android:src="@drawable/empty_circle001"
+        android:layout_width="14dp"
+        android:layout_margin="2dp"
+        android:layout_height="14dp"
         android:layout_centerInParent="true"
-        app:riv_oval="true"
         />
+</FrameLayout>
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_weight="2"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:text="人事部"
         android:id="@+id/Lv0_tv"
         />
-    <ImageView
-        android:layout_marginLeft="10dp"
-        android:layout_width="16dp"
-        android:id="@+id/list_tr"
-        android:layout_height="16dp"
-        android:src="@drawable/right_tri001"
-        >
-    </ImageView>
+
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:layout_width="16dp"
+            android:id="@+id/list_tr"
+            android:layout_marginRight="10dp"
+            android:layout_height="16dp"
+            android:src="@drawable/right_tri001"
+            >
+        </ImageView>
 </LinearLayout>
