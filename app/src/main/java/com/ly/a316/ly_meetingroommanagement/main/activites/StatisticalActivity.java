@@ -6,7 +6,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import com.coder.circlebar.CircleBar;
@@ -87,13 +86,13 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
 
     private void initCircleBar() {
         //circleBar.setProgressNum(300);
-        float done=(float)(new Integer(model.getThisWeekDoneScheduleNumber()));
-        float unfinish=(float)(new Integer(model.getThisWeekCreateScheduleNumber()));
-        int rate=(int)(done/unfinish*100);
+        float done = (float) (new Integer(model.getThisWeekDoneScheduleNumber()));
+        float unfinish = (float) (new Integer(model.getThisWeekCreateScheduleNumber()));
+        int rate = (int) (done / unfinish * 100);
         circleBar.setMaxstepnumber(100);
         circleBar.setColor(getResources().getColor(R.color.line_pink));
         circleBar.update(rate, 3000);
-        processBarStatic.setText(new Integer(rate).toString()+"%");
+        processBarStatic.setText(new Integer(rate).toString() + "%");
 
     }
 
@@ -175,11 +174,11 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
         String stringList = dataList;
         String[] weekScheduleList = stringList.split(",");
         //这里初始化的是最近一周的数据
-        for (int i = 1; i <= 7; i++){
-            int val=0;
-            if(i<=weekScheduleList.length)
-                val=new Integer(weekScheduleList[i - 1]);
-            entries.add(new Entry(i,val));
+        for (int i = 1; i <= 7; i++) {
+            int val = 0;
+            if (i <= weekScheduleList.length)
+                val = new Integer(weekScheduleList[i - 1]);
+            entries.add(new Entry(i, val));
         }
 
         //这就是这条线的坐标集合，可以加多条线
@@ -209,9 +208,9 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
         String[] weekScheduleList = stringList.split(",");
         //如果是当前周的前几天后几天的数据要自己填
         for (int i = 0; i < 7; i++) {
-            int val=0;
-            if(i<weekScheduleList.length){
-                 val = new Integer(weekScheduleList[i]);
+            int val = 0;
+            if (i < weekScheduleList.length) {
+                val = new Integer(weekScheduleList[i]);
             }
             values.add(new BarEntry(i, val));
         }
@@ -229,43 +228,43 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
         barChart.setFitBars(true);
         barChart.invalidate();
         //计算最佳工作日
-        int max=0;
-        int pos=0;
-        for(int i=0;i<7;i++){
-            int temp=0;
-            if(i<weekScheduleList.length)
-             temp=new Integer(weekScheduleList[i]);
-            if(temp>max){
-                max=temp;
-                pos=i;
+        int max = 0;
+        int pos = 0;
+        for (int i = 0; i < 7; i++) {
+            int temp = 0;
+            if (i < weekScheduleList.length)
+                temp = new Integer(weekScheduleList[i]);
+            if (temp > max) {
+                max = temp;
+                pos = i;
             }
         }
-        String day="";
-        switch(pos){
+        String day = "";
+        switch (pos) {
             case 0:
-                day="周一";
+                day = "周一";
                 break;
             case 1:
-                day="周二";
+                day = "周二";
                 break;
             case 2:
-                day="周三";
+                day = "周三";
                 break;
             case 3:
-                day="周四";
+                day = "周四";
                 break;
             case 4:
-                day="周五";
+                day = "周五";
                 break;
             case 5:
-                day="周六";
+                day = "周六";
                 break;
             case 6:
-                day="周日";
+                day = "周日";
                 break;
 
         }
-        bestDay.setText("本周最佳工作日： "+day);
+        bestDay.setText("本周最佳工作日： " + day);
     }
 
 
@@ -317,5 +316,10 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
                 initView();
             }
         });
+    }
+
+    @OnClick(R.id.back_ll)
+    public void onViewClicked() {
+        finish();
     }
 }

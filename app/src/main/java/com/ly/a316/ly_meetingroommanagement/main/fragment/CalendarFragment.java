@@ -172,7 +172,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 //   Intent intent = new Intent(getActivity(), MeetingDetailActivity.class);
                 String end_hour = endtime.substring(0,2);
                 String end_mini = endtime.substring(3,5);
-                MeetingDetailActivity.start(getContext(), event_idd, end_hour+","+end_mini,"1");
+                MeetingDetailActivity.start(getContext(), event_idd, end_hour+","+end_mini);
                 //  Log.i("zjc", event_idd);
                 ///   intent.putExtra("mId", event_idd);
                 // startActivityForResult(intent, 14);

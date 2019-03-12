@@ -13,7 +13,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.meetting.activity.OrderDetailMeetingActivity;
 import com.netease.nim.uikit.common.ToastHelper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import cn.simonlee.xcodescanner.core.CameraScanner;
 import cn.simonlee.xcodescanner.core.GraphicDecoder;
@@ -40,7 +44,8 @@ public class ScanActivity extends AppCompatActivity implements CameraScanner.Cam
     protected String TAG = "XCodeScanner";
     private Button mButton_Flash;
     private int[] mCodeType;
-
+    //中断标记
+    Boolean flag=false;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -185,21 +190,53 @@ public class ScanActivity extends AppCompatActivity implements CameraScanner.Cam
         if (result == null) return;
         if (result.equals(mResult)) {
             if (++mCount > 3) {//连续四次相同则显示结果（主要过滤脏数据，也可以根据条码类型自定义规则）
-                if (quality < 10) {
-                    Toast.makeText(this,"[类型" + type + "/精度00" + quality + "]" + result,Toast.LENGTH_SHORT).show();
-                } else if (quality < 100) {
-                    Toast.makeText(this,"[类型" + type + "/精度0" + quality + "]" + result,Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this,"[类型" + type + "/精度" + quality + "]" + result,Toast.LENGTH_SHORT).show();
+                /*正式使用中不弹该Toast*/
+//                if (quality < 10) {
+//                    Toast.makeText(this,"[类型" + type + "/精度00" + quality + "]" + result,Toast.LENGTH_SHORT).show();
+//                } else if (quality < 100) {
+//                    Toast.makeText(this,"[类型" + type + "/精度0" + quality + "]" + result,Toast.LENGTH_SHORT).show();
+//                } else {
+//                    Toast.makeText(this,"[类型" + type + "/精度" + quality + "]" + result,Toast.LENGTH_SHORT).show();
+//                }
+                if(flag==false){
+                    //扫码预订会议室
+                    orderMeeting(result);
                 }
+
             }
+
         } else {
             mCount = 1;
             mResult = result;
         }
         Log.d(TAG, getClass().getName() + ".decodeComplete() -> " + mResult);
     }
+   private void orderMeeting(String result)  {
+        //1.先分辨扫的码是不是预定会议室的
 
+       try {
+           //1.2先判断不是JSONObject
+           JSONObject jsonObject=new JSONObject(result);
+           if(jsonObject ==null){
+             return;
+           }
+           //1.3再判断是不是我们的jsonObject
+           String roomId=jsonObject.getString("roomId");
+           String address=jsonObject.getString("address");
+           if(roomId==null){
+             return;
+           }
+           //1.4传至给预定会议界面准备跳转
+           else{
+               flag=true;
+               ScanActivity.this.finish();
+               OrderDetailMeetingActivity.start(this,"","",0,address,roomId);
+           }
+       } catch (JSONException e) {
+           e.printStackTrace();
+       }
+
+   }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {

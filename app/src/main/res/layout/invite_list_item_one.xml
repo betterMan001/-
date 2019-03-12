@@ -3,11 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/bg_invite_bottom"
     android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal"
         >
         <FrameLayout
@@ -27,7 +29,16 @@
                 android:layout_centerInParent="true"
                 />
         </FrameLayout>
-
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:layout_width="32dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/invite_head"
+        android:layout_gravity="center_vertical"
+        android:layout_height="32dp"
+        android:src="@drawable/touxiang"
+        app:riv_oval="true"
+        >
+    </com.makeramen.roundedimageview.RoundedImageView>
     <TextView
         android:layout_width="0dp"
         android:layout_weight="1"

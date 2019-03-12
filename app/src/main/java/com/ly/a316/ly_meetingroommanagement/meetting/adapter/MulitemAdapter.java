@@ -137,17 +137,17 @@ public class MulitemAdapter extends BaseMultiItemQuickAdapter<MultiItemEntity, B
                 }
                 //废弃了带头像的样式这个方案
 
-//                //设置头像
-//                ImageView headView=helper.getView(R.id.invite_head);
-//                //设置glide加载的选项
-//                RequestOptions requestOptions=new RequestOptions()
-//                        .placeholder(R.drawable.user_default_head)
-//                        .error(R.drawable.user_default_head);
-//                Glide
-//                        .with(activity)
-//                        .load(lv1.getHeadURL())
-//                        .apply(requestOptions)
-//                        .into(headView);
+                //设置头像
+                ImageView headView=helper.getView(R.id.invite_head);
+                //设置glide加载的选项
+                RequestOptions requestOptions=new RequestOptions()
+                        .placeholder(R.drawable.touxiang)
+                        .error(R.drawable.touxiang);
+                Glide
+                        .with(activity)
+                        .load(lv1.getHeadURL())
+                        .apply(requestOptions)
+                        .into(headView);
                 //点击相应的项，向map插入数据，并且改变（是否选中）的图片
                 helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override

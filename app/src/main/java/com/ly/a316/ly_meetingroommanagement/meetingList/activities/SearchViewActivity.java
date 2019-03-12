@@ -197,7 +197,7 @@ public class SearchViewActivity extends BaseActivity {
             @Override
             public void OnClick(String mId) {
                 //将选中会议的id传给MeetingListActivity让它重新显示
-                MeetingDetailActivity.start(SearchViewActivity.this, mId,MeetingListActivity.duration,"");
+                MeetingDetailActivity.start(SearchViewActivity.this, mId,MeetingListActivity.duration);
             }
         });
         adapter.setAccurateSearch(model);

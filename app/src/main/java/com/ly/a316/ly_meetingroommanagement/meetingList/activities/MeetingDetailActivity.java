@@ -66,11 +66,10 @@ public class MeetingDetailActivity extends BaseActivity {
         new MeetingDetailServiceImp(this, "1").meetDetail(mId);
     }
 
-    public static final void start(Context context, String mId, String duration,String type) {
+    public static final void start(Context context, String mId, String duration) {
         Intent intent = new Intent();
         intent.putExtra("mId", mId);
         intent.putExtra("duration", duration);
-        intent.putExtra("type", type);
         intent.setClass(context, MeetingDetailActivity.class);
         context.startActivity(intent);
     }
@@ -85,14 +84,17 @@ public class MeetingDetailActivity extends BaseActivity {
         showPeopleNum += (model.sure + "/" + model.all + "已接受>");
         meetinRoomNo.setText(showPeopleNum);
         mToRightMenu = new TopRightMenu(MeetingDetailActivity.this);
-        if ("2".equals(model.getState()))
+        if ("2".equals(model.getState())){
             beginMeeting.setText("已结束");
+            beginMeeting.setEnabled(false);
+        }
         else if ("1".equals(model.getState()))
             beginMeeting.setText("正在进行中");
-//        //不是发起人不能开始会议
-//        if(MyApplication.getId().equals(model.senderId)==false){
-//            beginMeeting.setEnabled(false);
-//        }
+        //不是发起人不能开始会议
+        if(MyApplication.getId().equals(model.senderId)==false){
+            beginMeeting.setEnabled(false);
+            beginMeeting.setBackgroundColor(getResources().getColor(R.color.gray));
+        }
 
     }
 
@@ -117,11 +119,7 @@ public class MeetingDetailActivity extends BaseActivity {
                 String start_time = model.begin.substring(11, 13) + "," + model.begin.substring(14, 16);
                String end_time="";
                 String type=getIntent().getStringExtra("type");
-                if("".equals(type)){
                      end_time = generate(getIntent().getStringExtra("duration"));
-                }
-                else
-                    end_time=getIntent().getStringExtra("duration");
                 /* Intent intentet = new Intent(this, Ceshi.class);*/
                 Intent intentet = new Intent(this, End_Activity.class);
                 intentet.putExtra("end_time", end_time);
@@ -129,6 +127,7 @@ public class MeetingDetailActivity extends BaseActivity {
                 int all=new Integer(model.all);
                 int sure=new Integer(model.sure);
                 intentet.putExtra("weidao",new Integer(all-sure).toString());
+                intentet.putExtra("mId",mId);
                 intentet.putExtra("duration",getIntent().getStringExtra("duration"));
                 startActivity(intentet);
                 break;
@@ -144,11 +143,11 @@ public class MeetingDetailActivity extends BaseActivity {
 
     public void showMenu() {
         final List<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(new MenuItem("一键拉讨论组"));
+        menuItems.add(new MenuItem(R.drawable.qun001,"一键拉讨论组"));
         mToRightMenu
                 .setHeight(150)     //默认高度480
                 .setWidth(350)      //默认宽度wrap_content
-                .showIcon(false)     //显示菜单图标，默认为true
+                .showIcon(true)     //显示菜单图标，默认为true
                 .dimBackground(true)           //背景变暗，默认为true
                 .needAnimationStyle(true)   //显示动画，默认为true
                 .setAnimationStyle(R.style.TRM_ANIM_STYLE)  //动画样式 默认为R.style.TRM_ANIM_STYLE
