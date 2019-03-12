@@ -129,6 +129,7 @@ public class MeetingDetailActivity extends BaseActivity {
                 intentet.putExtra("weidao",new Integer(all-sure).toString());
                 intentet.putExtra("mId",mId);
                 intentet.putExtra("duration",getIntent().getStringExtra("duration"));
+                intentet.putExtra("mId",mId);
                 startActivity(intentet);
                 break;
             //会议内容

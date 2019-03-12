@@ -170,9 +170,12 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 startActivityForResult(intent, 14);*/
                 //会议详情
                 //   Intent intent = new Intent(getActivity(), MeetingDetailActivity.class);
-                String end_hour = endtime.substring(0,2);
-                String end_mini = endtime.substring(3,5);
-                MeetingDetailActivity.start(getContext(), event_idd, end_hour+","+end_mini);
+                int start_hour= Integer.valueOf(starttime.substring(11,13));
+                int start_mini = Integer.valueOf(starttime.substring(14,16));
+                int end_hour = Integer.valueOf(endtime.substring(11,13));
+                int end_mini =Integer.valueOf( endtime.substring(14,16));
+                int durationmini = suanshijian(start_hour,start_mini,end_hour,end_mini);
+                MeetingDetailActivity.start(getContext(), event_idd, String.valueOf(durationmini),"1");
                 //  Log.i("zjc", event_idd);
                 ///   intent.putExtra("mId", event_idd);
                 // startActivityForResult(intent, 14);
@@ -235,7 +238,14 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 getSchemeCalendar(year, month, 3, 0xFFdf1356, "假"));
         ibCalendarview.setSchemeDate(map);*/
     }
+int suanshijian(int s_h,int s_m,int e_h,int e_m){
+        int start_m = s_h*60+s_m;
+        int end_m = e_h*60 + e_m;
 
+        int finalmin = end_m-start_m;
+
+       return finalmin;
+}
     void init() {
         calendar_all = java.util.Calendar.getInstance();
         view = jilei.view;
