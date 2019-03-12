@@ -262,6 +262,37 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         tvLunar.setText("今天");
         tvCurrentDay.setText(String.valueOf(ibCalendarview.getCurDay()));
 
+        TopRightMenu  mToRightMenu = new TopRightMenu(getActivity());
+        xialacainan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final List<com.zaaach.toprightmenu.MenuItem> menuItems = new ArrayList<>();
+                menuItems.add(new com.zaaach.toprightmenu.MenuItem( R.drawable.tongjitwo ,"统计"));
+                menuItems.add(new com.zaaach.toprightmenu.MenuItem(R.drawable.xaioxitwo , "消息"));
+                mToRightMenu
+                        .setHeight(180)     //默认高度480
+                        .setWidth(200)      //默认宽度wrap_content
+                        .showIcon(true)     //显示菜单图标，默认为true 为true的时候才能添加图标
+                        .dimBackground(true)           //背景变暗，默认为true
+                        .needAnimationStyle(true)   //显示动画，默认为true
+                        .setAnimationStyle(R.style.TRM_ANIM_STYLE)  //动画样式 默认为R.style.TRM_ANIM_STYLE
+                        .addMenuList(menuItems)
+                        .setOnMenuItemClickListener(new TopRightMenu.OnMenuItemClickListener() {
+                            @Override
+                            public void onMenuItemClick(int position) {
+                                if(position == 0){
+                                    intent1 = new Intent(getActivity(), OneDayCountActivity.class);
+                                    intent1.putExtra("list", (Serializable) day_list);
+                                    startActivity(intent1);
+                                }else if(position == 1){
+                                    MessageListActivity.start(getActivity());
+                                }
+                                Toast.makeText(getActivity(), "点击菜单:" + menuItems.get(position).getText(), Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .showAsDropDown(xialacainan, -180, 0);
+            }
+        });
     }
 
     String panduan(int timee) {
@@ -358,7 +389,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         t_day = calendar.getDay() + "";
         t_month = calendar.getMonth() + "";
 
-        getOneDay_daoImp.getOneDayinformation(MyApplication.getId(),panduan(calendar.getYear())+"-"+panduan(calendar.getMonth())+"-"+panduan(calendar.getDay()));
+        getOneDay_daoImp.getOneDayinformation(MyApplication.getId(), panduan(calendar.getYear()) + "-" + panduan(calendar.getMonth()) + "-" + panduan(calendar.getDay()));
 
        /* try {
             Schedule.list.clear();
@@ -408,7 +439,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
 
     @SuppressLint("MissingPermission")
-    @OnClick({R.id.fl_addday, R.id.fl_schedule, R.id.tv_month_dayyy, R.id.tv_current_day, R.id.more, R.id.erweima_saomiao})
+    @OnClick({R.id.fl_addday, R.id.fl_schedule, R.id.tv_month_dayyy, R.id.tv_current_day})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fl_schedule:
@@ -456,15 +487,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             case R.id.tv_current_day:
                 ibCalendarview.scrollToCurrent();////滚动到当前日期
                 break;
-            case R.id.more:
-                intent1 = new Intent(getActivity(), OneDayCountActivity.class);
-                intent1.putExtra("list", (Serializable) day_list);
-                startActivity(intent1);
-                break;
-            case R.id.erweima_saomiao:
-                MessageListActivity.start(getActivity());
-                //scanCode();
-                break;
+
+
 
         }
     }
@@ -479,14 +503,14 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
      /*   try {
             java.util.Calendar c = java.util.Calendar.getInstance();
             c.set(java.util.Calendar.YEAR, Integer.valueOf(t_year));
-            c.set(java.util.Calendar.MONTH, Integer.valueOf(t_month) - 1);
+ g           c.set(java.util.Calendar.MONTH, Integer.valueOf(t_month) - 1);
             int maxDay = c.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
             List<EventModel> calendarEvent = CalanderUtils.getCalendarEvent(getActivity(), Integer.valueOf(t_year), Integer.valueOf(t_month), maxDay);*/
-            for (int i = 0; i < day_list.size(); i++) {
-                map.put(getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(5, 7)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日").toString(),
-                        getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(5, 7)))), Integer.valueOf(panduan(Integer.valueOf(day_list.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日"));
-                ibCalendarview.setSchemeDate(map);
-            }
+        for (int i = 0; i < list_all.size(); i++) {
+            map.put(getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(list_all.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(list_all.get(i).getStartTime().substring(5, 7)))), Integer.valueOf(panduan(Integer.valueOf(list_all.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日").toString(),
+                    getSchemeCalendar(Integer.valueOf(panduan(Integer.valueOf(list_all.get(i).getStartTime().substring(0, 4)))), Integer.valueOf(panduan(Integer.valueOf(list_all.get(i).getStartTime().substring(5, 7)))), Integer.valueOf(panduan(Integer.valueOf(list_all.get(i).getStartTime().substring(8, 10)))), 0xFFdf1356, "日"));
+            ibCalendarview.setSchemeDate(map);
+        }
        /* } catch (Exception e) {
             e.printStackTrace();
         }*/
@@ -498,7 +522,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
      * 往日历里面插入带有参会人的日程信息
      */
     @SuppressLint("MissingPermission")
-    void ceshi_huiyi(Day_Object day_object,int alarmtime) {
+    void ceshi_huiyi(Day_Object day_object, int alarmtime) {
         if (CalanderUtils.requestPermission(getActivity())) {
             String calId = "";
             //这是一条查询语句
@@ -520,18 +544,18 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             java.util.Calendar mCalendar = java.util.Calendar.getInstance();
 
             //起始时间
-            mCalendar.set(java.util.Calendar.YEAR, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(0,4)))));
-            mCalendar.set(java.util.Calendar.MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(5,7))))-1);
-            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(8,10)))));
-            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(11,13)))));
-            mCalendar.set(java.util.Calendar.MINUTE, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(14,16)))));
+            mCalendar.set(java.util.Calendar.YEAR, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(0, 4)))));
+            mCalendar.set(java.util.Calendar.MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(5, 7)))) - 1);
+            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(8, 10)))));
+            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(11, 13)))));
+            mCalendar.set(java.util.Calendar.MINUTE, Integer.valueOf(panduan(Integer.valueOf(day_object.getStartTime().substring(14, 16)))));
             long start = mCalendar.getTime().getTime();
             //结束时间
-            mCalendar.set(java.util.Calendar.YEAR, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(0,4)))));
-            mCalendar.set(java.util.Calendar.MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(5,7))))-1);
-            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(8,10)))));
-            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(11,13)))));
-            mCalendar.set(java.util.Calendar.MINUTE,Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(14,16)))));
+            mCalendar.set(java.util.Calendar.YEAR, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(0, 4)))));
+            mCalendar.set(java.util.Calendar.MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(5, 7)))) - 1);
+            mCalendar.set(java.util.Calendar.DAY_OF_MONTH, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(8, 10)))));
+            mCalendar.set(java.util.Calendar.HOUR_OF_DAY, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(11, 13)))));
+            mCalendar.set(java.util.Calendar.MINUTE, Integer.valueOf(panduan(Integer.valueOf(day_object.getEndTime().substring(14, 16)))));
             long end = mCalendar.getTime().getTime();
             event.put(CalendarContract.Events.HAS_ALARM, 1);//设置有闹钟提醒
             event.put("dtstart", start);
@@ -545,7 +569,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             //插入时间的event_id
             values.put("event_id", id);
 
-            values.put( CalendarContract.Reminders.MINUTES, alarmtime);//在事件发生之前多少分钟进行提醒
+            values.put(CalendarContract.Reminders.MINUTES, alarmtime);//在事件发生之前多少分钟进行提醒
             values.put(CalendarContract.Reminders.METHOD, 1);//添加提醒这个必须有
             getContext().getContentResolver().insert(Uri.parse(CalanderUtils.calanderRemiderURL), values);
             //添加会议人
@@ -553,8 +577,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
             valuess.put(CalendarContract.Attendees.EVENT_ID, id);
             valuess.put("attendeeName", day_object.getLeaders());
 
-           getContext().getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI, valuess);
-
+            getContext().getContentResolver().insert(CalendarContract.Attendees.CONTENT_URI, valuess);
 
 
         }
@@ -595,7 +618,16 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         calendar_adapter.notifyDataSetChanged();
         getAll();
     }
-    public void success_delete( ){
-        getOneDay_daoImp.getOneDayinformation(MyApplication.getId(),panduan(Integer.valueOf(t_year))+"-"+panduan(Integer.valueOf(t_month))+"-"+panduan(Integer.valueOf(t_day)));
+
+    List<Day_Object> list_all = new ArrayList<>();
+
+    public void success_call_all(List<Day_Object> list) {
+        list_all.clear();
+        list_all.addAll(list);
+        getAll();
+    }
+
+    public void success_delete() {
+        getOneDay_daoImp.getOneDayinformation(MyApplication.getId(), panduan(Integer.valueOf(t_year)) + "-" + panduan(Integer.valueOf(t_month)) + "-" + panduan(Integer.valueOf(t_day)));
     }
 }

@@ -124,9 +124,10 @@ public class PopupMenuUtil {
         pop_openDoor.setOnClickListener(new MViewClick(4, context));
         myAdapter.setClick(new MyAdapter.Click() {
             @Override
-            public void onCcick(String id) {
+            public void onCcick(String id,String url) {
                 Intent intent = new Intent(context, Information_meet.class);
                 intent.putExtra("mId", id);
+                intent.putExtra("img",url);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
                 }

@@ -91,16 +91,28 @@
                     android:textColor="#000"
                     android:textSize="12sp" />
             </FrameLayout>
-            <ImageView
+          <!--  <ImageView
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"
                 android:id="@+id/erweima_saomiao"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@drawable/messge001"
+                android:background="@drawable/xiaoxi_image"
                 android:layout_toLeftOf="@+id/fl_current"
+                />-->
+            <ImageView
+                android:id="@+id/xialacainan"
+                android:layout_width="25dp"
+                android:layout_height="15dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/text_size_20"
+                android:gravity="center"
+                android:background="@drawable/dian"
+                android:layout_toLeftOf="@+id/fl_current"
+                android:layout_marginRight="10dp"
+
                 />
-            <TextView
+          <!--  <TextView
                 android:id="@+id/more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -111,7 +123,7 @@
                 android:textColor="#fff"
                 android:textSize="@dimen/text_size_15"
 
-                />
+                />-->
         </RelativeLayout>
 
         <com.haibin.calendarview.CalendarLayout
