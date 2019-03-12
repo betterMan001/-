@@ -52,7 +52,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
         ((MyViewHolder)viewHolder).item_all.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onItemClick.onitemClick(i,list.get(i).getmId());
+                onItemClick.onitemClick(i,list.get(i).getmId(),list.get(i).getStartTime(),list.get(i).getEndTime());
             }
         });
 
@@ -108,7 +108,7 @@ public class Calendar_Adapter extends RecyclerView.Adapter {
     }
 
    public interface OnItemClick {
-        void onitemClick(int position,String event_idd);
+        void onitemClick(int position,String event_idd,String startime,String endtime);
         void onitemDelete(String position,int weizhi);
         void onitemAlarm(int position,String weizzhi);
         void onitenFinish(int position,String eveniIdd,MyViewHolder viewHolder);
