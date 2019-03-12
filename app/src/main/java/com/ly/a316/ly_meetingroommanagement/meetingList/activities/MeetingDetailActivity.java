@@ -126,6 +126,10 @@ public class MeetingDetailActivity extends BaseActivity {
                 Intent intentet = new Intent(this, End_Activity.class);
                 intentet.putExtra("end_time", end_time);
                 intentet.putExtra("start_time", start_time);
+                int all=new Integer(model.all);
+                int sure=new Integer(model.sure);
+                intentet.putExtra("weidao",new Integer(all-sure).toString());
+                intentet.putExtra("duration",getIntent().getStringExtra("duration"));
                 startActivity(intentet);
                 break;
             //会议内容
