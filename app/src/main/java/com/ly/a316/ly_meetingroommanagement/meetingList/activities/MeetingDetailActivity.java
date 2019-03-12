@@ -115,12 +115,21 @@ public class MeetingDetailActivity extends BaseActivity {
             //开始会议
             case R.id.begin_meeting:
                 String start_time = model.begin.substring(11, 13) + "," + model.begin.substring(14, 16);
-                String end_time = generate(getIntent().getStringExtra("duration"));
+               String end_time="";
+                String type=getIntent().getStringExtra("type");
+                if("".equals(type)){
+                     end_time = generate(getIntent().getStringExtra("duration"));
+                }
+                else
+                    end_time=getIntent().getStringExtra("duration");
                 /* Intent intentet = new Intent(this, Ceshi.class);*/
                 Intent intentet = new Intent(this, End_Activity.class);
                 intentet.putExtra("end_time", end_time);
                 intentet.putExtra("start_time", start_time);
-
+                int all=new Integer(model.all);
+                int sure=new Integer(model.sure);
+                intentet.putExtra("weidao",new Integer(all-sure).toString());
+                intentet.putExtra("duration",getIntent().getStringExtra("duration"));
                 startActivity(intentet);
                 break;
             //会议内容

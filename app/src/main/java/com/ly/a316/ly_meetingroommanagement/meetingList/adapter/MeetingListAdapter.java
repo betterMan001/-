@@ -81,7 +81,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
         holder1.meeting_list_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MeetingDetailActivity.start(context,mId,model.getDuration());
+                MeetingDetailActivity.start(context,mId,model.getDuration(),"");
             }
         });
     }
