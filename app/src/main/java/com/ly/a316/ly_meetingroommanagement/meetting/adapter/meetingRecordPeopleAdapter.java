@@ -43,12 +43,12 @@ public class meetingRecordPeopleAdapter extends RecyclerView.Adapter {
         MeetingRecordViewHolder holder=(MeetingRecordViewHolder) viewHolder;
         LevelOne helper=list.get(i);
         //给每项附上属性
-        holder.choose_riv.setImageResource(R.drawable.empty_circle001);
+        holder.choose_riv.setImageResource(R.color.white);
         //设置头像
         //设置glide加载的选项
         RequestOptions requestOptions=new RequestOptions()
-                .placeholder(R.drawable.user_default_head)
-                .error(R.drawable.user_default_head);
+                .placeholder(R.drawable.beaty_head001)
+                .error(R.drawable.beaty_head001);
         Glide
                 .with(context)
                 .load(helper.getHeadURL())
@@ -64,11 +64,11 @@ public class meetingRecordPeopleAdapter extends RecyclerView.Adapter {
             public void onClick(View v) {
                 //将选择的状态保存
                 if(OrderDetailMeetingActivity.recordEmployees.containsKey(eId)==false){
-                    finalHolder.choose_riv.setImageResource(R.drawable.gou1);
+                    finalHolder.choose_riv.setImageResource(R.drawable.check_001);
                     OrderDetailMeetingActivity.recordEmployees.put(eId,finalHelper);
                 }
                 else{
-                    finalHolder.choose_riv.setImageResource(R.drawable.empty_circle001);
+                    finalHolder.choose_riv.setImageResource(R.color.white);
                     OrderDetailMeetingActivity.recordEmployees.remove(eId);
                 }
             }
