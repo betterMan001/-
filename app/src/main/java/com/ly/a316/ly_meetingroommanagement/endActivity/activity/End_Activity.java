@@ -36,12 +36,14 @@ import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
 import com.ly.a316.ly_meetingroommanagement.endActivity.adaper.FilePickerShowAdapter;
+import com.ly.a316.ly_meetingroommanagement.endActivity.daoimp.YanChangDaoImp;
 import com.ly.a316.ly_meetingroommanagement.endActivity.object.FileEntity;
 import com.ly.a316.ly_meetingroommanagement.endActivity.object.OnFileItemClickListener;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.OpenFile;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.PickerManager;
 import com.ly.a316.ly_meetingroommanagement.endActivity.util.TransDoucument;
 import com.ly.a316.ly_meetingroommanagement.meetting.adapter.MettingPeopleAdapter;
+
 import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.service.End_Service;
 import com.ly.a316.ly_meetingroommanagement.remind_huiyi_end.service.ServiceUtil;
 
@@ -58,7 +60,8 @@ public class End_Activity extends AppCompatActivity {
     TextView weidaorenshu;
     @BindView(R.id.kaihuishichang)
     TextView kaihuishichang;
-
+    @BindView(R.id.yanchang)
+    TextView yanchang;
     private LinearLayout imageview;
     private int window_width;
     private int window_height;
@@ -79,7 +82,7 @@ public class End_Activity extends AppCompatActivity {
     RecyclerView recyclerView;
     @BindView(R.id.relay_baoguo)
     RelativeLayout baoguo;
-    Button canel_device, sure_device;
+    Button canel_device, sure_device, sure_five, cannel_five;
     DeviceDaoImp deviceDaoImp = new DeviceDaoImp(this);
     AlertDialog.Builder builder;
     AlertDialog dialog;
@@ -96,6 +99,9 @@ public class End_Activity extends AppCompatActivity {
     private final int TIME = 60 * 1000;
     String weidao_number, kaihuishichang_txt;
     String mId;
+    YanChangDaoImp yanChangDaoImp = new YanChangDaoImp(this);
+    String choose_device_id;
+    String tels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,27 +109,15 @@ public class End_Activity extends AppCompatActivity {
         final View view = View.inflate(this, R.layout.activity_end_, null);
         setContentView(view);
         ButterKnife.bind(this);
-        Toast.makeText(this, "会议开始进行,会议结束前的15分钟我们将以\n通知的方式提醒你", Toast.LENGTH_LONG).show();
-        title_huiyi = getIntent().getStringExtra("meeting_title_tv");
-        start_time = getIntent().getStringExtra("start_time");
-        end_time = getIntent().getStringExtra("end_time");
-        kaihuishichang_txt = getIntent().getStringExtra("duration");
-        weidao_number = getIntent().getStringExtra("weidao");
-        mId = getIntent().getStringExtra("mId");
-        kaihuishichang.setText("会议持续时长: " + zhuanhuanshijian(kaihuishichang_txt));
-        sendTimeService(true);
-        weidaorenshu.setText(weidao_number);
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        init_Alert();
-        deviceDaoImp.getAllDevice_inEndActivity();
-        recyclerView.setLayoutManager(manager);
+        initview();
+
         addScheduleToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
         AlphaAnimation aa = new AlphaAnimation(0, 1.0f);
         aa.setDuration(400);
         view.startAnimation(aa);
@@ -182,6 +176,32 @@ public class End_Activity extends AppCompatActivity {
         paras.addRule(RelativeLayout.CENTER_IN_PARENT);
         imageview.setLayoutParams(paras);
         initbuttons();
+        yanChangDaoImp.getAllpeopleTel(mId);
+    }
+
+    void initview() {
+        Toast.makeText(this, "会议开始进行,会议结束前的15分钟我们将以\n通知的方式提醒你", Toast.LENGTH_LONG).show();
+        title_huiyi = getIntent().getStringExtra("meeting_title_tv");
+        start_time = getIntent().getStringExtra("start_time");
+        end_time = getIntent().getStringExtra("end_time");
+        kaihuishichang_txt = getIntent().getStringExtra("duration");
+        weidao_number = getIntent().getStringExtra("weidao");
+        mId = getIntent().getStringExtra("mId");
+        kaihuishichang.setText("会议持续时长: " + zhuanhuanshijian(kaihuishichang_txt) + "      ");
+        sendTimeService(true);
+        weidaorenshu.setText("未到人数：" + weidao_number);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        init_Alert();
+        deviceDaoImp.getAllDevice_inEndActivity();
+        recyclerView.setLayoutManager(manager);
+
+        yanchang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yanChangDaoImp.yanchang(mId);
+            }
+        });
 
     }
 
@@ -301,7 +321,7 @@ public class End_Activity extends AppCompatActivity {
                 .setMessage(mess)
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        String tels = MyApplication.getId();              //获取电话
+                       // String tels = MyApplication.getId()+",13735446889";              //获取电话
                         String contents = "复制链接在浏览器中打开进行查看：" + file_path;      //获取短信内容
                         Intent intent = new Intent();                        //创建 Intent 实例
                         intent.setAction(Intent.ACTION_SENDTO);             //设置动作为发送短信
@@ -312,7 +332,7 @@ public class End_Activity extends AppCompatActivity {
                 }).show();
     }
 
-
+    TextView text_beizhu;
     void init_Alert() {
         //设备报修
         builder = new AlertDialog.Builder(this);
@@ -325,6 +345,9 @@ public class End_Activity extends AppCompatActivity {
         baoxiu_recy_device = dialogView.findViewById(R.id.baoxiu_recy_device);
         canel_device = dialogView.findViewById(R.id.canel_device);
         sure_device = dialogView.findViewById(R.id.sure_device);
+        text_beizhu = dialogView.findViewById(R.id.text_beizhu);
+        sure_five = dialogView.findViewById(R.id.sure_five);
+        cannel_five = dialogView.findViewById(R.id.cannel_five);
         baoxiu_ly = dialogView.findViewById(R.id.baoxiu_ly);
         baoxiu_txt_device = dialogView.findViewById(R.id.baoxiu_txt_device);
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
@@ -333,6 +356,18 @@ public class End_Activity extends AppCompatActivity {
         baoxiu_recy_device.setLayoutManager(linearLayoutManager);
         baoxiu_recy_device.setAdapter(mettingPeopleAdapter);
         mettingPeopleAdapter.setEditMode(1);
+        sure_five.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yanChangDaoImp.baoxiu(MyApplication.getId(),mId,choose_device_id,text_beizhu.getText().toString());
+            }
+        });
+        cannel_five.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
         mettingPeopleAdapter.setOnItemClick(new MettingPeopleAdapter.OnItemClickk() {
             @Override
@@ -369,9 +404,11 @@ public class End_Activity extends AppCompatActivity {
                 for (int i = 0; i < device_list.size(); i++) {
                     if (device_list.get(i).getChoose().equals("0")) {
                         if (a == 1) {
+                            choose_device_id = String.valueOf(device_list.get(i).getdId());
                             nei = device_list.get(i).getdName();
                         } else {
                             nei += "," + device_list.get(i).getdName();
+                            choose_device_id += "," + device_list.get(i).getdId();
                         }
                         a = 0;
                     }
@@ -463,7 +500,6 @@ public class End_Activity extends AppCompatActivity {
 
     }
 
-
     // 通过Handler实现定时任务
     Handler handler = new Handler();
     Runnable runnable = new Runnable() {
@@ -500,7 +536,10 @@ public class End_Activity extends AppCompatActivity {
     String zhuanhuanshijian(String time_mini) {
         int hour = Integer.valueOf(time_mini) / 60;
         int mini = Integer.valueOf(time_mini) % 60;
-        String result = hour + "小时" + mini + "分";
+        if (mini / 10 == 0) {
+            mini = Integer.valueOf("0" + String.valueOf(mini));
+        }
+        String result = hour + "小时" + mini + "分钟";
         return result;
     }
 
@@ -518,5 +557,18 @@ public class End_Activity extends AppCompatActivity {
             hui_hour = hour;
         }
         return hui_hour + "," + huimin;
+    }
+    public void baoxiu(String content){
+        AlertDialog alertDialog1 = new AlertDialog.Builder(this)
+                .setMessage(content)//内容
+                .create();
+        alertDialog1.show();
+        dialog.dismiss();
+    }
+
+    public void getAllRen(List<String> list_tel){
+        for(int i=0;i<list_tel.size();i++){
+            tels +=","+list_tel.get(i);
+        }
     }
 }

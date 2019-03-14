@@ -48,4 +48,7 @@ public class Net {
     public static String finish_activity = url +"/Schedule/achieve";//完成
     public static String getShijian = url +"/Meeting/seeRoomUsage";//获取某间会议室
     public static String huiyiyangchang = url+"/Meeting/delayMeeting";//会议延长
+    public static String devicebaoxiu = url+"/device/repairs"; //设备报修
+    public static String getAllCanhuiren = url+"/Meeting/attenders"; //获取所有人的电话
+
 }

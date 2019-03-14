@@ -1,22 +1,35 @@
 package com.ly.a316.ly_meetingroommanagement.meetingList.activities;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.daoImp.DeviceDaoImp;
+import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Device;
 import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
+import com.ly.a316.ly_meetingroommanagement.endActivity.daoimp.YanChangDaoImp;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.Attendee;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.MeetingDetailModel;
 import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.AttenderServiceImp;
 import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.MeetingDetailServiceImp;
 import com.ly.a316.ly_meetingroommanagement.meetting.activity.ContentDialogActivity;
+import com.ly.a316.ly_meetingroommanagement.meetting.adapter.MettingPeopleAdapter;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.TeamCreateHelper;
 import com.zaaach.toprightmenu.MenuItem;
 import com.zaaach.toprightmenu.TopRightMenu;
@@ -84,18 +97,17 @@ public class MeetingDetailActivity extends BaseActivity {
         showPeopleNum += (model.sure + "/" + model.all + "已接受>");
         meetinRoomNo.setText(showPeopleNum);
         mToRightMenu = new TopRightMenu(MeetingDetailActivity.this);
-        if ("2".equals(model.getState())){
+        if ("2".equals(model.getState())) {
             beginMeeting.setText("已结束");
             beginMeeting.setEnabled(false);
-        }
-        else if ("1".equals(model.getState()))
+        } else if ("1".equals(model.getState()))
             beginMeeting.setText("正在进行中");
         //不是发起人不能开始会议
-        if(MyApplication.getId().equals(model.senderId)==false){
+        if (MyApplication.getId().equals(model.senderId) == false) {
             beginMeeting.setEnabled(false);
             beginMeeting.setBackgroundColor(getResources().getColor(R.color.gray));
         }
-
+        initviewwww();
     }
 
     @OnClick({R.id.back_ll, R.id.do_something, R.id.meeting_people_ll, R.id.signature_ll, R.id.begin_meeting, R.id.meeting_content_ll})
@@ -117,19 +129,19 @@ public class MeetingDetailActivity extends BaseActivity {
             //开始会议
             case R.id.begin_meeting:
                 String start_time = model.begin.substring(11, 13) + "," + model.begin.substring(14, 16);
-               String end_time="";
-                String type=getIntent().getStringExtra("type");
-                     end_time = generate(getIntent().getStringExtra("duration"));
+                String end_time = "";
+                String type = getIntent().getStringExtra("type");
+                end_time = generate(getIntent().getStringExtra("duration"));
                 /* Intent intentet = new Intent(this, Ceshi.class);*/
                 Intent intentet = new Intent(this, End_Activity.class);
                 intentet.putExtra("end_time", end_time);
                 intentet.putExtra("start_time", start_time);
-                int all=new Integer(model.all);
-                int sure=new Integer(model.sure);
-                intentet.putExtra("weidao",new Integer(all-sure).toString());
-                intentet.putExtra("mId",mId);
-                intentet.putExtra("duration",getIntent().getStringExtra("duration"));
-                intentet.putExtra("mId",mId);
+                int all = new Integer(model.all);
+                int sure = new Integer(model.sure);
+                intentet.putExtra("weidao", new Integer(all - sure).toString());
+                intentet.putExtra("mId", mId);
+                intentet.putExtra("duration", getIntent().getStringExtra("duration"));
+                intentet.putExtra("mId", mId);
                 startActivity(intentet);
                 break;
             //会议内容
@@ -144,7 +156,7 @@ public class MeetingDetailActivity extends BaseActivity {
 
     public void showMenu() {
         final List<MenuItem> menuItems = new ArrayList<>();
-        menuItems.add(new MenuItem(R.drawable.qun001,"一键拉讨论组"));
+        menuItems.add(new MenuItem(R.drawable.qun001, "一键拉讨论组"));
         mToRightMenu
                 .setHeight(150)     //默认高度480
                 .setWidth(350)      //默认宽度wrap_content
@@ -226,5 +238,189 @@ public class MeetingDetailActivity extends BaseActivity {
         builder.append(new Integer(minutes).toString());
         return builder.toString();
 
+    }
+
+    AlertDialog.Builder builder;
+    AlertDialog dialog;
+    View dialogView;
+    Button canel_device, sure_device, sure_five, cannel_five;
+    YanChangDaoImp yanChangDaoImp = new YanChangDaoImp(this, "2");
+
+    LinearLayout four_lt_click_time, baoxiu_ly;
+    ImageView baoxiu_img_device;
+    TextView baoxiu_txt_device;
+    RecyclerView baoxiu_recy_device;
+    MettingPeopleAdapter mettingPeopleAdapter;
+    TextView text_beizhu;
+    String choose_device_id;
+    List<Device> device_list = new ArrayList<>();//存放的设备
+    DeviceDaoImp deviceDaoImp = new DeviceDaoImp(this, "2");
+    int chooseNum = 0;
+
+    void initviewwww() {
+        deviceDaoImp.getAllDevice_inEndActivity();
+
+        builder = new AlertDialog.Builder(this);
+        dialog = builder.create();
+        dialogView = View.inflate(this, R.layout.baoxiu, null);
+        //设置对话框布局
+        dialog.setView(dialogView);
+        four_lt_click_time = dialogView.findViewById(R.id.four_lt_click_time);
+        baoxiu_img_device = dialogView.findViewById(R.id.baoxiu_img_device);
+        baoxiu_recy_device = dialogView.findViewById(R.id.baoxiu_recy_device);
+        canel_device = dialogView.findViewById(R.id.canel_device);
+        sure_device = dialogView.findViewById(R.id.sure_device);
+        text_beizhu = dialogView.findViewById(R.id.text_beizhu);
+        sure_five = dialogView.findViewById(R.id.sure_five);
+        cannel_five = dialogView.findViewById(R.id.cannel_five);
+        baoxiu_ly = dialogView.findViewById(R.id.baoxiu_ly);
+        baoxiu_txt_device = dialogView.findViewById(R.id.baoxiu_txt_device);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.dialog_back);
+        mettingPeopleAdapter = new MettingPeopleAdapter(this, device_list);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        baoxiu_recy_device.setLayoutManager(linearLayoutManager);
+        baoxiu_recy_device.setAdapter(mettingPeopleAdapter);
+        mettingPeopleAdapter.setEditMode(1);
+        sure_five.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                yanChangDaoImp.baoxiu(MyApplication.getId(), mId, choose_device_id, text_beizhu.getText().toString());
+            }
+        });
+        cannel_five.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        mettingPeopleAdapter.setOnItemClick(new MettingPeopleAdapter.OnItemClickk() {
+            @Override
+            public void onItemclick(MettingPeopleAdapter.MyViewHolder viewHolder, int position) {
+                String a = viewHolder.pan.getText().toString();
+                if (a.equals("1")) {
+                    chooseNum++;
+                    viewHolder.check_box.setImageResource(R.mipmap.ic_checked);
+                    viewHolder.pan.setText("0");
+                    device_list.get(position).setChoose("0");
+                } else if (a.equals("0")) {
+                    chooseNum--;
+                    viewHolder.check_box.setImageResource(R.mipmap.ic_uncheck);
+                    viewHolder.pan.setText("1");
+                    device_list.get(position).setChoose("1");
+                }
+            }
+        });
+        canel_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rotation(baoxiu_img_device, 3);
+                baoxiu_ly.setVisibility(View.VISIBLE);
+                Toast.makeText(MeetingDetailActivity.this, chooseNum + "", Toast.LENGTH_SHORT).show();
+            }
+        });
+        sure_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rotation(baoxiu_img_device, 2);
+                baoxiu_ly.setVisibility(View.GONE);
+                String nei = "";
+                int a = 1;
+                for (int i = 0; i < device_list.size(); i++) {
+                    if (device_list.get(i).getChoose().equals("0")) {
+                        if (a == 1) {
+                            choose_device_id = String.valueOf(device_list.get(i).getdId());
+                            nei = device_list.get(i).getdName();
+                        } else {
+                            nei += "," + device_list.get(i).getdName();
+                            choose_device_id += "," + device_list.get(i).getdId();
+                        }
+                        a = 0;
+                    }
+                }
+                baoxiu_txt_device.setText(nei);
+            }
+        });
+    }
+
+    @OnClick(R.id.meeting_fix_ll)
+    public void onViewClicked() {
+        dialog.show();
+        four_lt_click_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rotation(baoxiu_img_device, 1);
+            }
+        });
+    }
+
+    boolean open_close = true;//true为关闭状态
+
+    void rotation(View ima_view, final int who) {
+        Animation rotate;
+        if (open_close) {
+            rotate = new RotateAnimation(0f, 90f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+            open_close = false;
+        } else {
+            open_close = true;
+            rotate = new RotateAnimation(90f, 0f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        }
+        LinearInterpolator lin = new LinearInterpolator();//为匀速
+        rotate.setInterpolator(lin);//设置插值器
+        rotate.setDuration(100);//设置动画持续周期
+        rotate.setRepeatCount(0);//重复次数
+        rotate.setFillAfter(true);//动画执行完后是否停留在执行完的状态
+        ima_view.setAnimation(rotate);
+        ima_view.startAnimation(rotate);
+        rotate.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if (who == 1) {
+                    if (!open_close) {
+                        baoxiu_ly.setVisibility(View.VISIBLE);
+                    } else {
+                        baoxiu_ly.setVisibility(View.GONE);
+                    }
+                } else if (who == 3) {
+                    if (!open_close) {
+                        baoxiu_ly.setVisibility(View.VISIBLE);
+                    } else {
+                        baoxiu_ly.setVisibility(View.GONE);
+                    }
+                } else if (who == 2) {
+                    if (!open_close) {
+                        baoxiu_ly.setVisibility(View.VISIBLE);
+
+                    } else {
+                        baoxiu_ly.setVisibility(View.GONE);
+                    }
+
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+    }
+
+    public void baoxiu(String content) {
+        AlertDialog alertDialog1 = new AlertDialog.Builder(this)
+                .setMessage(content)//内容
+                .create();
+        alertDialog1.show();
+        dialog.dismiss();
+    }
+
+    public void call_success_back(List<Device> list) {
+        device_list.clear();
+        device_list.addAll(list);
+        mettingPeopleAdapter.notifyDataSetChanged();
     }
 }
