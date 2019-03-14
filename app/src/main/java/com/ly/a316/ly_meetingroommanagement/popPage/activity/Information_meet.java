@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.popPage.Adapter.MyHui_Adapter;
 import com.ly.a316.ly_meetingroommanagement.popPage.DaoImp.GetInformationDaoImp;
@@ -85,7 +86,7 @@ public class Information_meet extends AppCompatActivity {
             @Override
             public void onTextSend(String msg) {
                 //点击发送按钮后，回调此方法，msg为输入的值
-                getInformationDao.send_liuyan("18248612936", mID, msg);
+                getInformationDao.send_liuyan(MyApplication.getId(), mID, msg);
                 Toast.makeText(Information_meet.this, msg, Toast.LENGTH_SHORT).show();
             }
         });

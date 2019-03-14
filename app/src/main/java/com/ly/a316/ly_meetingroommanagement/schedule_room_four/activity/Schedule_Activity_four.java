@@ -211,7 +211,8 @@ public class Schedule_Activity_four extends AppCompatActivity {
                 ShijiandianClass.PEOPLE_NUMBER = four_edit_renshu.getText().toString().trim();
                 ShijiandianClass.HUIYISHICHANG_TIME = four_edit_shichang.getText().toString();//开会时长
                 dechujieshushijian();
-                ShijiandianClass.END_DIAN_TIME = panduanShijina(year, month, day, hour, miniute);
+               // ShijiandianClass.END_DIAN_TIME = panduanShijina(year, month, day, hour, miniute);
+
                 deviceDaoImp.subbmitHuiyi(10);
                 break;
             case R.id.four_ly_duan_start:
@@ -230,6 +231,7 @@ public class Schedule_Activity_four extends AppCompatActivity {
                 huoqushijian_duan();
                 String time_start = panduanShijina(duan_start_year, duan_start_month, duan_start_day, duan_start_hour, duan_start_miniute);
                 ShijiandianClass.START_TIME = time_start;
+                ShijiandianClass.DATESTRING = new String(time_start);
                 four_start_time.setText(time_start);
                 break;
             case R.id.four_ly_duan_end:
@@ -248,7 +250,8 @@ public class Schedule_Activity_four extends AppCompatActivity {
                 huoqu_end_time();
                 String time_end = panduanShijina(duan_end_year, duan_end_month, duan_end_day, duan_end_hour, duan_end_miniute);
                 ShijiandianClass.END_TIME = time_end;
-                four_end_time.setText(time_end);
+                ShijiandianClass.END_DIAN_TIME = new String(time_end);;
+                four_end_time.setText(ShijiandianClass.END_DIAN_TIME);
                 break;
         }
 

@@ -16,6 +16,7 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.Hui_Shiyong;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.HuiyiInformation;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass;
 import com.ly.a316.ly_meetingroommanagement.endActivity.activity.End_Activity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingDetailActivity;
 import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Schedule_Activity_four;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;
 import com.netease.nim.uikit.common.framework.infra.TaskObservable;
@@ -55,6 +56,15 @@ public class DeviceDaoImp implements deviceDao {
     ZhanshiHuiActivity zhanshiHuiActivity;
     Schedule_Activity_four schedule_activity_four;
     End_Activity end_activity;
+
+
+    MeetingDetailActivity meetingDetailActivity;
+    String whho = "1";
+
+    public DeviceDaoImp(MeetingDetailActivity meetingDetailActivity, String idd) {
+        this.meetingDetailActivity = meetingDetailActivity;
+        whho = idd;
+    }
 
     public DeviceDaoImp(End_Activity end_activity) {
         this.end_activity = end_activity;
@@ -114,13 +124,15 @@ public class DeviceDaoImp implements deviceDao {
                     Toast.makeText(schedule_activity_four, "帮你找到了以下会议室", Toast.LENGTH_SHORT).show();
                     schedule_activity_four.success(list_meet);
                 }
-            }else if(msg.what == 10){
+            } else if (msg.what == 10) {
                 //toast_end("网络请求成功");
                 end_activity.call_success_back(device_list);
-            }else if(msg.what == 11){
+            } else if (msg.what == 11) {
                 toast_end("网络请求失败");
-            }else if(msg.what == 12){
+            } else if (msg.what == 12) {
                 huiyiXiang_activity.get_success_shi(hui_shiyong);
+            }else if(msg.what == 50){
+                meetingDetailActivity.call_success_back(device_list);
             }
         }
     };
@@ -347,17 +359,24 @@ public class DeviceDaoImp implements deviceDao {
                         Device device = gson.fromJson(String.valueOf(jsonArray.get(i)), Device.class);
                         device_list.add(device);
                     }
-                    handler.sendEmptyMessage(10);
+                    if(whho.equals("2")){
+                        handler.sendEmptyMessage(50);
+                    }else {
+                        handler.sendEmptyMessage(10);
+                    }
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
         });
     }
+
     Hui_Shiyong hui_shiyong = new Hui_Shiyong();
+
     @Override
     public void getOneHuiShiyong(String roomId, String dates) {
-        String url = Net.getShijian+"?roomId="+roomId+"&dates="+dates;
+        String url = Net.getShijian + "?roomId=" + roomId + "&dates=" + dates;
         Log.i("zjc", "获取会议室时间使用：" + url);
         OkHttpClient okHttpClient = new OkHttpClient();
         final Request request = new Request.Builder().url(url).build();

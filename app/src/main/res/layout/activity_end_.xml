@@ -67,6 +67,7 @@
             android:background="@drawable/qipaofivef">
 
             <TextView
+                android:id="@+id/yanchang"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"

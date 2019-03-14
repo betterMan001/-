@@ -106,7 +106,8 @@ public class HuiyiXiang_Activity extends AppCompatActivity {
     }
 
     void sure_go(){
-       OrderDetailMeetingActivity.start(this,ShijiandianClass.DATESTRING,ShijiandianClass.END_DIAN_TIME,0,ShijiandianClass.HUIYI_WHERE,huiyiInformation.getmRoomId());
+        String hui_where = hui_dizhi.getText().toString();
+       OrderDetailMeetingActivity.start(this,ShijiandianClass.DATESTRING,ShijiandianClass.END_DIAN_TIME,0,hui_where,huiyiInformation.getmRoomId());
     }
     public void get_success(List<Hui_Device>  list_huidevicee) {
         huiyiType.setText("会议室类型：" + ShijiandianClass.HUIYI_Leixing);
