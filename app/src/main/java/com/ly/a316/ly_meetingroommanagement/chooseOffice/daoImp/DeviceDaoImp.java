@@ -133,6 +133,9 @@ public class DeviceDaoImp implements deviceDao {
                 huiyiXiang_activity.get_success_shi(hui_shiyong);
             }else if(msg.what == 50){
                 meetingDetailActivity.call_success_back(device_list);
+            }else if(msg.what == 123){
+                toast_schdule("网络请求失败");
+                schedule_activity_four.error_callback();
             }
         }
     };
@@ -260,7 +263,7 @@ public class DeviceDaoImp implements deviceDao {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                handler.sendEmptyMessage(1);
+                handler.sendEmptyMessage(123);
             }
 
             @Override
@@ -287,10 +290,7 @@ public class DeviceDaoImp implements deviceDao {
                             handler.sendEmptyMessage(9);
                         }
                     } else {
-
                         handler.sendEmptyMessage(6);
-
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -418,6 +418,14 @@ public class DeviceDaoImp implements deviceDao {
     void toast_end(String neirong) {
         if (toast == null) {
             toast = Toast.makeText(end_activity, neirong, Toast.LENGTH_SHORT);
+        } else {
+            toast.setText(neirong);
+        }
+        toast.show();
+    }
+    void toast_schdule(String neirong){
+        if (toast == null) {
+            toast = Toast.makeText(schedule_activity_four, neirong, Toast.LENGTH_SHORT);
         } else {
             toast.setText(neirong);
         }

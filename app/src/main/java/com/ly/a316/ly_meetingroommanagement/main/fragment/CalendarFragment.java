@@ -305,8 +305,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                                 } else if (position == 1) {
                                     MessageListActivity.start(getActivity());
                                 }
-                                Toast.makeText(getActivity(), "点击菜单:" + menuItems.get(position).getText(), Toast.LENGTH_SHORT).show();
-                            }
+                             }
                         })
                         .showAsDropDown(xialacainan, -180, 0);
             }
@@ -332,6 +331,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
         calendar.setSchemeColor(color);//如果单独标记颜色、则会使用这个颜色
         calendar.setScheme(text);
         calendar.addScheme(new Calendar.Scheme());
+
         calendar.addScheme(0xFF008800, "假");
         calendar.addScheme(0xFF008800, "节");
         return calendar;

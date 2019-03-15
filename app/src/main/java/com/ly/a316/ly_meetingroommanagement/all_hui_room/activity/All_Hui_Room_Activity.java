@@ -2,6 +2,7 @@ package com.ly.a316.ly_meetingroommanagement.all_hui_room.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.HuiyiInformation
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.CardItemTouchHelperCallback;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.utils.CardLayoutManager;
 import com.ly.a316.ly_meetingroommanagement.scancode.activity.ScanCode_Hui;
+import com.mingle.widget.LoadingView;
 import com.necer.calendar.WeekCalendar;
 import com.necer.entity.NDate;
 import com.necer.listener.OnWeekSelectListener;
@@ -52,6 +54,8 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
     NiceSpinner spinner3;
     @BindView(R.id.all_weekCalendar)
     WeekCalendar allWeekCalendar;
+    @BindView(R.id.loadView)
+    LoadingView loadView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +72,9 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
         init();
         initview();
         findAllRoom_daoImp.find_all_room();
+        loadView.setLoadingText("正在加载");
+        loadView.setVisibility(View.VISIBLE);
+
     }
 
     void initview() {
@@ -186,7 +193,7 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
             public void click(HuiyiInformation huiyiInformation, int position) {
                 Intent intent = new Intent(All_Hui_Room_Activity.this, HuiyiXiang_Activity.class);
                 intent.putExtra("classs", huiyiInformation);
-                intent.putExtra("dates",s_year+"-"+s_month+"-"+s_day);//时间
+                intent.putExtra("dates", s_year + "-" + s_month + "-" + s_day);//时间
                 startActivity(intent);
             }
         });
@@ -199,14 +206,14 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
             @Override
             public void onWeekSelect(NDate date, boolean isClick) {
                 s_year = panduan(date.localDate.getYear());
-                s_month =panduan(date.localDate.getMonthOfYear());
+                s_month = panduan(date.localDate.getMonthOfYear());
                 s_day = panduan(date.localDate.getDayOfMonth());
-
-                Toast.makeText(All_Hui_Room_Activity.this,s_year+"-"+s_month+"-"+s_day,Toast.LENGTH_SHORT).show();
             }
         });
     }
-    String s_year,s_month,s_day;
+
+    String s_year, s_month, s_day;
+
     String panduan(int timee) {
         String times;
         if (timee / 10 == 0) {
@@ -218,12 +225,23 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
     }
 
     public void callBack(List<HuiyiInformation> list_meett) {
-        list_meet.clear();
-        list_meet.addAll(list_meett);
-        list_old.clear();
-        list_old.addAll(list_meett);
-        all_hui_room_adapter.notifyDataSetChanged();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadView.setVisibility(View.GONE);
+                list_meet.clear();
+                list_meet.addAll(list_meett);
+                list_old.clear();
+                list_old.addAll(list_meett);
+                all_hui_room_adapter.notifyDataSetChanged();
+            }
+        }, 1500);
 
+    }
+
+    public void callBack_err() {
+        loadView.setLoadingText("网络请求失败，请检查网络~");
     }
 
 
@@ -300,4 +318,5 @@ public class All_Hui_Room_Activity extends AppCompatActivity {
             }
         }
     }
+
 }

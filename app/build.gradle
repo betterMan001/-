@@ -105,7 +105,10 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.1'
     //圆形进度条
     implementation 'com.coder:circlebar:1.0.0'
+    implementation 'com.github.zzz40500:android-shapeLoadingView:1.0.3.2'
+
     //扫码框架
     implementation 'cn.simonlee.xcodescanner:zbar:1.1.10'
     implementation project(':avchatkit')
+
 }

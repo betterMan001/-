@@ -171,6 +171,7 @@ public class WeekView extends View {
             goToNearestOrigin();
             return true;
         }
+
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             // Check if view is zoomed.  如果视图有变焦的话。
@@ -556,13 +557,13 @@ public class WeekView extends View {
     }
 
     private void drawHeaderRowAndEvents(Canvas canvas) {
-      //这一部分是画每个格子的宽度的
+        //这一部分是画每个格子的宽度的
         // Calculate the available width for each day.
         mHeaderColumnWidth = mTimeTextWidth + mHeaderColumnPadding * 2;
         mWidthPerDay = getWidth() - mHeaderColumnWidth - mColumnGap * (mNumberOfVisibleDays - 1);
         //mHeaderColumnWidth屏幕的宽度 mNumberOfVisibleDays日统计 三个统计的那个可见数字
 
-         mWidthPerDay = mWidthPerDay / mNumberOfVisibleDays;
+        mWidthPerDay = mWidthPerDay / mNumberOfVisibleDays;
 
         calculateHeaderHeight(); //Make sure the header is the right size (depends on AllDay events)
 
@@ -652,7 +653,7 @@ public class WeekView extends View {
              dayNumber <= leftDaysWithGaps + mNumberOfVisibleDays + 1;
              dayNumber++) {
 
-           // Check if the day is today.
+            // Check if the day is today.
             day = (Calendar) today.clone();
             mLastVisibleDay = (Calendar) day.clone();
             day.add(Calendar.DATE, dayNumber - 1);
@@ -675,7 +676,7 @@ public class WeekView extends View {
                     boolean isWeekend = day.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || day.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY;
                     Paint pastPaint = isWeekend && mShowDistinctWeekendColor ? mPastWeekendBackgroundPaint : mPastBackgroundPaint;
                     Paint futurePaint = isWeekend && mShowDistinctWeekendColor ? mFutureWeekendBackgroundPaint : mFutureBackgroundPaint;
-                    float startY = mHeaderHeight + mHeaderRowPadding  + mTimeTextHeight  + mHeaderMarginBottom + mCurrentOrigin.y;
+                    float startY = mHeaderHeight + mHeaderRowPadding + mTimeTextHeight + mHeaderMarginBottom + mCurrentOrigin.y;
 
                     if (sameDay) {
                         Calendar now = Calendar.getInstance();
@@ -688,7 +689,7 @@ public class WeekView extends View {
                         canvas.drawRect(start, startY, (startPixel + mWidthPerDay), getHeight(), futurePaint);
                     }
                 } else {
-                    canvas.drawRect(start, mHeaderHeight + mHeaderRowPadding  + mTimeTextHeight + mHeaderMarginBottom, (startPixel + mWidthPerDay), getHeight(), sameDay ? mTodayBackgroundPaint : mDayBackgroundPaint);
+                    canvas.drawRect(start, mHeaderHeight + mHeaderRowPadding + mTimeTextHeight + mHeaderMarginBottom, (startPixel + mWidthPerDay), getHeight(), sameDay ? mTodayBackgroundPaint : mDayBackgroundPaint);
                 }
             }
 
@@ -913,8 +914,8 @@ public class WeekView extends View {
         SpannableStringBuilder bob = new SpannableStringBuilder();
         if (event.getName() != null) {
 
-           bob.append(event.getName());//这里面填写的是事件信息
-           bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, bob.length(), 0);
+            bob.append(event.getName());//这里面填写的是事件信息
+            bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, bob.length(), 0);
             bob.append(' ');
         }
 
@@ -924,22 +925,22 @@ public class WeekView extends View {
         }
 
         int availableHeight = (int) (rect.bottom - originalTop - mEventPadding * 2);
-        int availableWidth = (int) (rect.right - originalLeft - mEventPadding *2 );
+        int availableWidth = (int) (rect.right - originalLeft - mEventPadding * 2);
 
         // Get text dimensions.做到这里
-        StaticLayout textLayout = new StaticLayout(bob, mEventTextPaint, availableWidth, Layout.Alignment.ALIGN_NORMAL,  1.0f, 0.0f, false);
+        StaticLayout textLayout = new StaticLayout(bob, mEventTextPaint, availableWidth, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
 
         int lineHeight = textLayout.getHeight() / textLayout.getLineCount();
 
         if (availableHeight >= lineHeight) {
             // Calculate available number of line counts.
             int availableLineCount = availableHeight / lineHeight;
-             do {
+            do {
                 // Ellipsize text to fit into event rect.
                 textLayout = new StaticLayout(TextUtils.ellipsize(bob, mEventTextPaint, availableLineCount * availableWidth, TextUtils.TruncateAt.END), mEventTextPaint, (int) (rect.right - originalLeft - mEventPadding * 2), Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
 
                 // Reduce line count.
-                 availableLineCount--;
+                availableLineCount--;
 
                 // Repeat until text is short enough.
             } while (textLayout.getHeight() > availableHeight);
@@ -1036,26 +1037,26 @@ public class WeekView extends View {
                 }
                 if (currentPeriodEvents == null)
                     currentPeriodEvents = mWeekViewLoader.onLoad(periodToFetch);
-                currentPeriodEvents.get(0).getEndTime();
+                if (currentPeriodEvents.size() > 0) {
+                    currentPeriodEvents.get(0).getEndTime();
+                    if (previousPeriodEvents == null)
+                        previousPeriodEvents = mWeekViewLoader.onLoad(periodToFetch - 1);
+                    if (nextPeriodEvents == null)
+                        nextPeriodEvents = mWeekViewLoader.onLoad(periodToFetch + 1);
 
 
-                if (previousPeriodEvents == null)
-                    previousPeriodEvents = mWeekViewLoader.onLoad(periodToFetch - 1);
-                if (nextPeriodEvents == null)
-                    nextPeriodEvents = mWeekViewLoader.onLoad(periodToFetch + 1);
+                    // Clear events.
+                    mEventRects.clear();
+                    sortAndCacheEvents(previousPeriodEvents);
+                    sortAndCacheEvents(currentPeriodEvents);
+                    sortAndCacheEvents(nextPeriodEvents);
+                    calculateHeaderHeight();
 
-
-                // Clear events.
-                mEventRects.clear();
-                sortAndCacheEvents(previousPeriodEvents);
-                sortAndCacheEvents(currentPeriodEvents);
-                sortAndCacheEvents(nextPeriodEvents);
-                calculateHeaderHeight();
-
-                mPreviousPeriodEvents = previousPeriodEvents;
-                mCurrentPeriodEvents = currentPeriodEvents;
-                mNextPeriodEvents = nextPeriodEvents;
-                mFetchedPeriod = periodToFetch;
+                    mPreviousPeriodEvents = previousPeriodEvents;
+                    mCurrentPeriodEvents = currentPeriodEvents;
+                    mNextPeriodEvents = nextPeriodEvents;
+                    mFetchedPeriod = periodToFetch;
+                }
             }
         }
 

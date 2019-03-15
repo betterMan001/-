@@ -28,6 +28,7 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
     Context context;
 
 
+
     public Zhanshi_MyAdapter(Context context, List<HuiyiInformation> shijian_list) {
         this.shijian_list = shijian_list;
         this.context = context;
@@ -47,6 +48,10 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
         ((MyViewHolder) viewHolder).hy_infor_rongliang.setText(shijian_list.get(i).getmNumber());
         ((MyViewHolder) viewHolder).hy_infor_bianhao.setText(shijian_list.get(i).getmId() + "");
         ((MyViewHolder) viewHolder).hy_infor_didian.setText(shijian_list.get(i).getmAddress());
+        ((MyViewHolder) viewHolder).jindutaio.setText(shijian_list.get(i).getRate());
+        if(i == 0){
+            ((MyViewHolder) viewHolder).tuijain.setVisibility(View.VISIBLE);
+        }
         ((MyViewHolder) viewHolder).angry_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +59,7 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
@@ -68,7 +74,8 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
         TextView hy_infor_bianhao;//会议室编号
         TextView hy_infor_didian;//会议室地点
         Button angry_btn;//查看详情
-
+        TextView jindutaio;
+        ImageView tuijain;//推荐图标
         MyViewHolder(View itemView) {
             super(itemView);
             avatarImageView = (ImageView) itemView.findViewById(R.id.hy_infor_image);
@@ -77,6 +84,8 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
             hy_infor_bianhao = (TextView) itemView.findViewById(R.id.hy_infor_bianhao);
             hy_infor_didian = (TextView) itemView.findViewById(R.id.hy_infor_didian);
             angry_btn = itemView.findViewById(R.id.angry_btn);
+            jindutaio =(TextView) itemView.findViewById(R.id.jindutaio);
+            tuijain =(ImageView) itemView.findViewById(R.id.tuijain);
         }
     }
 

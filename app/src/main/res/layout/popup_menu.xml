@@ -116,31 +116,6 @@
                 android:textSize="12sp" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/pop_notice"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="210dip"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="30dip"
-                android:layout_height="30dip"
-                android:src="@drawable/notice" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dip"
-                android:gravity="center"
-                android:text="所有会议室"
-                android:textColor="#333333"
-                android:textSize="12sp" />
-        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/pop_liebiao"
@@ -163,6 +138,31 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dip"
                 android:text="会议列表"
+                android:textColor="#333333"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/pop_notice"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="210dip"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="30dip"
+                android:layout_height="30dip"
+                android:src="@drawable/notice" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dip"
+                android:gravity="center"
+                android:text="所有会议室"
                 android:textColor="#333333"
                 android:textSize="12sp" />
         </LinearLayout>

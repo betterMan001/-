@@ -57,6 +57,7 @@ public class All_Hui_Room_Adapter extends RecyclerView.Adapter {
         viewHolder.hy_infor_rongliang.setText(list_hui.get(i).getmNumber());
         viewHolder.hy_infor_bianhao.setText(list_hui.get(i).getmId() + "");
         viewHolder.hy_infor_didian.setText(list_hui.get(i).getmAddress());
+        viewHolder.jindutaio.setText(list_hui.get(i).getRate());
         viewHolder.angry_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +79,7 @@ public class All_Hui_Room_Adapter extends RecyclerView.Adapter {
         TextView hy_infor_bianhao;//会议室编号
         TextView hy_infor_didian;//会议室地点
         Button angry_btn;//查看详情
+        TextView jindutaio;
 
         MyViewHolder(View itemView) {
             super(itemView);
@@ -87,6 +89,7 @@ public class All_Hui_Room_Adapter extends RecyclerView.Adapter {
             hy_infor_bianhao = (TextView) itemView.findViewById(R.id.hy_infor_bianhao);
             hy_infor_didian = (TextView) itemView.findViewById(R.id.hy_infor_didian);
             angry_btn = itemView.findViewById(R.id.angry_btn);
+            jindutaio =(TextView) itemView.findViewById(R.id.jindutaio);
         }
     }
 

@@ -34,6 +34,7 @@ import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.HuiyiInformation
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.object.ShijiandianClass;
 import com.ly.a316.ly_meetingroommanagement.scheduleHuiHome_one.customview.right_view;
 import com.ly.a316.ly_meetingroommanagement.schedule_room_four.fragment.MyDialogFragment_four;
+import com.mingle.widget.LoadingView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -106,7 +107,8 @@ public class Schedule_Activity_four extends AppCompatActivity {
     @BindView(R.id.four_start_time)
     TextView four_start_time;
     DeviceDaoImp deviceDaoImp;
-
+   @BindView(R.id.ec_loading)
+    LoadingView ec_loading;
     List<String> lids = new ArrayList<>();
 
     @Override
@@ -115,8 +117,8 @@ public class Schedule_Activity_four extends AppCompatActivity {
         setContentView(R.layout.activity_schedule_);
         ButterKnife.bind(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setEnterTransition(new Fade().setDuration(2000));
-            getWindow().setExitTransition(new Fade().setDuration(2500));
+            getWindow().setEnterTransition(new Fade().setDuration(1000));
+            getWindow().setExitTransition(new Fade().setDuration(1000));
         }
 
         deviceDaoImp = new DeviceDaoImp(this);
@@ -519,5 +521,9 @@ public class Schedule_Activity_four extends AppCompatActivity {
         Intent intent = new Intent(this, ZhanshiHuiActivity.class);
         intent.putExtra("list_meet", (Serializable) list_meet);
         startActivity(intent);
+    }
+    public void error_callback(){
+        ec_loading.setVisibility(View.VISIBLE);
+        ec_loading.setLoadingText("网络请求失败，请检查网络~");
     }
 }

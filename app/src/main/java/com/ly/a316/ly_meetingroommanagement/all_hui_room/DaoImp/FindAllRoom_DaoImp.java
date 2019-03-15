@@ -43,8 +43,13 @@ public class FindAllRoom_DaoImp implements FindAll_room {
          super.handleMessage(msg);
          if (msg.what == 0x1){
              toast("网络请求失败");
+             all_hui_room_activity.callBack_err();
          }else if(msg.what == 0x2){
-             toast("找到以下会议室");
+             if(list_meet.size() == 0){
+                 toast("没有符合条件的会议室");
+             }else{
+                 toast("找到以下会议室");
+             }
              all_hui_room_activity.callBack(list_meet);
          }
      }

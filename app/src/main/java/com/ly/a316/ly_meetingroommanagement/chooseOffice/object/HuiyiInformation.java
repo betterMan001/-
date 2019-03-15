@@ -24,6 +24,7 @@ public class HuiyiInformation implements Serializable{
     String mLockTime;
     String mLockEmployee;
     String mImageUrl;
+    String rate;//会议室使用情况
 
 
     public HuiyiInformation() {
@@ -31,7 +32,13 @@ public class HuiyiInformation implements Serializable{
     }
 
 
+    public String getRate() {
+        return rate;
+    }
 
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
 
     public String getmId() {
         return mId;

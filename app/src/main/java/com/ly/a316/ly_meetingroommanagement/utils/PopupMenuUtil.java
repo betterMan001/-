@@ -124,10 +124,10 @@ public class PopupMenuUtil {
         pop_openDoor.setOnClickListener(new MViewClick(4, context));
         myAdapter.setClick(new MyAdapter.Click() {
             @Override
-            public void onCcick(String id,String url) {
+            public void onCcick(String id, String url) {
                 Intent intent = new Intent(context, Information_meet.class);
                 intent.putExtra("mId", id);
-                intent.putExtra("img",url);
+                intent.putExtra("img", url);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     context.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
                 }
@@ -206,17 +206,17 @@ public class PopupMenuUtil {
                 /* intent = new Intent(context,Hui_Activity.class);第一种*/
                 /* intent = new Intent(context, Schedule_Activity.class);第二种*/
                 /* intent = new Intent(context, Schedule_Activity_three.class);第三种*/
-               /* intent = new Intent(context, Schedule_Activity_four.class);第四种*/
+                /* intent = new Intent(context, Schedule_Activity_four.class);第四种*/
                 intent = new Intent(context, Choose_Activity.class);
                 break;
             //查看会议列表
             case 3:
-                intent=new Intent(context,MeetingListActivity.class);
+                intent = new Intent(context, MeetingListActivity.class);
                 break;
-                //通知列表
+            //所有会议室列表
             case 2:
-              //  intent=new Intent(context, MessageListActivity.class);
-                intent=new Intent(context, All_Hui_Room_Activity.class);
+                //  intent=new Intent(context, MessageListActivity.class);
+                intent = new Intent(context, All_Hui_Room_Activity.class);
                 break;
         }
         context.startActivity(intent);
