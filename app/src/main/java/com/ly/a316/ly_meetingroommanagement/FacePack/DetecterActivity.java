@@ -143,7 +143,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                         .readTimeout(4, TimeUnit.MINUTES)
                         .build();
                 FormBody formBody = new FormBody.Builder()
-                        .add("access_token", "5fa6e0cd9e2a435305bf22273a4394a3448b14c8")
+                        .add("access_token", "0b6183580ef6f581edbd58d17afc7d798ad067c7")
                         .add("id", "D8332")
                         .add("c", "play")
                         .add("sign", "room")

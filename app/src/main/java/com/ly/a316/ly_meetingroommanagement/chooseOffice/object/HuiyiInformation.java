@@ -6,7 +6,7 @@ import java.io.Serializable;
  * 作者：余智强
  * 2019/1/23
  */
-public class HuiyiInformation implements Serializable{
+public class HuiyiInformation implements Serializable {
     String mId;
     String mRoomId;
     String mName;
@@ -26,11 +26,19 @@ public class HuiyiInformation implements Serializable{
     String mImageUrl;
     String rate;//会议室使用情况
 
+    String yan_yan = "1";
 
     public HuiyiInformation() {
-
+        this.yan_yan = "1";
     }
 
+    public String getYan_yan() {
+        return yan_yan;
+    }
+
+    public void setYan_yan(String yan_yan) {
+        this.yan_yan = yan_yan;
+    }
 
     public String getRate() {
         return rate;

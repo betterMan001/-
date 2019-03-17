@@ -64,6 +64,7 @@
 
 
             <FrameLayout
+                android:visibility="gone"
                 android:id="@+id/fl_current"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -233,7 +234,7 @@
             android:layout_height="wrap_content"
             app:fab_colorNormal="#FFFFFF"
             app:fab_icon="@drawable/addblue"
-            app:fab_title="添加提醒" />
+            app:fab_title="回到今天" />
 
         <com.ddz.floatingactionbutton.FloatingActionButton
             android:id="@+id/fl_addday"

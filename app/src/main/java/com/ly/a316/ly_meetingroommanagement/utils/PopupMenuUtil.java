@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.MessageList.activites.MessageListActivity;
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.all_hui_room.activity.All_Hui_Room_Activity;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.activity.HuiyiActivity;
@@ -94,7 +95,7 @@ public class PopupMenuUtil {
 
 
         /* item_pop_ly.setBackgroundResource(R.drawable.item_pop_beijing);*/
-        getTodayHuiDaoImp.getTodayHui("18248612936");
+        getTodayHuiDaoImp.getTodayHui(MyApplication.getId());
 
 
     }
