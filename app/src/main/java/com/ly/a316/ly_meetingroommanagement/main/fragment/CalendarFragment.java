@@ -288,7 +288,7 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 menuItems.add(new com.zaaach.toprightmenu.MenuItem(R.drawable.tongjitwo, "统计"));
                 menuItems.add(new com.zaaach.toprightmenu.MenuItem(R.drawable.xaioxitwo, "消息"));
                 mToRightMenu
-                        .setHeight(480)     //默认高度480
+                        .setHeight(300)     //默认高度480
                         //默认宽度wrap_content
                         .showIcon(true)     //显示菜单图标，默认为true 为true的时候才能添加图标
                         .dimBackground(true)           //背景变暗，默认为true

@@ -11,9 +11,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.activities.SearchViewActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.AddFriendActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.activity.AdvancedTeamSearchActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.viewHolder.FuncViewHolder;
@@ -27,10 +29,12 @@ import com.netease.nim.uikit.business.team.helper.TeamHelper;
 import com.netease.nim.uikit.common.activity.UI;
 import com.zaaach.toprightmenu.TopRightMenu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -40,10 +44,13 @@ public class ContactListFragment extends Fragment {
     @BindView(R.id.toolBar)
     Toolbar toolBar;
     Unbinder unbinder;
+    @BindView(R.id.do_something)
+    ImageView doSomething;
     private ContactsFragment fragment;
     TopRightMenu mToRightMenu;//右上角的菜单栏
     private static final int REQUEST_CODE_NORMAL = 1;
     private static final int REQUEST_CODE_ADVANCED = 2;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,40 +63,9 @@ public class ContactListFragment extends Fragment {
     }
 
     private void initView() {
-        //吧菜单项换成Fragment带的
-        setHasOptionsMenu(true);
         //绑定toolBar
-        ((AppCompatActivity)getActivity()).setSupportActionBar(toolBar);
-        //
-        toolBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem menuItem) {
-                switch (menuItem.getItemId()) {
-                    case R.id.create_normal_team:
-                        ContactSelectActivity.Option option = TeamHelper.getCreateContactSelectOption(null, 50);
-                        NimUIKit.startContactSelector((MainActivity)getActivity(), option, REQUEST_CODE_NORMAL);
-                        break;
-                    case R.id.create_regular_team:
-                        ContactSelectActivity.Option advancedOption = TeamHelper.getCreateContactSelectOption(null, 50);
-                        NimUIKit.startContactSelector((MainActivity)getActivity(), advancedOption, REQUEST_CODE_ADVANCED);
-                        break;
-                    case R.id.search_advanced_team:
-                        AdvancedTeamSearchActivity.start((MainActivity)getActivity());
-                        break;
-                    case R.id.add_buddy:
-                        AddFriendActivity.start((MainActivity) getActivity());
-                        break;
-//            case R.id.search_btn:
-//                GlobalSearchActivity.start(MainActivity.this);
-//                break;
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolBar);
     }
-
 
 
     @Override
@@ -99,13 +75,6 @@ public class ContactListFragment extends Fragment {
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        inflater.inflate(R.menu.contact_menu,menu);
-        super.onCreateOptionsMenu(menu, inflater);
-
-    }
 
 
     // 将通讯录列表fragment动态集成进来。 开发者也可以使用在xml中配置的方式静态集成。
@@ -134,9 +103,57 @@ public class ContactListFragment extends Fragment {
         });
 
     }
+    public void showMenu() {
+        mToRightMenu = new TopRightMenu(getActivity());
+        final List<com.zaaach.toprightmenu.MenuItem> menuItems = new ArrayList<>();
+        menuItems.add(new com.zaaach.toprightmenu.MenuItem("添加好友"));
+        menuItems.add(new com.zaaach.toprightmenu.MenuItem("创建讨论组"));
+        menuItems.add(new com.zaaach.toprightmenu.MenuItem("创建高级群"));
+        menuItems.add(new com.zaaach.toprightmenu.MenuItem("搜索高级群"));
+        mToRightMenu
+                .setHeight(500)     //默认高度480
+                                   //默认宽度wrap_content
+                .showIcon(false)     //显示菜单图标，默认为true
+                .dimBackground(true)           //背景变暗，默认为true
+                .needAnimationStyle(true)   //显示动画，默认为true
+                .setAnimationStyle(R.style.TRM_ANIM_STYLE)  //动画样式 默认为R.style.TRM_ANIM_STYLE
+                .addMenuList(menuItems)
+                .setOnMenuItemClickListener(new TopRightMenu.OnMenuItemClickListener() {
+                    @Override
+                    public void onMenuItemClick(int position) {
+                        switch (position) {
+                            //添加好友
+                            case 0:
+                                //用新api
+                                AddFriendActivity.start((MainActivity) getActivity());
+                                break;
+                            //创建讨论组
+                            case 1:
+                                ContactSelectActivity.Option option = TeamHelper.getCreateContactSelectOption(null, 50);
+                                NimUIKit.startContactSelector((MainActivity) getActivity(), option, REQUEST_CODE_NORMAL);
+                                break;
+                                //创建高级群
+                            case 2:
+                                ContactSelectActivity.Option advancedOption = TeamHelper.getCreateContactSelectOption(null, 50);
+                                NimUIKit.startContactSelector((MainActivity) getActivity(), advancedOption, REQUEST_CODE_ADVANCED);
+                                break;
+                            //搜索高级群
+                            case 3:
+                                AdvancedTeamSearchActivity.start((MainActivity) getActivity());
+                                break;
+                        }
+                    }
+                }).showAsDropDown(doSomething, -160, 0);
+
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.do_something)
+    public void onViewClicked() {
+        showMenu();
     }
 }
