@@ -11,9 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.activites.ScanActivity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingDetailActivity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.activities.SearchViewActivity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.AttenderServiceImp;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderManager;
 import com.ly.a316.ly_meetingroommanagement.nim.session.GuessAttachment;
@@ -30,11 +34,14 @@ import com.netease.nimlib.sdk.msg.MsgService;
 import com.netease.nimlib.sdk.msg.attachment.MsgAttachment;
 import com.netease.nimlib.sdk.msg.model.IMMessage;
 import com.netease.nimlib.sdk.msg.model.RecentContact;
+import com.zaaach.toprightmenu.MenuItem;
+import com.zaaach.toprightmenu.TopRightMenu;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -48,10 +55,14 @@ public class ConversationListFragment extends Fragment {
 
     private static final String TAG = "ConversationListFragmen";
     Unbinder unbinder;
+    TopRightMenu mToRightMenu;
+    @BindView(R.id.do_something)
+    ImageView doSomething;
     private int[] mCodeTypeArray = new int[]{
-        ZBarDecoder.CODABAR, ZBarDecoder.CODE39, ZBarDecoder.CODE93, ZBarDecoder.CODE128, ZBarDecoder.DATABAR, ZBarDecoder.DATABAR_EXP
-                , ZBarDecoder.EAN8, ZBarDecoder.EAN13, ZBarDecoder.I25, ZBarDecoder.ISBN10, ZBarDecoder.ISBN13, ZBarDecoder.PDF417, ZBarDecoder.QRCODE
-                , ZBarDecoder.UPCA, ZBarDecoder.UPCE};
+            ZBarDecoder.CODABAR, ZBarDecoder.CODE39, ZBarDecoder.CODE93, ZBarDecoder.CODE128, ZBarDecoder.DATABAR, ZBarDecoder.DATABAR_EXP
+            , ZBarDecoder.EAN8, ZBarDecoder.EAN13, ZBarDecoder.I25, ZBarDecoder.ISBN10, ZBarDecoder.ISBN13, ZBarDecoder.PDF417, ZBarDecoder.QRCODE
+            , ZBarDecoder.UPCA, ZBarDecoder.UPCE};
+
     public ConversationListFragment() {
         // Required empty public constructor
         //setContainerId(MainTab.RECENT_CONTACTS.fragmentId);
@@ -165,10 +176,43 @@ public class ConversationListFragment extends Fragment {
 
     @OnClick(R.id.do_something)
     public void onViewClicked() {
-        //新api
-        startScan(1);
+        //下拉框
+        showMenu();
 
     }
+
+    public void showMenu() {
+        mToRightMenu = new TopRightMenu(getActivity());
+        final List<MenuItem> menuItems = new ArrayList<>();
+        menuItems.add(new MenuItem("扫码订会议室"));
+        menuItems.add(new MenuItem("会议搜索"));
+        mToRightMenu
+                .setHeight(280)     //默认高度480
+                .setWidth(350)      //默认宽度wrap_content
+                .showIcon(false)     //显示菜单图标，默认为true
+                .dimBackground(true)           //背景变暗，默认为true
+                .needAnimationStyle(true)   //显示动画，默认为true
+                .setAnimationStyle(R.style.TRM_ANIM_STYLE)  //动画样式 默认为R.style.TRM_ANIM_STYLE
+                .addMenuList(menuItems)
+                .setOnMenuItemClickListener(new TopRightMenu.OnMenuItemClickListener() {
+                    @Override
+                    public void onMenuItemClick(int position) {
+                        switch (position) {
+                            //扫码
+                            case 0:
+                                //用新api
+                                startScan(1);
+                                break;
+                            //会议搜索
+                            case 1:
+                                SearchViewActivity.start(getActivity(),"1");
+                                break;
+                        }
+                    }
+                }).showAsDropDown(doSomething, -225, 0);
+
+    }
+
     private void startScan(int api) {
         int permissionState = ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA);
         if (permissionState == PackageManager.PERMISSION_GRANTED) {
@@ -180,6 +224,7 @@ public class ConversationListFragment extends Fragment {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, api);
         }
     }
+
     private int[] getCodeType() {
         return mCodeTypeArray;
     }

@@ -185,7 +185,7 @@ public class MeetingListActivity extends AppCompatActivity {
     }
 
     private  void initSearch(){
-        SearchViewActivity.start(MeetingListActivity.this);
+        SearchViewActivity.start(MeetingListActivity.this,"2");
     }
     private void initStatusBar() {
         if (statusBarView == null) {

@@ -65,7 +65,7 @@ public class SignInPeopleAdapter extends RecyclerView.Adapter {
                     .apply(requestOptions)
                     .into(headView);
             //没有签到的人的头像换成灰色
-            if(attendee.isSign()==false){
+            if("0".equals(attendee.getSign())==true){
                 /** 方法1：
                  * ColorMatrix类有一个内置的方法可用于改变饱和度。
                  * 传入一个大于1的数字将增加饱和度，而传入一个0～1之间的数字会减少饱和度。0值将产生一幅灰度图像。

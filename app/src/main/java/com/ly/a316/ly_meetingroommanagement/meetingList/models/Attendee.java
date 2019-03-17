@@ -9,14 +9,14 @@ public class Attendee {
     private String image;
     private String name;
     private String id;
-    private boolean isSign=false;
+    private String sign;
 
-    public boolean isSign() {
-        return isSign;
+    public String getSign() {
+        return sign;
     }
 
-    public void setSign(boolean sign) {
-        isSign = sign;
+    public void setSign(String sign) {
+        this.sign = sign;
     }
 
     public String getImage() {

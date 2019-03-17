@@ -128,14 +128,14 @@ public class SignInActivity extends BaseActivity {
                         signInPeopleAdapter.setCount(MeetingDetailActivity.attendeeList.size());
                 }else if ("已签到".equals(meetings[position])) {
                     for (int i = 0; i < length; i++) {
-                        if (MeetingDetailActivity.attendeeList.get(i).isSign()==true) {
+                        if ("1".equals(MeetingDetailActivity.attendeeList.get(i).getSign())==true) {
                             SignInPeopleAdapter.truePositon[count++] = i;
                         }
                     }
                     signInPeopleAdapter.setCount(count);
                 } else {
                     for (int i = 0; i < length; i++) {
-                        if (MeetingDetailActivity.attendeeList.get(i).isSign()==false) {
+                        if ("0".equals(MeetingDetailActivity.attendeeList.get(i).getSign())==true) {
                             SignInPeopleAdapter.truePositon[count++] = i;
                         }
                     }
@@ -159,17 +159,17 @@ public class SignInActivity extends BaseActivity {
         //1.先保存下签到情况的总结
         this.stateResult=stateResult;
         //2.做区分签到和普通参会人区别的处理
-        //..这里就直接暴力遍历了。。卡了我再换orz
-        for (Attendee temp : MeetingDetailActivity.attendeeList) {
-            for (Attendee compare : list) {
-                //如果是签到的人则标记已经签到
-                if (compare.getId().equals(temp.getId()) == true) {
-                    temp.setSign(true);
-                }
+        //接口改了直接就有判断签到和普通参会人属性了
+        MeetingDetailActivity.attendeeList=list;
+        //3.记录签到人数
+        //逻辑变更了要遍历获得签到人数
+        int count=0;
+        for(Attendee temp:list){
+            if("1".equals(temp.getSign())==true){
+                count++;
             }
         }
-        //3.记录签到人数
-        count=list.size();
+       this.count=count;
         //4.初始化视图
         this.runOnUiThread(new Runnable() {
             @Override

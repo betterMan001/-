@@ -124,6 +124,7 @@ public class MeetingDetailActivity extends BaseActivity {
                 break;
             case R.id.signature_ll:
                 isSignInMode = true;
+                //该方法获取的数据已经废弃，有点懒先放着以后再删233
                 new AttenderServiceImp(MeetingDetailActivity.this).attendersForDetailActivity(mId);
                 break;
             //开始会议
@@ -169,10 +170,8 @@ public class MeetingDetailActivity extends BaseActivity {
                     @Override
                     public void onMenuItemClick(int position) {
                         switch (position) {
-                            case 0:
-                                break;
                             //一键拉讨论组
-                            case 1:
+                            case 0:
                                 new AttenderServiceImp(MeetingDetailActivity.this).attendersForDetailActivity(mId);
                                 break;
                         }
