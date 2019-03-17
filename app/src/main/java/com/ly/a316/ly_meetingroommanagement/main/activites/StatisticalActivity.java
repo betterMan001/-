@@ -291,16 +291,17 @@ public class StatisticalActivity extends BaseActivity implements OnChartValueSel
                 break;
             case R.id.static_week:
                 staticDay.setTextColor(getResources().getColor(R.color.black));
-                staticMonth.setTextColor(getResources().getColor(R.color.classical_blue));
-                staticWeek.setTextColor(getResources().getColor(R.color.black));
+                staticMonth.setTextColor(getResources().getColor(R.color.black));
+                staticWeek.setTextColor(getResources().getColor(R.color.classical_blue));
+
                 lineChart.setData(makelineChartData(model.getSevenWeekDoneList()));
                 lineChart.invalidate();
                 lineChart.animateXY(2000, 2000);
                 break;
             case R.id.static_month:
                 staticDay.setTextColor(getResources().getColor(R.color.black));
-                staticMonth.setTextColor(getResources().getColor(R.color.black));
-                staticWeek.setTextColor(getResources().getColor(R.color.classical_blue));
+                staticMonth.setTextColor(getResources().getColor(R.color.classical_blue));
+                staticWeek.setTextColor(getResources().getColor(R.color.black));
                 lineChart.setData(makelineChartData(model.getSevenMonthDoneList()));
                 lineChart.invalidate();
                 lineChart.animateXY(2000, 2000);

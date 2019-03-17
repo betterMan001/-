@@ -23,6 +23,7 @@ import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.MeetingDeta
 import com.ly.a316.ly_meetingroommanagement.meetingList.utils.MySQLiteOpenHelper;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,12 +41,16 @@ public class SearchViewActivity extends BaseActivity {
     private SQLiteDatabase db;
     private SearchForMeetingAdapter adapter;
     public static String mId="";
+    //区别是主活动的还是会议列表界面的
+    private String type="2";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor(R.color.classical_blue).init();
         setContentView(R.layout.activity_search_view);
         ButterKnife.bind(this);
+        //获取类型
+        type=getIntent().getStringExtra("type");
         //将现在的数据插入数据库
         initDataForDataBase();
         initView();
@@ -61,7 +66,11 @@ public class SearchViewActivity extends BaseActivity {
     }
 
     private void wholeInsertData() {
-        int length = MeetingListActivity.meetingList.size();
+        int length=0;
+        //暂时不给数据
+        if("2".equals(type)||MeetingListActivity.meetingList!=null)
+         length = MeetingListActivity.meetingList.size();
+        else
         for (int i = 0; i < length; i++) {
             Meeting meeting = MeetingListActivity.meetingList.get(i);
             insertData(meeting.getmId(), meeting.getName());
@@ -84,10 +93,11 @@ public class SearchViewActivity extends BaseActivity {
          */
         db.close();
     }
-
-    public static final void start(Context context) {
+//需求改了,在mainActivity也要会议搜索
+    public static final void start(Context context,String type) {
         Intent intent = new Intent();
         intent.setClass(context, SearchViewActivity.class);
+        intent.putExtra("type",type);
         context.startActivity(intent);
     }
 
@@ -229,4 +239,6 @@ public class SearchViewActivity extends BaseActivity {
             }
         });
     }
+
+
 }

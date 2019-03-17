@@ -46,8 +46,8 @@ public class MessageListActivity extends BaseActivity {
     private int meeting_page = 0;
     private int system_page = 0;
     //消息推送的数据列表
-    List<MessageModel> sysList;
-    List<MessageModel> meetingList;
+    List<MessageModel> sysList=new ArrayList<>();
+    List<MessageModel> meetingList=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +63,8 @@ public class MessageListActivity extends BaseActivity {
         context.startActivity(intent);
     }
     private void makeData() {
+        //开启加载框
+        loadingDialog.show();
         new MessageServiceImp(this).userJpush(MyApplication.getId());
     }
 
@@ -100,6 +102,7 @@ public class MessageListActivity extends BaseActivity {
 
     public void messageCallBack(final List<MessageModel> list) {
         meetingList = list;
+        loadingDialog.dismiss();
         new MessageServiceImp(this).adminJpush();
     }
 

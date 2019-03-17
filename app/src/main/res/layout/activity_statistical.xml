@@ -45,7 +45,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             >
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="10dp"
@@ -185,8 +184,9 @@
                         android:layout_height="match_parent"
                         android:id="@+id/static_day"
                         android:text="天"
+                        android:paddingLeft="10dp"
                         android:textColor="@color/classical_blue"
-                        android:layout_marginRight="15dp"
+                        android:paddingRight="10dp"
                         >
                     </TextView>
                     <TextView
@@ -195,7 +195,8 @@
                         android:textColor="@color/black"
                         android:id="@+id/static_week"
                         android:text="周"
-                        android:layout_marginRight="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         >
                     </TextView>
                     <TextView
@@ -204,7 +205,8 @@
                         android:textColor="@color/black"
                         android:id="@+id/static_month"
                         android:text="月"
-                        android:layout_marginRight="15dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         >
                     </TextView>
                 </LinearLayout>
