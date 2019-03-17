@@ -472,8 +472,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
                 */
 
                 //测试服务
-                Intent intentet = new Intent(getContext(), Ceshi.class);
-                startActivity(intentet);
+               /* Intent intentet = new Intent(getContext(), Ceshi.class);
+                startActivity(intentet);*/
 
                 /*
               請求權限
@@ -485,6 +485,8 @@ public class CalendarFragment extends jilei implements CalendarView.OnCalendarSe
 
                 /*Intent intentttt = new Intent(getContext(), ScanCode_Hui.class);
                 startActivity(intentttt);*/
+
+                ibCalendarview.scrollToCurrent();////滚动到当前日期
                 break;
             case R.id.fl_addday:
                 //添加日程

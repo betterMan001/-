@@ -48,8 +48,8 @@ public class Choose_Activity extends AppCompatActivity {
         items2.add("参会人数");
         items2.add("会议时长");
         items2.add("设备需求");
-        items2.add("会议室类型");
-        items2.add("会议室地点");
+        items2.add("会议类型");
+        items2.add("会议地点");
         gridLayout2.setItems(items2);
         gridLayout2.setShow_cha(false);
         gridLayout1.setOnDragItemClickListener(new MyDragGrideLayout.OnDragItemClickListener() {
