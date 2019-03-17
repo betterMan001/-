@@ -57,7 +57,7 @@ public class All_Hui_Room_Adapter extends RecyclerView.Adapter {
         viewHolder.hy_infor_rongliang.setText(list_hui.get(i).getmNumber());
         viewHolder.hy_infor_bianhao.setText(list_hui.get(i).getmId() + "");
         viewHolder.hy_infor_didian.setText(list_hui.get(i).getmAddress());
-        viewHolder.jindutaio.setText(list_hui.get(i).getRate());
+        viewHolder.jindutaio.setText(list_hui.get(i).getRate()+"%");
         viewHolder.angry_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
