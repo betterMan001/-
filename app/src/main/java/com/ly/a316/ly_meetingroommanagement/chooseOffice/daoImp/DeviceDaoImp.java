@@ -278,6 +278,9 @@ public class DeviceDaoImp implements deviceDao {
                     if (boolean_request.equals("success")) {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             HuiyiInformation huiyiInformation = gson.fromJson(String.valueOf(jsonArray.get(i)), HuiyiInformation.class);
+                            if(i==0){
+                                huiyiInformation.setYan_yan("2");
+                            }
                             list_meet.add(huiyiInformation);
                         }
                         if (whooer == 1) {

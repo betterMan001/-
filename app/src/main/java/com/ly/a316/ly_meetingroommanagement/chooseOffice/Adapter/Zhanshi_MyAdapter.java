@@ -27,8 +27,6 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
     List<HuiyiInformation> shijian_list = new ArrayList<>();
     Context context;
 
-
-
     public Zhanshi_MyAdapter(Context context, List<HuiyiInformation> shijian_list) {
         this.shijian_list = shijian_list;
         this.context = context;
@@ -41,17 +39,22 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
         return new MyViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
+
         Glide.with(context).load(shijian_list.get(i).getmImageUrl()).into(((MyViewHolder) viewHolder).avatarImageView);
         ((MyViewHolder) viewHolder).hy_infor_huiname.setText(shijian_list.get(i).getmName());
         ((MyViewHolder) viewHolder).hy_infor_rongliang.setText(shijian_list.get(i).getmNumber());
-        ((MyViewHolder) viewHolder).hy_infor_bianhao.setText(shijian_list.get(i).getmId() + "");
+        ((MyViewHolder) viewHolder).hy_infor_bianhao.setText(shijian_list.get(i).getRate());
         ((MyViewHolder) viewHolder).hy_infor_didian.setText(shijian_list.get(i).getmAddress());
-        ((MyViewHolder) viewHolder).jindutaio.setText(shijian_list.get(i).getRate());
-        if(i == 0){
+        //  ((MyViewHolder) viewHolder).jindutaio.setText(shijian_list.get(i).getRate());
+        if (shijian_list.get(i).getYan_yan().equals("2")) {
             ((MyViewHolder) viewHolder).tuijain.setVisibility(View.VISIBLE);
+        }else{
+            ((MyViewHolder) viewHolder).tuijain.setVisibility(View.GONE);
         }
+
         ((MyViewHolder) viewHolder).angry_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +79,7 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
         Button angry_btn;//查看详情
         TextView jindutaio;
         ImageView tuijain;//推荐图标
+
         MyViewHolder(View itemView) {
             super(itemView);
             avatarImageView = (ImageView) itemView.findViewById(R.id.hy_infor_image);
@@ -84,8 +88,8 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
             hy_infor_bianhao = (TextView) itemView.findViewById(R.id.hy_infor_bianhao);
             hy_infor_didian = (TextView) itemView.findViewById(R.id.hy_infor_didian);
             angry_btn = itemView.findViewById(R.id.angry_btn);
-            jindutaio =(TextView) itemView.findViewById(R.id.jindutaio);
-            tuijain =(ImageView) itemView.findViewById(R.id.tuijain);
+            jindutaio = (TextView) itemView.findViewById(R.id.jindutaio);
+            tuijain = (ImageView) itemView.findViewById(R.id.tuijain);
         }
     }
 
