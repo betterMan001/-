@@ -94,4 +94,21 @@ public class MeetingDetailServiceImp implements MeetingDetailService {
         });
     }
 
+    @Override
+    public void beginMeeting(String mId) {
+      String URL=Net.HEAD+Net.BEGINMEETING+"?id="+mId;
+     MyHttpUtil.sendOkhttpGetRequest(URL, new Callback() {
+         @Override
+         public void onFailure(Call call, IOException e) {
+            activity.subThreadToast(Net.FAIL);
+         }
+
+         @Override
+         public void onResponse(Call call, Response response) throws IOException {
+           activity.subThreadToast("会议已开始");
+           activity.beginCallBack();
+         }
+     });
+    }
+
 }

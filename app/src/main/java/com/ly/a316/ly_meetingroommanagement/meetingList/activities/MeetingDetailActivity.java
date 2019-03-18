@@ -2,6 +2,7 @@ package com.ly.a316.ly_meetingroommanagement.meetingList.activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -128,29 +129,62 @@ public class MeetingDetailActivity extends BaseActivity {
                 new AttenderServiceImp(MeetingDetailActivity.this).attendersForDetailActivity(mId);
                 break;
             //开始会议
+            /*
+            * 如果未开始会议就弹出框
+            * 开始了直接进去
+            * */
             case R.id.begin_meeting:
-                String start_time = model.begin.substring(11, 13) + "," + model.begin.substring(14, 16);
-                String end_time = "";
-                String type = getIntent().getStringExtra("type");
-                end_time = generate(getIntent().getStringExtra("duration"));
-                /* Intent intentet = new Intent(this, Ceshi.class);*/
-                Intent intentet = new Intent(this, End_Activity.class);
-                intentet.putExtra("end_time", end_time);
-                intentet.putExtra("start_time", start_time);
-                int all = new Integer(model.all);
-                int sure = new Integer(model.sure);
-                intentet.putExtra("weidao", new Integer(all - sure).toString());
-                intentet.putExtra("mId", mId);
-                intentet.putExtra("duration", getIntent().getStringExtra("duration"));
-                intentet.putExtra("mId", mId);
-                startActivity(intentet);
+               if("0".equals(model.getState()))
+                showBeginMeetingDialog();
+               else
+                   prepareForBegingMeeting();
                 break;
             //会议内容
             case R.id.meeting_content_ll:
                 ContentDialogActivity.start(MeetingDetailActivity.this, "2");
         }
     }
+    private void showBeginMeetingDialog(){
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(MeetingDetailActivity.this);
+        normalDialog.setTitle("开会提醒");
+        normalDialog.setMessage("确定要开始会议?");
+        normalDialog.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                      new MeetingDetailServiceImp(MeetingDetailActivity.this,"1").beginMeeting(mId);
+                    }
+                });
+        normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                      dialog.dismiss();
+                    }
+                });
+        // 显示
+        normalDialog.show();
 
+    }
+    //为跳转页面做准备
+    private void prepareForBegingMeeting(){
+        String start_time = model.begin.substring(11, 13) + "," + model.begin.substring(14, 16);
+        String end_time = "";
+        String type = getIntent().getStringExtra("type");
+        end_time = generate(getIntent().getStringExtra("duration"));
+        /* Intent intentet = new Intent(this, Ceshi.class);*/
+        Intent intentet = new Intent(this, End_Activity.class);
+        intentet.putExtra("end_time", end_time);
+        intentet.putExtra("start_time", start_time);
+        int all = new Integer(model.all);
+        int sure = new Integer(model.sure);
+        intentet.putExtra("weidao", new Integer(all - sure).toString());
+        intentet.putExtra("mId", mId);
+        intentet.putExtra("duration", getIntent().getStringExtra("duration"));
+        intentet.putExtra("mId", mId);
+        startActivity(intentet);
+    }
     public void startForSignIn() {
         SignInActivity.start(MeetingDetailActivity.this, mId);
     }
@@ -421,5 +455,14 @@ public class MeetingDetailActivity extends BaseActivity {
         device_list.clear();
         device_list.addAll(list);
         mettingPeopleAdapter.notifyDataSetChanged();
+    }
+
+    public void beginCallBack(){
+         this.runOnUiThread(new Runnable() {
+             @Override
+             public void run() {
+                 prepareForBegingMeeting();
+             }
+         });
     }
 }

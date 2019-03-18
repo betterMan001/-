@@ -7,4 +7,5 @@ auther:xwd
 */
 public interface MeetingDetailService {
     public void meetDetail(String mId);
+    public void beginMeeting(String mId);
 }

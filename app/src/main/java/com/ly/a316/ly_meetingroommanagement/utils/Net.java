@@ -27,7 +27,8 @@ public class Net {
     public final static String USER_JPUSH="jpush/userJpush";//用户发的通知
     public final static String CHANGE_PROFILE="User/changeProfile";//修改头像
     public final static String CHANGE_NICKNAME="User/changeNickname";//修改昵称
-    public final static String STATISTICS="Schedule/statistics";
+    public final static String STATISTICS="Schedule/statistics";//日程统计
+    public final static String BEGINMEETING="Meeting/beginMeeting";//开始会议
     //yzq
     public static String url = HEAD;
     public static String addSchedule = url + "/Schedule/addSchedule";//新建日程
