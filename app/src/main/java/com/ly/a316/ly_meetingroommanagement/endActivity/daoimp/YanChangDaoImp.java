@@ -143,7 +143,7 @@ public class YanChangDaoImp implements YanChangDao {
 
     @Override
     public void endMeet(String id) {
-        String url = Net.getAllCanhuiren + "?id=" + id;
+        String url = Net.getAllCanhuiren + "?id=" + id+"&role=1";
         Log.i("zjc", "结束会议：" + url);
         OkHttpClient okHttpClient = new OkHttpClient();
         final Request request = new Request.Builder().url(url).build();

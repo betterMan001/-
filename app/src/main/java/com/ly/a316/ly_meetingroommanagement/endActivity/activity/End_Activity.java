@@ -299,6 +299,9 @@ public class End_Activity extends AppCompatActivity {
 
     //結束会议
     public void end_huiyi(View view) {
+        tishi();
+    }
+    void quedingjieshu(){
         handler.removeCallbacks(runnable);
         for (int i = 0; i < PickerManager.getInstance().files.size(); i++) {
             FileEntity fileEntity = PickerManager.getInstance().files.get(i);
@@ -322,7 +325,7 @@ public class End_Activity extends AppCompatActivity {
                 .setMessage(mess)
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                       // String tels = MyApplication.getId()+",13735446889";              //获取电话
+                        // String tels = MyApplication.getId()+",13735446889";              //获取电话
                         String contents = "复制链接在浏览器中打开进行查看：" + file_path;      //获取短信内容
                         Intent intent = new Intent();                        //创建 Intent 实例
                         intent.setAction(Intent.ACTION_SENDTO);             //设置动作为发送短信
@@ -334,6 +337,7 @@ public class End_Activity extends AppCompatActivity {
     }
 
     TextView text_beizhu;
+
     void init_Alert() {
         //设备报修
         builder = new AlertDialog.Builder(this);
@@ -360,7 +364,7 @@ public class End_Activity extends AppCompatActivity {
         sure_five.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                yanChangDaoImp.baoxiu(MyApplication.getId(),mId,choose_device_id,text_beizhu.getText().toString());
+                yanChangDaoImp.baoxiu(MyApplication.getId(), mId, choose_device_id, text_beizhu.getText().toString());
             }
         });
         cannel_five.setOnClickListener(new View.OnClickListener() {
@@ -559,7 +563,8 @@ public class End_Activity extends AppCompatActivity {
         }
         return hui_hour + "," + huimin;
     }
-    public void baoxiu(String content){
+
+    public void baoxiu(String content) {
         AlertDialog alertDialog1 = new AlertDialog.Builder(this)
                 .setMessage(content)//内容
                 .create();
@@ -567,9 +572,32 @@ public class End_Activity extends AppCompatActivity {
         dialog.dismiss();
     }
 
-    public void getAllRen(List<String> list_tel){
-        for(int i=0;i<list_tel.size();i++){
-            tels +=","+list_tel.get(i);
+    public void getAllRen(List<String> list_tel) {
+        for (int i = 0; i < list_tel.size(); i++) {
+            tels += "," + list_tel.get(i);
         }
+    }
+
+    void tishi() {
+        // 创建构建器
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        // 设置参数
+        builder.setTitle("提示！")
+                .setMessage("是否确定结束会议？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {// 积极
+
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        quedingjieshu();
+                    }
+                }).setNegativeButton("取消", new DialogInterface.OnClickListener() {// 消极
+
+            @Override
+            public void onClick(DialogInterface dialog,
+                                int which) {
+            }
+        });
+        builder.create().show();
     }
 }
