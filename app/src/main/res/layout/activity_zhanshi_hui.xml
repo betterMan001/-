@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:s="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".chooseOffice.activity.ZhanshiHuiActivity"
-    android:layout_height="match_parent">
+    tools:context=".chooseOffice.activity.ZhanshiHuiActivity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/hy_infor_toolbar"
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
         s:layout_scrollFlags="scroll|enterAlways"
         s:navigationIcon="@drawable/backtwo"
         s:titleTextColor="@color/white">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,11 +25,12 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="normal" />
+
         <com.clownqiang.rectcircleprogressbutton.RectCircleProgressButton
-            android:layout_gravity="right"
             android:id="@+id/btn_rect_circle"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
+            android:layout_gravity="right"
             s:rcpb_circle_color="@android:color/holo_green_dark"
             s:rcpb_rec_color="@color/classical_blue"
             s:rcpb_rec_stoke_width="1dp"
@@ -37,16 +39,46 @@
             s:rcpb_rec_text_size="16sp"
             s:rcpb_rec_to_circle_color="@color/classical_blue"
             s:rcpb_rec_to_circle_interval="600"
-            s:rcpb_rotate_speed="20"
-            />
+            s:rcpb_rotate_speed="20" />
     </android.support.v7.widget.Toolbar>
 
-    <android.support.v7.widget.RecyclerView
+    <com.necer.calendar.WeekCalendar
+        android:id="@+id/zhan_all_weekCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        s:lunarTextColor="#00aa00" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/zhan_spinner1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择人数" />
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/zhan_spinner2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择地点" />
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/zhan_spinner3"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="选择类型" />
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
         android:id="@+id/zhanshi_recycleview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       >
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

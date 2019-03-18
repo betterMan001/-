@@ -51,5 +51,6 @@ public class Net {
     public static String huiyiyangchang = url+"/Meeting/delayMeeting";//会议延长
     public static String devicebaoxiu = url+"/device/repairs"; //设备报修
     public static String getAllCanhuiren = url+"/Meeting/attenders"; //获取所有人的电话
+    public static String endmeeting = url+"/Meeting/endMeeting";//結束会议
 
 }

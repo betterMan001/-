@@ -306,6 +306,7 @@ public class End_Activity extends AppCompatActivity {
         }
         transDoucument = new TransDoucument(filepath_list, this, this);
         transDoucument.transDocument();
+        yanChangDaoImp.endMeet(mId);
     }
 
     String com, file_path;

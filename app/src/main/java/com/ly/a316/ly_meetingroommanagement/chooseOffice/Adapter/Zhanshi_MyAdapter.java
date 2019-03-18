@@ -46,7 +46,7 @@ public class Zhanshi_MyAdapter extends RecyclerView.Adapter {
         Glide.with(context).load(shijian_list.get(i).getmImageUrl()).into(((MyViewHolder) viewHolder).avatarImageView);
         ((MyViewHolder) viewHolder).hy_infor_huiname.setText(shijian_list.get(i).getmName());
         ((MyViewHolder) viewHolder).hy_infor_rongliang.setText(shijian_list.get(i).getmNumber());
-        ((MyViewHolder) viewHolder).hy_infor_bianhao.setText(shijian_list.get(i).getRate());
+        ((MyViewHolder) viewHolder).hy_infor_bianhao.setText(shijian_list.get(i).getRate()+"%");
         ((MyViewHolder) viewHolder).hy_infor_didian.setText(shijian_list.get(i).getmAddress());
         //  ((MyViewHolder) viewHolder).jindutaio.setText(shijian_list.get(i).getRate());
         if (shijian_list.get(i).getYan_yan().equals("2")) {
