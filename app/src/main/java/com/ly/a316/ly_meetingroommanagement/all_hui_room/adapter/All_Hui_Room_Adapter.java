@@ -55,7 +55,7 @@ public class All_Hui_Room_Adapter extends RecyclerView.Adapter {
         Glide.with(context).load(list_hui.get(i).getmImageUrl()).into(((MyViewHolder) viewHolder).avatarImageView);
         viewHolder.hy_infor_huiname.setText(list_hui.get(i).getmName());
         viewHolder.hy_infor_rongliang.setText(list_hui.get(i).getmNumber());
-        viewHolder.hy_infor_bianhao.setText(list_hui.get(i).getmId() + "");
+        viewHolder.hy_infor_bianhao.setText(list_hui.get(i).getRate()+"%");
         viewHolder.hy_infor_didian.setText(list_hui.get(i).getmAddress());
         viewHolder.jindutaio.setText(list_hui.get(i).getRate()+"%");
         viewHolder.angry_btn.setOnClickListener(new View.OnClickListener() {

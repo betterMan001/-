@@ -140,4 +140,24 @@ public class YanChangDaoImp implements YanChangDao {
             }
         });
     }
+
+    @Override
+    public void endMeet(String id) {
+        String url = Net.getAllCanhuiren + "?id=" + id;
+        Log.i("zjc", "结束会议：" + url);
+        OkHttpClient okHttpClient = new OkHttpClient();
+        final Request request = new Request.Builder().url(url).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        });
+    }
 }

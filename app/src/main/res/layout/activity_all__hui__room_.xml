@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".all_hui_room.activity.All_Hui_Room_Activity">
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/all_hui_room_toolbar"
         android:layout_width="match_parent"
@@ -14,6 +15,7 @@
         s:layout_scrollFlags="scroll|enterAlways"
         s:navigationIcon="@drawable/backtwo"
         s:titleTextColor="@color/white">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,56 +26,56 @@
             android:textSize="20sp"
             android:textStyle="normal" />
     </android.support.v7.widget.Toolbar>
+
     <com.necer.calendar.WeekCalendar
         android:id="@+id/all_weekCalendar"
         android:layout_width="match_parent"
-        s:lunarTextColor="#00aa00"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        s:lunarTextColor="#00aa00" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
+
         <org.angmarch.views.NiceSpinner
             android:id="@+id/spinner1"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="选择人数"
-            />
+            android:layout_weight="1"
+            android:text="选择人数" />
 
         <org.angmarch.views.NiceSpinner
             android:id="@+id/spinner2"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="选择地点"
-           />
+            android:layout_weight="1"
+            android:text="选择地点" />
+
         <org.angmarch.views.NiceSpinner
             android:id="@+id/spinner3"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="选择类型"
-            />
+            android:layout_weight="1"
+            android:text="选择类型" />
 
     </LinearLayout>
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/all_hui_room_recycleview"
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
-    </android.support.v7.widget.RecyclerView>
-    <com.mingle.widget.LoadingView
-        android:id="@+id/loadView"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-       />
-</FrameLayout>
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/all_hui_room_recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+
+        <com.mingle.widget.LoadingView
+            android:id="@+id/loadView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </FrameLayout>
 
 
 </LinearLayout>
