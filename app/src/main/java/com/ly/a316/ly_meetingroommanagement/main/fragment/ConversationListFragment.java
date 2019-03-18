@@ -17,6 +17,7 @@ import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.activites.ScanActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingDetailActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.SearchViewActivity;
+import com.ly.a316.ly_meetingroommanagement.meetingList.models.Meeting;
 import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.AttenderServiceImp;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderManager;
@@ -228,4 +229,5 @@ public class ConversationListFragment extends Fragment {
     private int[] getCodeType() {
         return mCodeTypeArray;
     }
+
 }

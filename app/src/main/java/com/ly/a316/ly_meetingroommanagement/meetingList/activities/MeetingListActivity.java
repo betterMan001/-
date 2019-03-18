@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.LoadingDialog;
+import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.ListDropDownAdapter;
 import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.MeetingListAdapter;
 import com.ly.a316.ly_meetingroommanagement.R;
@@ -32,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MeetingListActivity extends AppCompatActivity {
+public class MeetingListActivity extends BaseActivity {
 
     @BindView(R.id.meeting_list_rv)
     RecyclerView meetingListRv;
@@ -54,6 +55,7 @@ public class MeetingListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ImmersionBar.with(this).reset().fitsSystemWindows(true).statusBarColor(R.color.classical_blue).init();
         setContentView(R.layout.activity_meeting_list);
         ButterKnife.bind(this);
         loadingDialog= LoadingDialog.getInstance(this);
