@@ -14,12 +14,14 @@ import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
+import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.adapter.SearchForMeetingAdapter;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.Meeting;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.MeetingDetailModel;
 import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.MeetingDetailServiceImp;
+import com.ly.a316.ly_meetingroommanagement.meetingList.services.imp.MeetingListServiceImp;
 import com.ly.a316.ly_meetingroommanagement.meetingList.utils.MySQLiteOpenHelper;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ public class SearchViewActivity extends BaseActivity {
     public static String mId="";
     //区别是主活动的还是会议列表界面的
     private String type="2";
+    List<Meeting> meetingList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,8 +55,7 @@ public class SearchViewActivity extends BaseActivity {
         //获取类型
         type=getIntent().getStringExtra("type");
         //将现在的数据插入数据库
-        initDataForDataBase();
-        initView();
+        initDataForDataBase();;
     }
 
     private void initDataForDataBase() {
@@ -66,17 +68,24 @@ public class SearchViewActivity extends BaseActivity {
     }
 
     private void wholeInsertData() {
-        int length=0;
         //暂时不给数据
-        if("2".equals(type)||MeetingListActivity.meetingList!=null)
-         length = MeetingListActivity.meetingList.size();
-        else
+        if("2".equals(type)){
+            meetingList=MeetingListActivity.meetingList;
+            insertDataFromList();
+        }
+        else{
+           new MeetingListServiceImp(this,"2").selectMeetingBySEmployeeId(MyApplication.getId());
+        }
+
+    }
+    private void  insertDataFromList(){
+        int length = meetingList.size();
         for (int i = 0; i < length; i++) {
-            Meeting meeting = MeetingListActivity.meetingList.get(i);
+            Meeting meeting = meetingList.get(i);
             insertData(meeting.getmId(), meeting.getName());
         }
+        initView();
     }
-
     private void insertData(String mId, String name) {
         db = helper.getWritableDatabase();//打开数据库进行读写操作
         db.execSQL("insert into meetingList(mId,name) values('" + mId + "','" + name + "')");
@@ -239,6 +248,14 @@ public class SearchViewActivity extends BaseActivity {
             }
         });
     }
-
+    public void callBack(final List<Meeting> list){
+      this.meetingList=list;
+      this.runOnUiThread(new Runnable() {
+          @Override
+          public void run() {
+              insertDataFromList();
+          }
+      });
+    }
 
 }
