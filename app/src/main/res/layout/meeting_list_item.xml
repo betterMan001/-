@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/meeting_list_item"
-    android:orientation="vertical">
+    <com.meetsl.scardview.SCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="7dp"
+    app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginBottom="5dp"
+    android:layout_marginRight="5dp"
+    app:cardLightDirection="LT"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/meeting_list_item"
+        >
 
 
         <LinearLayout
@@ -181,4 +189,4 @@
         >
     </ImageView>
 
-</LinearLayout>
+</com.meetsl.scardview.SCardView>

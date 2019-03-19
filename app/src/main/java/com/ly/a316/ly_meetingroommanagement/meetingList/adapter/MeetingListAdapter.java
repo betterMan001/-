@@ -3,6 +3,7 @@ package com.ly.a316.ly_meetingroommanagement.meetingList.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.ly.a316.ly_meetingroommanagement.meetingList.activities.AttendeeActiv
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingDetailActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.activities.MeetingListActivity;
 import com.ly.a316.ly_meetingroommanagement.meetingList.models.Meeting;
+import com.meetsl.scardview.SCardView;
 
 import java.util.List;
 
@@ -103,7 +105,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
         return count;
     }
     public class MeetingListViewHolder extends RecyclerView.ViewHolder{
-        public LinearLayout meeting_list_item;
+        public SCardView meeting_list_item;
         public TextView meeting_list_sponsor_tv;//发起人
         public TextView meeting_title_tv;//会议名称
         public TextView meeting_list_time_tv1;//开始时间

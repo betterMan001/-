@@ -102,7 +102,8 @@ public class MessageListActivity extends BaseActivity {
 
     public void messageCallBack(final List<MessageModel> list) {
         meetingList = list;
-        loadingDialog.dismiss();
+
+
         new MessageServiceImp(this).adminJpush();
     }
 
@@ -111,6 +112,7 @@ public class MessageListActivity extends BaseActivity {
         this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                loadingDialog.dismiss();
                 initView();
             }
         });

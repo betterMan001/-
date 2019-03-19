@@ -110,5 +110,7 @@ dependencies {
     //扫码框架
     implementation 'cn.simonlee.xcodescanner:zbar:1.1.10'
     implementation project(':avchatkit')
+    //自定义阴影方向和颜色的CardView
+    implementation 'io.github.meetsl:SCardView:1.0'
 
 }
