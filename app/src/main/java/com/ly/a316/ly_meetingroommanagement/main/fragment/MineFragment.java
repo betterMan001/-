@@ -32,6 +32,7 @@ import com.anlia.photofactory.permission.PermissionAlwaysDenied;
 import com.anlia.photofactory.result.ResultData;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.ly.a316.ly_meetingroommanagement.MessageList.activites.MessageListActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.login.activities.ForgetPWDOneActivity;
@@ -172,7 +173,7 @@ public class MineFragment extends Fragment {
         getActivity().finish();
     }
 
-    @OnClick({R.id.change_password_ll, R.id.change_head_ll, R.id.change_phone_ll, R.id.change_name_ll, R.id.message_item, R.id.notify_item, R.id.my_clean, R.id.my_exit_ll,R.id.schedue_state})
+    @OnClick({R.id.change_password_ll, R.id.change_head_ll, R.id.change_phone_ll, R.id.change_name_ll, R.id.message_item, R.id.notify_item, R.id.my_clean, R.id.my_exit_ll,R.id.schedue_state,R.id.message_center})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.change_password_ll:
@@ -198,6 +199,9 @@ public class MineFragment extends Fragment {
                 break;
             case R.id.schedue_state:
                 StatisticalActivity.start(getActivity());
+                break;
+            case R.id.message_center:
+                MessageListActivity.start(getActivity());
                 break;
         }
     }
