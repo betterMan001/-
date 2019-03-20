@@ -139,7 +139,7 @@ public class MeetingListActivity extends BaseActivity {
                 } else {
                     //根据条件筛选，并刷新RecycleView
                     for (int i = 0; i < length; i++) {
-                        if (meetings[position].equals(meetingList.get(i).getState())||"正在".equals(meetingList.get(i).getState())) {
+                        if (meetings[position].equals(meetingList.get(i).getState())||"正在进行".equals(meetingList.get(i).getState())) {
                             MeetingListAdapter.truePositon[count++] = i;
                         }
                     }

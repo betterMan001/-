@@ -69,7 +69,7 @@ public class MeetingListAdapter extends RecyclerView.Adapter {
             case "未开始":
                 meetingStatus="未开始";
                 break;
-            case "正在":
+            case "正在进行":
                 meetingStatus="正在进行中";
                 break;
             case "已结束":
