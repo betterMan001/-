@@ -63,6 +63,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/AppTheme">
         <provider
             android:name="com.ly.a316.ly_meetingroommanagement.endActivity.util.MyProvider"

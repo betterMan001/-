@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:text="03"
+            android:text="19"
             android:textSize="45sp" />
 
         <TextView
@@ -35,7 +35,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="17dp"
             android:layout_toRightOf="@+id/item_txt_day"
-            android:text="周日"
+            android:text="周二"
             android:textSize="10sp" />
 
         <TextView
@@ -45,7 +45,7 @@
             android:layout_below="@+id/item_txt_week"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@+id/item_txt_day"
-            android:text="03/20/9"
+            android:text="03/2019"
             android:textSize="10sp" />
     </RelativeLayout>
 
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
-            android:text="下雨25℃"
+            android:text="多云21℃"
             android:textSize="10sp" />
     </LinearLayout>
 
