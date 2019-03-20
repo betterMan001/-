@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
@@ -33,9 +34,13 @@ import com.ly.a316.ly_meetingroommanagement.popPage.activity.Information_meet;
 import com.ly.a316.ly_meetingroommanagement.popPage.object.HuiyiClass;
 import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Choose_Activity;
 import com.ly.a316.ly_meetingroommanagement.schedule_room_four.activity.Schedule_Activity_four;
+import com.mob.tools.utils.Data;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -62,6 +67,7 @@ public class PopupMenuUtil {
     private ImageView ivBtn;
     private LinearLayout pop_reserve, pop_notice, pop_liebiao, pop_openDoor, item_pop_ly;
     private RecyclerView pop_recycle;
+    private TextView item_txt_day,item_txt_week,item_txt_time;
     float animatorProperty[] = null;
     int top = 0;
     int bottom = 0;
@@ -101,6 +107,15 @@ public class PopupMenuUtil {
     }
 
     private void initLayout(final Context context) {
+        item_txt_time = rootVew.findViewById(R.id.item_txt_time);
+        item_txt_day = rootVew.findViewById(R.id.item_txt_day);
+        item_txt_week = rootVew.findViewById(R.id.item_txt_week);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+        String time = df.format(new Date());
+        item_txt_day.setText(time.substring(8,10));
+        item_txt_time.setText(time.substring(5,7)+"/"+time.substring(0,4));
+        Calendar c=Calendar.getInstance();
+        item_txt_week.setText("周二");
         pop_recycle = (RecyclerView) rootVew.findViewById(R.id.pop_recycle);
         item_pop_ly = (LinearLayout) rootVew.findViewById(R.id.item_pop_ly);
         rlClick = (RelativeLayout) rootVew.findViewById(R.id.pop_rl_click);
