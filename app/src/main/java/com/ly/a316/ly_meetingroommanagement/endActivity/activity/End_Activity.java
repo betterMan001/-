@@ -7,6 +7,7 @@ import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.PointF;
 import android.net.Uri;
 import android.os.Bundle;
@@ -520,6 +521,7 @@ public class End_Activity extends AppCompatActivity {
             intent.putExtra("mId", mId);//会议id
             startService(intent);
             handler.postDelayed(runnable, TIME);
+
         }
     };
 

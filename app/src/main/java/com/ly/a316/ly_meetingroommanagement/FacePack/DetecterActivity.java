@@ -88,7 +88,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
     ASAE_FSDKEngine mAgeEngine = new ASAE_FSDKEngine();
     ASGE_FSDKVersion mGenderVersion = new ASGE_FSDKVersion();
     ASGE_FSDKEngine mGenderEngine = new ASGE_FSDKEngine();
-    List<AFT_FSDKFace> result = new ArrayList<>();
+    List<AFT_FSDKFace> result = new ArrayList<>();// 这个类用来保存检测到的人脸信息
     List<ASAE_FSDKAge> ages = new ArrayList<>();
     List<ASGE_FSDKGender> genders = new ArrayList<>();
 
@@ -175,7 +175,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
 
     class FRAbsLoop extends AbsLoop {
         AFR_FSDKVersion version = new AFR_FSDKVersion();
-        AFR_FSDKEngine engine = new AFR_FSDKEngine();
+        AFR_FSDKEngine engine = new AFR_FSDKEngine();//人脸比对
         AFR_FSDKFace result = new AFR_FSDKFace();
         List<FaceDB.FaceRegist> mResgist = ((MyApplication) DetecterActivity.this.getApplicationContext()).mFaceDB.mRegister;
         List<ASAE_FSDKFace> face1 = new ArrayList<>();

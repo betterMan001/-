@@ -37,23 +37,23 @@ public class FindAllRoom_DaoImp implements FindAll_room {
         this.all_hui_room_activity = all_hui_room_activity;
     }
 
-    Handler handler = new Handler(){
-     @Override
-     public void handleMessage(Message msg) {
-         super.handleMessage(msg);
-         if (msg.what == 0x1){
-             toast("网络请求失败");
-             all_hui_room_activity.callBack_err();
-         }else if(msg.what == 0x2){
-             if(list_meet.size() == 0){
-                 toast("没有符合条件的会议室");
-             }else{
-                 toast("找到以下会议室");
-             }
-             all_hui_room_activity.callBack(list_meet);
-         }
-     }
- };
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 0x1) {
+                toast("网络请 求失败");
+                all_hui_room_activity.callBack_err();
+            } else if (msg.what == 0x2) {
+                if (list_meet.size() == 0) {
+                    toast("没有符合条件的会议室");
+                } else {
+                    toast("找到以下会议室");
+                }
+                all_hui_room_activity.callBack(list_meet);
+            }
+        }
+    };
     List<HuiyiInformation> list_meet = new ArrayList<>();//經過删选得到的会议室列表
     Gson gson = new Gson();
 
@@ -90,7 +90,9 @@ public class FindAllRoom_DaoImp implements FindAll_room {
             }
         });
     }
+
     Toast toast;
+
     void toast(String neirong) {
         if (toast == null) {
             toast = Toast.makeText(all_hui_room_activity, neirong, Toast.LENGTH_SHORT);

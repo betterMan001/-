@@ -8,7 +8,7 @@ auther:xwd
 public class Net {
     //xwd
     public final static String FAIL="访问网络失败";//访问网络失败
-    public final static String HEAD="http://47.101.215.241:8080/api/";//阿里云服务器
+    public final static String HEAD="https://www.ly-chain.com/yuding-0.0.1-SNAPSHOT/api/";//阿里云服务器
     public final static String LOGIN="User/iLogin";//登录
     public final static String CHANGE_PWD ="User/changePwd";//忘记密码
     public final static String REGISTER="User/register";//注册
