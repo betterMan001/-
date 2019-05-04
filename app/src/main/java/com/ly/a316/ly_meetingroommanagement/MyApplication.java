@@ -20,8 +20,10 @@ import com.ly.a316.ly_meetingroommanagement.FacePack.FaceDB;
 import com.ly.a316.ly_meetingroommanagement.login.activities.WelcomeActivity;
 import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
+import com.ly.a316.ly_meetingroommanagement.nim.NIMInitManager;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.ContactHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
+import com.ly.a316.ly_meetingroommanagement.nim.user_info.UserPreferences;
 import com.ly.a316.ly_meetingroommanagement.nim.utils.LogHelper;
 import com.mob.MobSDK;
 import com.mob.tools.proguard.ProtectedMemberKeeper;
@@ -120,6 +122,10 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
         if (NIMUtil.isMainProcess(this)) {
             // 在主进程中初始化UI组件，判断所属进程方法请参见demo源码。
             initUiKit();
+            // 初始化消息提醒
+            // 云信sdk相关业务初始化
+            NIMInitManager.getInstance().init(true);
+            NIMClient.toggleNotification(UserPreferences.getNotificationToggle());
             // 初始化音视频模块
             initAVChatKit();
         }
@@ -134,7 +140,7 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
                 MainActivity.logout(context, true);
             }
         };
-        avChatOptions.entranceActivity = WelcomeActivity.class;
+        avChatOptions.entranceActivity = MainActivity.class;
         avChatOptions.notificationIconRes = R.drawable.ic_stat_notify_msg;
         AVChatKit.init(avChatOptions);
 

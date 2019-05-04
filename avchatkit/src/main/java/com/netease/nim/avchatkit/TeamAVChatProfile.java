@@ -118,12 +118,12 @@ public class TeamAVChatProfile {
             @Override
             public void run() {
                 // 欢迎界面正在运行，则等MainActivity启动之后再启动，否则直接启动 TeamAVChatActivity
-                if (!AVChatKit.isMainTaskLaunching()) {
+//                if (!AVChatKit.isMainTaskLaunching()) {
                     TeamAVChatActivity.startActivity(AVChatKit.getContext(), true, teamId, roomName, accounts, teamName);
-                } else {
-                    LogUtil.ui("launch TeamAVChatActivity delay for WelComeActivity is Launching");
-                    launchActivity(teamId, roomName, accounts, teamName);
-                }
+//                } else {
+//                    LogUtil.ui("launch TeamAVChatActivity delay for WelComeActivity is Launching");
+//                    launchActivity(teamId, roomName, accounts, teamName);
+//                }
             }
         };
 

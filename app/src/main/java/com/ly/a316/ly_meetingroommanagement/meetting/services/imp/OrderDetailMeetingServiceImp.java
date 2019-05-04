@@ -131,4 +131,31 @@ public class OrderDetailMeetingServiceImp implements OrderDetailMeetingService {
             }
         });
     }
+
+    @Override
+    public void delayMeeting(String mId) {
+        String URL=Net.HEAD+Net.DELAY_MEETING;
+        FormBody.Builder builder = new FormBody.Builder();
+        builder.add("mId",mId);
+        RequestBody body=builder.build();
+        MyHttpUtil.sendOkhttpPostRequest(URL, body,new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.i(TAG, Net.FAIL);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String result=response.body().string();
+                response.close();
+                try {
+                    JSONObject jsonObject = new JSONObject(result);
+                    String comeOut=jsonObject.getString("result");
+                    WindowUtils.delayCallBack(comeOut);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
 }

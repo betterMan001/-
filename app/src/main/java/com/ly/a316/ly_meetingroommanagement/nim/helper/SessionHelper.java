@@ -57,6 +57,7 @@ import com.netease.nim.uikit.impl.cache.TeamDataCache;
 import com.netease.nim.uikit.impl.customization.DefaultRecentCustomization;
 import com.netease.nimlib.sdk.NIMClient;
 
+import com.netease.nimlib.sdk.avchat.constant.AVChatRecordState;
 import com.netease.nimlib.sdk.avchat.constant.AVChatType;
 import com.netease.nimlib.sdk.avchat.model.AVChatAttachment;
 import com.netease.nimlib.sdk.msg.MsgService;
@@ -121,7 +122,7 @@ public class SessionHelper {
 
         NimUIKit.setCommonTeamSessionCustomization(getTeamCustomization(null));
 //
-//        NimUIKit.setRecentCustomization(getRecentCustomization());
+        NimUIKit.setRecentCustomization(getRecentCustomization());
     }
 //
     public static void startP2PSession(Context context, String account) {
@@ -137,7 +138,7 @@ public class SessionHelper {
                 NimUIKit.startP2PSession(context, account, anchor);
             }
         } else {
-//            NimUIKit.startChatting(context, account, SessionTypeEnum.P2P, getMyP2pCustomization(), anchor);
+            NimUIKit.startChatting(context, account, SessionTypeEnum.P2P, getMyP2pCustomization(), anchor);
         }
     }
 //
@@ -229,63 +230,63 @@ public class SessionHelper {
         return p2pCustomization;
     }
 //
-//    private static SessionCustomization getMyP2pCustomization() {
-//        if (myP2pCustomization == null) {
-//            myP2pCustomization = new SessionCustomization() {
-//                // 由于需要Activity Result， 所以重载该函数。
-//                @Override
-//                public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
-//                    if (requestCode == TeamRequestCode.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
-//                        String result = data.getStringExtra(TeamExtras.RESULT_EXTRA_REASON);
-//                        if (result == null) {
-//                            return;
-//                        }
-//                        if (result.equals(TeamExtras.RESULT_EXTRA_REASON_CREATE)) {
-//                            String tid = data.getStringExtra(TeamExtras.RESULT_EXTRA_DATA);
-//                            if (TextUtils.isEmpty(tid)) {
-//                                return;
-//                            }
-//
-//                            startTeamSession(activity, tid);
-//                            activity.finish();
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public boolean isAllowSendMessage(IMMessage message) {
-//                    return checkLocalAntiSpam(message);
-//                }
-//
-//                @Override
-//                public MsgAttachment createStickerAttachment(String category, String item_choose_shebei) {
-//                    return new StickerAttachment(category, item_choose_shebei);
-//                }
-//            };
-//
-//            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
-//            ArrayList<BaseAction> actions = new ArrayList<>();
-//            actions.add(new SnapChatAction());
-//            actions.add(new GuessAction());
-//            actions.add(new FileAction());
-//            myP2pCustomization.actions = actions;
-//            myP2pCustomization.withSticker = true;
-//            // 定制ActionBar右边的按钮，可以加多个
-//            ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
-//            SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
-//                @Override
-//                public void onClick(Context context, View view, String sessionId) {
-//                    initPopuptWindow(context, view, sessionId, SessionTypeEnum.P2P);
-//                }
-//            };
-//
-//            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;
-//
-//            buttons.add(cloudMsgButton);
-//            myP2pCustomization.buttons = buttons;
-//        }
-//        return myP2pCustomization;
-//    }
+    private static SessionCustomization getMyP2pCustomization() {
+        if (myP2pCustomization == null) {
+            myP2pCustomization = new SessionCustomization() {
+                // 由于需要Activity Result， 所以重载该函数。
+                @Override
+                public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent data) {
+                    if (requestCode == TeamRequestCode.REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+                        String result = data.getStringExtra(TeamExtras.RESULT_EXTRA_REASON);
+                        if (result == null) {
+                            return;
+                        }
+                        if (result.equals(TeamExtras.RESULT_EXTRA_REASON_CREATE)) {
+                            String tid = data.getStringExtra(TeamExtras.RESULT_EXTRA_DATA);
+                            if (TextUtils.isEmpty(tid)) {
+                                return;
+                            }
+
+                            startTeamSession(activity, tid);
+                            activity.finish();
+                        }
+                    }
+                }
+
+                @Override
+                public boolean isAllowSendMessage(IMMessage message) {
+                    return checkLocalAntiSpam(message);
+                }
+
+                @Override
+                public MsgAttachment createStickerAttachment(String category, String item_choose_shebei) {
+                    return new StickerAttachment(category, item_choose_shebei);
+                }
+            };
+
+            // 定制加号点开后可以包含的操作， 默认已经有图片，视频等消息了
+            ArrayList<BaseAction> actions = new ArrayList<>();
+            //actions.add(new SnapChatAction());
+            actions.add(new GuessAction());
+            actions.add(new FileAction());
+            myP2pCustomization.actions = actions;
+            myP2pCustomization.withSticker = true;
+            // 定制ActionBar右边的按钮，可以加多个
+            ArrayList<SessionCustomization.OptionsButton> buttons = new ArrayList<>();
+            SessionCustomization.OptionsButton cloudMsgButton = new SessionCustomization.OptionsButton() {
+                @Override
+                public void onClick(Context context, View view, String sessionId) {
+                    initPopuptWindow(context, view, sessionId, SessionTypeEnum.P2P);
+                }
+            };
+
+            cloudMsgButton.iconId = R.drawable.nim_ic_messge_history;
+
+            buttons.add(cloudMsgButton);
+            myP2pCustomization.buttons = buttons;
+        }
+        return myP2pCustomization;
+    }
 //
     private static boolean checkLocalAntiSpam(IMMessage message) {
         if (!USE_LOCAL_ANTISPAM) {
@@ -356,48 +357,48 @@ public class SessionHelper {
 //        return robotCustomization;
 //    }
 //
-//    private static RecentCustomization getRecentCustomization() {
-//        if (recentCustomization == null) {
-//            recentCustomization = new DefaultRecentCustomization() {
-//                @Override
-//                public String getDefaultDigest(RecentContact recent) {
-//                    switch (recent.getMsgType()) {
-//                        case avchat:
-//                            MsgAttachment attachment = recent.getAttachment();
-//                            AVChatAttachment avchat = (AVChatAttachment) attachment;
-//                            if (avchat.getState() == AVChatRecordState.Missed && !recent.getFromAccount().equals(NimUIKit.getAccount())) {
-//                                // 未接通话请求
-//                                StringBuilder sb = new StringBuilder("[未接");
-//                                if (avchat.getType() == AVChatType.VIDEO) {
-//                                    sb.append("视频电话]");
-//                                } else {
-//                                    sb.append("音频电话]");
-//                                }
-//                                return sb.toString();
-//                            } else if (avchat.getState() == AVChatRecordState.Success) {
-//                                StringBuilder sb = new StringBuilder();
-//                                if (avchat.getType() == AVChatType.VIDEO) {
-//                                    sb.append("[视频电话]: ");
-//                                } else {
-//                                    sb.append("[音频电话]: ");
-//                                }
-//                                sb.append(TimeUtil.secToTime(avchat.getDuration()));
-//                                return sb.toString();
-//                            } else {
-//                                if (avchat.getType() == AVChatType.VIDEO) {
-//                                    return ("[视频电话]");
-//                                } else {
-//                                    return ("[音频电话]");
-//                                }
-//                            }
-//                    }
-//                    return super.getDefaultDigest(recent);
-//                }
-//            };
-//        }
-//
-//        return recentCustomization;
-//    }
+    private static RecentCustomization getRecentCustomization() {
+        if (recentCustomization == null) {
+            recentCustomization = new DefaultRecentCustomization() {
+                @Override
+                public String getDefaultDigest(RecentContact recent) {
+                    switch (recent.getMsgType()) {
+                        case avchat:
+                            MsgAttachment attachment = recent.getAttachment();
+                            AVChatAttachment avchat = (AVChatAttachment) attachment;
+                            if (avchat.getState() == AVChatRecordState.Missed && !recent.getFromAccount().equals(NimUIKit.getAccount())) {
+                                // 未接通话请求
+                                StringBuilder sb = new StringBuilder("[未接");
+                                if (avchat.getType() == AVChatType.VIDEO) {
+                                    sb.append("视频电话]");
+                                } else {
+                                    sb.append("音频电话]");
+                                }
+                                return sb.toString();
+                            } else if (avchat.getState() == AVChatRecordState.Success) {
+                                StringBuilder sb = new StringBuilder();
+                                if (avchat.getType() == AVChatType.VIDEO) {
+                                    sb.append("[视频电话]: ");
+                                } else {
+                                    sb.append("[音频电话]: ");
+                                }
+                                sb.append(TimeUtil.secToTime(avchat.getDuration()));
+                                return sb.toString();
+                            } else {
+                                if (avchat.getType() == AVChatType.VIDEO) {
+                                    return ("[视频电话]");
+                                } else {
+                                    return ("[音频电话]");
+                                }
+                            }
+                    }
+                    return super.getDefaultDigest(recent);
+                }
+            };
+        }
+
+        return recentCustomization;
+    }
 //d
     private static SessionCustomization getTeamCustomization(String tid) {
         if (normalTeamCustomization == null) {
@@ -580,7 +581,7 @@ public class SessionHelper {
             public boolean shouldIgnore(IMMessage message) {
                 if (message.getAttachment() != null
                         && (
-//                                message.getAttachment() instanceof AVChatAttachment||
+                                message.getAttachment() instanceof AVChatAttachment||
                          message.getAttachment() instanceof RTSAttachment
                         || message.getAttachment() instanceof RedPacketAttachment)) {
                     // 视频通话消息和白板消息，红包消息 不允许撤回

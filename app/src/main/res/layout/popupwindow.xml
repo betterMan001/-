@@ -37,6 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
+                    android:id="@+id/true_title"
                     android:text="会议邀请"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
