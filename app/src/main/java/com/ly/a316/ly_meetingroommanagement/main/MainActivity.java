@@ -31,10 +31,12 @@ import com.ly.a316.ly_meetingroommanagement.nim.DemoCache;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SessionHelper;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.SystemMessageUnreadManager;
 import com.ly.a316.ly_meetingroommanagement.nim.helper.TeamCreateHelper;
+import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderItem;
 import com.ly.a316.ly_meetingroommanagement.nim.reminder.ReminderManager;
 import com.ly.a316.ly_meetingroommanagement.nim.user_info.UserPreferences;
 import com.ly.a316.ly_meetingroommanagement.utils.Jpush.TagAliasOperatorHelper;
 import com.ly.a316.ly_meetingroommanagement.utils.Jpush.WindowUtils;
+import com.ly.a316.ly_meetingroommanagement.utils.MathUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.PopupMenuUtil;
 import com.netease.nim.avchatkit.AVChatProfile;
 import com.netease.nim.avchatkit.activity.AVChatActivity;
@@ -71,7 +73,7 @@ import static com.ly.a316.ly_meetingroommanagement.utils.Jpush.TagAliasOperatorH
  *  作者：余智强、徐文铎
  *  创建时间：2018 12/4 13：27
 */
-public class MainActivity extends UI {
+public class MainActivity extends UI implements ReminderManager.UnreadNumChangedCallback {
     @BindView(R.id.bottom_nav)
      BottomBarLayout bottomBarLayout;
     Fragment contactListFragment,conversationListFragment,fr_calendar, fr_mine;
@@ -229,6 +231,7 @@ public class MainActivity extends UI {
             onLogout();
             return true;
         }
+
         if (intent.hasExtra(NimIntent.EXTRA_NOTIFY_CONTENT)) {
             IMMessage message = (IMMessage) intent.getSerializableExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
             intent.removeExtra(NimIntent.EXTRA_NOTIFY_CONTENT);
@@ -251,7 +254,7 @@ public class MainActivity extends UI {
             startActivity(localIntent);
             return true;
         }
-//
+
         String account = intent.getStringExtra(AVChatExtras.EXTRA_ACCOUNT);
         if (intent.hasExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION) && !TextUtils.isEmpty(account)) {
             intent.removeExtra(AVChatExtras.EXTRA_FROM_NOTIFICATION);
@@ -294,7 +297,7 @@ public class MainActivity extends UI {
         String token = stringBuilder.toString();
        // String token="e10adc3949ba59abbe56e057f20f883e";
 
-        LoginInfo info = new LoginInfo(account, token); // config...
+        LoginInfo info = new LoginInfo(account, MathUtil.getMd5(token)); // config...
         RequestCallback<LoginInfo> callback =
                 new RequestCallback<LoginInfo>() {
                     // 可以在此保存LoginInfo到本地，下次启动APP做自动登录用
@@ -324,14 +327,24 @@ public class MainActivity extends UI {
         NimUIKit.login(info, callback);
     }
     private void initNim(){
+        DemoCache.setMainTaskLaunching(true);
         //登录运行账号，因为此app在登录过账号后就可以直接跳转此活动，所以云信的登录要设置在这里
         //1.获取phone
         final String phone= MyApplication.getId();
         nimLogin(phone);
+        registerMsgUnreadInfoObserver(true);
         //注册/注销系统消息未读数变化
         registerSystemMessageObservers(true);
         //请求权限提示
         requestBasicPermission();
+
+    }
+    private void registerMsgUnreadInfoObserver(boolean register) {
+        if (register) {
+            ReminderManager.getInstance().registerUnreadNumChangedCallback(this);
+        } else {
+            ReminderManager.getInstance().unregisterUnreadNumChangedCallback(this);
+        }
     }
     private void requestBasicPermission() {
         MPermission.printMPermissionResult(true, this, BASIC_PERMISSIONS);
@@ -425,6 +438,7 @@ public class MainActivity extends UI {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
         registerSystemMessageObservers(false);
+        DemoCache.setMainTaskLaunching(false);
     }
     //极光推送设置别名
     public void onTagAliasAction(boolean isSet) {
@@ -443,5 +457,10 @@ public class MainActivity extends UI {
         tagAliasBean.isAliasAction = isAliasAction;
         //设置别名和处理设置别名失败请求
         TagAliasOperatorHelper.getInstance().handleAction(getApplicationContext(),sequence,tagAliasBean);
+    }
+
+    @Override
+    public void onUnreadNumChanged(ReminderItem item) {
+
     }
 }

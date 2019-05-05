@@ -39,6 +39,12 @@ public class WindowUtils {
     public static Boolean isShown = false;
     public static Boolean isReject=false;
     public static String[] spit;
+    /*
+    *判断这个自定义消息的类型：
+    * false:会议邀请
+    * true:延长会议
+    */
+    public static Boolean messageType=false;
     /**
      * 显示弹出框
      *
@@ -52,6 +58,10 @@ public class WindowUtils {
                //弹Toast
                 String temp=(isReject==false)?"同意":"拒绝";
                 Toast.makeText(MyApplication.getContext(),"您已经"+temp+"该会议!",Toast.LENGTH_LONG).show();
+                //关闭悬浮窗
+                WindowUtils.hidePopupWindow();
+            }else if(msg.what==13){
+                Toast.makeText(MyApplication.getContext(),"成功为您延长15分钟",Toast.LENGTH_LONG).show();
                 //关闭悬浮窗
                 WindowUtils.hidePopupWindow();
             }
@@ -112,8 +122,15 @@ public class WindowUtils {
         Log.i(LOG_TAG, "setUp view");
         View view = LayoutInflater.from(context).inflate(R.layout.popupwindow,
                 null);
+        final TextView titleView=(TextView) view.findViewById(R.id.true_title);
        final TextView tintView=(TextView) view.findViewById(R.id.content);
         tintView.setText(spit[0]);
+        titleView.setText(MyReceiver.title);
+        //通过标题进行类型判断
+        if("会议延迟".equals(MyReceiver.title))
+            messageType=true;
+        else
+            messageType=false;
         Button positiveBtn = (Button) view.findViewById(R.id.positiveBtn);
         //隐藏的提示字
         final     TextView hideTint=view.findViewById(R.id.hideTint);
@@ -133,8 +150,14 @@ public class WindowUtils {
             public void onClick(View v) {
                 Log.i(LOG_TAG, "ok on click");
                 // 打开安装包
-                isReject=false;
-                new OrderDetailMeetingServiceImp().optIn(spit[1],MyApplication.getId(),"","1");
+                if(messageType)
+                    //延迟会议接口
+                    new OrderDetailMeetingServiceImp().delayMeeting(spit[1]);
+                else{
+                    isReject=false;
+                    new OrderDetailMeetingServiceImp().optIn(spit[1],MyApplication.getId(),"","1");
+                }
+
             }
         });
         final Button negativeBtn = (Button) view.findViewById(R.id.negativeBtn);
@@ -142,15 +165,19 @@ public class WindowUtils {
             @Override
             public void onClick(View v) {
                 Log.i(LOG_TAG, "cancel on click");
-                //WindowUtils.hidePopupWindow();
-                //隐藏现在的布局，显示隐藏的拒绝的布局
+                if(messageType==false){
+                    //WindowUtils.hidePopupWindow();
+                    //隐藏现在的布局，显示隐藏的拒绝的布局
 
-                tintView.setVisibility(View.GONE);
-                //显示新的布局
-                hideTint.setVisibility(View.VISIBLE);
-                hideContentll.setVisibility(View.VISIBLE);
-                second_group.setVisibility(View.VISIBLE);
-                one_group.setVisibility(View.GONE);
+                    tintView.setVisibility(View.GONE);
+                    //显示新的布局
+                    hideTint.setVisibility(View.VISIBLE);
+                    hideContentll.setVisibility(View.VISIBLE);
+                    second_group.setVisibility(View.VISIBLE);
+                    one_group.setVisibility(View.GONE);
+                }
+                else
+                    WindowUtils.hidePopupWindow();
             }
         });
         hideNegativeBtn.setOnClickListener(new View.OnClickListener() {
@@ -212,6 +239,11 @@ public class WindowUtils {
             mhandler.sendEmptyMessage(12);
         }else{
 
+        }
+    }
+    public static void delayCallBack(final String result){
+        if("1".equals(result)){
+            mhandler.sendEmptyMessage(13);
         }
     }
 }

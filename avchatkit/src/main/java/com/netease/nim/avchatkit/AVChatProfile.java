@@ -36,12 +36,12 @@ public class AVChatProfile {
             @Override
             public void run() {
                 // 启动，如果 task正在启动，则稍等一下
-                if (!AVChatKit.isMainTaskLaunching()) {
-                    launchActivityTimeout();
+//                if (!AVChatKit.isMainTaskLaunching()) {
+//                    launchActivityTimeout();
                     AVChatActivity.incomingCall(AVChatKit.getContext(), data, displayName, source);
-                } else {
-                    launchActivity(data, displayName, source);
-                }
+//                } else {
+//                    launchActivity(data, displayName, source);
+//                }
             }
         };
         Handlers.sharedHandler(AVChatKit.getContext()).postDelayed(runnable, 200);

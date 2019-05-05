@@ -30,6 +30,7 @@ public class Net {
     public final static String CHANGE_NICKNAME="User/changeNickname";//修改昵称
     public final static String STATISTICS="Schedule/statistics";//日程统计
     public final static String BEGINMEETING="Meeting/beginMeeting";//开始会议
+    public final static String DELAY_MEETING="Meeting/delayMeeting";//延迟会议
     //yzq
     public static String url = HEAD;
     public static String addSchedule = url + "/Schedule/addSchedule";//新建日程
