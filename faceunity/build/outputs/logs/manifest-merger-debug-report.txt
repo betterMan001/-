@@ -1,33 +1,33 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:1:1-10:12
-INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:1:1-10:12
-INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:1:1-10:12
+ADDED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:1:1-10:12
+INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:1:1-10:12
 	package
-		ADDED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:3:5-28
-		INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
-		INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+		ADDED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:3:5-28
+		INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+		INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
 	xmlns:android
-		ADDED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:1:11-69
+		ADDED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:1:11-69
 application
-ADDED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:5:5-8:19
+ADDED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:5:5-8:19
 	android:supportsRtl
-		ADDED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:6:9-35
+		ADDED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:6:9-35
 	android:label
-		ADDED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:5:45-77
+		ADDED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:5:45-77
 	android:allowBackup
-		ADDED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:5:18-44
+		ADDED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml:5:18-44
 uses-sdk
-INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml reason: use-sdk injection requested
-INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
-INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
-INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
-INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
 	android:targetSdkVersion
-		INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
-		ADDED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
-		INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+		INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+		ADDED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+		INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
-		ADDED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
-		INJECTED from C:\Users\Administrator\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+		INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+		ADDED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml
+		INJECTED from D:\bisai\LY_MeetingRoomManagement\faceunity\AndroidManifest.xml

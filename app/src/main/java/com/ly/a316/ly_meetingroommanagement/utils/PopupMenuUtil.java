@@ -215,7 +215,8 @@ public class PopupMenuUtil {
         switch (str) {
             //签到开门
             case 4:
-                intent = new Intent(context, DetecterActivity.class);
+                   DetecterActivity.start_in(context,0);
+                //   intent = new Intent(context, DetecterActivity.class);
                 break;
             //预订会议
             case 1:
@@ -224,18 +225,21 @@ public class PopupMenuUtil {
                 /* intent = new Intent(context, Schedule_Activity_three.class);第三种*/
                 /* intent = new Intent(context, Schedule_Activity_four.class);第四种*/
                 intent = new Intent(context, Choose_Activity.class);
+                context.startActivity(intent);
                 break;
             //查看会议列表
             case 3:
                 intent = new Intent(context, MeetingListActivity.class);
+                context.startActivity(intent);
                 break;
             //所有会议室列表
             case 2:
                 //  intent=new Intent(context, MessageListActivity.class);
                 intent = new Intent(context, All_Hui_Room_Activity.class);
+                context.startActivity(intent);
                 break;
         }
-        context.startActivity(intent);
+
         rlClick.performClick();
     }
 

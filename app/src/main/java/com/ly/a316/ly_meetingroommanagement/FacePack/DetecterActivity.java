@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.ContactsContract;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -62,6 +63,7 @@ import com.guo.android_extend.widget.CameraSurfaceView;
 import com.guo.android_extend.widget.CameraSurfaceView.OnCameraListener;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
+import com.ly.a316.ly_meetingroommanagement.main.MainActivity;
 import com.ly.a316.ly_meetingroommanagement.utils.PreferencesService;
 
 import java.io.IOException;
@@ -107,7 +109,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
 
 
     PreferencesService preferencesService = new PreferencesService(this);
-    Map<String,String> params = new HashMap<>();
+    Map<String, String> params = new HashMap<>();
 
     Runnable hide = new Runnable() {
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -119,6 +121,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
         }
     };
     int a = 1;
+   public static int who_what = 0;
     Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -144,39 +147,43 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                     builder.create().show();
                 }
             }
-            if(msg.what == 0x21) {
-                String path = "https://www.bigiot.net/oauth/say";
-                OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                        .connectTimeout(4, TimeUnit.MINUTES)
-                        .readTimeout(4, TimeUnit.MINUTES)
-                        .build();
-                FormBody formBody = new FormBody.Builder()
-                        .add("access_token", "0b6183580ef6f581edbd58d17afc7d798ad067c7")
-                        .add("id", "D8332")
-                        .add("c", "play")
-                        .add("sign", "room")
+            if (msg.what == 0x21) {
+                if (who_what == 0) {
+                    String path = "https://www.bigiot.net/oauth/say";
+                    OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                            .connectTimeout(4, TimeUnit.MINUTES)
+                            .readTimeout(4, TimeUnit.MINUTES)
+                            .build();
+                    FormBody formBody = new FormBody.Builder()
+                            .add("access_token", "233049e2b7f28d082c9f6640f9af614e1c573038")
+                            .add("id", "D8332")
+                            .add("c", "play")
+                            .add("sign", "room")
 
-                        .build();
-                Request request = new Request.Builder()
-                        .url(path)
-                        .addHeader("content-type", "application/x-www-form-urlencoded")
-                        .post(formBody)
-                        .build();
-                Call call = okHttpClient.newCall(request);
+                            .build();
+                    Request request = new Request.Builder()
+                            .url(path)
+                            .addHeader("content-type", "application/x-www-form-urlencoded")
+                            .post(formBody)
+                            .build();
+                    Call call = okHttpClient.newCall(request);
 
-                call.enqueue(new okhttp3.Callback() {
-                    @Override
-                    public void onFailure(Call call, IOException e) {
-                        Log.i("zjc","失败");
-                    }
+                    call.enqueue(new okhttp3.Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.i("zjc", "失败");
+                        }
 
-                    @Override
-                    public void onResponse(Call call, Response response) throws IOException {
-                        String sa = response.body().string();
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String sa = response.body().string();
 
-                        Log.i("zjc","控制小灯成功");
-                    }
-                });
+                            Log.i("zjc", "控制小灯成功");
+                        }
+                    });
+                }else{
+                    startActivity(new Intent(DetecterActivity.this,MainActivity.class));
+                }
             }
         }
     };
@@ -227,7 +234,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
 
                 AFR_FSDKFace afr_fsdkFace = new AFR_FSDKFace();
                 try {
-                  byte[]  ds = params.get("faseinfo").getBytes("ISO_8859_1");
+                    byte[] ds = params.get("faseinfo").getBytes("ISO_8859_1");
                     afr_fsdkFace.setFeatureData(ds);
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
@@ -313,6 +320,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
     private static final int REQUEST_CODE_IMAGE_CAMERA = 1;//代表是用拍照注册
     private static final int REQUEST_CODE_IMAGE_OP = 2;
     private static final int REQUEST_CODE_OP = 3;
+
     /* (non-Javadoc)
      * @see android.app.Activity#onCreate(android.os.Bundle)
      */
@@ -511,10 +519,11 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
             mGLSurfaceView.setRenderConfig(mCameraRotate, mCameraMirror);
             mGLSurfaceView.getGLES2Render().setViewAngle(mCameraMirror, mCameraRotate);
         }
-        if(view.getId() ==R.id.face_register){
+        if (view.getId() == R.id.face_register) {
             me_register();
         }
     }
+
     void me_register() {
         new android.support.v7.app.AlertDialog.Builder(this)
                 .setTitle("请选择注册方式")
@@ -522,7 +531,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                 .setItems(new String[]{"打开图片", "拍摄照片"}, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which){
+                        switch (which) {
                             case 1:
                                 //拍摄照片
                                 Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
@@ -531,7 +540,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                                 values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
                                 Uri uri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
                                 //uri:'content://media/external/images/media/11064'
-                                ((MyApplication)(DetecterActivity.this.getApplicationContext())).setCaptureImage(uri);
+                                ((MyApplication) (DetecterActivity.this.getApplicationContext())).setCaptureImage(uri);
                                 //测试的uri=/storage/emulated/0/DCIM/Camera/1543628773578.jpg
                                 intent.putExtra(MediaStore.EXTRA_OUTPUT, uri);//指定拍照的输出地址
                                 startActivityForResult(intent, REQUEST_CODE_IMAGE_CAMERA);
@@ -547,6 +556,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                     }
                 }).show();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -554,7 +564,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
             Uri mPath = data.getData();
             String file = getPath(mPath);
             Bitmap bmp = MyApplication.decodeImage(file);
-            if (bmp == null || bmp.getWidth() <= 0 || bmp.getHeight() <= 0 ) {
+            if (bmp == null || bmp.getWidth() <= 0 || bmp.getHeight() <= 0) {
                 Log.e(TAG, "error");
             } else {
                 Log.i(TAG, "bmp [" + bmp.getWidth() + "," + bmp.getHeight());
@@ -567,17 +577,18 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
             }
             Bundle bundle = data.getExtras();
             String path = bundle.getString("imagePath");
-            Log.i(TAG, "path="+path);
+            Log.i(TAG, "path=" + path);
         } else if (requestCode == REQUEST_CODE_IMAGE_CAMERA && resultCode == RESULT_OK) {
-            Uri mPath = ((MyApplication)(DetecterActivity.this.getApplicationContext())).getCaptureImage();
+            Uri mPath = ((MyApplication) (DetecterActivity.this.getApplicationContext())).getCaptureImage();
             //  mPath = content://media/external/images/media/11064
             String file = getPath(mPath);//  file =  '/storage/emulated/0/Pictures/1549167291578.jpg'
             Bitmap bmp = MyApplication.decodeImage(file);
             startRegister(bmp, file);
         }
     }
+
     private void startRegister(Bitmap mBitmap, String file) {
-        Log.i(TAG,"startRegister方法被执行");
+        Log.i(TAG, "startRegister方法被执行");
         Intent it = new Intent(DetecterActivity.this, RegisterActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("imagePath", file);///storage/emulated/0/Pictures/1556698831856.jpg
@@ -621,7 +632,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                     }
 
                     final String selection = "_id=?";
-                    final String[] selectionArgs = new String[] {
+                    final String[] selectionArgs = new String[]{
                             split[1]
                     };
 
@@ -629,7 +640,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                 }
             }
         }
-        String[] proj = { MediaStore.Images.Media.DATA };
+        String[] proj = {MediaStore.Images.Media.DATA};
         Cursor actualimagecursor = this.getContentResolver().query(uri, proj, null, null, null);
         int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         actualimagecursor.moveToFirst();
@@ -664,6 +675,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
+
     public static String getDataColumn(Context context, Uri uri, String selection,
                                        String[] selectionArgs) {
 
@@ -685,6 +697,12 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                 cursor.close();
         }
         return null;
+    }
+
+    public static void start_in(Context context, int who) {
+        who_what = who;
+        Intent intent = new Intent(context, DetecterActivity.class);
+        context.startActivity(intent);
     }
 }
 
