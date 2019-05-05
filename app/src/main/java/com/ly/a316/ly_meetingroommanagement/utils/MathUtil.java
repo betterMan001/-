@@ -1,5 +1,9 @@
 package com.ly.a316.ly_meetingroommanagement.utils;
 
+import android.graphics.Bitmap;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -36,4 +40,11 @@ public class MathUtil {
         }
 
     }
+  public static String bitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        byte[] imgBytes = baos.toByteArray();// 转为byte数组
+        return Base64.encodeToString(imgBytes, Base64.DEFAULT);
+    }
+
 }

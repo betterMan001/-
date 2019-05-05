@@ -44,13 +44,17 @@ import com.ly.a316.ly_meetingroommanagement.R;
 import com.guo.android_extend.image.ImageConverter;
 import com.guo.android_extend.widget.ExtImageView;
 import com.guo.android_extend.widget.HListView;
+import com.ly.a316.ly_meetingroommanagement.utils.MathUtil;
 import com.ly.a316.ly_meetingroommanagement.utils.Net;
+import com.ly.a316.ly_meetingroommanagement.utils.PreferencesService;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 
@@ -100,6 +104,7 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
         }
     };
 
+    byte ds[] ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,6 +189,9 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
                 Log.d(TAG, "AFD_FSDK_GetVersion =" + version.toString() + ", " + err.getCode());
                 ////输入的 data 数据为 NV21 格式（如 Camera 里 NV21 格式的 preview 数据），其中 height 不能为奇数，人脸检测返回结果保存在 result
                 err = engine.AFD_FSDK_StillImageFaceDetection(data, mBitmap.getWidth(), mBitmap.getHeight(), AFD_FSDKEngine.CP_PAF_NV21, result);
+
+
+
 
                 // AFD_FSDK_StillImageFaceDetection =0<1
                 Log.d(TAG, "AFD_FSDK_StillImageFaceDetection =" + err.getCode() + "<" + result.size());
@@ -326,7 +334,8 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
             e.printStackTrace();
         }
     }
-
+PreferencesService preferencesService = new PreferencesService(this);
+    String dsssss = null;
     class UIHandler extends android.os.Handler {
         @Override
         public void handleMessage(Message msg) {
@@ -349,14 +358,31 @@ public class RegisterActivity extends AppCompatActivity implements SurfaceHolder
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     ((MyApplication) RegisterActivity.this.getApplicationContext()).mFaceDB.addFace(mEditText.getText().toString(), mAFR_FSDKFace, face);
+
+
+
+                                    try {
+                                        byte[] bytes = mAFR_FSDKFace.getFeatureData();
+                                        dsssss = new String(mAFR_FSDKFace.getFeatureData(),"ISO_8859_1");
+                                        byte[] myBytes = dsssss.getBytes("ISO_8859_1");
+                                        Log.i("dsa","dsa");
+                                    } catch (UnsupportedEncodingException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    preferencesService.save(dsssss,mEditText.getText().toString());
                                     mRegisterViewAdapter.notifyDataSetChanged();
+
+
+
+
                                     new Thread(new Runnable() {
                                         @Override
                                         public void run() {
                                             OkHttpClient okHttpClient = new OkHttpClient();
                                             FormBody formBody = new FormBody.Builder()
                                                     .add("phone", "18248612936")
-                                                    .add("face", new String(face_information))
+                                                    .add("face", dsssss)
                                                     .build();
                                             final Request request = new Request.Builder().url(Net.schedule_face).post(formBody).build();
                                             //step 4： 建立联系 创建Call对象
