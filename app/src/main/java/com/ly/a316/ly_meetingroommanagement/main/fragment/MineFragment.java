@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -21,7 +20,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -32,6 +30,7 @@ import com.anlia.photofactory.permission.PermissionAlwaysDenied;
 import com.anlia.photofactory.result.ResultData;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.MessageList.activites.MessageListActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
@@ -78,8 +77,8 @@ public class MineFragment extends Fragment {
     private String filePath;
     public String phoneURL;
     //修改名称要用的属性
-    public static String newName="";
-    public static String type="1";
+    public static String newName = "";
+    public static String type = "1";
     //标记开关的状态
     boolean isSwitch = true;
 
@@ -135,20 +134,21 @@ public class MineFragment extends Fragment {
         initView();
     }
 
-    private void initView(){
+    private void initView() {
         //1.加载头像
 
-    RequestOptions requestOptions=new RequestOptions()
-            .placeholder(R.drawable.beaty_head001)
-            .error(R.drawable.beaty_head001);
-    Glide
-            .with(this)
-            .load(MyApplication.getImageURL())
-            .apply(requestOptions)
-            .into(headView);
-    //2.加载用户名称
-    userName.setText(MyApplication.getUserName());
-}
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.beaty_head001)
+                .error(R.drawable.beaty_head001);
+        Glide
+                .with(this)
+                .load(MyApplication.getImageURL())
+                .apply(requestOptions)
+                .into(headView);
+        //2.加载用户名称
+        userName.setText(MyApplication.getUserName());
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -173,7 +173,7 @@ public class MineFragment extends Fragment {
         getActivity().finish();
     }
 
-    @OnClick({R.id.change_password_ll, R.id.change_head_ll, R.id.change_phone_ll, R.id.change_name_ll, R.id.message_item, R.id.notify_item, R.id.my_clean, R.id.my_exit_ll,R.id.schedue_state,R.id.message_center})
+    @OnClick({R.id.change_password_ll, R.id.change_head_ll, R.id.change_name_ll, R.id.message_item, R.id.notify_item, R.id.my_clean, R.id.my_exit_ll, R.id.schedue_state, R.id.message_center,R.id.change_face_ll})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.change_password_ll:
@@ -182,8 +182,7 @@ public class MineFragment extends Fragment {
             case R.id.change_head_ll:
                 uploadHeadImage();
                 break;
-            case R.id.change_phone_ll:
-                break;
+
             case R.id.change_name_ll:
                 changeName();
                 break;
@@ -203,6 +202,10 @@ public class MineFragment extends Fragment {
             case R.id.message_center:
                 MessageListActivity.start(getActivity());
                 break;
+                //跳转到注册人脸
+            case R.id.change_face_ll:
+                DetecterActivity.start_in(getActivity(),0);
+                break;
         }
     }
 
@@ -214,15 +217,16 @@ public class MineFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-       //
-        if("2".equals(MineFragment.type)==true){
-            type="1";
+        //
+        if ("2".equals(MineFragment.type) == true) {
+            type = "1";
             //显示修改的名字
             userName.setText(newName);
             //向后台提交修改
-            new ModifyInformationServiceImp(MineFragment.this).changeNickname(MyApplication.getId(),newName);
+            new ModifyInformationServiceImp(MineFragment.this).changeNickname(MyApplication.getId(), newName);
         }
     }
+
     private void uploadHeadImage() {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.layout_popupwindow, null);
         TextView btnCamera = view.findViewById(R.id.btn_take_photo);
@@ -420,4 +424,6 @@ public class MineFragment extends Fragment {
             switchOut.setImageResource(R.drawable.kaiguan_guan001);
         }
     }
+
+
 }

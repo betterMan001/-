@@ -127,7 +127,7 @@
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
                             android:layout_weight="1"
-                            android:id="@+id/change_phone_ll"
+                            android:id="@+id/change_face_ll"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -141,7 +141,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="修改手机号"
+                                android:text="注册人脸"
                                 android:textColor="#272727"
                                 android:textSize="12sp" />
                         </LinearLayout>
