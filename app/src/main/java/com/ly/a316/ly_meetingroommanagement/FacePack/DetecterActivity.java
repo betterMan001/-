@@ -700,6 +700,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
     }
 
     public static void start_in(Context context, int who) {
+
         who_what = who;
         Intent intent = new Intent(context, DetecterActivity.class);
         context.startActivity(intent);

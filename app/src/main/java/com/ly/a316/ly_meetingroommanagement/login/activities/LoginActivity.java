@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.ly.a316.ly_meetingroommanagement.FacePack.DetecterActivity;
 import com.ly.a316.ly_meetingroommanagement.main.BaseActivity;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
@@ -164,7 +165,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     //监听事件
-    @OnClick({R.id.act_login_sign_up, R.id.login_button, R.id.act_message_verification, R.id.act_forget_password})
+    @OnClick({R.id.act_login_sign_up, R.id.login_button, R.id.act_message_verification, R.id.act_forget_password,R.id.face_login})
     public void onViewClicked(View view) {
         Intent intent = new Intent();
         switch (view.getId()) {
@@ -186,6 +187,8 @@ public class LoginActivity extends BaseActivity {
                 intent = new Intent(LoginActivity.this, ForgetPWDOneActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.face_login:
+                DetecterActivity.start_in(this,1);
         }
 
     }
