@@ -87,7 +87,7 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
     private CameraSurfaceView mSurfaceView;
     private CameraGLSurfaceView mGLSurfaceView;
     private Camera mCamera;
-
+    public static int bb=1;
     AFT_FSDKVersion version = new AFT_FSDKVersion();
     AFT_FSDKEngine engine = new AFT_FSDKEngine();
     ASAE_FSDKVersion mAgeVersion = new ASAE_FSDKVersion();
@@ -182,11 +182,18 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                         }
                     });
                 }else{
-                    startActivity(new Intent(DetecterActivity.this,MainActivity.class));
+                    if(bb==1){
+                        bb=2;
+                        startActivity(new Intent(DetecterActivity.this,MainActivity.class));
+                        finish();
+                    }
+
                 }
             }
         }
     };
+
+
 
     class FRAbsLoop extends AbsLoop {
         AFR_FSDKVersion version = new AFR_FSDKVersion();

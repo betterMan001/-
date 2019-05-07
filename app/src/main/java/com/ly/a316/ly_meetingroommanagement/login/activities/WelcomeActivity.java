@@ -21,6 +21,7 @@ public class WelcomeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         DemoCache.setMainTaskLaunching(true);
+        MyApplication.removeActivity(this);
         MyApplication.finishAllActivities();
         //开线程,延迟跳转
         pref= PreferenceManager.getDefaultSharedPreferences(getApplication());

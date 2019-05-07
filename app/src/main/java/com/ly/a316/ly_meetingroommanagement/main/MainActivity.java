@@ -115,6 +115,8 @@ public class MainActivity extends UI implements ReminderManager.UnreadNumChanged
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        //加入活动列表
+        MyApplication.addActivity(this);
         fManager = getSupportFragmentManager();
         tabEntityList = new ArrayList<>();
         initview();
@@ -439,6 +441,7 @@ public class MainActivity extends UI implements ReminderManager.UnreadNumChanged
         ImmersionBar.with(this).destroy();
         registerSystemMessageObservers(false);
         DemoCache.setMainTaskLaunching(false);
+        MyApplication.removeActivity(this);
     }
     //极光推送设置别名
     public void onTagAliasAction(boolean isSet) {

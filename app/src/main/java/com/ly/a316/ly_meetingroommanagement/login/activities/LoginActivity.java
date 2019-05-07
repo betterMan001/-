@@ -140,7 +140,7 @@ public class LoginActivity extends BaseActivity {
         this.loginSPwdEt.setHintTextColor(getResources().getColor(R.color.tran_white));
         this.loginSUserIDEt.setHintTextColor(getResources().getColor(R.color.tran_white));
 
-     String phoneNumber=MyApplication.getToken();
+     String phoneNumber=MyApplication.getId();
      if("".equals(userName)){
 
      }else{

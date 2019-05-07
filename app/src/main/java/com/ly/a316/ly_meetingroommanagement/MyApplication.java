@@ -178,7 +178,9 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
     public static void addActivity(Activity activity) {
         activityList.add(activity);
     }
-
+    public static void removeActivity(Activity removeActivity){
+        activityList.remove(removeActivity);
+    }
     //关闭所有活动
     public static void finishAllActivities() {
         for (Activity activity : activityList) {
@@ -227,7 +229,7 @@ public class MyApplication extends Application implements ProtectedMemberKeeper 
     }
     public static String getId() {
 
-        return id;
+        return pref.getString("id","");
     }
 
     public   static void setId(String id) {

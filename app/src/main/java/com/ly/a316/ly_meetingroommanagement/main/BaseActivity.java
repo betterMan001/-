@@ -9,6 +9,7 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.ly.a316.ly_meetingroommanagement.MyApplication;
 import com.ly.a316.ly_meetingroommanagement.R;
 import com.ly.a316.ly_meetingroommanagement.chooseOffice.customview.LoadingDialog;
+import com.ly.a316.ly_meetingroommanagement.utils.Jpush.MyReceiver;
 
 /**
  *  描述：基本类 实现沉浸式效果
@@ -26,6 +27,8 @@ public class BaseActivity  extends AppCompatActivity{
         }
         // ImmersionBar.with(this).init();
         loadingDialog= LoadingDialog.getInstance(this);
+        //添加到活动列表
+        MyApplication.addActivity(this);
     }
     protected void initImmersionBar() {
         //在BaseActivity里初始化
@@ -38,6 +41,8 @@ public class BaseActivity  extends AppCompatActivity{
     protected void onDestroy() {
         super.onDestroy();
         ImmersionBar.with(this).destroy();
+        //移除活动
+        MyApplication.removeActivity(this);
     }
     //用于在回调函数中显示Toast
     public  void subThreadToast(final String message){
