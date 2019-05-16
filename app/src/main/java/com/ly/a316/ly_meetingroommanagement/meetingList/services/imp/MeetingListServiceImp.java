@@ -53,7 +53,6 @@ public class MeetingListServiceImp implements MeetingListService {
         MyHttpUtil.sendOkhttpGetRequest(URL, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                DisplayUtils.subThreadToast(MyApplication.getContext(),Net.FAIL);
 
                 if("1".equals(type)){
                     activity.runOnUiThread(new Runnable() {

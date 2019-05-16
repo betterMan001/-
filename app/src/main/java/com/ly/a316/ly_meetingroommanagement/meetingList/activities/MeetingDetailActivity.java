@@ -378,13 +378,8 @@ public class MeetingDetailActivity extends BaseActivity {
 
     @OnClick(R.id.meeting_fix_ll)
     public void onViewClicked() {
-        dialog.show();
-        four_lt_click_time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                rotation(baoxiu_img_device, 1);
-            }
-        });
+        DeviceListActivity.start(MeetingDetailActivity.this,mId);
+
     }
 
     boolean open_close = true;//true为关闭状态

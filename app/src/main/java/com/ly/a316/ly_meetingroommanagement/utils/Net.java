@@ -18,7 +18,6 @@ public class Net {
     public final static String UNLOCK_ROOM="meetRoom/unlockRoom";//解锁选定会议室
     public final static String BOOK_MEET_ROOM="meetRoom/bookMeetRoom";//预订会议室接口
     public final static String OPTIN="Meeting/optIn";
-
     public final static String SELECT_MEETING_ByS_EmployeeId="Meeting/selectMeetingBySEmployeeId";//根据职工编号获取会议
     public final static String ATTENDERS="Meeting/attenders";//参会人列表
     public final static String ADD_ATTENDER="Meeting/addAttender";//添加参会人
@@ -31,6 +30,9 @@ public class Net {
     public final static String STATISTICS="Schedule/statistics";//日程统计
     public final static String BEGINMEETING="Meeting/beginMeeting";//开始会议
     public final static String DELAY_MEETING="Meeting/delayMeeting";//延迟会议
+    public final static String KAI_LED="device/kai_led";//开灯
+    public final static String KAI_CLOSE="device/kai_close";//关灯
+    public final static String ROOM_DEVICE_LIST="meetRoom/roomDeviceList";//设备列表数据
     //yzq
     public static String url = HEAD;
     public static String addSchedule = url + "/Schedule/addSchedule";//新建日程
