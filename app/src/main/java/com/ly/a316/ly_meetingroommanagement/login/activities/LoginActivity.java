@@ -114,6 +114,7 @@ public class LoginActivity extends BaseActivity {
         initView();
         initMobMessage();
         SMSSDK.setAskPermisionOnReadContact(true);
+
     }
 
     @Override

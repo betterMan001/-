@@ -28,6 +28,7 @@ import android.view.animation.RotateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -63,6 +64,8 @@ public class End_Activity extends AppCompatActivity {
     TextView kaihuishichang;
     @BindView(R.id.yanchang)
     TextView yanchang;
+    @BindView(R.id.ratingBar)
+    RatingBar ratingBar;
     private LinearLayout imageview;
     private int window_width;
     private int window_height;
@@ -302,7 +305,8 @@ public class End_Activity extends AppCompatActivity {
     public void end_huiyi(View view) {
         tishi();
     }
-    void quedingjieshu(){
+
+    void quedingjieshu() {
         handler.removeCallbacks(runnable);
         for (int i = 0; i < PickerManager.getInstance().files.size(); i++) {
             FileEntity fileEntity = PickerManager.getInstance().files.get(i);
