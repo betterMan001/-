@@ -35,11 +35,9 @@ public class WelcomeActivity extends BaseActivity {
                     MyApplication.setId((pref.getString("id","")));
                     intent=new Intent(WelcomeActivity.this,MainActivity.class);
                 }
-
                 startActivity(intent);
                 finish();
             }
         }, 1500);
     }
-
 }

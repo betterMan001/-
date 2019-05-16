@@ -181,9 +181,11 @@ public class DetecterActivity extends BaseActivity implements OnCameraListener, 
                             Log.i("zjc", "控制小灯成功");
                         }
                     });
+                }else{
+
+                        startActivity(new Intent(DetecterActivity.this,MainActivity.class));
+
                 }
-            }else{
-                startActivity(new Intent(DetecterActivity.this,MainActivity.class));
             }
         }
     };
